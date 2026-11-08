@@ -161,11 +161,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true, data: db.settings });
       }
 
-      case 'reset_database': {
-        saveDatabase(initialData);
-        return NextResponse.json({ success: true, data: initialData });
-      }
-
       default:
         return NextResponse.json({ error: 'Unknown action' }, { status: 400 });
     }

@@ -48,7 +48,7 @@
       "intro": "Chương trình Học bổng Nhà nghiên cứu trẻ nhằm ươm mầm tài năng học thuật, khuyến khích học viên cao học tích cực tham gia nghiên cứu khoa học, công bố các công trình chất lượng cao trên các tạp chí uy tín trong nước và quốc tế.",
       "slug": "nha-nghien-cuu-tre",
       "id": "sdh-nha-nghien-cuu-tre",
-      "viewsCount": 3821,
+      "viewsCount": 0,
       "updatedAt": "2025-09-01",
       "policyType": "hoc-bong",
       "educationLevel": "sau-dai-hoc",
@@ -103,7 +103,7 @@
       "icon": "GraduationCap",
       "id": "sdh-nha-khoa-hoc",
       "createdAt": "2025-01-12",
-      "viewsCount": 2940,
+      "viewsCount": 0,
       "educationLevel": "sau-dai-hoc",
       "intro": "Chương trình học bổng \"Nhà khoa học\" là chính sách trọng điểm của Nhà trường nhằm thu hút và hỗ trợ tài chính toàn diện cho các nghiên cứu sinh xuất sắc, tạo điều kiện để người học tập trung toàn thời gian cho nghiên cứu đỉnh cao.",
       "order": 2,
@@ -156,7 +156,7 @@
       "categoryId": "cat-1"
     },
     {
-      "viewsCount": 8450,
+      "viewsCount": 0,
       "order": 3,
       "featuredImage": "/images/due-students-banner-clean.jpg",
       "intro": "Chương trình nhằm thu hút và phát triển người học quốc tế, góp phần mở rộng hợp tác giáo dục và đào tạo quốc tế của Trường Đại học Kinh tế - Đại học Đà Nẵng. Chương trình góp phần xây dựng môi trường học tập đa văn hóa, qua đó nâng cao vị thế và hình ảnh của trường trong mạng lưới giáo dục khu vực và quốc tế.",
@@ -291,7 +291,7 @@
         }
       ],
       "createdAt": "2025-02-01",
-      "viewsCount": 1650,
+      "viewsCount": 0,
       "educationLevel": "sau-dai-hoc",
       "order": 4,
       "isActive": true,
@@ -334,7 +334,7 @@
         }
       ],
       "isActive": true,
-      "viewsCount": 12450,
+      "viewsCount": 0,
       "id": "dh-hoc-bong-tinh-hoa",
       "documents": [
         {
@@ -371,7 +371,7 @@
       "createdAt": "2025-01-10",
       "policyType": "khen-thuong",
       "title": "KKHT sinh viên tài năng",
-      "viewsCount": 7800,
+      "viewsCount": 0,
       "isActive": true,
       "educationLevel": "dai-hoc",
       "sections": [
@@ -400,7 +400,7 @@
       "documents": [],
       "educationLevel": "dai-hoc",
       "title": "KKHT sinh viên vượt khó",
-      "viewsCount": 6520,
+      "viewsCount": 0,
       "isActive": true,
       "sections": [
         {
@@ -439,7 +439,7 @@
       "intro": "Học bổng Khuyến khích học tập định kỳ được xét và trao sau mỗi học kỳ, trích tối thiểu 8% từ nguồn thu học phí chính quy của Nhà trường.",
       "policyType": "khen-thuong",
       "icon": "Handshake",
-      "viewsCount": 15800,
+      "viewsCount": 0,
       "isActive": true,
       "contact": {
         "department": "Phòng Công tác Sinh viên - Các Khoa chuyên môn",
@@ -516,7 +516,7 @@
       "policyType": "khen-thuong",
       "createdAt": "2025-02-10",
       "targetAudience": "Sinh viên quốc tế hệ đại học chính quy",
-      "viewsCount": 3120,
+      "viewsCount": 0,
       "order": 5,
       "intro": "Học bổng khuyến khích dành riêng cho sinh viên quốc tế đang theo học chương trình cử nhân tại DUE có thành tích học tập và hoạt động phong trào xuất sắc."
     },
@@ -553,7 +553,7 @@
       ],
       "createdAt": "2025-02-12",
       "isActive": true,
-      "viewsCount": 2840,
+      "viewsCount": 0,
       "updatedAt": "2025-08-10",
       "targetAudience": "Lưu học sinh Lào, Campuchia và các nước đang học tập tại DUE",
       "policyType": "tro-cap"
@@ -563,7 +563,7 @@
       "slug": "ho-tro-hoan-canh-kho-khan-dh",
       "id": "dh-ho-tro-hoan-canh-kho-khan",
       "documents": [],
-      "viewsCount": 5400,
+      "viewsCount": 0,
       "targetAudience": "Sinh viên đại học chính quy gặp khó khăn đột xuất, mồ côi, bệnh hiểm nghèo",
       "icon": "Users",
       "policyType": "tro-cap",
@@ -599,7 +599,7 @@
     {
       "policyType": "hoc-bong",
       "intro": "Chương trình học bổng đặc biệt được tài trợ bởi các tổ chức phi chính phủ và các quỹ phát triển giáo dục bền vững nhằm ươm mầm các sáng kiến xã hội của sinh viên DUE.",
-      "viewsCount": 4120,
+      "viewsCount": 0,
       "order": 1,
       "createdAt": "2025-02-15",
       "updatedAt": "2025-09-10",
@@ -673,7 +673,7 @@
         }
       ],
       "isActive": true,
-      "viewsCount": 9400,
+      "viewsCount": 0,
       "intro": "Mạng lưới hơn 100 doanh nghiệp đối tác hàng đầu (Big 4 Kiểm toán, Ngân hàng Vietcombank, BIDV, MB Bank, Unilever, Viettel, FPT...) cùng Hội Cựu sinh viên DUE trao tặng hơn 300 suất học bổng mỗi năm.",
       "updatedAt": "2025-09-22",
       "order": 2,
@@ -695,7 +695,7 @@
         }
       ],
       "id": "nt-nghi-dinh-chinh-phu",
-      "viewsCount": 6890,
+      "viewsCount": 0,
       "contact": {
         "phone": "0236 3 958 667",
         "department": "Phòng Công tác Sinh viên & Phòng Kế hoạch - Tài chính",
@@ -741,7 +741,7 @@
       "policyType": "mien-giam",
       "updatedAt": "2025-09-12",
       "title": "Miễn giảm, hỗ trợ, trợ cấp xã hội",
-      "viewsCount": 8900,
+      "viewsCount": 0,
       "sections": [
         {
           "order": 1,
@@ -811,7 +811,7 @@
       "title": "Hỗ trợ lãi vay NHCSXH",
       "educationLevel": "tat-ca",
       "policyType": "tro-cap",
-      "viewsCount": 4720,
+      "viewsCount": 0,
       "targetAudience": "Sinh viên có nhu cầu vay vốn học tập theo chương trình tín dụng học sinh, sinh viên",
       "documents": [
         {
@@ -840,7 +840,7 @@
         "address": "Tầng 3, Nhà Hiệu bộ, 71 Ngũ Hành Sơn, TP. Đà Nẵng",
         "department": "Viện Đào tạo Quốc tế (DUE-ISE)"
       },
-      "viewsCount": 5120,
+      "viewsCount": 0,
       "targetAudience": "Thí sinh trúng tuyển vào các chương trình Cử nhân Liên kết Quốc tế tại DUE",
       "sections": [
         {
@@ -873,7 +873,7 @@
       "targetAudience": "Sinh viên đang theo học giai đoạn tiếng Anh tăng cường (EAP/IELTS) tại Viện Đào tạo Quốc tế",
       "intro": "Khuyến khích sinh viên nâng cao trình độ ngoại ngữ nhanh chóng, vượt qua các mốc điểm chuẩn tiếng Anh trước thời hạn đào tạo.",
       "order": 2,
-      "viewsCount": 3980,
+      "viewsCount": 0,
       "id": "lk-hoc-bong-tieng-anh",
       "documents": [],
       "icon": "GraduationCap",
@@ -900,7 +900,7 @@
       "shortTitle": "HB Tiếng Anh LKQT"
     },
     {
-      "viewsCount": 3410,
+      "viewsCount": 0,
       "contact": {
         "phone": "0236 3 950 110",
         "email": "ise@due.edu.vn",
@@ -941,7 +941,7 @@
       "documents": [],
       "policyType": "hoc-bong",
       "title": "Học bổng chương trình chuyên ngành (Top Up year)",
-      "viewsCount": 4210,
+      "viewsCount": 0,
       "contact": {
         "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
         "department": "Viện Đào tạo Quốc tế (DUE-ISE)",
@@ -996,7 +996,7 @@
       "createdAt": "2025-02-14",
       "policyType": "mien-giam",
       "targetAudience": "Sinh viên chương trình quốc tế có anh chị em ruột cùng học tại DUE hoặc có người thân là cán bộ viên chức ĐHĐN",
-      "viewsCount": 3010,
+      "viewsCount": 0,
       "title": "Chính sách miễn giảm học phí",
       "icon": "Star",
       "documents": [],
@@ -1066,7 +1066,7 @@
       "targetAudience": "Sinh viên DUE có nguyện vọng tham gia trao đổi học kỳ hoặc chuyển tiếp du học toàn phần",
       "policyType": "du-hoc",
       "slug": "hoc-bong-tai-don-vi-doi-tac",
-      "viewsCount": 11200,
+      "viewsCount": 0,
       "id": "dhoc-tai-don-vi-doi-tac",
       "title": "Học bổng tại đơn vị đối tác",
       "updatedAt": "2025-09-25",
@@ -1082,35 +1082,35 @@
     }
   ],
   "stats": {
-    "totalViews": 48291,
+    "totalViews": 0,
     "dailyViews": [
       {
-        "views": 1240,
-        "date": "2025-10-01"
+        "date": "2026-11-02",
+        "views": 0
       },
       {
-        "views": 1530,
-        "date": "2025-10-02"
+        "date": "2026-11-03",
+        "views": 0
       },
       {
-        "date": "2025-10-03",
-        "views": 1890
+        "date": "2026-11-04",
+        "views": 0
       },
       {
-        "date": "2025-10-04",
-        "views": 1420
+        "date": "2026-11-05",
+        "views": 0
       },
       {
-        "date": "2025-10-05",
-        "views": 2100
+        "date": "2026-11-06",
+        "views": 0
       },
       {
-        "date": "2025-10-06",
-        "views": 2450
+        "date": "2026-11-07",
+        "views": 0
       },
       {
-        "date": "2025-10-07",
-        "views": 2890
+        "date": "2026-11-08",
+        "views": 0
       }
     ]
   },
@@ -1302,5 +1302,6 @@
       "excerpt": "Phòng Công tác Sinh viên hướng dẫn quy trình xác nhận sinh viên trực tuyến để hưởng chính sách tín dụng ưu đãi theo Quyết định 157/2007/QĐ-TTg.",
       "badgeText": "CHÚ Ý"
     }
-  ]
+  ],
+  "lastUpdatedAt": "2026-11-08T09:24:48.453Z"
 }

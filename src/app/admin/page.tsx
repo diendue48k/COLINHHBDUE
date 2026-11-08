@@ -9,8 +9,6 @@ import {
   TrendingUp,
   PlusCircle,
   Bell,
-  ArrowUpRight,
-  RotateCcw,
   CheckCircle2,
   Calendar,
 } from 'lucide-react';
@@ -20,7 +18,6 @@ import { initialData } from '@/data/initialData';
 export default function AdminDashboardPage() {
   const [data, setData] = useState<DatabaseState>(initialData);
   const [loading, setLoading] = useState(true);
-  const [resetting, setResetting] = useState(false);
   const [message, setMessage] = useState('');
 
   const loadData = async () => {
@@ -40,29 +37,6 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     loadData();
   }, []);
-
-  const handleResetData = async () => {
-    if (!window.confirm('Bạn có chắc chắn muốn đặt lại cơ sở dữ liệu về mặc định ban đầu?')) {
-      return;
-    }
-    setResetting(true);
-    try {
-      const res = await fetch('/api/data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'reset_database' }),
-      });
-      if (res.ok) {
-        setMessage('Đã khôi phục dữ liệu gốc thành công!');
-        await loadData();
-        setTimeout(() => setMessage(''), 3000);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setResetting(false);
-    }
-  };
 
   // Sort scholarships by views count descending
   const topScholarships = [...(data.scholarships || [])]
@@ -99,22 +73,11 @@ export default function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <Link
             href="/admin/scholarships/new"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Thêm chương trình mới</span>
           </Link>
-
-          <button
-            type="button"
-            onClick={handleResetData}
-            disabled={resetting}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-xs transition-colors"
-            title="Khôi phục 6 nhóm và dữ liệu mẫu chuẩn"
-          >
-            <RotateCcw className={`w-3.5 h-3.5 ${resetting ? 'animate-spin' : ''}`} />
-            <span>Đặt lại dữ liệu gốc</span>
-          </button>
         </div>
       </div>
 
@@ -166,7 +129,7 @@ export default function AdminDashboardPage() {
               {totalViews.toLocaleString('vi-VN')}
             </span>
             <span className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" /> +14.2% so với tháng trước
+              <TrendingUp className="w-3 h-3" /> Ghi nhận theo thời gian thực
             </span>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
@@ -206,34 +169,44 @@ export default function AdminDashboardPage() {
                 Lượt học viên, sinh viên tra cứu và mở popup chi tiết
               </p>
             </div>
-            <div className="flex items-center gap-1 text-xs text-slate-500">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Học kỳ I 2025-2026</span>
+            <div className="flex items-center gap-1 text-xs text-slate-500 font-semibold">
+              <Calendar className="w-3.5 h-3.5 text-blue-600" />
+              <span>Thời gian thực</span>
             </div>
           </div>
 
-          {/* Bar Chart Simulation */}
+          {/* Bar Chart */}
           <div className="pt-4 pb-2">
-            <div className="h-48 flex items-end gap-3 sm:gap-6 justify-between px-2 border-b border-slate-200">
-              {data.stats?.dailyViews?.map((item, idx) => {
-                const max = 3000;
-                const heightPct = Math.round((item.views / max) * 100);
-                return (
-                  <div key={idx} className="flex-1 flex flex-col items-center gap-2 group">
-                    <span className="text-[10px] font-bold text-blue-700 opacity-0 group-hover:opacity-100 transition-opacity">
-                      {item.views}
-                    </span>
-                    <div
-                      style={{ height: `${heightPct}%` }}
-                      className="w-full max-w-[40px] bg-gradient-to-t from-blue-700 to-sky-400 rounded-t-lg group-hover:brightness-110 transition-all shadow-sm"
-                    />
-                    <span className="text-[10px] font-medium text-slate-400 truncate max-w-full">
-                      {item.date.slice(5)}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+            {totalViews > 0 ? (
+              <div className="h-48 flex items-end gap-3 sm:gap-6 justify-between px-2 border-b border-slate-200">
+                {data.stats?.dailyViews?.map((item, idx) => {
+                  const max = Math.max(...(data.stats?.dailyViews?.map((d) => d.views) || [1]), 10);
+                  const heightPct = Math.max(Math.round((item.views / max) * 100), 6);
+                  return (
+                    <div key={idx} className="flex-1 flex flex-col items-center gap-2 group">
+                      <span className="text-[10px] font-bold text-blue-700">
+                        {item.views}
+                      </span>
+                      <div
+                        style={{ height: `${heightPct}%` }}
+                        className="w-full max-w-[40px] bg-gradient-to-t from-blue-700 to-sky-400 rounded-t-lg group-hover:brightness-110 transition-all shadow-sm"
+                      />
+                      <span className="text-[10px] font-medium text-slate-400 truncate max-w-full">
+                        {item.date ? item.date.slice(5) : ''}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="h-48 flex flex-col items-center justify-center border border-dashed border-slate-200 rounded-2xl text-center p-6 bg-slate-50/50">
+                <Eye className="w-8 h-8 text-blue-400 mb-2 stroke-[1.5]" />
+                <p className="text-xs font-bold text-slate-700">Hệ thống đang hoạt động và sẵn sàng ghi nhận</p>
+                <p className="text-[11px] text-slate-400 mt-1 max-w-sm">
+                  Số lượt truy cập và biểu đồ sẽ tự động tích lũy khi người học mở xem các chương trình học bổng.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
