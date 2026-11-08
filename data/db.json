@@ -1,0 +1,1306 @@
+{
+  "settings": {
+    "hotline": "0236 3 654 321",
+    "slogan": "Kết nối tri thức – Đồng hành cùng sinh viên",
+    "address": "Trường Đại học Kinh tế – Đại học Đà Nẵng, 71 Ngũ Hành Sơn, TP. Đà Nẵng",
+    "parentUniversity": "ĐẠI HỌC ĐÀ NẴNG",
+    "portalName": "CỔNG THÔNG TIN HỌC BỔNG",
+    "bannerSubtitle": "Kết nối tri thức – Đồng hành cùng sinh viên",
+    "facebookUrl": "https://facebook.com/FaceDUE",
+    "universityName": "TRƯỜNG ĐẠI HỌC KINH TẾ",
+    "youtubeUrl": "https://youtube.com/DUEChannel",
+    "bannerTitle": "CỔNG THÔNG TIN HỌC BỔNG",
+    "footerSlogan": "Học bổng – Cơ hội vươn tới tương lai",
+    "zaloUrl": "https://zalo.me/due",
+    "email": "scholarship@due.edu.vn"
+  },
+  "lastSyncedAt": "2026-11-08T09:00:39.733Z",
+  "scholarships": [
+    {
+      "documents": [
+        {
+          "title": "Quy định học bổng NCKH học viên cao học DUE",
+          "fileName": "Quy_dinh_Hoc_bong_Sau_Dai_hoc_DUE.pdf",
+          "url": "#",
+          "id": "doc-1",
+          "fileSize": "1.8 MB",
+          "fileType": "pdf"
+        },
+        {
+          "url": "#",
+          "fileType": "docx",
+          "fileSize": "420 KB",
+          "fileName": "Mau_Don_Dang_Ky_SDH.docx",
+          "id": "doc-2",
+          "title": "Mẫu đơn đăng ký học bổng Nhà nghiên cứu trẻ"
+        }
+      ],
+      "categoryId": "cat-1",
+      "icon": "Users",
+      "shortTitle": "Nhà nghiên cứu trẻ",
+      "order": 1,
+      "contact": {
+        "phone": "0236 3 950 112",
+        "email": "sdh@due.edu.vn",
+        "department": "Phòng Đào tạo Sau Đại học, Trường ĐH Kinh tế - ĐHĐN",
+        "address": "Tầng 2, Nhà Hiệu bộ, 71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "intro": "Chương trình Học bổng Nhà nghiên cứu trẻ nhằm ươm mầm tài năng học thuật, khuyến khích học viên cao học tích cực tham gia nghiên cứu khoa học, công bố các công trình chất lượng cao trên các tạp chí uy tín trong nước và quốc tế.",
+      "slug": "nha-nghien-cuu-tre",
+      "id": "sdh-nha-nghien-cuu-tre",
+      "viewsCount": 3821,
+      "updatedAt": "2025-09-01",
+      "policyType": "hoc-bong",
+      "educationLevel": "sau-dai-hoc",
+      "isActive": true,
+      "title": "Nhà nghiên cứu trẻ (Học viên cao học)",
+      "targetAudience": "Học viên cao học chính quy tại DUE có công bố khoa học hoặc tham gia đề tài NCKH",
+      "sections": [
+        {
+          "bullets": [
+            "Học viên cao học đang theo học các chuyên ngành thạc sĩ theo định hướng nghiên cứu tại Trường Đại học Kinh tế - ĐHĐN.",
+            "Có bài báo khoa học đã đăng hoặc được chấp nhận đăng trên tạp chí thuộc danh mục Scopus/WoS hoặc tạp chí tính điểm HĐGSNN.",
+            "Mức cấp học bổng: Hỗ trợ từ 50% đến 100% học phí toàn khóa học và thưởng nóng từ 10.000.000đ đến 30.000.000đ theo từng bài báo quốc tế."
+          ],
+          "icon": "GraduationCap",
+          "id": "sec-1",
+          "order": 1,
+          "title": "ĐỐI TƯỢNG VÀ MỨC CẤP",
+          "number": 1
+        },
+        {
+          "id": "sec-2",
+          "icon": "ShieldCheck",
+          "bullets": [
+            "Xét cấp định kỳ theo từng học kỳ dựa trên tiến độ học tập và kết quả nghiên cứu khoa học được Hội đồng Khoa học phê duyệt.",
+            "Học viên phải hoàn thành đúng hạn các học phần và duy trì điểm trung bình chung học tập (GPA) từ 3.2/4.0 trở lên.",
+            "Cam kết ghi địa chỉ tác giả thuộc \"Trường Đại học Kinh tế, Đại học Đà Nẵng\" trong các công bố khoa học."
+          ],
+          "title": "NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ",
+          "number": 2,
+          "order": 2
+        },
+        {
+          "id": "sec-3",
+          "icon": "FileText",
+          "bullets": [
+            "Đơn xin xét cấp học bổng theo mẫu của Phòng Sau Đại học.",
+            "Bản sao minh chứng các bài báo công bố khoa học (kèm xác nhận acceptance letter nếu chưa xuất bản).",
+            "Bảng điểm các học phần đã hoàn thành có xác nhận của phòng đào tạo."
+          ],
+          "title": "HỒ SƠ VÀ QUY TRÌNH NỘP",
+          "order": 3,
+          "number": 3
+        }
+      ],
+      "createdAt": "2025-01-10"
+    },
+    {
+      "slug": "nha-khoa-hoc",
+      "updatedAt": "2025-09-10",
+      "targetAudience": "Nghiên cứu sinh đang làm luận án tiến sĩ tại DUE",
+      "policyType": "hoc-bong",
+      "icon": "GraduationCap",
+      "id": "sdh-nha-khoa-hoc",
+      "createdAt": "2025-01-12",
+      "viewsCount": 2940,
+      "educationLevel": "sau-dai-hoc",
+      "intro": "Chương trình học bổng \"Nhà khoa học\" là chính sách trọng điểm của Nhà trường nhằm thu hút và hỗ trợ tài chính toàn diện cho các nghiên cứu sinh xuất sắc, tạo điều kiện để người học tập trung toàn thời gian cho nghiên cứu đỉnh cao.",
+      "order": 2,
+      "contact": {
+        "department": "Phòng Khoa học & Hợp tác Quốc tế - Phòng Sau Đại học",
+        "email": "khht@due.edu.vn",
+        "phone": "0236 3 958 668",
+        "address": "Phòng A203, Nhà Hiệu bộ, 71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "documents": [
+        {
+          "fileSize": "3.1 MB",
+          "title": "Đề án phát triển học bổng Nghiên cứu sinh DUE",
+          "id": "doc-3",
+          "fileType": "pdf",
+          "fileName": "De_An_Hoc_Bong_NCS_DUE.pdf",
+          "url": "#"
+        }
+      ],
+      "shortTitle": "Nhà khoa học",
+      "sections": [
+        {
+          "icon": "GraduationCap",
+          "id": "sec-1",
+          "bullets": [
+            "Nghiên cứu sinh nhập học chương trình tiến sĩ tại Trường Đại học Kinh tế - ĐHĐN.",
+            "Miễn 100% học phí toàn bộ khóa đào tạo tiến sĩ (3 - 4 năm).",
+            "Cấp sinh hoạt phí hàng tháng lên đến 15.000.000đ/tháng đối với NCS tập trung nghiên cứu toàn thời gian.",
+            "Tài trợ kinh phí tham dự hội thảo khoa học quốc tế uy tín hàng năm."
+          ],
+          "order": 1,
+          "title": "ĐỐI TƯỢNG VÀ MỨC CẤP",
+          "number": 1
+        },
+        {
+          "number": 2,
+          "icon": "Award",
+          "title": "TIÊU CHUẨN VÀ ĐIỀU KIỆN DUY TRÌ",
+          "order": 2,
+          "id": "sec-2",
+          "bullets": [
+            "Mỗi năm công bố tối thiểu 01 bài báo trên tạp chí quốc tế uy tín thuộc hệ thống Web of Science (SSCI/SCIE) hoặc Scopus Q1/Q2.",
+            "Báo cáo tiến độ luận án định kỳ 6 tháng một lần trước Hội đồng chuyên môn.",
+            "Tham gia trợ giảng hoặc hướng dẫn nghiên cứu khoa học cho sinh viên theo phân công của Khoa chuyên môn."
+          ]
+        }
+      ],
+      "isActive": true,
+      "title": "Nhà khoa học (Nghiên cứu sinh)",
+      "categoryId": "cat-1"
+    },
+    {
+      "viewsCount": 8450,
+      "order": 3,
+      "featuredImage": "/images/due-students-banner-clean.jpg",
+      "intro": "Chương trình nhằm thu hút và phát triển người học quốc tế, góp phần mở rộng hợp tác giáo dục và đào tạo quốc tế của Trường Đại học Kinh tế - Đại học Đà Nẵng. Chương trình góp phần xây dựng môi trường học tập đa văn hóa, qua đó nâng cao vị thế và hình ảnh của trường trong mạng lưới giáo dục khu vực và quốc tế.",
+      "id": "sdh-nguoi-hoc-quoc-te",
+      "policyType": "hoc-bong",
+      "documents": [
+        {
+          "fileName": "QD_1428_Hoc_bong_Nguoi_hoc_quoc_te.pdf",
+          "url": "#",
+          "title": "Quyết định quy định học bổng người học quốc tế",
+          "fileType": "pdf",
+          "id": "doc-intl-1",
+          "fileSize": "2.4 MB"
+        },
+        {
+          "fileSize": "512 KB",
+          "id": "doc-intl-2",
+          "url": "#",
+          "title": "Đơn đăng ký học bổng quốc tế (International Application Form)",
+          "fileType": "docx",
+          "fileName": "Application_Form_International_Scholarship.docx"
+        }
+      ],
+      "targetAudience": "Học viên cao học, nghiên cứu sinh có quốc tịch nước ngoài",
+      "categoryId": "cat-1",
+      "createdAt": "2025-01-05",
+      "slug": "nguoi-hoc-quoc-te",
+      "title": "Người học quốc tế",
+      "shortTitle": "Người học quốc tế",
+      "educationLevel": "sau-dai-hoc",
+      "isActive": true,
+      "sections": [
+        {
+          "number": 1,
+          "title": "ĐỐI TƯỢNG VÀ MỨC CẤP",
+          "icon": "GraduationCap",
+          "order": 1,
+          "id": "sec-1",
+          "bullets": [
+            "Học viên, nghiên cứu sinh có quốc tịch nước ngoài.",
+            "Hỗ trợ học phí và/hoặc sinh hoạt phí cho người học quốc tế theo từng chương trình đào tạo, học tập, nghiên cứu hoặc chương trình hợp tác quốc tế của Trường.",
+            "Mức cấp được xác định theo từng thông báo."
+          ]
+        },
+        {
+          "order": 2,
+          "bullets": [
+            "Đối tượng, điều kiện, thời gian hỗ trợ và số suất được xác định cụ thể theo từng thông báo của Trường trên cơ sở mục tiêu của chương trình, đối tượng tuyển sinh và khả năng cân đối nguồn kinh phí của Trường.",
+            "Việc tiếp tục hỗ trợ đối với người học trong các học kỳ/năm học tiếp theo được thực hiện theo điều kiện duy trì quy định tại từng chương trình.",
+            "Người thụ hưởng có trách nhiệm thực hiện đầy đủ các yêu cầu, cam kết của chương trình và sử dụng khoản hỗ trợ đúng mục đích; trường hợp không đáp ứng điều kiện hoặc vi phạm các cam kết, Trường xem xét, điều chỉnh hoặc chấm dứt hỗ trợ theo quy định."
+          ],
+          "id": "sec-2",
+          "title": "NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ",
+          "number": 2,
+          "icon": "ShieldCheck"
+        },
+        {
+          "order": 3,
+          "title": "QUYỀN LỢI VÀ NGHĨA VỤ",
+          "bullets": [
+            "Được miễn từ 50% đến 100% học phí chính khóa theo từng quyết định phê duyệt.",
+            "Ưu tiên bố trí chỗ ở tiện nghi tại Khu ký túc xá sinh viên quốc tế DUE.",
+            "Hỗ trợ các thủ tục thị thực (Visa), đăng ký tạm trú, bảo hiểm y tế và tham gia các khóa học hội nhập văn hóa Việt Nam.",
+            "Nghĩa vụ chấp hành nghiêm chỉnh luật pháp Việt Nam, nội quy của Nhà trường và duy trì kết quả học tập đạt loại Khá trở lên."
+          ],
+          "icon": "Award",
+          "number": 3,
+          "id": "sec-3"
+        },
+        {
+          "title": "THỜI GIAN, HỒ SƠ VÀ PHƯƠNG THỨC ĐĂNG KÝ",
+          "icon": "FileText",
+          "id": "sec-4",
+          "order": 4,
+          "bullets": [
+            "Đợt 1: Hạn cuối nộp hồ sơ ngày 15 tháng 06 hàng năm (cho kỳ nhập học tháng 9).",
+            "Đợt 2: Hạn cuối nộp hồ sơ ngày 15 tháng 11 hàng năm (cho kỳ nhập học tháng 2).",
+            "Hồ sơ gồm: Đơn xin cấp học bổng theo mẫu; Bản sao Hộ chiếu hợp lệ; Bằng tốt nghiệp và Bảng điểm (hợp pháp hóa lãnh sự dịch thuật tiếng Anh hoặc tiếng Việt); Chứng chỉ năng lực ngôn ngữ (IELTS/TOEFL hoặc Tiếng Việt B2).",
+            "Phương thức: Nộp trực tuyến qua Cổng tiếp nhận hồ sơ quốc tế của trường hoặc gửi bản cứng qua đường bưu điện."
+          ],
+          "number": 4
+        },
+        {
+          "id": "sec-5",
+          "order": 5,
+          "bullets": [
+            "Quyết định số 1428/QĐ-ĐHKT về ban hành Quy chế Học bổng dành cho người học quốc tế tại DUE.",
+            "Thông báo tiếp nhận hồ sơ học bổng lưu học sinh năm học 2025 - 2026."
+          ],
+          "number": 5,
+          "icon": "Paperclip",
+          "title": "VĂN BẢN QUY ĐỊNH VÀ TÀI LIỆU ĐÍNH KÈM"
+        }
+      ],
+      "updatedAt": "2025-09-15",
+      "icon": "Award",
+      "contact": {
+        "email": "scholarship@due.edu.vn / international@due.edu.vn",
+        "department": "Phòng Hợp tác Quốc tế & Phòng Đào tạo Sau Đại học",
+        "phone": "0236 3 950 110",
+        "address": "Trường Đại học Kinh tế – Đại học Đà Nẵng, 71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      }
+    },
+    {
+      "slug": "ho-tro-hoan-canh-kho-khan-sdh",
+      "documents": [],
+      "categoryId": "cat-1",
+      "icon": "Globe",
+      "id": "sdh-ho-tro-hoan-canh-kho-khan",
+      "title": "Hỗ trợ hoàn cảnh khó khăn",
+      "shortTitle": "Hỗ trợ khó khăn SDH",
+      "targetAudience": "Học viên cao học có hoàn cảnh kinh tế đặc biệt khó khăn",
+      "contact": {
+        "phone": "0236 3 958 667",
+        "email": "ctsv@due.edu.vn",
+        "department": "Phòng Công tác Sinh viên & Sau Đại học",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "updatedAt": "2025-08-20",
+      "sections": [
+        {
+          "bullets": [
+            "Học viên thuộc hộ nghèo, cận nghèo hoặc bị ảnh hưởng nặng nề bởi thiên tai, dịch bệnh.",
+            "Hỗ trợ giảm từ 30% đến 50% học phí các học kỳ.",
+            "Hỗ trợ vay vốn không lãi suất từ Quỹ hỗ trợ sinh viên DUE."
+          ],
+          "number": 1,
+          "id": "sec-1",
+          "order": 1,
+          "icon": "HeartHandshake",
+          "title": "ĐỐI TƯỢNG VÀ MỨC CẤP"
+        }
+      ],
+      "createdAt": "2025-02-01",
+      "viewsCount": 1650,
+      "educationLevel": "sau-dai-hoc",
+      "order": 4,
+      "isActive": true,
+      "policyType": "tro-cap",
+      "intro": "Chính sách hỗ trợ tài chính cho các học viên cao học thuộc vùng sâu, vùng xa, người dân tộc thiểu số hoặc có hoàn cảnh gia đình khó khăn đột xuất nhằm đảm bảo không người học nào phải bỏ dở chương trình đào tạo vì lý do tài chính."
+    },
+    {
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "email": "scholarship@due.edu.vn",
+        "phone": "0236 3 654 321",
+        "department": "Ban Tư vấn Tuyển sinh & Phòng Công tác Sinh viên"
+      },
+      "policyType": "hoc-bong",
+      "sections": [
+        {
+          "bullets": [
+            "Thí sinh trúng tuyển thẳng hoặc đạt điểm thủ khoa các phương thức xét tuyển vào trường.",
+            "Miễn 100% học phí trong toàn bộ 4 năm học chính khóa (tương đương 120 - 160 triệu đồng).",
+            "Tài trợ 100% chi phí ký túc xá phòng chất lượng cao trong 4 năm.",
+            "Cấp học bổng tiếng Anh chuẩn quốc tế để đạt IELTS 7.0+ hoặc tương đương."
+          ],
+          "title": "ĐỐI TƯỢNG VÀ MỨC CẤP",
+          "icon": "Award",
+          "order": 1,
+          "number": 1,
+          "id": "sec-1"
+        },
+        {
+          "title": "QUYỀN LỢI ĐẶC BIỆT",
+          "number": 2,
+          "icon": "Star",
+          "order": 2,
+          "id": "sec-2",
+          "bullets": [
+            "Được đích thân Ban Giám hiệu và các Giáo sư đầu ngành kèm cặp (Mentorship program).",
+            "Ưu tiên tham gia các chương trình trao đổi sinh viên quốc tế tại các trường đối tác ở Châu Âu, Nhật Bản, Hàn Quốc, Úc.",
+            "Ưu tiên cấp học bổng thực tập tại các tập đoàn tài chính đa quốc gia đối tác của DUE."
+          ]
+        }
+      ],
+      "isActive": true,
+      "viewsCount": 12450,
+      "id": "dh-hoc-bong-tinh-hoa",
+      "documents": [
+        {
+          "title": "Quy chế xét cấp Học bổng Tinh hoa DUE Elite",
+          "fileName": "Quy_che_Hoc_bong_DUE_Elite.pdf",
+          "id": "doc-elite-1",
+          "url": "#",
+          "fileSize": "1.9 MB",
+          "fileType": "pdf"
+        }
+      ],
+      "intro": "Học bổng Tinh hoa (DUE - Elite) là danh hiệu học bổng danh giá nhất của Trường Đại học Kinh tế - Đại học Đà Nẵng dành cho những thí sinh xuất sắc nhất nhập học vào trường. Chương trình đồng hành và phát triển các tài năng trẻ trở thành các nhà lãnh đạo và chuyên gia kinh tế tương lai.",
+      "order": 1,
+      "shortTitle": "DUE - Elite",
+      "slug": "hoc-bong-tinh-hoa-due-elite",
+      "targetAudience": "Thủ khoa tuyển sinh, thí sinh đạt giải Nhất/Nhì/Ba kỳ thi HSG Quốc gia, giải quốc tế",
+      "categoryId": "cat-2",
+      "createdAt": "2025-01-01",
+      "icon": "User",
+      "updatedAt": "2025-09-15",
+      "educationLevel": "dai-hoc",
+      "title": "Học bổng tinh hoa (DUE – Elite)"
+    },
+    {
+      "slug": "kkht-sinh-vien-tai-nang",
+      "updatedAt": "2025-08-30",
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "email": "doanthanhnien@due.edu.vn",
+        "phone": "0236 3 958 668",
+        "department": "Phòng Khoa học & Hợp tác Quốc tế - Đoàn Thanh niên DUE"
+      },
+      "icon": "Trophy",
+      "createdAt": "2025-01-10",
+      "policyType": "khen-thuong",
+      "title": "KKHT sinh viên tài năng",
+      "viewsCount": 7800,
+      "isActive": true,
+      "educationLevel": "dai-hoc",
+      "sections": [
+        {
+          "order": 1,
+          "number": 1,
+          "title": "TIÊU CHÍ VÀ MỨC THƯỞNG",
+          "id": "sec-1",
+          "bullets": [
+            "Giải Nhất/Nhì NCKH cấp Bộ: Thưởng từ 15.000.000đ đến 30.000.000đ/đề tài và cấp học bổng toàn phần 1 học kỳ.",
+            "Giải thưởng Khởi nghiệp Quốc gia / Sinh viên nghiên cứu sáng tạo: Thưởng theo khung quy chế khen thưởng DUE.",
+            "Được cộng điểm rèn luyện tối đa (100 điểm) và ưu tiên xét các danh hiệu Sinh viên 5 tốt cấp Trung ương."
+          ],
+          "icon": "Trophy"
+        }
+      ],
+      "documents": [],
+      "id": "dh-kkht-tai-nang",
+      "targetAudience": "Sinh viên đạt thành tích giải thưởng NCKH sinh viên cấp Bộ, cấp ĐHĐN, các cuộc thi học thuật quốc gia",
+      "shortTitle": "SV tài năng",
+      "intro": "Chính sách khen thưởng và khuyến khích sinh viên tài năng đạt giải thưởng cao trong các cuộc thi chuyên môn, khởi nghiệp sáng tạo, Olympic kinh tế và các sân chơi học thuật uy tín.",
+      "categoryId": "cat-2",
+      "order": 2
+    },
+    {
+      "documents": [],
+      "educationLevel": "dai-hoc",
+      "title": "KKHT sinh viên vượt khó",
+      "viewsCount": 6520,
+      "isActive": true,
+      "sections": [
+        {
+          "icon": "Award",
+          "bullets": [
+            "Thuộc diện hộ nghèo, cận nghèo hoặc mồ côi, có giấy xác nhận hoàn cảnh khó khăn của địa phương.",
+            "Điểm trung bình học kỳ đạt từ 2.8/4.0 trở lên và điểm rèn luyện từ Khá trở lên.",
+            "Mức cấp: 5.000.000đ - 10.000.000đ/học kỳ trích từ Quỹ Khuyến học DUE."
+          ],
+          "title": "ĐIỀU KIỆN VÀ MỨC CẤP",
+          "id": "sec-1",
+          "number": 1,
+          "order": 1
+        }
+      ],
+      "targetAudience": "Sinh viên có hoàn cảnh khó khăn nhưng đạt kết quả học tập từ Khá/Giỏi trở lên",
+      "policyType": "khen-thuong",
+      "id": "dh-kkht-vuot-kho",
+      "updatedAt": "2025-09-02",
+      "slug": "kkht-sinh-vien-vuot-kho",
+      "order": 3,
+      "intro": "Biểu dương và khen thưởng sinh viên có ý chí vươn lên mãnh liệt, khắc phục khó khăn kinh tế để đạt kết quả học tập và rèn luyện xuất sắc.",
+      "categoryId": "cat-2",
+      "icon": "Trophy",
+      "shortTitle": "SV vượt khó",
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Phòng Công tác Sinh viên",
+        "email": "ctsv@due.edu.vn",
+        "phone": "0236 3 958 667"
+      },
+      "createdAt": "2025-01-15"
+    },
+    {
+      "order": 4,
+      "intro": "Học bổng Khuyến khích học tập định kỳ được xét và trao sau mỗi học kỳ, trích tối thiểu 8% từ nguồn thu học phí chính quy của Nhà trường.",
+      "policyType": "khen-thuong",
+      "icon": "Handshake",
+      "viewsCount": 15800,
+      "isActive": true,
+      "contact": {
+        "department": "Phòng Công tác Sinh viên - Các Khoa chuyên môn",
+        "phone": "0236 3 958 667",
+        "email": "ctsv@due.edu.vn",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "slug": "kkht-ket-qua-cao-hoc-tap-va-ren-luyen",
+      "documents": [
+        {
+          "fileName": "Quy_che_KKHT_DUE.pdf",
+          "id": "doc-kkht-1",
+          "url": "#",
+          "fileSize": "1.5 MB",
+          "title": "Quy chế xét cấp học bổng Khuyến khích học tập DUE",
+          "fileType": "pdf"
+        }
+      ],
+      "sections": [
+        {
+          "id": "sec-1",
+          "number": 1,
+          "order": 1,
+          "bullets": [
+            "Mức Xuất sắc: Bằng 120% mức học phí của ngành/chương trình đào tạo (Điểm học tập ≥ 3.6 và Điểm rèn luyện ≥ 90).",
+            "Mức Giỏi: Bằng 100% mức học phí (Điểm học tập ≥ 3.2 và Điểm rèn luyện ≥ 80).",
+            "Mức Khá: Bằng 80% mức học phí (Điểm học tập ≥ 2.5 và Điểm rèn luyện ≥ 65).",
+            "Danh sách xét cấp tự động từ cao xuống thấp đến khi hết quỹ học bổng của từng khoa."
+          ],
+          "title": "CÁC MỨC HỌC BỔNG",
+          "icon": "Trophy"
+        }
+      ],
+      "title": "KKHT kết quả cao học tập và rèn luyện",
+      "shortTitle": "KQ cao học tập & rèn luyện",
+      "targetAudience": "Sinh viên chính quy toàn trường đạt kết quả học tập và rèn luyện loại Xuất sắc, Giỏi, Khá",
+      "createdAt": "2025-01-05",
+      "categoryId": "cat-2",
+      "educationLevel": "dai-hoc",
+      "id": "dh-kkht-ket-qua-cao",
+      "updatedAt": "2025-09-20"
+    },
+    {
+      "isActive": true,
+      "sections": [
+        {
+          "number": 1,
+          "title": "QUY CHẾ XÉT CẤP",
+          "icon": "Award",
+          "bullets": [
+            "Xếp loại học tập loại Khá trở lên và điểm rèn luyện tốt.",
+            "Tích cực tham gia các hoạt động giao lưu văn hóa quốc tế và hỗ trợ cộng đồng sinh viên.",
+            "Mức thưởng từ 3.000.000đ đến 10.000.000đ/học kỳ."
+          ],
+          "order": 1,
+          "id": "sec-1"
+        }
+      ],
+      "slug": "kkht-sinh-vien-quoc-te",
+      "documents": [],
+      "shortTitle": "KKHT SV quốc tế",
+      "icon": "Trophy",
+      "contact": {
+        "department": "Phòng Hợp tác Quốc tế",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "email": "international@due.edu.vn",
+        "phone": "0236 3 950 110"
+      },
+      "categoryId": "cat-2",
+      "title": "KKHT sinh viên quốc tế",
+      "id": "dh-kkht-sv-quoc-te",
+      "updatedAt": "2025-08-15",
+      "educationLevel": "dai-hoc",
+      "policyType": "khen-thuong",
+      "createdAt": "2025-02-10",
+      "targetAudience": "Sinh viên quốc tế hệ đại học chính quy",
+      "viewsCount": 3120,
+      "order": 5,
+      "intro": "Học bổng khuyến khích dành riêng cho sinh viên quốc tế đang theo học chương trình cử nhân tại DUE có thành tích học tập và hoạt động phong trào xuất sắc."
+    },
+    {
+      "title": "Hỗ trợ sinh viên quốc tế",
+      "icon": "Heart",
+      "documents": [],
+      "categoryId": "cat-2",
+      "slug": "ho-tro-sinh-vien-quoc-te",
+      "shortTitle": "Hỗ trợ SV quốc tế",
+      "intro": "Gói hỗ trợ sinh hoạt, tài liệu học tập, bảo hiểm và chi phí ký túc xá cho lưu học sinh theo diện hiệp định và tự túc.",
+      "educationLevel": "dai-hoc",
+      "order": 6,
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "email": "international@due.edu.vn",
+        "phone": "0236 3 950 110",
+        "department": "Phòng Hợp tác Quốc tế & Ban Quản lý KTX DUE"
+      },
+      "id": "dh-ho-tro-sv-quoc-te",
+      "sections": [
+        {
+          "id": "sec-1",
+          "number": 1,
+          "bullets": [
+            "Hỗ trợ 100% chi phí ở tại Ký túc xá sinh viên quốc tế.",
+            "Trợ cấp phương tiện đi lại và hỗ trợ gia hạn visa, khám sức khỏe định kỳ.",
+            "Tổ chức các chuyến tham quan văn hóa di sản miền Trung (Hội An, Mỹ Sơn, Huế)."
+          ],
+          "order": 1,
+          "icon": "HeartHandshake",
+          "title": "CHÍNH SÁCH HỖ TRỢ"
+        }
+      ],
+      "createdAt": "2025-02-12",
+      "isActive": true,
+      "viewsCount": 2840,
+      "updatedAt": "2025-08-10",
+      "targetAudience": "Lưu học sinh Lào, Campuchia và các nước đang học tập tại DUE",
+      "policyType": "tro-cap"
+    },
+    {
+      "educationLevel": "dai-hoc",
+      "slug": "ho-tro-hoan-canh-kho-khan-dh",
+      "id": "dh-ho-tro-hoan-canh-kho-khan",
+      "documents": [],
+      "viewsCount": 5400,
+      "targetAudience": "Sinh viên đại học chính quy gặp khó khăn đột xuất, mồ côi, bệnh hiểm nghèo",
+      "icon": "Users",
+      "policyType": "tro-cap",
+      "contact": {
+        "email": "ctsv@due.edu.vn",
+        "phone": "0236 3 958 667",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Phòng Công tác Sinh viên - Hội Sinh viên DUE"
+      },
+      "intro": "Quỹ \"Đồng hành cùng sinh viên DUE\" kịp thời hỗ trợ các trường hợp sinh viên không may gặp biến cố gia đình, tai nạn hoặc bệnh tật, giúp các em an tâm học tập.",
+      "order": 7,
+      "isActive": true,
+      "sections": [
+        {
+          "icon": "Heart",
+          "title": "MỨC HỖ TRỢ ĐỘT XUẤT",
+          "order": 1,
+          "bullets": [
+            "Mức trợ cấp từ 2.000.000đ đến 15.000.000đ/trường hợp tùy mức độ khó khăn.",
+            "Xét duyệt nhanh chóng trong vòng 48 giờ sau khi nhận đơn đề nghị.",
+            "Bố trí việc làm thêm tại các đơn vị trong trường (Thư viện, Phòng thí nghiệm, Văn phòng khoa)."
+          ],
+          "number": 1,
+          "id": "sec-1"
+        }
+      ],
+      "updatedAt": "2025-09-01",
+      "categoryId": "cat-2",
+      "createdAt": "2025-01-20",
+      "shortTitle": "Hỗ trợ khó khăn ĐH",
+      "title": "Hỗ trợ hoàn cảnh khó khăn"
+    },
+    {
+      "policyType": "hoc-bong",
+      "intro": "Chương trình học bổng đặc biệt được tài trợ bởi các tổ chức phi chính phủ và các quỹ phát triển giáo dục bền vững nhằm ươm mầm các sáng kiến xã hội của sinh viên DUE.",
+      "viewsCount": 4120,
+      "order": 1,
+      "createdAt": "2025-02-15",
+      "updatedAt": "2025-09-10",
+      "slug": "hat-giong-tot-lanh",
+      "shortTitle": "Hạt giống tốt lành",
+      "targetAudience": "Sinh viên có đam mê đổi mới sáng tạo, đạo đức tốt, có dự án vì cộng đồng",
+      "categoryId": "cat-3",
+      "title": "Hạt giống tốt lành",
+      "id": "nt-hat-giong-tot-lanh",
+      "educationLevel": "tat-ca",
+      "icon": "Landmark",
+      "documents": [],
+      "isActive": true,
+      "sections": [
+        {
+          "order": 1,
+          "title": "GIÁ TRỊ HỌC BỔNG",
+          "icon": "Award",
+          "number": 1,
+          "bullets": [
+            "Trị giá 20.000.000đ/suất/năm và tài trợ 100% kinh phí thực hiện dự án cộng đồng (lên tới 50.000.000đ/dự án).",
+            "Khóa đào tạo kỹ năng lãnh đạo bản thân và tư duy thiết kế (Design Thinking)."
+          ],
+          "id": "sec-1"
+        }
+      ],
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Trung tâm Hỗ trợ Sinh viên & Khởi nghiệp DUE",
+        "phone": "0236 3 958 669",
+        "email": "khoinghiep@due.edu.vn"
+      }
+    },
+    {
+      "id": "nt-doanh-nghiep-cuu-sinh-vien",
+      "documents": [
+        {
+          "fileName": "Hoc_bong_Doanh_nghiep_DUE_2025.pdf",
+          "title": "Tổng hợp danh mục học bổng doanh nghiệp năm học 2025",
+          "id": "doc-dn-1",
+          "url": "#",
+          "fileType": "pdf",
+          "fileSize": "2.8 MB"
+        }
+      ],
+      "title": "Doanh nghiệp, cựu sinh viên",
+      "contact": {
+        "email": "htdn@due.edu.vn",
+        "phone": "0236 3 958 669",
+        "department": "Trung tâm Hợp tác Doanh nghiệp & Việc làm DUE",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "icon": "Handshake",
+      "educationLevel": "tat-ca",
+      "targetAudience": "Sinh viên các khoa, ưu tiên sinh viên năm 3, 4 có định hướng việc làm rõ ràng",
+      "policyType": "hoc-bong",
+      "slug": "doanh-nghiep-cuu-sinh-vien",
+      "sections": [
+        {
+          "bullets": [
+            "Học bổng \"Thắp sáng Niềm tin\" - Cựu sinh viên DUE: 10.000.000đ/suất.",
+            "Học bổng Vietcombank - Vững bước tương lai: 15.000.000đ/suất kèm cơ hội thực tập.",
+            "Học bổng KPMG / PwC / Deloitte / EY: Tài trợ toàn bộ chi phí thi chứng chỉ ACCA, ICAEW và tuyển thẳng thực tập sinh.",
+            "Học bổng Sacombank - Ươm mầm ước mơ: 5.000.000đ/suất và đào tạo nghiệp vụ ngân hàng."
+          ],
+          "id": "sec-1",
+          "number": 1,
+          "order": 1,
+          "icon": "Handshake",
+          "title": "CÁC CHƯƠNG TRÌNH HỌC BỔNG TIÊU BIỂU"
+        }
+      ],
+      "isActive": true,
+      "viewsCount": 9400,
+      "intro": "Mạng lưới hơn 100 doanh nghiệp đối tác hàng đầu (Big 4 Kiểm toán, Ngân hàng Vietcombank, BIDV, MB Bank, Unilever, Viettel, FPT...) cùng Hội Cựu sinh viên DUE trao tặng hơn 300 suất học bổng mỗi năm.",
+      "updatedAt": "2025-09-22",
+      "order": 2,
+      "shortTitle": "Doanh nghiệp & Cựu SV",
+      "categoryId": "cat-3",
+      "createdAt": "2025-01-20"
+    },
+    {
+      "slug": "nghi-dinh-chinh-phu-179-2025-nd-cp",
+      "policyType": "chinh-sach-nha-nuoc",
+      "documents": [
+        {
+          "title": "Toàn văn Nghị định 179/2025/NĐ-CP và Văn bản hướng dẫn của Bộ GD&ĐT",
+          "fileName": "Nghi_dinh_179_2025_ND_CP.pdf",
+          "id": "doc-nd-1",
+          "fileSize": "3.6 MB",
+          "fileType": "pdf",
+          "url": "#"
+        }
+      ],
+      "id": "nt-nghi-dinh-chinh-phu",
+      "viewsCount": 6890,
+      "contact": {
+        "phone": "0236 3 958 667",
+        "department": "Phòng Công tác Sinh viên & Phòng Kế hoạch - Tài chính",
+        "email": "khtc@due.edu.vn",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "icon": "FileText",
+      "title": "Nghị định Chính phủ 179/2026/NĐ-CP",
+      "isActive": true,
+      "shortTitle": "Nghị định 179/2025",
+      "educationLevel": "tat-ca",
+      "categoryId": "cat-3",
+      "sections": [
+        {
+          "number": 1,
+          "id": "sec-1",
+          "icon": "ShieldCheck",
+          "bullets": [
+            "Mức hỗ trợ học phí tương ứng với định mức kinh tế kỹ thuật của nhóm ngành đào tạo.",
+            "Hỗ trợ chi phí sinh hoạt 3.630.000đ/tháng/sinh viên trong thời gian học tập thực tế.",
+            "Quy định về cam kết công tác và bồi hoàn kinh phí theo điều khoản của Nghị định."
+          ],
+          "title": "NỘI DUNG VÀ MỨC HỖ TRỢ CHÍNH SÁCH",
+          "order": 1
+        }
+      ],
+      "updatedAt": "2025-09-05",
+      "createdAt": "2025-02-01",
+      "intro": "Triển khai thực hiện Nghị định số 179/2025/NĐ-CP của Chính phủ về chính sách hỗ trợ tiền đóng học phí, chi phí sinh hoạt đối với sinh viên sư phạm, kinh tế và các ngành ưu tiên phát triển quốc gia.",
+      "order": 3,
+      "targetAudience": "Sinh viên thuộc các diện đối tượng chính sách theo quy định mới nhất của Nhà nước"
+    },
+    {
+      "contact": {
+        "department": "Phòng Công tác Sinh viên (Bộ phận Chế độ Chính sách)",
+        "phone": "0236 3 958 667",
+        "email": "ctsv@due.edu.vn",
+        "address": "Phòng A105, 71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "createdAt": "2025-01-10",
+      "slug": "mien-giam-ho-tro-tro-cap-xa-hoi",
+      "icon": "Users",
+      "policyType": "mien-giam",
+      "updatedAt": "2025-09-12",
+      "title": "Miễn giảm, hỗ trợ, trợ cấp xã hội",
+      "viewsCount": 8900,
+      "sections": [
+        {
+          "order": 1,
+          "number": 1,
+          "title": "CÁC MỨC MIỄN GIẢM HỌC PHÍ",
+          "bullets": [
+            "Miễn 100% học phí: Con liệt sĩ, con thương binh/bệnh binh nặng; sinh viên khuyết tật nặng; SV dân tộc thiểu số rất ít người; SV mồ côi cả cha lẫn mẹ.",
+            "Giảm 70% học phí: SV dân tộc thiểu số ở vùng có điều kiện kinh tế - xã hội đặc biệt khó khăn.",
+            "Giảm 50% học phí: SV là con cán bộ công nhân viên chức mà cha hoặc mẹ bị tai nạn lao động hoặc mắc bệnh nghề nghiệp được hưởng trợ cấp thường xuyên.",
+            "Trợ cấp xã hội: Từ 140.000đ đến 200.000đ/tháng theo từng đối tượng cụ thể."
+          ],
+          "icon": "ShieldCheck",
+          "id": "sec-1"
+        }
+      ],
+      "isActive": true,
+      "id": "mg-mien-giam-ho-tro-tro-cap",
+      "educationLevel": "tat-ca",
+      "shortTitle": "Miễn giảm & Trợ cấp XH",
+      "categoryId": "cat-4",
+      "intro": "Thực hiện đầy đủ các chế độ chính sách miễn, giảm học phí và hỗ trợ chi phí học tập theo Nghị định 81/2021/NĐ-CP và các văn bản sửa đổi, bổ sung của Chính phủ.",
+      "targetAudience": "Sinh viên là con thương binh, liệt sĩ, người có công; SV khuyết tật; hộ nghèo, dân tộc thiểu số",
+      "documents": [
+        {
+          "fileSize": "1.2 MB",
+          "fileType": "pdf",
+          "id": "doc-mg-1",
+          "title": "Hướng dẫn hồ sơ miễn giảm học phí và trợ cấp xã hội DUE",
+          "fileName": "Huong_dan_Ho_so_Mien_Giam_Hoc_Phi.pdf",
+          "url": "#"
+        }
+      ],
+      "order": 1
+    },
+    {
+      "intro": "Nhà trường phối hợp chặt chẽ với Chi nhánh Ngân hàng Chính sách xã hội (NHCSXH) các tỉnh thành trên cả nước để xác nhận và giải ngân vốn vay học tập kịp thời, thủ tục 100% số hóa trực tuyến.",
+      "createdAt": "2025-01-12",
+      "order": 2,
+      "icon": "Shield",
+      "shortTitle": "Hỗ trợ vay NHCSXH",
+      "categoryId": "cat-4",
+      "isActive": true,
+      "slug": "ho-tro-tai-xa-nhcsxh",
+      "sections": [
+        {
+          "title": "HẠN MỨC VÀ LÃI SUẤT VAY",
+          "order": 1,
+          "icon": "ShieldCheck",
+          "number": 1,
+          "bullets": [
+            "Mức vay tối đa: 4.000.000đ/tháng (40.000.000đ/năm học/sinh viên) theo quy định hiện hành.",
+            "Lãi suất ưu đãi: 0.55%/tháng (6.6%/năm) theo chính sách của Thủ tướng Chính phủ.",
+            "Thời hạn trả nợ: Bắt đầu trả nợ sau khi sinh viên ra trường 12 tháng, thời gian trả nợ tối đa bằng thời gian học.",
+            "Quy trình nộp giấy xác nhận trực tuyến qua Cổng quản lý sinh viên DUE không cần đến trực tiếp."
+          ],
+          "id": "sec-1"
+        }
+      ],
+      "updatedAt": "2025-08-25",
+      "contact": {
+        "phone": "0236 3 958 667",
+        "email": "ctsv@due.edu.vn",
+        "department": "Phòng Công tác Sinh viên DUE",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "id": "mg-ho-tro-tai-xa-nhcsxh",
+      "title": "Hỗ trợ lãi vay NHCSXH",
+      "educationLevel": "tat-ca",
+      "policyType": "tro-cap",
+      "viewsCount": 4720,
+      "targetAudience": "Sinh viên có nhu cầu vay vốn học tập theo chương trình tín dụng học sinh, sinh viên",
+      "documents": [
+        {
+          "fileType": "pdf",
+          "url": "#",
+          "fileSize": "890 KB",
+          "fileName": "Quy_trinh_Vay_von_NHCSXH_DUE.pdf",
+          "title": "Quy trình xin xác nhận vay vốn tín dụng sinh viên",
+          "id": "doc-nhcsxh-1"
+        }
+      ]
+    },
+    {
+      "shortTitle": "HB Tuyển sinh LKQT",
+      "categoryId": "cat-5",
+      "documents": [],
+      "intro": "Chính sách học bổng đầu vào hấp dẫn dành cho thí sinh có điểm xét tuyển cao hoặc chứng chỉ IELTS từ 6.5 trở lên đăng ký học các chương trình liên kết cấp bằng quốc tế.",
+      "order": 1,
+      "policyType": "hoc-bong",
+      "id": "lk-hoc-bong-tuyen-sinh",
+      "slug": "hoc-bong-tuyen-sinh-lkqt",
+      "updatedAt": "2025-09-08",
+      "contact": {
+        "phone": "0236 3 950 110",
+        "email": "ise@due.edu.vn",
+        "address": "Tầng 3, Nhà Hiệu bộ, 71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Viện Đào tạo Quốc tế (DUE-ISE)"
+      },
+      "viewsCount": 5120,
+      "targetAudience": "Thí sinh trúng tuyển vào các chương trình Cử nhân Liên kết Quốc tế tại DUE",
+      "sections": [
+        {
+          "order": 1,
+          "title": "MỨC HỌC BỔNG ĐẦU VÀO",
+          "bullets": [
+            "Học bổng Kim cương: 50.000.000đ cho thí sinh có IELTS ≥ 7.5 hoặc SAT ≥ 1350.",
+            "Học bổng Vàng: 30.000.000đ cho thí sinh có IELTS ≥ 7.0 hoặc SAT ≥ 1250.",
+            "Học bổng Bạc: 15.000.000đ cho thí sinh có IELTS ≥ 6.5."
+          ],
+          "number": 1,
+          "id": "sec-1",
+          "icon": "Award"
+        }
+      ],
+      "createdAt": "2025-02-05",
+      "icon": "Globe",
+      "title": "Học bổng tuyển sinh",
+      "educationLevel": "lien-ket-quoc-te",
+      "isActive": true
+    },
+    {
+      "slug": "hoc-bong-chuong-trinh-tieng-anh",
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Viện Đào tạo Quốc tế (DUE-ISE)",
+        "email": "ise@due.edu.vn",
+        "phone": "0236 3 950 110"
+      },
+      "targetAudience": "Sinh viên đang theo học giai đoạn tiếng Anh tăng cường (EAP/IELTS) tại Viện Đào tạo Quốc tế",
+      "intro": "Khuyến khích sinh viên nâng cao trình độ ngoại ngữ nhanh chóng, vượt qua các mốc điểm chuẩn tiếng Anh trước thời hạn đào tạo.",
+      "order": 2,
+      "viewsCount": 3980,
+      "id": "lk-hoc-bong-tieng-anh",
+      "documents": [],
+      "icon": "GraduationCap",
+      "policyType": "hoc-bong",
+      "educationLevel": "lien-ket-quoc-te",
+      "sections": [
+        {
+          "number": 1,
+          "title": "ĐIỀU KIỆN VÀ MỨC THƯỞNG",
+          "order": 1,
+          "icon": "Trophy",
+          "id": "sec-1",
+          "bullets": [
+            "Thưởng 10.000.000đ khi hoàn thành chương trình tiếng Anh trước 1 học kỳ và đạt IELTS 6.5+.",
+            "Thưởng 20.000.000đ nếu đạt IELTS 8.0 trở lên."
+          ]
+        }
+      ],
+      "createdAt": "2025-02-08",
+      "title": "Học bổng chương trình Tiếng anh",
+      "isActive": true,
+      "updatedAt": "2025-08-20",
+      "categoryId": "cat-5",
+      "shortTitle": "HB Tiếng Anh LKQT"
+    },
+    {
+      "viewsCount": 3410,
+      "contact": {
+        "phone": "0236 3 950 110",
+        "email": "ise@due.edu.vn",
+        "department": "Viện Đào tạo Quốc tế (DUE-ISE)",
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng"
+      },
+      "policyType": "hoc-bong",
+      "icon": "BookOpen",
+      "id": "lk-hoc-bong-dai-cuong",
+      "documents": [],
+      "sections": [
+        {
+          "number": 1,
+          "title": "CHI TIẾT HỌC BỔNG",
+          "icon": "Award",
+          "id": "sec-1",
+          "order": 1,
+          "bullets": [
+            "Học bổng trị giá 1.000 EUR đến 2.500 EUR được khấu trừ trực tiếp vào học phí chuyển tiếp.",
+            "Tài trợ vé máy bay một chiều sang châu Âu cho top 3 sinh viên xuất sắc nhất khóa."
+          ]
+        }
+      ],
+      "title": "Học bổng chương trình Đại cương (Btec - HND)",
+      "isActive": true,
+      "slug": "hoc-bong-chuong-trinh-dai-cuong-duc-phap",
+      "educationLevel": "lien-ket-quoc-te",
+      "categoryId": "cat-5",
+      "shortTitle": "HB Đại cương Đức - Pháp",
+      "createdAt": "2025-02-10",
+      "order": 3,
+      "updatedAt": "2025-08-22",
+      "targetAudience": "Sinh viên chuyên ngành liên kết với Đại học IMC Krems (Áo/Đức) và Đại học Rennes 1 (Pháp)",
+      "intro": "Tài trợ cho sinh viên có thành tích xuất sắc trong giai đoạn 1 (học tại DUE) trước khi chuyển tiếp sang học tại các trường đại học đối tác danh tiếng tại Đức, Áo và Pháp."
+    },
+    {
+      "id": "lk-hoc-bong-chuyen-nganh",
+      "documents": [],
+      "policyType": "hoc-bong",
+      "title": "Học bổng chương trình chuyên ngành (Top Up year)",
+      "viewsCount": 4210,
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Viện Đào tạo Quốc tế (DUE-ISE)",
+        "email": "ise@due.edu.vn",
+        "phone": "0236 3 950 110"
+      },
+      "targetAudience": "Sinh viên hoàn thành giai đoạn 1 tại Việt Nam và đăng ký chuyển tiếp giai đoạn 2 (năm cuối/Top-up) tại Anh, Úc, Mỹ",
+      "slug": "hoc-bong-chuong-trinh-chuyen-nganh-top-up",
+      "updatedAt": "2025-09-01",
+      "createdAt": "2025-02-12",
+      "sections": [
+        {
+          "number": 1,
+          "order": 1,
+          "icon": "Award",
+          "id": "sec-1",
+          "title": "MỨC HỌC BỔNG ĐỐI TÁC",
+          "bullets": [
+            "Học bổng từ 20% đến 50% học phí năm chuyển tiếp (Top-up degree).",
+            "Giá trị tương đương 3.000 GBP - 8.000 GBP (khoảng 100 - 260 triệu đồng).",
+            "Miễn phí xét duyệt visa và hỗ trợ hồ sơ định cư sau tốt nghiệp tại nước sở tại."
+          ]
+        }
+      ],
+      "shortTitle": "HB Chuyên ngành Top-Up",
+      "educationLevel": "lien-ket-quoc-te",
+      "icon": "BookOpen",
+      "intro": "Học bổng chuyển tiếp từ các trường đại học đối tác hàng đầu thế giới (Đại học Coventry, Hull, Sunderland - Vương quốc Anh; Đại học Monash, Curtin - Úc).",
+      "isActive": true,
+      "categoryId": "cat-5",
+      "order": 4
+    },
+    {
+      "intro": "Chính sách ưu đãi và hỗ trợ tài chính cho người học theo học các chương trình liên kết quốc tế tại Trường Đại học Kinh tế - ĐHĐN.",
+      "isActive": true,
+      "order": 5,
+      "educationLevel": "lien-ket-quoc-te",
+      "updatedAt": "2025-08-18",
+      "sections": [
+        {
+          "title": "QUY ĐỊNH MIỄN GIẢM",
+          "order": 1,
+          "icon": "ShieldCheck",
+          "number": 1,
+          "bullets": [
+            "Giảm 10% học phí giai đoạn học tại Việt Nam cho gia đình có từ 2 người học trở lên tại DUE.",
+            "Giảm 15% học phí cho con ruột của cán bộ, giảng viên, nhân viên đang công tác tại Đại học Đà Nẵng."
+          ],
+          "id": "sec-1"
+        }
+      ],
+      "createdAt": "2025-02-14",
+      "policyType": "mien-giam",
+      "targetAudience": "Sinh viên chương trình quốc tế có anh chị em ruột cùng học tại DUE hoặc có người thân là cán bộ viên chức ĐHĐN",
+      "viewsCount": 3010,
+      "title": "Chính sách miễn giảm học phí",
+      "icon": "Star",
+      "documents": [],
+      "slug": "chinh-sach-mien-giam-hoc-phi-lkqt",
+      "contact": {
+        "address": "71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "department": "Viện Đào tạo Quốc tế - Phòng Kế hoạch Tài chính",
+        "phone": "0236 3 950 110",
+        "email": "ise@due.edu.vn"
+      },
+      "shortTitle": "Miễn giảm học phí LKQT",
+      "id": "lk-chinh-sach-mien-giam",
+      "categoryId": "cat-5"
+    },
+    {
+      "order": 1,
+      "intro": "Chương trình hợp tác chiến lược giữa Trường Đại học Kinh tế - Đại học Đà Nẵng với hơn 50 trường đại học hàng đầu thế giới tại Hoa Kỳ, Châu Âu, Nhật Bản, Hàn Quốc, Đài Loan và ASEAN, mở ra cánh cửa du học với vô số suất học bổng toàn phần.",
+      "educationLevel": "du-hoc",
+      "isActive": true,
+      "sections": [
+        {
+          "id": "sec-1",
+          "bullets": [
+            "Học bổng Erasmus+ (Liên minh Châu Âu): Hỗ trợ toàn bộ vé máy bay, bảo hiểm và 850 EUR/tháng sinh hoạt phí trong 1 học kỳ.",
+            "Học bổng Chính phủ Hàn Quốc (GKS) & Các trường đối tác Hàn Quốc (ĐH SolBridge, Chung-Ang, Keimyung): Giảm 50% - 100% học phí.",
+            "Học bổng trao đổi Nhật Bản (ĐH Yokohama, ĐH Shiga, ĐH Meiji Gakuin): Hỗ trợ học bổng JASSO 80.000 Yên/tháng.",
+            "Chương trình trao đổi sinh viên ASEAN (AIMS): Miễn 100% học phí tại nước bạn và công nhận chuyển đổi tín chỉ trọn vẹn."
+          ],
+          "number": 1,
+          "order": 1,
+          "icon": "Plane",
+          "title": "CÁC CHƯƠNG TRÌNH HỌC BỔNG TIÊU BIỂU"
+        },
+        {
+          "id": "sec-2",
+          "icon": "ShieldCheck",
+          "number": 2,
+          "title": "ĐIỀU KIỆN ỨNG TUYỂN",
+          "order": 2,
+          "bullets": [
+            "Đã hoàn thành tối thiểu 02 học kỳ chính quy tại DUE.",
+            "Điểm trung bình tích lũy GPA đạt từ 3.0/4.0 trở lên.",
+            "Trình độ ngoại ngữ: IELTS tối thiểu 6.0 hoặc TOEFL iBT 70 hoặc chứng chỉ ngoại ngữ thứ 2 tương đương (JLPT N3, TOPIK 3).",
+            "Vượt qua vòng phỏng vấn chuyên môn và ngoại ngữ của Hội đồng Hợp tác Quốc tế DUE."
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "url": "#",
+          "fileSize": "4.2 MB",
+          "fileType": "pdf",
+          "title": "Cẩm nang chương trình Trao đổi Sinh viên Quốc tế DUE",
+          "fileName": "Cam_nang_Trao_doi_Quoc_te_DUE.pdf",
+          "id": "doc-duhoc-1"
+        },
+        {
+          "fileType": "docx",
+          "fileSize": "380 KB",
+          "id": "doc-duhoc-2",
+          "url": "#",
+          "fileName": "Don_Dang_Ky_Trao_Doi_Quoc_Te.docx",
+          "title": "Mẫu đơn đăng ký tham gia chương trình trao đổi đối tác"
+        }
+      ],
+      "icon": "Plane",
+      "targetAudience": "Sinh viên DUE có nguyện vọng tham gia trao đổi học kỳ hoặc chuyển tiếp du học toàn phần",
+      "policyType": "du-hoc",
+      "slug": "hoc-bong-tai-don-vi-doi-tac",
+      "viewsCount": 11200,
+      "id": "dhoc-tai-don-vi-doi-tac",
+      "title": "Học bổng tại đơn vị đối tác",
+      "updatedAt": "2025-09-25",
+      "createdAt": "2025-01-05",
+      "shortTitle": "HB Đối tác Du học",
+      "categoryId": "cat-6",
+      "contact": {
+        "department": "Phòng Khoa học & Hợp tác Quốc tế (Bộ phận Trao đổi Sinh viên)",
+        "address": "Phòng A204, Nhà Hiệu bộ, 71 Ngũ Hành Sơn, TP. Đà Nẵng",
+        "phone": "0236 3 950 110",
+        "email": "scholarship@due.edu.vn / icd@due.edu.vn"
+      }
+    }
+  ],
+  "stats": {
+    "totalViews": 48291,
+    "dailyViews": [
+      {
+        "views": 1240,
+        "date": "2025-10-01"
+      },
+      {
+        "views": 1530,
+        "date": "2025-10-02"
+      },
+      {
+        "date": "2025-10-03",
+        "views": 1890
+      },
+      {
+        "date": "2025-10-04",
+        "views": 1420
+      },
+      {
+        "date": "2025-10-05",
+        "views": 2100
+      },
+      {
+        "date": "2025-10-06",
+        "views": 2450
+      },
+      {
+        "date": "2025-10-07",
+        "views": 2890
+      }
+    ]
+  },
+  "faqs": [
+    {
+      "category": "dai-hoc",
+      "question": "Điều kiện xét cấp Học bổng Khuyến khích học tập (KKHT) tại DUE là gì?",
+      "categoryLabel": "Học bổng ĐH",
+      "order": 1,
+      "isActive": true,
+      "answerHtml": "<p class=\"mb-2\">Học bổng Khuyến khích học tập được xét và cấp theo từng học kỳ dựa trên 02 tiêu chí chính:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li><strong>Kết quả học tập (GPA):</strong> Điểm trung bình chung học kỳ từ 2.5/4.0 trở lên, không có học phần nào bị điểm F và hoàn thành tối thiểu 14 tín chỉ trong kỳ chính.</li><li><strong>Kết quả rèn luyện:</strong> Đạt loại Khá trở lên (từ 65 điểm rèn luyện).</li></ul><p class=\"text-slate-600\">Mức học bổng gồm 3 hạng: Xuất sắc (120% học phí trần), Giỏi (100% học phí trần) và Khá (80% học phí trần), được xét từ cao xuống thấp theo ngân sách của từng Khoa/Chương trình đào tạo.</p>",
+      "id": "faq-1"
+    },
+    {
+      "order": 2,
+      "id": "faq-2",
+      "isActive": true,
+      "categoryLabel": "Thông tin chung",
+      "question": "Sinh viên có thể nhận đồng thời nhiều loại học bổng trong cùng một học kỳ không?",
+      "category": "chung",
+      "answerHtml": "<p class=\"mb-2\">Theo quy định hiện hành của Trường Đại học Kinh tế – ĐHĐN:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li>Sinh viên <strong>được phép nhận đồng thời</strong> Học bổng Khuyến khích học tập của Nhà trường và Học bổng từ các Doanh nghiệp, Đơn vị tài trợ ngoài trường (trừ trường hợp nhà tài trợ có quy định riêng loại trừ).</li><li>Đối với các học bổng do Quỹ học bổng DUE hoặc Doanh nghiệp cùng đối tác cấp, Hội đồng xét cấp sẽ ưu tiên phân bổ cơ hội cho nhiều sinh viên có hoàn cảnh và thành tích khác nhau.</li></ul>"
+    },
+    {
+      "id": "faq-3",
+      "answerHtml": "<p class=\"mb-2\">Quy trình chi trả học bổng tại DUE được thực hiện hoàn toàn tự động và minh bạch:</p><ol class=\"list-decimal pl-5 space-y-1 mb-2\"><li>Sau khi Hội đồng ban hành Quyết định chính thức và hết thời gian khiếu nại (05 ngày làm việc), danh sách được chuyển sang Phòng Kế hoạch - Tài chính.</li><li>Nhà trường chuyển khoản trực tiếp học bổng vào <strong>Tài khoản Ngân hàng (BIDV/Vietinbank)</strong> liên kết mã sinh viên.</li><li>Thời gian nhận: Thường từ 7 – 15 ngày làm việc kể từ ngày ra quyết định chi trả.</li></ol>",
+      "question": "Quy trình và thời gian nhận tiền học bổng sau khi có quyết định chính thức?",
+      "category": "ho-so",
+      "order": 3,
+      "isActive": true,
+      "categoryLabel": "Hồ sơ & quy trình"
+    },
+    {
+      "answerHtml": "<p class=\"mb-2\"><strong>Học bổng Tinh hoa DUE – Elite</strong> là chương trình học bổng danh giá bậc nhất dành cho:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li>Tân sinh viên trúng tuyển thẳng hoặc đạt giải Học sinh giỏi Quốc gia, thủ khoa đầu vào các khối ngành.</li><li>Sinh viên xuất sắc duy trì GPA tích lũy từ 3.6/4.0 trở lên, có bài báo khoa học hoặc giải thưởng NCKH cấp Bộ/ĐHĐN.</li></ul><p>Mức trao thưởng: <strong>100% học phí toàn khóa</strong> cùng trợ cấp sinh hoạt phí và ưu tiên tham gia các chương trình trao đổi quốc tế.</p>",
+      "question": "Học bổng Tinh hoa (DUE – Elite) dành cho đối tượng nào và giá trị bao nhiêu?",
+      "category": "dai-hoc",
+      "isActive": true,
+      "categoryLabel": "Học bổng ĐH",
+      "order": 4,
+      "id": "faq-4"
+    },
+    {
+      "question": "Chương trình học bổng Nhà nghiên cứu trẻ và Nhà khoa học sau đại học có yêu cầu gì?",
+      "order": 5,
+      "category": "sau-dai-hoc",
+      "id": "faq-5",
+      "categoryLabel": "Học bổng SĐH",
+      "isActive": true,
+      "answerHtml": "<p class=\"mb-2\">Dành cho học viên cao học và nghiên cứu sinh định hướng nghiên cứu tại DUE:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li>Học viên cao học: Có công bố bài báo khoa học thuộc danh mục Scopus/WoS hoặc tạp chí khoa học tính điểm của HĐGSNN; duy trì GPA &ge; 3.2.</li><li>Nghiên cứu sinh: Được hỗ trợ từ 50% đến 100% học phí kèm gói tài trợ nghiên cứu từ 30 – 100 triệu VNĐ khi có bài báo Q1/Q2 quốc tế.</li></ul>"
+    },
+    {
+      "category": "mien-giam",
+      "question": "Hồ sơ xin miễn giảm học phí và trợ cấp xã hội theo Nghị định 81/2021/NĐ-CP gồm những gì?",
+      "id": "faq-6",
+      "isActive": true,
+      "categoryLabel": "Miễn giảm học phí & Trợ cấp",
+      "answerHtml": "<p class=\"mb-2\">Sinh viên chuẩn bị hồ sơ nộp về Phòng CTSV vào đầu mỗi học kỳ, gồm:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li>Đơn đề nghị miễn, giảm học phí (theo mẫu quy định của Bộ GD&ĐT).</li><li>Bản sao có chứng thực Giấy chứng nhận hộ nghèo / cận nghèo năm hiện hành (đối với diện hộ nghèo).</li><li>Giấy xác nhận con thương binh, bệnh binh, liệt sĩ hoặc quyết định trợ cấp xã hội (nếu thuộc diện bảo trợ).</li><li>Căn cước công dân và Giấy khai sinh bản sao chứng thực.</li></ul>",
+      "order": 6
+    },
+    {
+      "categoryLabel": "Quốc tế & Du học",
+      "order": 7,
+      "isActive": true,
+      "category": "quoc-te",
+      "question": "Sinh viên DUE có cơ hội nhận học bổng trao đổi quốc tế hoặc chuyển tiếp như thế nào?",
+      "id": "faq-7",
+      "answerHtml": "<p class=\"mb-2\">DUE hợp tác với hơn 50 trường đại học hàng đầu tại Anh, Mỹ, Úc, Pháp, Hàn Quốc, Nhật Bản:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li><strong>Học bổng Erasmus+ (Châu Âu):</strong> Tài trợ 100% vé máy bay và sinh hoạt phí 850 EUR/tháng cho 1 học kỳ trao đổi.</li><li><strong>Học bổng Chuyển tiếp quốc tế (Top-up):</strong> Miễn giảm từ 20% – 50% học phí tại Đại học Hull, Northampton (UK), George Mason (USA).</li><li>Điều kiện cơ bản: GPA từ 3.0/4.0 trở lên và chứng chỉ tiếng Anh IELTS &ge; 6.0.</li></ul>"
+    },
+    {
+      "id": "faq-8",
+      "isActive": true,
+      "order": 8,
+      "categoryLabel": "Hồ sơ & quy trình",
+      "answerHtml": "<p class=\"mb-2\">Sinh viên có thể nộp hồ sơ hoàn toàn trực tuyến:</p><ul class=\"list-disc pl-5 space-y-1 mb-2\"><li>Truy cập Cổng thông tin học bổng DUE, bấm vào chương trình học bổng bạn quan tâm để tải mẫu đơn đăng ký.</li><li>Nộp trực tuyến qua <strong>Hệ thống quản lý sinh viên DUE Portal (sinhvien.due.udn.vn)</strong> hoặc nộp bản cứng tại Phòng Công tác Sinh viên (Phòng H214).</li><li>Mọi thắc mắc sinh viên có thể gửi câu hỏi qua form hỗ trợ hoặc liên hệ Hotline: <strong>0236 3956 397</strong>.</li></ul>",
+      "question": "Tôi có thể theo dõi và nộp hồ sơ học bổng trực tuyến ở đâu?",
+      "category": "ho-so"
+    }
+  ],
+  "categories": [
+    {
+      "illustration": "cap",
+      "id": "cat-1",
+      "icon": "GraduationCap",
+      "themeColor": "deepBlue",
+      "isActive": true,
+      "order": 1,
+      "title": "HỌC BỔNG SAU ĐẠI HỌC",
+      "slug": "sau-dai-hoc",
+      "shortTitle": "Sau Đại học"
+    },
+    {
+      "title": "HỌC BỔNG ĐẠI HỌC",
+      "icon": "GraduationCap",
+      "themeColor": "orange",
+      "order": 2,
+      "isActive": true,
+      "slug": "dai-hoc",
+      "shortTitle": "Đại học",
+      "illustration": "none",
+      "id": "cat-2"
+    },
+    {
+      "order": 3,
+      "isActive": true,
+      "shortTitle": "Ngoài trường",
+      "title": "HỌC BỔNG ĐƠN VỊ NGOÀI TRƯỜNG",
+      "icon": "Globe",
+      "id": "cat-3",
+      "illustration": "handshake",
+      "themeColor": "skyBlue",
+      "slug": "ngoai-truong"
+    },
+    {
+      "themeColor": "amber",
+      "slug": "mien-giam-tro-cap",
+      "shortTitle": "Miễn giảm & Trợ cấp",
+      "illustration": "heart",
+      "isActive": true,
+      "icon": "Star",
+      "order": 4,
+      "id": "cat-4",
+      "title": "CHÍNH SÁCH MIỄN GIẢM TRỢ CẤP XÃ HỘI"
+    },
+    {
+      "order": 5,
+      "id": "cat-5",
+      "title": "HỌC BỔNG CHƯƠNG TRÌNH CỬ NHÂN LIÊN KẾT QUỐC TẾ",
+      "themeColor": "emerald",
+      "icon": "ShieldCheck",
+      "illustration": "globe",
+      "shortTitle": "Liên kết Quốc tế",
+      "isActive": true,
+      "slug": "cu-nhan-lien-ket"
+    },
+    {
+      "slug": "du-hoc",
+      "id": "cat-6",
+      "shortTitle": "Du học",
+      "illustration": "plane",
+      "icon": "GraduationCap",
+      "isActive": true,
+      "title": "HỌC BỔNG DU HỌC",
+      "order": 6,
+      "themeColor": "forestGreen"
+    }
+  ],
+  "announcements": [
+    {
+      "expiresAt": "2025-10-30",
+      "id": "ann-1",
+      "publishedAt": "2025-09-15",
+      "attachmentName": "Thong_bao_DUE_Elite_2025.pdf",
+      "title": "Thông báo xét cấp Học bổng Tinh hoa (DUE - Elite) Học kỳ 1 Năm học 2025 - 2026",
+      "isActive": true,
+      "isPinned": true,
+      "category": "Học bổng Đại học",
+      "excerpt": "Nhà trường thông báo kế hoạch tiếp nhận hồ sơ đăng ký học bổng DUE-Elite dành cho sinh viên thủ khoa đầu vào và tài năng xuất sắc.",
+      "slug": "thong-bao-hoc-bong-tinh-hoa-2025",
+      "badgeText": "MỚI",
+      "content": "Căn cứ Quy chế cấp học bổng của Trường Đại học Kinh tế - Đại học Đà Nẵng, Nhà trường trân trọng thông báo tiếp nhận hồ sơ đăng ký xét cấp Học bổng Tinh hoa (DUE-Elite) dành cho sinh viên đạt thành tích xuất sắc...",
+      "attachmentUrl": "#"
+    },
+    {
+      "id": "ann-2",
+      "attachmentUrl": "#",
+      "isActive": true,
+      "title": "Học bổng Doanh nghiệp tài trợ đợt 2 năm 2025: 50 suất dành cho SV có hoàn cảnh khó khăn vươn lên",
+      "publishedAt": "2025-09-20",
+      "isPinned": true,
+      "expiresAt": "2025-11-05",
+      "category": "Đơn vị ngoài trường",
+      "excerpt": "Quỹ học bổng Cựu sinh viên và các đối tác tài chính tài trợ 50 suất học bổng toàn phần và bán phần cho sinh viên DUE.",
+      "content": "Các tập đoàn ngân hàng và kiểm toán đối tác phối hợp cùng DUE trao 50 suất học bổng, giá trị mỗi suất từ 5.000.000đ đến 15.000.000đ...",
+      "attachmentName": "Danh_sach_Hoc_bong_Doanh_nghiep.pdf",
+      "slug": "hoc-bong-doanh-nghiep-quy-3-2025",
+      "badgeText": "HOT"
+    },
+    {
+      "attachmentUrl": "#",
+      "title": "Hướng dẫn thủ tục xác nhận sinh viên vay vốn và hỗ trợ lãi suất NHCSXH năm 2025",
+      "content": "Nhằm tạo điều kiện tốt nhất cho sinh viên tiếp cận vốn vay ưu đãi từ Ngân hàng Chính sách xã hội, Phòng CTSV thông báo quy trình nộp đơn online...",
+      "id": "ann-3",
+      "attachmentName": "Mau_don_vay_von_NHCSXH.docx",
+      "slug": "huong-dan-ho-tro-lai-vay-nhcsxh",
+      "expiresAt": "2025-12-31",
+      "publishedAt": "2025-08-28",
+      "isPinned": false,
+      "isActive": true,
+      "category": "Chính sách",
+      "excerpt": "Phòng Công tác Sinh viên hướng dẫn quy trình xác nhận sinh viên trực tuyến để hưởng chính sách tín dụng ưu đãi theo Quyết định 157/2007/QĐ-TTg.",
+      "badgeText": "CHÚ Ý"
+    }
+  ]
+}
