@@ -42,6 +42,68 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
     };
   }, [scholarship]);
 
+  // Prevent anchor links inside iframe from navigating the iframe window
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const attachPrevent = () => {
+      try {
+        const doc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!doc) return;
+
+        // Intercept clicks on any tab or anchor
+        const links = doc.querySelectorAll<HTMLAnchorElement>('a');
+        links.forEach((a) => {
+          a.onclick = (e) => {
+            const href = a.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              e.preventDefault();
+              e.stopPropagation();
+              const target = doc.querySelector(href);
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+              doc.querySelectorAll('.tab-link').forEach((t) => t.classList.remove('active'));
+              a.classList.add('active');
+              return false;
+            }
+          };
+        });
+
+        // Also add document-level capture listener
+        doc.addEventListener(
+          'click',
+          (e) => {
+            const a = (e.target as HTMLElement).closest('a');
+            if (a) {
+              const href = a.getAttribute('href');
+              if (href && href.startsWith('#')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const target = doc.querySelector(href);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                doc.querySelectorAll('.tab-link').forEach((t) => t.classList.remove('active'));
+                a.classList.add('active');
+              }
+            }
+          },
+          true
+        );
+      } catch (_) {}
+    };
+
+    iframe.addEventListener('load', attachPrevent);
+    attachPrevent();
+    const timer = setTimeout(attachPrevent, 200);
+    return () => {
+      iframe.removeEventListener('load', attachPrevent);
+      clearTimeout(timer);
+    };
+  }, [scholarship]);
+
   if (!scholarship) return null;
 
   const handleCopyLink = () => {

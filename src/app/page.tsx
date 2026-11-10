@@ -41,6 +41,14 @@ function PortalContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  // Ngăn chặn hiển thị lồng nhau nếu trang bị tải trong iframe
+  const [isInsideIframe, setIsInsideIframe] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.self !== window.top) {
+      setIsInsideIframe(true);
+    }
+  }, []);
+
   const [categories, setCategories] = useState<Category[]>(initialData.categories);
   const [scholarships, setScholarships] = useState<Scholarship[]>(initialData.scholarships);
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
@@ -127,6 +135,8 @@ function PortalContent() {
   const activeCategories = [...categories]
     .filter((c) => c.isActive !== false)
     .sort((a, b) => a.order - b.order);
+
+  if (isInsideIframe) return null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F4F9FF] via-[#EBF4FE] to-[#F2F8FE] flex flex-col font-sans selection:bg-[#1760AB] selection:text-white">

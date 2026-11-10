@@ -585,11 +585,17 @@ tbody li {
 const tabs = document.querySelectorAll(".tab-link");
 const sections = document.querySelectorAll("section[id]");
 
-tabs.forEach(tab => {
-    tab.addEventListener("click", function(e) {
-        tabs.forEach(item => item.classList.remove("active"));
-        this.classList.add("active");
-    });
+document.addEventListener("click", function(e) {
+    const tab = e.target.closest(".tab-link");
+    if (!tab) return;
+    e.preventDefault();
+    tabs.forEach(item => item.classList.remove("active"));
+    tab.classList.add("active");
+    const targetId = tab.getAttribute("href").replace("#", "");
+    const target = document.getElementById(targetId);
+    if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 });
 
 const observer = new IntersectionObserver(entries => {
