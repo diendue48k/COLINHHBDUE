@@ -11,42 +11,38 @@ interface CategoryCardGridProps {
   onSelectScholarship: (scholarship: Scholarship) => void;
 }
 
-// 3 Core Brand Colors of DUE matching diagram:
-// Col 1 & 3: DUE Blue (#1760AB)
-// Col 2 & 4: DUE Orange (#F26524)
-// Col 5 & 6: DUE Green (#119046)
+// DUE Brand Color mapping matching exactly the user layout:
+// Row 1: Col 1 Blue, Col 2 Orange, Col 3 Green
+// Row 2: Col 4 Orange, Col 5 Green, Col 6 Blue
 const getCategoryStyle = (categoryId: string) => {
   switch (categoryId) {
-    case 'cat-1': // Bậc Sau đại học -> Blue
-    case 'cat-3': // Đơn vị ngoài trường -> Blue
+    case 'cat-1': // Bậc Sau đại học -> DUE Blue
+    case 'cat-6': // Du học -> DUE Blue
       return {
         gradientHeader: 'from-[#1760AB] to-[#2066AE]',
-        borderHover: 'hover:border-[#1760AB]/60',
-        cardHoverBorder: 'hover:border-[#1760AB] hover:bg-blue-50/40',
+        borderHover: 'hover:border-[#1760AB]/70',
+        cardHoverBorder: 'hover:border-[#1760AB] hover:shadow-xs',
         iconBg: 'bg-blue-50',
         iconColor: 'text-[#1760AB]',
-        activeDot: 'bg-[#1760AB]',
       };
-    case 'cat-2': // Bậc Đại học -> Orange
-    case 'cat-4': // Miễn giảm & Trợ cấp -> Orange
+    case 'cat-2': // Bậc Đại học -> DUE Orange
+    case 'cat-4': // Miễn giảm & Trợ cấp -> DUE Orange
       return {
         gradientHeader: 'from-[#F26524] to-[#FA7035]',
-        borderHover: 'hover:border-[#F26524]/60',
-        cardHoverBorder: 'hover:border-[#F26524] hover:bg-orange-50/40',
+        borderHover: 'hover:border-[#F26524]/70',
+        cardHoverBorder: 'hover:border-[#F26524] hover:shadow-xs',
         iconBg: 'bg-orange-50',
         iconColor: 'text-[#F26524]',
-        activeDot: 'bg-[#F26524]',
       };
-    case 'cat-5': // Cử nhân Liên kết quốc tế -> Green
-    case 'cat-6': // Du học -> Green
+    case 'cat-3': // Đơn vị ngoài trường -> DUE Green
+    case 'cat-5': // Cử nhân Liên kết quốc tế -> DUE Green
     default:
       return {
         gradientHeader: 'from-[#119046] to-[#1BA855]',
-        borderHover: 'hover:border-[#119046]/60',
-        cardHoverBorder: 'hover:border-[#119046] hover:bg-emerald-50/40',
+        borderHover: 'hover:border-[#119046]/70',
+        cardHoverBorder: 'hover:border-[#119046] hover:shadow-xs',
         iconBg: 'bg-emerald-50',
         iconColor: 'text-[#119046]',
-        activeDot: 'bg-[#119046]',
       };
   }
 };
@@ -63,9 +59,9 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
     .filter((s) => s.categoryId === category.id && s.isActive !== false)
     .sort((a, b) => a.order - b.order);
 
-  // Clean title for perfect visual balance matching diagram
+  // Clean title formatting matching layout
   const formatTitle = (title: string) => {
-    if (title === 'HỌC BỔNG BẬC SAU ĐẠI HỌC') {
+    if (title.includes('SAU ĐẠI HỌC')) {
       return (
         <>
           <span className="block">HỌC BỔNG</span>
@@ -73,7 +69,7 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
         </>
       );
     }
-    if (title === 'HỌC BỔNG BẬC ĐẠI HỌC') {
+    if (title.includes('BẬC ĐẠI HỌC') || title === 'HỌC BỔNG ĐẠI HỌC') {
       return (
         <>
           <span className="block">HỌC BỔNG</span>
@@ -81,7 +77,7 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
         </>
       );
     }
-    if (title === 'HỌC BỔNG ĐƠN VỊ NGOÀI TRƯỜNG') {
+    if (title.includes('ĐƠN VỊ NGOÀI TRƯỜNG')) {
       return (
         <>
           <span className="block">HỌC BỔNG</span>
@@ -89,23 +85,23 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
         </>
       );
     }
-    if (title === 'CHÍNH SÁCH MIỄN GIẢM TRỢ CẤP XÃ HỘI') {
+    if (title.includes('MIỄN GIẢM TRỢ CẤP') || title.includes('CHÍNH SÁCH MIỄN GIẢM')) {
       return (
         <>
-          <span className="block">CHÍNH SÁCH MIỄN</span>
-          <span className="block">GIẢM TRỢ CẤP XÃ HỘI</span>
+          <span className="block">CHÍNH SÁCH MIỄN GIẢM,</span>
+          <span className="block">TRỢ CẤP XÃ HỘI</span>
         </>
       );
     }
-    if (title.includes('CỬ NHÂN LIÊN KẾT QUỐC TẾ')) {
+    if (title.includes('CỬ NHÂN LIÊN KẾT') || title.includes('LIÊN KẾT QUỐC TẾ')) {
       return (
         <>
-          <span className="block">HỌC BỔNG CHƯƠNG TRÌNH</span>
-          <span className="block">CỬ NHÂN LIÊN KẾT QUỐC TẾ</span>
+          <span className="block">HỌC BỔNG CỬ NHÂN</span>
+          <span className="block">LIÊN KẾT QUỐC TẾ</span>
         </>
       );
     }
-    if (title === 'HỌC BỔNG DU HỌC') {
+    if (title.includes('DU HỌC')) {
       return (
         <>
           <span className="block">HỌC BỔNG</span>
@@ -119,23 +115,21 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
   return (
     <div
       id={`category-${category.id}`}
-      className={`bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl ${styles.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group h-full`}
+      className={`rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-lg ${styles.borderHover} transition-all duration-200 flex flex-col justify-start overflow-hidden group bg-white h-full`}
     >
       {/* 
-        Top Header: Rút gọn độ cao chuẩn đẹp (h-14 sm:h-16)
-        - Căn giữa dọc và ngang tuyệt đối
-        - Màu sắc khớp 100% sơ đồ 6 cột
+        Top Header: Rút gọn độ cao vừa vặn (h-14 sm:h-16), tiêu đề trắng in hoa căn giữa cân đối
       */}
       <div
-        className={`h-14 sm:h-16 px-3 bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0`}
+        className={`h-14 sm:h-16 px-4 bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0 shadow-xs`}
       >
-        <h3 className="text-[11.5px] sm:text-xs md:text-[13px] font-black uppercase tracking-wide leading-tight max-w-[280px]">
+        <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-wide leading-tight max-w-[280px]">
           {formatTitle(category.title)}
         </h3>
       </div>
 
-      {/* Program Items List: Rút gọn padding, line-spacing và độ cao nút */}
-      <div className="p-2.5 sm:p-3 flex-1 flex flex-col gap-1.5 bg-slate-50/40">
+      {/* Program Items List: Rút gọn độ cao nút, line spacing vừa vặn, có icon chuẩn đẹp, không đánh số */}
+      <div className="p-3 sm:p-4 flex flex-col gap-2 bg-white flex-1">
         {items.map((scholarship) => {
           const displayTitle = scholarship.cardTitle || scholarship.title;
 
@@ -144,22 +138,29 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
               key={scholarship.id}
               type="button"
               onClick={() => onSelectScholarship(scholarship)}
-              className={`w-full group/item text-left py-1.5 px-2.5 sm:py-2 sm:px-3 rounded-xl border border-slate-200/80 bg-white hover:bg-white ${styles.cardHoverBorder} shadow-2xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150 flex items-center justify-between gap-2 cursor-pointer`}
+              className={`w-full group/item text-left py-2 px-3 sm:py-2.5 sm:px-3.5 rounded-xl border border-slate-200/80 bg-white hover:bg-slate-50/50 ${styles.cardHoverBorder} shadow-2xs hover:shadow-xs active:translate-y-0 transition-all duration-150 flex items-center justify-between gap-2.5 cursor-pointer`}
             >
-              <div className="flex items-center gap-2 min-w-0 flex-1">
-                {/* Number Badge 1..21 matching diagram */}
-                <span className="w-5 h-5 rounded-md bg-slate-100 text-slate-700 font-black text-[10px] flex items-center justify-center shrink-0 border border-slate-200 group-hover/item:border-blue-400 group-hover/item:bg-blue-50 group-hover/item:text-blue-700 transition-colors">
-                  {scholarship.order}
-                </span>
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                {/* Scholarship Icon */}
+                <div
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${styles.iconBg} ${styles.iconColor} flex items-center justify-center shrink-0 group-hover/item:scale-105 transition-transform`}
+                >
+                  <DynamicIcon
+                    name={scholarship.icon || 'GraduationCap'}
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-inherit"
+                  />
+                </div>
 
+                {/* Scholarship Title */}
                 <div className="min-w-0 flex-1">
-                  <span className="text-[11.5px] sm:text-[12px] font-bold text-slate-800 group-hover/item:text-[#1760AB] block leading-snug">
+                  <span className="text-xs sm:text-[12.5px] font-bold text-slate-800 group-hover/item:text-[#1760AB] block leading-snug">
                     {displayTitle}
                   </span>
                 </div>
               </div>
 
-              <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover/item:text-slate-700 group-hover/item:translate-x-0.5 transition-all shrink-0" />
+              {/* Chevron Arrow */}
+              <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover/item:text-slate-600 group-hover/item:translate-x-0.5 transition-all shrink-0" />
             </button>
           );
         })}

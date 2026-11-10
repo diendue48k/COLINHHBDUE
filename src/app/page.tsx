@@ -272,77 +272,79 @@ function PortalContent() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          <div className="max-w-4xl mx-auto">
             {/* Cột trái – Thông tin liên hệ */}
-            <div className="lg:col-span-7 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs space-y-3.5">
+            <div className="w-full bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs space-y-3.5">
               <div className="border-b border-slate-100 pb-2">
-                <span className="text-[11px] font-black text-[#1760AB] tracking-wider uppercase">
+                <span className="text-[11.5px] sm:text-xs font-black text-[#1760AB] tracking-wider uppercase">
                   ĐƠN VỊ PHỤ TRÁCH: PHÒNG CÔNG TÁC SINH VIÊN – TRƯỜNG ĐẠI HỌC KINH TẾ (DUE)
                 </span>
               </div>
 
-              {/* Địa chỉ */}
-              <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-blue-50/60 border border-blue-100">
-                <div className="w-8 h-8 rounded-lg bg-[#1760AB] text-white flex items-center justify-center shrink-0 shadow-xs">
-                  <MapPin className="w-4 h-4" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Địa chỉ */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-blue-50/60 border border-blue-100">
+                  <div className="w-8 h-8 rounded-lg bg-[#1760AB] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div className="text-[11.5px] space-y-0.5">
+                    <span className="font-extrabold text-[#1760AB] block uppercase text-[10px]">Địa chỉ văn phòng:</span>
+                    <p className="text-slate-800 font-bold leading-snug">
+                      Phòng H214, Tòa nhà Hành chính, Trường Đại học Kinh tế – Đại học Đà Nẵng
+                    </p>
+                    <p className="text-slate-500 font-medium text-[11px]">71 Ngũ Hành Sơn, Phường Mỹ An, Quận Ngũ Hành Sơn, TP. Đà Nẵng</p>
+                  </div>
                 </div>
-                <div className="text-[11.5px] space-y-0.5">
-                  <span className="font-extrabold text-[#1760AB] block uppercase text-[10.5px]">Địa chỉ văn phòng:</span>
-                  <p className="text-slate-800 font-bold">
-                    Phòng H214, Tòa nhà Hành chính, Trường Đại học Kinh tế – Đại học Đà Nẵng
-                  </p>
-                  <p className="text-slate-500 font-medium">71 Ngũ Hành Sơn, Phường Mỹ An, Quận Ngũ Hành Sơn, TP. Đà Nẵng</p>
-                </div>
-              </div>
 
-              {/* Điện thoại */}
-              <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-orange-50/70 border border-orange-100">
-                <div className="w-8 h-8 rounded-lg bg-[#F26524] text-white flex items-center justify-center shrink-0 shadow-xs">
-                  <Phone className="w-4 h-4" />
+                {/* Điện thoại */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-orange-50/70 border border-orange-100">
+                  <div className="w-8 h-8 rounded-lg bg-[#F26524] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div className="text-[11.5px] space-y-0.5">
+                    <span className="font-extrabold text-[#F26524] block uppercase text-[10px]">Điện thoại đường dây nóng (Hotline):</span>
+                    <a
+                      href="tel:02363956397"
+                      className="text-sm font-black text-slate-900 hover:text-[#F26524] transition-colors inline-block"
+                    >
+                      0236 3956 397
+                    </a>
+                    <span className="text-slate-500 text-[10.5px] block">(Hỗ trợ giải đáp các chế độ chính sách và học bổng sinh viên)</span>
+                  </div>
                 </div>
-                <div className="text-[11.5px] space-y-0.5">
-                  <span className="font-extrabold text-[#F26524] block uppercase text-[10.5px]">Điện thoại đường dây nóng (Hotline):</span>
-                  <a
-                    href="tel:02363956397"
-                    className="text-sm font-black text-slate-900 hover:text-[#F26524] transition-colors inline-block"
-                  >
-                    0236 3956 397
-                  </a>
-                  <span className="text-slate-500 text-[10.5px] block">(Hỗ trợ giải đáp các chế độ chính sách và học bổng sinh viên)</span>
-                </div>
-              </div>
 
-              {/* Email */}
-              <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50/70 border border-sky-100">
-                <div className="w-8 h-8 rounded-lg bg-[#009FE3] text-white flex items-center justify-center shrink-0 shadow-xs">
-                  <Mail className="w-4 h-4" />
+                {/* Email */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50/70 border border-sky-100">
+                  <div className="w-8 h-8 rounded-lg bg-[#009FE3] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div className="text-[11.5px] space-y-0.5">
+                    <span className="font-extrabold text-[#009FE3] block uppercase text-[10px]">Hộp thư điện tử (Email):</span>
+                    <a
+                      href="mailto:phongcongtacsinhvien@due.edu.vn"
+                      className="text-xs font-bold text-slate-900 hover:text-[#009FE3] transition-colors inline-block"
+                    >
+                      phongcongtacsinhvien@due.edu.vn
+                    </a>
+                  </div>
                 </div>
-                <div className="text-[11.5px] space-y-0.5">
-                  <span className="font-extrabold text-[#009FE3] block uppercase text-[10.5px]">Hộp thư điện tử (Email):</span>
-                  <a
-                    href="mailto:phongcongtacsinhvien@due.edu.vn"
-                    className="text-xs font-bold text-slate-900 hover:text-[#009FE3] transition-colors inline-block"
-                  >
-                    phongcongtacsinhvien@due.edu.vn
-                  </a>
-                </div>
-              </div>
 
-              {/* Website */}
-              <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100">
-                <div className="w-8 h-8 rounded-lg bg-[#119046] text-white flex items-center justify-center shrink-0 shadow-xs">
-                  <Globe className="w-4 h-4" />
-                </div>
-                <div className="text-[11.5px] space-y-0.5">
-                  <span className="font-extrabold text-[#119046] block uppercase text-[10.5px]">Trang thông tin điện tử (Website):</span>
-                  <a
-                    href="https://due.udn.vn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-slate-900 hover:text-[#119046] transition-colors inline-block"
-                  >
-                    www.due.edu.vn &nbsp;|&nbsp; hocbong.id.vn
-                  </a>
+                {/* Website */}
+                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100">
+                  <div className="w-8 h-8 rounded-lg bg-[#119046] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Globe className="w-4 h-4" />
+                  </div>
+                  <div className="text-[11.5px] space-y-0.5">
+                    <span className="font-extrabold text-[#119046] block uppercase text-[10px]">Trang thông tin điện tử (Website):</span>
+                    <a
+                      href="https://due.udn.vn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-bold text-slate-900 hover:text-[#119046] transition-colors inline-block"
+                    >
+                      www.due.edu.vn &nbsp;|&nbsp; hocbong.id.vn
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -355,123 +357,125 @@ function PortalContent() {
               </div>
             </div>
 
-            {/* Cột phải – Form liên hệ */}
-            <div className="lg:col-span-5 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs">
-              <div className="border-b border-slate-100 pb-2 mb-3">
-                <span className="text-[11px] font-black text-[#F26524] tracking-wider uppercase">
-                  GỬI YÊU CẦU TƯ VẤN & HỖ TRỢ TRỰC TUYẾN
-                </span>
-              </div>
-
-              {contactSubmitted ? (
-                <div className="p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-center space-y-2.5">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-xs">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-xs font-bold text-emerald-900">Đã gửi yêu cầu thành công!</h4>
-                  <p className="text-[11px] text-emerald-700 leading-relaxed">
-                    Phòng Công tác Sinh viên Trường Đại học Kinh tế – ĐHĐN đã tiếp nhận thông tin và sẽ phản hồi qua email của bạn trong thời gian sớm nhất.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setContactSubmitted(false);
-                      setContactForm({
-                        fullName: '',
-                        email: '',
-                        phone: '',
-                        topic: 'hoc-bong-dh',
-                        content: '',
-                      });
-                    }}
-                    className="mt-1 text-xs font-bold text-emerald-800 underline hover:text-emerald-950"
-                  >
-                    Gửi yêu cầu khác
-                  </button>
+            {/* Tạm ẩn Form liên hệ trực tuyến theo yêu cầu (lưu code đầy đủ để bật lại khi cần) */}
+            {false && (
+              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs mt-4">
+                <div className="border-b border-slate-100 pb-2 mb-3">
+                  <span className="text-[11px] font-black text-[#F26524] tracking-wider uppercase">
+                    GỬI YÊU CẦU TƯ VẤN & HỖ TRỢ TRỰC TUYẾN
+                  </span>
                 </div>
-              ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setContactSubmitted(true);
-                  }}
-                  className="space-y-2.5 text-xs"
-                >
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Họ và tên *</label>
-                    <input
-                      required
-                      type="text"
-                      value={contactForm.fullName}
-                      onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
-                      placeholder="Nguyễn Văn A"
-                      className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                    />
-                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Email *</label>
-                      <input
-                        required
-                        type="email"
-                        value={contactForm.email}
-                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                        placeholder="email@due.edu.vn"
-                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                      />
+                {contactSubmitted ? (
+                  <div className="p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-center space-y-2.5">
+                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-xs">
+                      <CheckCircle2 className="w-6 h-6" />
                     </div>
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Số điện thoại *</label>
-                      <input
-                        required
-                        type="tel"
-                        value={contactForm.phone}
-                        onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                        placeholder="0905 xxx xxx"
-                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nhóm vấn đề cần liên hệ *</label>
-                    <select
-                      value={contactForm.topic}
-                      onChange={(e) => setContactForm({ ...contactForm, topic: e.target.value })}
-                      className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-700 font-medium text-xs"
+                    <h4 className="text-xs font-bold text-emerald-900">Đã gửi yêu cầu thành công!</h4>
+                    <p className="text-[11px] text-emerald-700 leading-relaxed">
+                      Phòng Công tác Sinh viên Trường Đại học Kinh tế – ĐHĐN đã tiếp nhận thông tin và sẽ phản hồi qua email của bạn trong thời gian sớm nhất.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setContactSubmitted(false);
+                        setContactForm({
+                          fullName: '',
+                          email: '',
+                          phone: '',
+                          topic: 'hoc-bong-dh',
+                          content: '',
+                        });
+                      }}
+                      className="mt-1 text-xs font-bold text-emerald-800 underline hover:text-emerald-950"
                     >
-                      <option value="hoc-bong-dh">1. Học bổng Khuyến khích học tập & Tài năng Đại học</option>
-                      <option value="hoc-bong-sdh">2. Học bổng Sau Đại học (Cao học / NCS)</option>
-                      <option value="doanh-nghiep">3. Học bổng Doanh nghiệp & Đơn vị ngoài trường</option>
-                      <option value="mien-giam">4. Miễn giảm học phí & Trợ cấp xã hội</option>
-                      <option value="quoc-te">5. Học bổng Cử nhân Liên kết & Du học</option>
-                      <option value="khac">6. Vấn đề khác</option>
-                    </select>
+                      Gửi yêu cầu khác
+                    </button>
                   </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nội dung cần hỗ trợ *</label>
-                    <textarea
-                      required
-                      rows={2.5}
-                      value={contactForm.content}
-                      onChange={(e) => setContactForm({ ...contactForm, content: e.target.value })}
-                      placeholder="Mô tả cụ thể câu hỏi hoặc nội dung bạn cần Nhà trường hỗ trợ..."
-                      className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-800 font-medium leading-relaxed text-xs"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-2 px-4 rounded-xl bg-[#1760AB] hover:bg-blue-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setContactSubmitted(true);
+                    }}
+                    className="space-y-2.5 text-xs"
                   >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Gửi liên hệ</span>
-                  </button>
-                </form>
-              )}
-            </div>
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Họ và tên *</label>
+                      <input
+                        required
+                        type="text"
+                        value={contactForm.fullName}
+                        onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
+                        placeholder="Nguyễn Văn A"
+                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Email *</label>
+                        <input
+                          required
+                          type="email"
+                          value={contactForm.email}
+                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                          placeholder="email@due.edu.vn"
+                          className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Số điện thoại *</label>
+                        <input
+                          required
+                          type="tel"
+                          value={contactForm.phone}
+                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                          placeholder="0905 xxx xxx"
+                          className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nhóm vấn đề cần liên hệ *</label>
+                      <select
+                        value={contactForm.topic}
+                        onChange={(e) => setContactForm({ ...contactForm, topic: e.target.value })}
+                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-700 font-medium text-xs"
+                      >
+                        <option value="hoc-bong-dh">1. Học bổng Khuyến khích học tập & Tài năng Đại học</option>
+                        <option value="hoc-bong-sdh">2. Học bổng Sau Đại học (Cao học / NCS)</option>
+                        <option value="doanh-nghiep">3. Học bổng Doanh nghiệp & Đơn vị ngoài trường</option>
+                        <option value="mien-giam">4. Miễn giảm học phí & Trợ cấp xã hội</option>
+                        <option value="quoc-te">5. Học bổng Cử nhân Liên kết & Du học</option>
+                        <option value="khac">6. Vấn đề khác</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nội dung cần hỗ trợ *</label>
+                      <textarea
+                        required
+                        rows={2.5}
+                        value={contactForm.content}
+                        onChange={(e) => setContactForm({ ...contactForm, content: e.target.value })}
+                        placeholder="Mô tả cụ thể câu hỏi hoặc nội dung bạn cần Nhà trường hỗ trợ..."
+                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-800 font-medium leading-relaxed text-xs"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-2 px-4 rounded-xl bg-[#1760AB] hover:bg-blue-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Gửi liên hệ</span>
+                    </button>
+                  </form>
+                )}
+              </div>
+            )}
           </div>
         </section>
 
