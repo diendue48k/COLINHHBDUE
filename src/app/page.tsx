@@ -229,7 +229,7 @@ function PortalContent() {
 
           {/* Grid Notification Cards (3 Cột x 2 Hàng) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredAnnouncements.map((ann, idx) => {
+            {filteredAnnouncements.slice(0, 6).map((ann, idx) => {
               const badgeColors = [
                 'bg-blue-50 text-[#1760AB] border-blue-200',
                 'bg-orange-50 text-[#F26524] border-orange-200',
@@ -280,6 +280,21 @@ function PortalContent() {
               Không có thông báo nào thuộc danh mục này.
             </div>
           )}
+
+          {/* Nút Xem tất cả thông báo căn giữa */}
+          <div className="mt-6 text-center">
+            <Link
+              href={
+                selectedAnnouncementCategory !== 'all'
+                  ? `/thong-bao?category=${selectedAnnouncementCategory}`
+                  : '/thong-bao'
+              }
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-[13px] font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] border border-blue-200 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
+            >
+              <span>Xem tất cả thông báo</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </section>
 
         {/* 

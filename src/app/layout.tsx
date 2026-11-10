@@ -1,5 +1,73 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
+
+const svnGilroy = localFont({
+  src: [
+    {
+      path: '../../public/fonts/SVN-Gilroy-Thin.otf',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Light.otf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Italic.otf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Medium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-SemiBold.otf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-SemiBoldItalic.otf',
+      weight: '600',
+      style: 'italic',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Bold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-BoldItalic.otf',
+      weight: '700',
+      style: 'italic',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-XBold.otf',
+      weight: '800',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Heavy.otf',
+      weight: '900',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/SVN-Gilroy-Black.otf',
+      weight: '950',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-svn-gilroy',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'CỔNG THÔNG TIN HỌC BỔNG – TRƯỜNG ĐẠI HỌC KINH TẾ, ĐẠI HỌC ĐÀ NẴNG (DUE)',
@@ -25,8 +93,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
-      <body className="antialiased min-h-screen text-slate-800 bg-[#F8FAFC]">
+    <html lang="vi" className={svnGilroy.variable}>
+      <body className={`${svnGilroy.className} antialiased min-h-screen text-slate-800 bg-[#F8FAFC]`}>
         {children}
       </body>
     </html>

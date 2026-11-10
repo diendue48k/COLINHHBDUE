@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
@@ -19,11 +20,23 @@ const CATEGORY_FILTERS = [
   { id: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế', match: 'Liên kết' },
 ];
 
-export default function AnnouncementsPage() {
+function AnnouncementsContent() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
   const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'all');
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
+
+  useEffect(() => {
+    if (categoryParam) {
+      const exists = CATEGORY_FILTERS.some((c) => c.id === categoryParam);
+      if (exists) {
+        setSelectedCategory(categoryParam);
+      }
+    }
+  }, [categoryParam]);
 
   useEffect(() => {
     fetch('/api/data?type=announcements')
@@ -235,5 +248,13 @@ export default function AnnouncementsPage() {
         onClose={() => setSelectedAnnouncement(null)}
       />
     </div>
+  );
+}
+
+export default function AnnouncementsPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-slate-500 font-bold">Đang tải danh sách thông báo...</div>}>
+      <AnnouncementsContent />
+    </Suspense>
   );
 }

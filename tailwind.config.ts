@@ -8,6 +8,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          'var(--font-svn-gilroy)',
+          '"SVN-Gilroy"',
+          '"SVN-Griloy"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          'sans-serif',
+        ],
+        gilroy: [
+          'var(--font-svn-gilroy)',
+          '"SVN-Gilroy"',
+          '"SVN-Griloy"',
+          'sans-serif',
+        ],
+      },
       colors: {
         due: {
           blue: "#0F52BA",

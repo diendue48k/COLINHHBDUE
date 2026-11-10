@@ -41,6 +41,8 @@ export const Header: React.FC<HeaderProps> = ({
         top: offsetPosition > 0 ? offsetPosition : 0,
         behavior: 'smooth',
       });
+    } else {
+      window.location.href = `/#${id}`;
     }
   };
 
