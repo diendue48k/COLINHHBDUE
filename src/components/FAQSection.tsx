@@ -6,18 +6,12 @@ import {
   ChevronDown,
   Search,
   MessageCircle,
-  GraduationCap,
-  Sparkles,
   ArrowRight,
-  BookOpen,
-  DollarSign,
-  Globe2,
-  FileText,
 } from 'lucide-react';
 
 interface FAQ {
   id: string;
-  category: 'all' | 'chung' | 'dai-hoc' | 'sau-dai-hoc' | 'quoc-te' | 'mien-giam' | 'ho-so';
+  category: 'all' | 'dai-hoc' | 'ngoai-truong' | 'mien-giam' | 'du-hoc' | 'sau-dai-hoc' | 'lien-ket';
   categoryLabel: string;
   question: string;
   answerHtml: string;
@@ -27,7 +21,7 @@ const FAQ_LIST: FAQ[] = [
   {
     id: 'faq-1',
     category: 'dai-hoc',
-    categoryLabel: 'Học bổng ĐH',
+    categoryLabel: 'Học bổng Bậc Đại học',
     question: 'Điều kiện xét cấp Học bổng Khuyến khích học tập (KKHT) tại DUE là gì?',
     answerHtml: `
       <p class="mb-2">Học bổng Khuyến khích học tập được xét và cấp theo từng học kỳ dựa trên 02 tiêu chí chính:</p>
@@ -40,111 +34,112 @@ const FAQ_LIST: FAQ[] = [
   },
   {
     id: 'faq-2',
-    category: 'chung',
-    categoryLabel: 'Thông tin chung',
-    question: 'Sinh viên có thể nhận đồng thời nhiều loại học bổng trong cùng một học kỳ không?',
+    category: 'ngoai-truong',
+    categoryLabel: 'Học bổng Đơn vị ngoài trường',
+    question: 'Sinh viên có thể nhận đồng thời Học bổng Doanh nghiệp và Học bổng Khuyến khích học tập của Trường không?',
     answerHtml: `
       <p class="mb-2">Theo quy định hiện hành của Trường Đại học Kinh tế – ĐHĐN:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li>Sinh viên <strong>được phép nhận đồng thời</strong> Học bổng Khuyến khích học tập của Nhà trường và Học bổng từ các Doanh nghiệp, Đơn vị tài trợ ngoài trường (trừ trường hợp nhà tài trợ có quy định riêng loại trừ).</li>
-        <li>Đối với các học bổng do Quỹ học bổng DUE hoặc Doanh nghiệp cùng đối tác cấp, Hội đồng xét cấp sẽ ưu tiên phân bổ cơ hội cho nhiều sinh viên có hoàn cảnh và thành tích khác nhau.</li>
+        <li>Sinh viên <strong>được phép nhận đồng thời</strong> Học bổng Khuyến khích học tập của Nhà trường và Học bổng từ các Doanh nghiệp, cựu sinh viên, Quỹ Hạt giống tốt lành (trừ trường hợp nhà tài trợ có thỏa thuận loại trừ cụ thể).</li>
+        <li>Hội đồng xét cấp học bổng ngoài trường luôn ưu tiên những sinh viên có hoàn cảnh khó khăn vươn lên trong học tập, hoặc sinh viên có thành tích xuất sắc trong phong trào nghiên cứu, khởi nghiệp.</li>
       </ul>
-    `,
-  },
-  {
-    id: 'faq-3',
-    category: 'ho-so',
-    categoryLabel: 'Hồ sơ & quy trình',
-    question: 'Quy trình và thời gian nhận tiền học bổng sau khi có quyết định chính thức?',
-    answerHtml: `
-      <p class="mb-2">Quy trình chi trả học bổng tại DUE được thực hiện hoàn toàn tự động và minh bạch:</p>
-      <ol class="list-decimal pl-5 space-y-1 mb-2">
-        <li>Sau khi Hội đồng ban hành Quyết định chính thức và hết thời gian khiếu nại (05 ngày làm việc), danh sách được chuyển sang Phòng Kế hoạch - Tài chính.</li>
-        <li>Nhà trường chuyển khoản trực tiếp học bổng vào <strong>Tài khoản Ngân hàng (BIDV/Vietinbank)</strong> liên kết mã sinh viên.</li>
-        <li>Thời gian nhận: Thường từ 7 – 15 ngày làm việc kể từ ngày ra quyết định chi trả.</li>
-      </ol>
     `,
   },
   {
     id: 'faq-4',
     category: 'dai-hoc',
-    categoryLabel: 'Học bổng ĐH',
+    categoryLabel: 'Học bổng Bậc Đại học',
     question: 'Học bổng Tinh hoa (DUE – Elite) dành cho đối tượng nào và giá trị bao nhiêu?',
     answerHtml: `
       <p class="mb-2"><strong>Học bổng Tinh hoa DUE – Elite</strong> là chương trình học bổng danh giá bậc nhất dành cho:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li>Tân sinh viên trúng tuyển thẳng hoặc đạt giải Học sinh giỏi Quốc gia, thủ khoa đầu vào các khối ngành.</li>
+        <li>Tân sinh viên trúng tuyển thẳng hoặc đạt giải Học sinh giỏi Quốc gia, thủ khoa đầu vào các khối ngành tuyển sinh của DUE.</li>
         <li>Sinh viên xuất sắc duy trì GPA tích lũy từ 3.6/4.0 trở lên, có bài báo khoa học hoặc giải thưởng NCKH cấp Bộ/ĐHĐN.</li>
       </ul>
-      <p>Mức trao thưởng: <strong>100% học phí toàn khóa</strong> cùng trợ cấp sinh hoạt phí và ưu tiên tham gia các chương trình trao đổi quốc tế.</p>
+      <p>Mức trao thưởng: <strong>100% học phí toàn khóa</strong> cùng gói trợ cấp sinh hoạt phí và ưu tiên đặc biệt khi tham gia các chương trình trao đổi quốc tế.</p>
     `,
   },
   {
     id: 'faq-5',
     category: 'sau-dai-hoc',
-    categoryLabel: 'Học bổng SĐH',
-    question: 'Chương trình học bổng Nhà nghiên cứu trẻ và Nhà khoa học sau đại học có yêu cầu gì?',
+    categoryLabel: 'Học bổng Bậc Sau đại học',
+    question: 'Chương trình học bổng Phát triển Nhà nghiên cứu trẻ và Nhà khoa học sau đại học có yêu cầu gì?',
     answerHtml: `
-      <p class="mb-2">Dành cho học viên cao học và nghiên cứu sinh định hướng nghiên cứu tại DUE:</p>
+      <p class="mb-2">Chương trình dành riêng cho học viên cao học và nghiên cứu sinh tại DUE nhằm đẩy mạnh công bố khoa học quốc tế:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li>Học viên cao học: Có công bố bài báo khoa học thuộc danh mục Scopus/WoS hoặc tạp chí khoa học tính điểm của HĐGSNN; duy trì GPA &ge; 3.2.</li>
-        <li>Nghiên cứu sinh: Được hỗ trợ từ 50% đến 100% học phí kèm gói tài trợ nghiên cứu từ 30 – 100 triệu VNĐ khi có bài báo Q1/Q2 quốc tế.</li>
+        <li><strong>Học viên cao học:</strong> Hỗ trợ học phí và kinh phí khi có bài báo khoa học đăng trên tạp chí thuộc danh mục WoS/Scopus hoặc kỷ yếu hội thảo quốc tế uy tín; duy trì GPA &ge; 3.2.</li>
+        <li><strong>Nghiên cứu sinh:</strong> Được hỗ trợ từ 50% đến 100% học phí toàn khóa kèm gói tài trợ nghiên cứu từ 30 – 100 triệu VNĐ khi có bài báo Q1/Q2 quốc tế.</li>
       </ul>
     `,
   },
   {
     id: 'faq-6',
     category: 'mien-giam',
-    categoryLabel: 'Miễn giảm học phí & Trợ cấp',
-    question: 'Hồ sơ xin miễn giảm học phí và trợ cấp xã hội theo Nghị định 81/2021/NĐ-CP gồm những gì?',
+    categoryLabel: 'Chính sách Miễn giảm',
+    question: 'Hồ sơ xin miễn giảm học phí, trợ cấp xã hội và hỗ trợ lãi vay NHCSXH gồm những gì?',
     answerHtml: `
-      <p class="mb-2">Sinh viên chuẩn bị hồ sơ nộp về Phòng CTSV vào đầu mỗi học kỳ, gồm:</p>
+      <p class="mb-2">Sinh viên chuẩn bị hồ sơ nộp về Phòng CTSV vào đầu mỗi học kỳ theo thông báo, gồm:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li>Đơn đề nghị miễn, giảm học phí (theo mẫu quy định của Bộ GD&ĐT).</li>
+        <li>Đơn đề nghị miễn, giảm học phí (theo mẫu quy định của Bộ GD&ĐT ban hành kèm Nghị định 81/2021/NĐ-CP).</li>
         <li>Bản sao có chứng thực Giấy chứng nhận hộ nghèo / cận nghèo năm hiện hành (đối với diện hộ nghèo).</li>
-        <li>Giấy xác nhận con thương binh, bệnh binh, liệt sĩ hoặc quyết định trợ cấp xã hội (nếu thuộc diện bảo trợ).</li>
-        <li>Căn cước công dân và Giấy khai sinh bản sao chứng thực.</li>
+        <li>Giấy xác nhận con thương binh, bệnh binh, thân nhân liệt sĩ hoặc quyết định trợ cấp xã hội.</li>
+        <li>Giấy xác nhận vay vốn sinh viên tại Ngân hàng Chính sách Xã hội để được hỗ trợ lãi suất theo quy định.</li>
       </ul>
     `,
   },
   {
     id: 'faq-7',
-    category: 'quoc-te',
-    categoryLabel: 'Quốc tế & Du học',
-    question: 'Sinh viên DUE có cơ hội nhận học bổng trao đổi quốc tế hoặc chuyển tiếp như thế nào?',
+    category: 'du-hoc',
+    categoryLabel: 'Học bổng Du học',
+    question: 'Sinh viên DUE có cơ hội nhận học bổng trao đổi quốc tế hoặc du học chuyển tiếp như thế nào?',
     answerHtml: `
-      <p class="mb-2">DUE hợp tác với hơn 50 trường đại học hàng đầu tại Anh, Mỹ, Úc, Pháp, Hàn Quốc, Nhật Bản:</p>
+      <p class="mb-2">DUE hợp tác chiến lược với hơn 50 trường đại học hàng đầu tại Anh, Mỹ, Úc, Pháp, Hàn Quốc, Nhật Bản:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li><strong>Học bổng Erasmus+ (Châu Âu):</strong> Tài trợ 100% vé máy bay và sinh hoạt phí 850 EUR/tháng cho 1 học kỳ trao đổi.</li>
-        <li><strong>Học bổng Chuyển tiếp quốc tế (Top-up):</strong> Miễn giảm từ 20% – 50% học phí tại Đại học Hull, Northampton (UK), George Mason (USA).</li>
-        <li>Điều kiện cơ bản: GPA từ 3.0/4.0 trở lên và chứng chỉ tiếng Anh IELTS &ge; 6.0.</li>
+        <li><strong>Học bổng Erasmus+ (Châu Âu):</strong> Tài trợ 100% vé máy bay và sinh hoạt phí lên đến 850 EUR/tháng cho 1 học kỳ trao đổi tín chỉ.</li>
+        <li><strong>Học bổng Chuyển tiếp quốc tế (Top-up):</strong> Miễn giảm từ 20% – 50% học phí tại Đại học Hull, Northampton (Vương quốc Anh), George Mason (Hoa Kỳ).</li>
+        <li>Điều kiện cơ bản: GPA từ 3.0/4.0 trở lên và chứng chỉ tiếng Anh quốc tế IELTS &ge; 6.0 hoặc tương đương.</li>
       </ul>
     `,
   },
   {
     id: 'faq-8',
-    category: 'ho-so',
-    categoryLabel: 'Hồ sơ & quy trình',
-    question: 'Tôi có thể theo dõi và nộp hồ sơ học bổng trực tuyến ở đâu?',
+    category: 'lien-ket',
+    categoryLabel: 'Học bổng Chương trình Cử nhân Liên kết quốc tế',
+    question: 'Chính sách học bổng dành cho sinh viên Chương trình Cử nhân Liên kết quốc tế (BTEC – HND, Top-up)?',
     answerHtml: `
-      <p class="mb-2">Sinh viên có thể nộp hồ sơ hoàn toàn trực tuyến:</p>
+      <p class="mb-2">Viện Đào tạo Quốc tế DUE áp dụng quỹ học bổng riêng biệt dành cho sinh viên hệ liên kết:</p>
       <ul class="list-disc pl-5 space-y-1 mb-2">
-        <li>Truy cập Cổng thông tin học bổng DUE, bấm vào chương trình học bổng bạn quan tâm để tải mẫu đơn đăng ký.</li>
-        <li>Nộp trực tuyến qua <strong>Hệ thống quản lý sinh viên DUE Portal (sinhvien.due.udn.vn)</strong> hoặc nộp bản cứng tại Phòng Công tác Sinh viên (Phòng H214).</li>
-        <li>Mọi thắc mắc sinh viên có thể gửi câu hỏi qua form hỗ trợ hoặc liên hệ Hotline: <strong>0236 3956 397</strong>.</li>
+        <li><strong>Học bổng tuyển sinh:</strong> Dành cho thí sinh có điểm xét tuyển đầu vào cao, đạt chứng chỉ IELTS &ge; 6.5 trở lên khi nhập học.</li>
+        <li><strong>Học bổng chương trình tiếng Anh & đại cương:</strong> Khen thưởng sinh viên đạt thành tích xuất sắc ở giai đoạn BTEC – HND.</li>
+        <li><strong>Học bổng chuyển tiếp năm cuối (Top Up year):</strong> Giảm trừ trực tiếp học phí năm tốt nghiệp tại trường đại học đối tác nước ngoài.</li>
       </ul>
+    `,
+  },
+  {
+    id: 'faq-3',
+    category: 'dai-hoc',
+    categoryLabel: 'Học bổng Bậc Đại học',
+    question: 'Quy trình và thời gian nhận tiền học bổng sau khi có quyết định chính thức?',
+    answerHtml: `
+      <p class="mb-2">Quy trình chi trả học bổng tại DUE được thực hiện hoàn toàn tự động và minh bạch:</p>
+      <ol class="list-decimal pl-5 space-y-1 mb-2">
+        <li>Sau khi Hội đồng ban hành Quyết định chính thức và hết thời hạn khiếu nại (05 ngày làm việc), danh sách được chuyển sang Phòng Kế hoạch - Tài chính.</li>
+        <li>Nhà trường chuyển khoản trực tiếp học bổng vào <strong>Tài khoản Ngân hàng</strong> liên kết mã sinh viên.</li>
+        <li>Thời gian nhận: Thường từ 7 – 15 ngày làm việc kể từ ngày ban hành quyết định chi trả.</li>
+      </ol>
     `,
   },
 ];
 
+// Exact 6 scholarship categories matching portal structure
 const CATEGORIES = [
   { id: 'all', label: 'Tất cả câu hỏi' },
-  { id: 'chung', label: 'Thông tin chung' },
-  { id: 'dai-hoc', label: 'Học bổng ĐH' },
-  { id: 'sau-dai-hoc', label: 'Học bổng SĐH' },
-  { id: 'quoc-te', label: 'Quốc tế & Du học' },
-  { id: 'mien-giam', label: 'Miễn giảm học phí' },
-  { id: 'ho-so', label: 'Hồ sơ & Quy trình' },
+  { id: 'dai-hoc', label: 'Học bổng Bậc Đại học' },
+  { id: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường' },
+  { id: 'mien-giam', label: 'Chính sách Miễn giảm' },
+  { id: 'du-hoc', label: 'Học bổng Du học' },
+  { id: 'sau-dai-hoc', label: 'Học bổng Bậc Sau đại học' },
+  { id: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế' },
 ];
 
 export const FAQSection: React.FC = () => {
@@ -154,23 +149,6 @@ export const FAQSection: React.FC = () => {
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({
     'faq-1': true, // Open first question by default
   });
-
-  useEffect(() => {
-    async function loadFaqs() {
-      try {
-        const res = await fetch('/api/data?type=faqs', { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            setFaqs(data as FAQ[]);
-          }
-        }
-      } catch (e) {
-        console.error('Failed to load FAQs:', e);
-      }
-    }
-    loadFaqs();
-  }, []);
 
   const toggleFAQ = (id: string) => {
     setOpenIds((prev) => ({
@@ -227,7 +205,7 @@ export const FAQSection: React.FC = () => {
           />
         </div>
 
-        {/* Category Pills */}
+        {/* 6 Category Pills + Tất cả câu hỏi */}
         <div className="flex items-center justify-center gap-1.5 flex-wrap">
           {CATEGORIES.map((cat) => {
             const isActive = activeTab === cat.id;
@@ -249,7 +227,7 @@ export const FAQSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Accordion FAQ List */}
+      {/* Accordion FAQ List: Bỏ hoàn toàn ký hiệu chữ Q theo yêu cầu */}
       <div className="space-y-2 max-w-4xl mx-auto">
         {filteredFAQs.map((faq) => {
           const isOpen = !!openIds[faq.id];
@@ -267,22 +245,17 @@ export const FAQSection: React.FC = () => {
                 onClick={() => toggleFAQ(faq.id)}
                 className="w-full text-left p-3 sm:p-3.5 flex items-start justify-between gap-3 cursor-pointer"
               >
-                <div className="flex items-start gap-2.5 flex-1 min-w-0">
-                  <span className="w-5 h-5 rounded-md bg-blue-50 text-[#0B4899] font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5">
-                    Q
+                <div className="flex-1 min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#1760AB] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100 inline-block mb-1">
+                    {faq.categoryLabel}
                   </span>
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-                      {faq.categoryLabel}
-                    </span>
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
-                      {faq.question}
-                    </h3>
-                  </div>
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                    {faq.question}
+                  </h3>
                 </div>
 
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all mt-0.5 ${
                     isOpen ? 'bg-[#0B4899] text-white rotate-180' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                   }`}
                 >
@@ -307,7 +280,7 @@ export const FAQSection: React.FC = () => {
             <HelpCircle className="w-8 h-8 text-slate-300 mx-auto" />
             <h4 className="text-xs font-bold text-slate-700">Không tìm thấy câu hỏi phù hợp</h4>
             <p className="text-[11px] text-slate-500 max-w-md mx-auto">
-              Không có câu hỏi nào khớp với từ khóa tìm kiếm. Bạn có thể gửi câu hỏi trực tiếp cho Phòng Công tác Sinh viên để được hỗ trợ.
+              Không có câu hỏi nào khớp với chuyên mục hoặc từ khóa tìm kiếm. Bạn có thể liên hệ trực tiếp Phòng Công tác Sinh viên để được giải đáp.
             </p>
           </div>
         )}
@@ -322,7 +295,7 @@ export const FAQSection: React.FC = () => {
           </div>
           <h3 className="text-base sm:text-lg font-black">Bạn vẫn còn thắc mắc chưa được giải đáp?</h3>
           <p className="text-[11px] text-white/85 max-w-lg">
-            Đừng ngần ngại liên hệ hoặc gửi form thắc mắc cho Phòng Công tác Sinh viên DUE để được giải đáp cụ thể và nhanh chóng.
+            Đừng ngần ngại liên hệ với Phòng Công tác Sinh viên DUE để được giải đáp cụ thể và nhanh chóng.
           </p>
         </div>
 
@@ -331,7 +304,7 @@ export const FAQSection: React.FC = () => {
           onClick={scrollToContact}
           className="shrink-0 px-4 py-2 rounded-xl bg-white text-[#0B4899] hover:bg-orange-50 hover:text-[#FA541C] font-black text-xs shadow-md transition-all flex items-center gap-1.5 group cursor-pointer"
         >
-          <span>Gửi câu hỏi ngay</span>
+          <span>Xem thông tin liên hệ</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>

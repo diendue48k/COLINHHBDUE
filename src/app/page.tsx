@@ -144,7 +144,9 @@ function PortalContent() {
               CƠ HỘI DÀNH CHO BẠN
             </h1>
             <p className="text-xs text-slate-500 font-medium leading-normal">
-              Khám phá các chương trình học bổng, chính sách hỗ trợ và cơ hội phát triển dành cho người học tại Trường Đại học Kinh tế – Đại học Đà Nẵng.
+              Khám phá các chương trình học bổng, chính sách hỗ trợ và cơ hội phát triển dành cho người học
+              <br />
+              tại Trường Đại học Kinh tế – Đại học Đà Nẵng.
             </p>
           </div>
 
@@ -174,33 +176,18 @@ function PortalContent() {
           ----------------------------------------------------------
         */}
         <section id="muc-thong-bao" className="pt-1 scroll-mt-28">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#F26524] text-white flex items-center justify-center shadow-xs shrink-0">
-                <span className="text-base font-black">!</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-lg sm:text-xl font-black text-[#1760AB] uppercase tracking-tight">
-                    THÔNG BÁO
-                  </h2>
-                  <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-orange-100 text-[#F26524] uppercase border border-orange-200">
-                    Cập nhật mới
-                  </span>
-                </div>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
-                  Cập nhật nhanh chóng các thông tin, chính sách và cơ hội học bổng mới nhất dành cho người học.
-                </p>
-              </div>
+          {/* Section Header Căn giữa */}
+          <div className="text-center max-w-2xl mx-auto mb-4 space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-[#F26524] text-[11px] font-black uppercase tracking-wide">
+              <span>!</span>
+              <span>CẬP NHẬT MỚI</span>
             </div>
-
-            <Link
-              href="/thong-bao"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1760AB] hover:text-blue-900 bg-white hover:bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200 transition-colors shrink-0 shadow-xs"
-            >
-              <span>Xem tất cả thông báo</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
+            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
+              THÔNG BÁO
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">
+              Cập nhật nhanh chóng các thông tin, chính sách và cơ hội học bổng mới nhất dành cho người học.
+            </p>
           </div>
 
           {/* Grid 6 Notification Cards (3 Cột x 2 Hàng) */}
@@ -250,34 +237,42 @@ function PortalContent() {
               );
             })}
           </div>
+
+          {/* Nút xem tất cả thông báo căn giữa */}
+          <div className="mt-4 text-center">
+            <Link
+              href="/thong-bao"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] px-4 py-2 rounded-full border border-blue-200 shadow-2xs hover:shadow-xs transition-all"
+            >
+              <span>Xem tất cả thông báo</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </section>
 
         {/* 
           ----------------------------------------------------------
-          PHẦN 3 – LIÊN HỆ (2 Cột Chuyên Nghiệp)
+          PHẦN 3 – LIÊN HỆ
           ----------------------------------------------------------
         */}
         <section id="muc-lien-he" className="pt-2 border-t border-slate-200 scroll-mt-28">
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#119046] text-white flex items-center justify-center shadow-xs shrink-0">
-                <Headphones className="w-4.5 h-4.5" />
-              </div>
-              <div>
-                <h2 className="text-lg sm:text-xl font-black text-[#1760AB] uppercase tracking-tight">
-                  THÔNG TIN LIÊN HỆ
-                </h2>
-                <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
-                  Đơn vị phụ trách: Phòng Công tác Sinh viên (CTSV) – Trường Đại học Kinh tế, Đại học Đà Nẵng
-                </p>
-              </div>
+          {/* Section Header Căn giữa */}
+          <div className="text-center max-w-2xl mx-auto mb-4 space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[#119046] text-[11px] font-black uppercase tracking-wide">
+              <Headphones className="w-3.5 h-3.5" />
+              <span>KÊNH TIẾP NHẬN & HỖ TRỢ</span>
             </div>
-
-            {/* Giờ làm việc badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-bold shrink-0">
-              <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-              <span>Thứ Hai – Thứ Sáu (07:30 – 11:30 | 13:30 – 17:00)</span>
+            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
+              THÔNG TIN LIÊN HỆ
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">
+              Đơn vị phụ trách: Phòng Công tác Sinh viên (CTSV) – Trường Đại học Kinh tế, Đại học Đà Nẵng
+            </p>
+            <div className="pt-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-50 text-blue-800 text-[11px] font-semibold border border-blue-200/80">
+                <Clock className="w-3 h-3 text-blue-600" />
+                Thời gian làm việc: Thứ Hai – Thứ Sáu (07:30 – 11:30 | 13:30 – 17:00)
+              </span>
             </div>
           </div>
 

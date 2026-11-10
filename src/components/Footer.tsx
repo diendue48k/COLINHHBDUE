@@ -31,11 +31,11 @@ export const Footer: React.FC = () => {
         }}
       />
 
-      {/* KHU VỰC NỘI DUNG CHÍNH (4 CỘT HIỆN ĐẠI, THOÁNG ĐÃNG) */}
+      {/* KHU VỰC NỘI DUNG CHÍNH (3 CỘT HIỆN ĐẠI, THOÁNG ĐÃNG) */}
       <div className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 lg:gap-6">
-          {/* CỘT 1: NHẬN DIỆN THƯƠNG HIỆU & GIỚI THIỆU (col-span-4) */}
-          <div className="lg:col-span-4 space-y-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* CỘT 1: NHẬN DIỆN THƯƠNG HIỆU & GIỚI THIỆU (col-span-5) */}
+          <div className="lg:col-span-5 space-y-2.5">
             <div className="flex items-center gap-2.5">
               <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1 shadow-md shrink-0">
                 <img
@@ -115,8 +115,8 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* CỘT 3: LIÊN KẾT NHANH (col-span-2) */}
-          <div className="lg:col-span-2 space-y-2.5">
+          {/* CỘT 3: LIÊN KẾT NHANH (col-span-3) */}
+          <div className="lg:col-span-3 space-y-2.5">
             <h4 className="text-xs font-black text-white uppercase tracking-wider border-b border-blue-900/60 pb-1.5">
               DANH MỤC NHANH
             </h4>
@@ -173,59 +173,14 @@ export const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-
-          {/* CỘT 4: MẠNG XÃ HỘI & KẾT NỐI (col-span-2) */}
-          <div className="lg:col-span-2 space-y-2.5">
-            <h4 className="text-xs font-black text-white uppercase tracking-wider border-b border-blue-900/60 pb-1.5">
-              KẾT NỐI VỚI DUE
-            </h4>
-
-            <div className="space-y-1.5 text-[11px]">
-              <a
-                href="https://facebook.com/due.phongcongtacsinhvien"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-1.5 rounded-lg bg-white/10 hover:bg-blue-600 transition-colors text-slate-200 hover:text-white"
-              >
-                <span className="w-5 h-5 rounded-full bg-white text-[#0047AB] flex items-center justify-center font-black text-[10px] shrink-0">
-                  f
-                </span>
-                <span className="truncate font-semibold">Fanpage CTSV DUE</span>
-              </a>
-
-              <a
-                href="https://zalo.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-1.5 rounded-lg bg-white/10 hover:bg-emerald-600 transition-colors text-slate-200 hover:text-white"
-              >
-                <span className="w-5 h-5 rounded-full bg-white text-[#059669] flex items-center justify-center font-black text-[9px] shrink-0">
-                  Zalo
-                </span>
-                <span className="truncate font-semibold">Zalo Hỗ trợ SV</span>
-              </a>
-
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 p-1.5 rounded-lg bg-white/10 hover:bg-red-600 transition-colors text-slate-200 hover:text-white"
-              >
-                <span className="w-5 h-5 rounded-full bg-white text-red-600 flex items-center justify-center font-black text-[9px] shrink-0">
-                  ▶
-                </span>
-                <span className="truncate font-semibold">DUE Channel</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
       {/* DÒNG BẢN QUYỀN ĐÁY CÙNG */}
-      <div className="w-full bg-[#021324] py-2 px-4 sm:px-6 lg:px-8 border-t border-blue-950/80 text-[10px] text-slate-400">
+      <div className="w-full bg-[#021324] py-3 px-4 sm:px-6 lg:px-8 border-t border-blue-950/80 text-[11px] text-slate-400">
         <div className="w-full max-w-[1760px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
           <span>
-            © 2025 – 2026 <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>. Tất cả quyền được bảo lưu.
+            © 2025 – 2026 <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>. Thiết kế và phát triển bởi Dịu Linh và Diện Suy
           </span>
           <span className="text-slate-500">
             Cổng thông tin Học bổng & Chế độ chính sách người học DUE

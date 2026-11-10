@@ -136,7 +136,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                 <option value="all">Tất cả nhóm (6 nhóm)</option>
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.shortTitle || c.title}
+                    {c.title}
                   </option>
                 ))}
               </select>
@@ -202,7 +202,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                        {cat?.shortTitle || 'Học bổng DUE'}
+                        {cat?.title || 'HỌC BỔNG DUE'}
                       </span>
                       {s.targetAudience && (
                         <span className="text-[11px] text-slate-400 truncate hidden sm:inline">
