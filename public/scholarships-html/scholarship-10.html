@@ -42,7 +42,7 @@ body {
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 72px 20px 78px;
+    padding: 65px 20px 72px;
     background: linear-gradient(
         120deg,
         #063968,
@@ -84,7 +84,7 @@ body {
 }
 
 .banner h1 {
-    font-size: clamp(28px, 4.5vw, 44px);
+    font-size: clamp(26px, 4.2vw, 42px);
     line-height: 1.35;
     font-weight: 800;
     text-transform: uppercase;
@@ -120,10 +120,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 17px 25px;
+    padding: 17px 22px;
     color: #536579;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     transition: .25s;
     text-align: center;
@@ -150,15 +150,15 @@ body {
 }
 
 .tab-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #edf3f8;
     color: var(--blue);
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .tab-link.active .tab-number {
@@ -177,8 +177,9 @@ body {
     border-left: 5px solid var(--orange);
     border-radius: 13px;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 16px;
+    font-size: 15.5px;
     text-align: justify;
+    line-height: 1.75;
 }
 
 /* ================= CÁC ĐỀ MỤC ================= */
@@ -188,21 +189,22 @@ section {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .section-heading h2 {
-    font-size: 26px;
+    font-size: 25px;
     color: var(--dark-blue);
     line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 .section-heading .line {
     width: 65px;
     height: 4px;
     background: var(--orange);
-    margin-top: 13px;
+    margin-top: 12px;
     border-radius: 5px;
 }
 
@@ -216,7 +218,7 @@ section {
     background: white;
     border-left: 5px solid var(--green);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-size: 15px;
 }
 
@@ -230,7 +232,7 @@ section {
     border-radius: 13px;
     background: white;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 }
 
 table {
@@ -249,7 +251,7 @@ thead th {
 }
 
 tbody td {
-    padding: 16px 15px;
+    padding: 18px 15px;
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
@@ -274,11 +276,10 @@ tbody li {
 
 .level {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 7px;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 13px;
 }
 
 .level-100 {
@@ -304,7 +305,8 @@ tbody li {
 /* ================= YÊU CẦU ================= */
 .requirement {
     margin-top: 25px;
-    padding: 23px 25px;
+    margin-bottom: 25px;
+    padding: 22px 25px;
     background: #fff7e9;
     border-left: 5px solid var(--orange);
     border-radius: 11px;
@@ -325,13 +327,14 @@ tbody li {
 
 /* ================= CHÍNH SÁCH HỖ TRỢ ================= */
 .support {
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .support-heading {
     color: var(--blue);
     font-size: 19px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border-bottom: 2px solid #e2eaf1;
     padding-bottom: 10px;
     font-weight: 800;
@@ -339,7 +342,7 @@ tbody li {
 
 .support-list {
     display: grid;
-    gap: 14px;
+    gap: 13px;
 }
 
 .support-item {
@@ -437,6 +440,47 @@ tbody li {
     text-align: justify;
 }
 
+/* ================= ĐỀ MỤC 3 ================= */
+.notes-section {
+    background: #f4f8fc;
+    color: var(--text);
+}
+
+.notes-section .section-heading h2 {
+    color: var(--dark-blue);
+}
+
+.notes-card {
+    padding: 25px;
+    background: white;
+    border-left: 5px solid #269b63;
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+}
+
+.notes-card h3 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.notes-card p, .notes-card li {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.notes-card a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.notes-card a:hover {
+    text-decoration: underline;
+    color: var(--orange);
+}
+
 /* ================= ĐIỆN THOẠI ================= */
 @media(max-width: 700px) {
     .banner {
@@ -444,7 +488,7 @@ tbody li {
     }
 
     .banner h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .tab-list {
@@ -472,7 +516,7 @@ tbody li {
         font-size: 14px;
     }
 
-    .maintenance-card {
+    .maintenance-card, .notes-card {
         padding: 20px;
     }
 
@@ -485,21 +529,25 @@ tbody li {
 
 <body>
 
-<!-- ================= BANNER ================= -->
+<!-- ================= HEADER ================= -->
 <header class="banner">
     <div class="banner-content">
-        <h1><span>CHƯƠNG TRÌNH HỖ TRỢ NGƯỜI HỌC CÓ HOÀN CẢNH KHÓ KHĂN</span></h1>
+        <h1>
+            CHƯƠNG TRÌNH HỖ TRỢ<br>
+            <span>NGƯỜI HỌC CÓ HOÀN CẢNH KHÓ KHĂN</span>
+        </h1>
     </div>
 </header>
 
 <!-- ================= THANH TAB ================= -->
 <nav class="tab-navigation">
     <div class="tab-list">
-        <a href="#doi-tuong" class="tab-link active">
+        
+        <a href="#de-muc-1" class="tab-link active">
             <span class="tab-number">01</span>
             1. ĐỐI TƯỢNG VÀ MỨC CẤP
         </a>
-        <a href="#nguyen-tac" class="tab-link">
+        <a href="#de-muc-2" class="tab-link">
             <span class="tab-number">02</span>
             2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
         </a>
@@ -510,35 +558,21 @@ tbody li {
 <div class="introduction">
     <div class="container">
         <div class="intro-card">
-            Chương trình được triển khai nhằm kịp thời hỗ trợ người học có hoàn cảnh khó khăn, giúp duy trì việc học tập, nghiên cứu và hoàn thành chương trình đào tạo, đồng thời khuyến khích người học nỗ lực vươn lên trong học tập, rèn luyện, nghiên cứu khoa học hoặc các hoạt động khác của Trường.
+            Quỹ &quot;Đồng hành cùng sinh viên DUE&quot; kịp thời hỗ trợ các trường hợp sinh viên không may gặp biến cố gia đình, tai nạn hoặc bệnh tật, giúp các em an tâm học tập.
         </div>
     </div>
 </div>
 
-<!-- ================= ĐỀ MỤC 1 ================= -->
-<section class="criteria-section" id="doi-tuong">
-<div class="container">
-    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Sinh viên đại học chính quy gặp khó khăn đột xuất, mồ côi, bệnh hiểm nghèo</div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Người học thuộc một trong các trường hợp sau được xem xét hỗ trợ:</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Thuộc trường hợp đặc biệt cần được hỗ trợ theo xem xét của Trường;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Có hoàn cảnh khó khăn hoặc gặp khó khăn đột xuất ảnh hưởng đến khả năng học tập, nghiên cứu;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Có thành tích, nỗ lực tích cực trong học tập, rèn luyện, nghiên cứu khoa học hoặc các hoạt động khác và thuộc đối tượng cần hỗ trợ.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Nội dung hỗ trợ có thể bao gồm: miễn/giảm học phí, sinh hoạt phí, chi phí học tập, nghiên cứu và các khoản hỗ trợ cần thiết khác phù hợp với hoàn cảnh và nhu cầu của người học.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Đối tượng, điều kiện, mức, số lần và thời gian hỗ trợ được xác định theo từng trường hợp hoặc từng đợt xét, căn cứ vào mức độ khó khăn, nhu cầu thực tế và khả năng cân đối nguồn kinh phí của Trường.</p>
-</div>
-</section>
-
-<!-- ================= ĐỀ MỤC 2 ================= -->
-<section class="maintenance-section" id="nguyen-tac">
-<div class="container">
-    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Việc xét hỗ trợ bảo đảm đúng đối tượng, đúng mục đích, bảo đảm công khai, công bằng.</li><li>Người học có trách nhiệm cung cấp đầy đủ, trung thực thông tin, hồ sơ và minh chứng liên quan đến hoàn cảnh và nhu cầu hỗ trợ.</li><li>Trường hợp người học đồng thời thuộc nhiều chính sách hỗ trợ trong cùng học kỳ, việc xem xét được thực hiện theo nguyên tắc không trùng lặp nội dung hỗ trợ và sử dụng kinh phí đúng mục đích. Trường hợp đặc biệt sẽ do Hiệu trưởng xem xét, quyết định.</li><li>Hiệu trưởng quyết định đối tượng, nội dung và mức hỗ trợ đối với từng trường hợp trên cơ sở đề xuất của đơn vị có liên quan và khả năng cân đối nguồn kinh phí của Trường. Trường hợp cần thiết có thể xem xét ý kiến Hội đồng trước khi quyết định.</li></ul></div></div>
-</div>
-</section>
+<!-- ================= CÁC ĐỀ MỤC ================= -->
+<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Người học thuộc một trong các trường hợp sau được xem xét hỗ trợ:</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Thuộc trường hợp đặc biệt cần được hỗ trợ theo xem xét của Trường;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Có hoàn cảnh khó khăn hoặc gặp khó khăn đột xuất ảnh hưởng đến khả năng học tập, nghiên cứu;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Có thành tích, nỗ lực tích cực trong học tập, rèn luyện, nghiên cứu khoa học hoặc các hoạt động khác và thuộc đối tượng cần hỗ trợ.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Nội dung hỗ trợ có thể bao gồm: miễn/giảm học phí, sinh hoạt phí, chi phí học tập, nghiên cứu và các khoản hỗ trợ cần thiết khác phù hợp với hoàn cảnh và nhu cầu của người học.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Đối tượng, điều kiện, mức, số lần và thời gian hỗ trợ được xác định theo từng trường hợp hoặc từng đợt xét, căn cứ vào mức độ khó khăn, nhu cầu thực tế và khả năng cân đối nguồn kinh phí của Trường.</p></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><p>Việc xét hỗ trợ bảo đảm đúng đối tượng, đúng mục đích, bảo đảm công khai, công bằng.</p><p>Người học có trách nhiệm cung cấp đầy đủ, trung thực thông tin, hồ sơ và minh chứng liên quan đến hoàn cảnh và nhu cầu hỗ trợ.</p><p>Trường hợp người học đồng thời thuộc nhiều chính sách hỗ trợ trong cùng học kỳ, việc xem xét được thực hiện theo nguyên tắc không trùng lặp nội dung hỗ trợ và sử dụng kinh phí đúng mục đích. Trường hợp đặc biệt sẽ do Hiệu trưởng xem xét, quyết định.</p><p>Hiệu trưởng quyết định đối tượng, nội dung và mức hỗ trợ đối với từng trường hợp trên cơ sở đề xuất của đơn vị có liên quan và khả năng cân đối nguồn kinh phí của Trường. Trường hợp cần thiết có thể xem xét ý kiến Hội đồng trước khi quyết định.</p></div></div></div></section>
 
 <!-- ================= KẾT THÚC ================= -->
 <script>
 const tabs = document.querySelectorAll(".tab-link");
-const sections = [
-    document.getElementById("doi-tuong"),
-    document.getElementById("nguyen-tac")
-].filter(Boolean);
+const sections = document.querySelectorAll("section[id]");
 
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });

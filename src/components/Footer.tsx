@@ -117,7 +117,7 @@ export const Footer: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 <span>
-                  Fanpage CTSV: <a href="https://www.facebook.com/CTSV.DUE" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-blue-300 transition-colors">facebook.com/CTSV.DUE</a>
+                  Fanpage DUE - Phòng Công tác Sinh viên: <a href="https://www.facebook.com/CTSV.DUE" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-blue-300 transition-colors">facebook.com/CTSV.DUE</a>
                 </span>
               </div>
             </div>

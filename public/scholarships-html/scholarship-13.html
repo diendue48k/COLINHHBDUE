@@ -42,7 +42,7 @@ body {
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 72px 20px 78px;
+    padding: 65px 20px 72px;
     background: linear-gradient(
         120deg,
         #063968,
@@ -84,7 +84,7 @@ body {
 }
 
 .banner h1 {
-    font-size: clamp(28px, 4.5vw, 44px);
+    font-size: clamp(26px, 4.2vw, 42px);
     line-height: 1.35;
     font-weight: 800;
     text-transform: uppercase;
@@ -120,10 +120,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 17px 25px;
+    padding: 17px 22px;
     color: #536579;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     transition: .25s;
     text-align: center;
@@ -150,15 +150,15 @@ body {
 }
 
 .tab-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #edf3f8;
     color: var(--blue);
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .tab-link.active .tab-number {
@@ -177,8 +177,9 @@ body {
     border-left: 5px solid var(--orange);
     border-radius: 13px;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 16px;
+    font-size: 15.5px;
     text-align: justify;
+    line-height: 1.75;
 }
 
 /* ================= CÁC ĐỀ MỤC ================= */
@@ -188,21 +189,22 @@ section {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .section-heading h2 {
-    font-size: 26px;
+    font-size: 25px;
     color: var(--dark-blue);
     line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 .section-heading .line {
     width: 65px;
     height: 4px;
     background: var(--orange);
-    margin-top: 13px;
+    margin-top: 12px;
     border-radius: 5px;
 }
 
@@ -216,7 +218,7 @@ section {
     background: white;
     border-left: 5px solid var(--green);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-size: 15px;
 }
 
@@ -230,7 +232,7 @@ section {
     border-radius: 13px;
     background: white;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 }
 
 table {
@@ -249,7 +251,7 @@ thead th {
 }
 
 tbody td {
-    padding: 16px 15px;
+    padding: 18px 15px;
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
@@ -274,11 +276,10 @@ tbody li {
 
 .level {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 7px;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 13px;
 }
 
 .level-100 {
@@ -304,7 +305,8 @@ tbody li {
 /* ================= YÊU CẦU ================= */
 .requirement {
     margin-top: 25px;
-    padding: 23px 25px;
+    margin-bottom: 25px;
+    padding: 22px 25px;
     background: #fff7e9;
     border-left: 5px solid var(--orange);
     border-radius: 11px;
@@ -325,13 +327,14 @@ tbody li {
 
 /* ================= CHÍNH SÁCH HỖ TRỢ ================= */
 .support {
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .support-heading {
     color: var(--blue);
     font-size: 19px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border-bottom: 2px solid #e2eaf1;
     padding-bottom: 10px;
     font-weight: 800;
@@ -339,7 +342,7 @@ tbody li {
 
 .support-list {
     display: grid;
-    gap: 14px;
+    gap: 13px;
 }
 
 .support-item {
@@ -437,6 +440,47 @@ tbody li {
     text-align: justify;
 }
 
+/* ================= ĐỀ MỤC 3 ================= */
+.notes-section {
+    background: #f4f8fc;
+    color: var(--text);
+}
+
+.notes-section .section-heading h2 {
+    color: var(--dark-blue);
+}
+
+.notes-card {
+    padding: 25px;
+    background: white;
+    border-left: 5px solid #269b63;
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+}
+
+.notes-card h3 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.notes-card p, .notes-card li {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.notes-card a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.notes-card a:hover {
+    text-decoration: underline;
+    color: var(--orange);
+}
+
 /* ================= ĐIỆN THOẠI ================= */
 @media(max-width: 700px) {
     .banner {
@@ -444,7 +488,7 @@ tbody li {
     }
 
     .banner h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .tab-list {
@@ -472,7 +516,7 @@ tbody li {
         font-size: 14px;
     }
 
-    .maintenance-card {
+    .maintenance-card, .notes-card {
         padding: 20px;
     }
 
@@ -485,21 +529,25 @@ tbody li {
 
 <body>
 
-<!-- ================= BANNER ================= -->
+<!-- ================= HEADER ================= -->
 <header class="banner">
     <div class="banner-content">
-        <h1>HỌC BỔNG<br><span>THEO NGHỊ ĐỊNH SỐ 179/2026/NĐ-CP CỦA CHÍNH PHỦ</span></h1>
+        <h1>
+            HỌC BỔNG THEO<br>
+            <span>NGHỊ ĐỊNH SỐ 179/2026/NĐ-CP CỦA CHÍNH PHỦ</span>
+        </h1>
     </div>
 </header>
 
 <!-- ================= THANH TAB ================= -->
 <nav class="tab-navigation">
     <div class="tab-list">
-        <a href="#doi-tuong" class="tab-link active">
+        
+        <a href="#de-muc-1" class="tab-link active">
             <span class="tab-number">01</span>
             1. ĐỐI TƯỢNG VÀ MỨC CẤP
         </a>
-        <a href="#nguyen-tac" class="tab-link">
+        <a href="#de-muc-2" class="tab-link">
             <span class="tab-number">02</span>
             2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
         </a>
@@ -510,66 +558,21 @@ tbody li {
 <div class="introduction">
     <div class="container">
         <div class="intro-card">
-            Học bổng được thực hiện theo Nghị định số 179/2026/NĐ-CP ngày 20/5/2026 của Chính phủ, nhằm khuyến khích và hỗ trợ người học theo đuổi các ngành khoa học cơ bản, kỹ thuật then chốt và công nghệ chiến lược. Chính sách góp phần khuyến khích người học có năng lực, thành tích phù hợp lựa chọn và theo đuổi các lĩnh vực đào tạo chiến lược của đất nước, đồng thời tạo điều kiện về tài chính để người học yên tâm học tập, nghiên cứu và phát triển trong quá trình đào tạo.
+            Triển khai thực hiện Nghị định số 179/2025/NĐ-CP của Chính phủ về chính sách hỗ trợ tiền đóng học phí, chi phí sinh hoạt đối với sinh viên sư phạm, kinh tế và các ngành ưu tiên phát triển quốc gia.
         </div>
     </div>
 </div>
 
-<!-- ================= ĐỀ MỤC 1 ================= -->
-<section class="criteria-section" id="doi-tuong">
-<div class="container">
-    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>Đối tượng: Người học trúng tuyển vào chương trình đào tạo ngành khoa học cơ bản của Trường và đáp ứng một trong các điều kiện sau:</strong></div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Đạt giải nhất, nhì, ba trong kỳ thi chọn học sinh giỏi quốc gia hoặc quốc tế dành cho học sinh trung học phổ thông theo quy định của Bộ Giáo dục và Đào tạo; thời gian đạt giải không quá 03 năm tính tới thời điểm xét duyệt;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Tổng điểm môn Toán và hai trong các môn Vật lí, Hoá học, Sinh học và Tiếng Anh của kỳ thi tốt nghiệp trung học phổ thông từ 22,50 trở lên theo thang điểm 30 không bao gồm điểm ưu tiên, điểm cộng và trúng tuyển thuộc nhóm 30% thí sinh đạt điểm trúng tuyển cao nhất cùng nhóm ngành đào tạo trên phạm vi toàn quốc trong đợt xét tuyển chung của năm tuyển sinh.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Mức cấp:</p><div class="table-wrapper">
-<table>
-<thead><tr>
-<th>Đối tượng</th>
-<th>Chương trình đào tạo tài năng</th>
-<th>Chương trình đào tạo ngành vi mạch bán dẫn, các ngành khoa học cơ bản</th>
-<th>Chương trình đào tạo các ngành kỹ thuật then chốt và công nghệ chiến lược</th>
-<th>Thời gian hưởng</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Sinh viên</td>
-<td>5.500.000 đồng/tháng</td>
-<td>4.200.000 đồng/tháng</td>
-<td>3.700.000 đồng/tháng</td>
-<td>10 tháng/năm; tổng thời gian hưởng học bổng không quá 04 năm với chương trình đào tạo cử nhân</td>
-</tr>
-<tr>
-<td>Học viên cao học</td>
-<td>7.400.000 đồng/tháng</td>
-<td>6.300.000 đồng/tháng</td>
-<td>5.500.000 đồng/tháng.</td>
-<td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 02 năm;</td>
-</tr>
-<tr>
-<td>Nghiên cứu sinh</td>
-<td></td>
-<td>8.400.000 đồng/tháng</td>
-<td>7.400.000 đồng/tháng.</td>
-<td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 03 năm đối với nghiên cứu sinh có đầu vào trình độ thạc sĩ, không quá 04 năm đối với nghiên cứu sinh có đầu vào trình độ đại học.</td>
-</tr>
-</tbody></table></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Thời gian hưởng học bổng: Người học chương trình đào tạo tích hợp trình độ đại học thạc sĩ được hưởng học bổng 12 tháng/năm trong thời gian không quá 3 năm theo chế độ sinh viên đại học và không quá 2 năm theo chế độ học viên cao học.</p>
-</div>
-</section>
-
-<!-- ================= ĐỀ MỤC 2 ================= -->
-<section class="maintenance-section" id="nguyen-tac">
-<div class="container">
-    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Quy trình xét, cấp: Được thông báo và thực hiện theo hướng dẫn của Bộ Giáo dục và Đào tạo.</li><li>Đối với sinh viên chương trình đào tạo cử nhân, chương trình đào tạo tích hợp: kết quả học tập trung bình tích lũy của các năm học liền trước đạt loại khá trở lên và tích lũy tối thiểu 24 tín chỉ sau năm học đầu tiên, tối thiểu 28 tín chỉ trong một năm học kể từ năm học thứ hai;</li><li>Đối với học viên chương trình đào tạo thạc sĩ, chương trình đào tạo tích hợp: sau năm thứ nhất tích lũy tối thiểu 40% tổng số tín chỉ của chương trình đào tạo, có điểm trung bình tích lũy đạt tối thiểu 3,0 trở lên theo thang điểm 4 và có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo;</li><li>Đối với nghiên cứu sinh chương trình đào tạo tiến sĩ: có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo.</li></ul></div></div>
-</div>
-</section>
+<!-- ================= CÁC ĐỀ MỤC ================= -->
+<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Người học trúng tuyển vào chương trình đào tạo ngành khoa học cơ bản của Trường và đáp ứng một trong các điều kiện sau:</div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">Mức cấp:</p><div class="table-wrapper"><table><thead><tr><th>Đối tượng</th><th>Chương trình đào tạo tài năng</th><th>Chương trình đào tạo ngành vi mạch bán dẫn, các ngành khoa học cơ bản</th><th>Chương trình đào tạo các ngành kỹ thuật then chốt và công nghệ chiến lược</th><th>Thời gian hưởng</th></tr></thead><tbody><tr><td>Sinh viên</td><td>5.500.000 đồng/tháng</td><td>4.200.000 đồng/tháng</td><td>3.700.000 đồng/tháng</td><td>10 tháng/năm; tổng thời gian hưởng học bổng không quá 04 năm với chương trình đào tạo cử nhân</td></tr><tr><td>Học viên cao học</td><td>7.400.000 đồng/tháng</td><td>6.300.000 đồng/tháng</td><td>5.500.000 đồng/tháng.</td><td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 02 năm;</td></tr><tr><td>Nghiên cứu sinh</td><td></td><td>8.400.000 đồng/tháng</td><td>7.400.000 đồng/tháng.</td><td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 03 năm đối với nghiên cứu sinh có đầu vào trình độ thạc sĩ, không quá 04 năm đối với nghiên cứu sinh có đầu vào trình độ đại học.</td></tr></tbody></table></div><div class="requirement"><h3>Yêu cầu & Điều kiện xét cấp</h3><p>Thời gian hưởng học bổng: Người học chương trình đào tạo tích hợp trình độ đại học thạc sĩ được hưởng học bổng 12 tháng/năm trong thời gian không quá 3 năm theo chế độ sinh viên đại học và không quá 2 năm theo chế độ học viên cao học.</p></div><div class="support"><div class="support-heading">Chính sách hỗ trợ & Quyền lợi khác</div><div class="support-list"><div class="support-item"><div class="support-icon">📘</div><p>Đạt giải nhất, nhì, ba trong kỳ thi chọn học sinh giỏi quốc gia hoặc quốc tế dành cho học sinh trung học phổ thông theo quy định của Bộ Giáo dục và Đào tạo; thời gian đạt giải không quá 03 năm tính tới thời điểm xét duyệt;</p></div><div class="support-item"><div class="support-icon">🎓</div><p>Tổng điểm môn Toán và hai trong các môn Vật lí, Hoá học, Sinh học và Tiếng Anh của kỳ thi tốt nghiệp trung học phổ thông từ 22,50 trở lên theo thang điểm 30 không bao gồm điểm ưu tiên, điểm cộng và trúng tuyển thuộc nhóm 30% thí sinh đạt điểm trúng tuyển cao nhất cùng nhóm ngành đào tạo trên phạm vi toàn quốc trong đợt xét tuyển chung của năm tuyển sinh.</p></div></div></div></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Điều kiện duy trì: Người học tiếp tục được hưởng học bổng khi không bị kỷ luật từ mức khiển trách trở lên trong kỳ xét cấp học bổng và đáp ứng yêu cầu:</h3><ul><li>Đối với sinh viên chương trình đào tạo cử nhân, chương trình đào tạo tích hợp: kết quả học tập trung bình tích lũy của các năm học liền trước đạt loại khá trở lên và tích lũy tối thiểu 24 tín chỉ sau năm học đầu tiên, tối thiểu 28 tín chỉ trong một năm học kể từ năm học thứ hai;</li><li>Đối với học viên chương trình đào tạo thạc sĩ, chương trình đào tạo tích hợp: sau năm thứ nhất tích lũy tối thiểu 40% tổng số tín chỉ của chương trình đào tạo, có điểm trung bình tích lũy đạt tối thiểu 3,0 trở lên theo thang điểm 4 và có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo;</li><li>Đối với nghiên cứu sinh chương trình đào tạo tiến sĩ: có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo.</li></ul></div></div></div></section>
 
 <!-- ================= KẾT THÚC ================= -->
 <script>
 const tabs = document.querySelectorAll(".tab-link");
-const sections = [
-    document.getElementById("doi-tuong"),
-    document.getElementById("nguyen-tac")
-].filter(Boolean);
+const sections = document.querySelectorAll("section[id]");
 
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });

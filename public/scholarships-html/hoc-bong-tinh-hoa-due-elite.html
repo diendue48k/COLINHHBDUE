@@ -42,7 +42,7 @@ body {
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 72px 20px 78px;
+    padding: 65px 20px 72px;
     background: linear-gradient(
         120deg,
         #063968,
@@ -84,7 +84,7 @@ body {
 }
 
 .banner h1 {
-    font-size: clamp(28px, 4.5vw, 44px);
+    font-size: clamp(26px, 4.2vw, 42px);
     line-height: 1.35;
     font-weight: 800;
     text-transform: uppercase;
@@ -120,10 +120,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 17px 25px;
+    padding: 17px 22px;
     color: #536579;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     transition: .25s;
     text-align: center;
@@ -150,15 +150,15 @@ body {
 }
 
 .tab-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #edf3f8;
     color: var(--blue);
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .tab-link.active .tab-number {
@@ -177,8 +177,9 @@ body {
     border-left: 5px solid var(--orange);
     border-radius: 13px;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 16px;
+    font-size: 15.5px;
     text-align: justify;
+    line-height: 1.75;
 }
 
 /* ================= CÁC ĐỀ MỤC ================= */
@@ -188,21 +189,22 @@ section {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .section-heading h2 {
-    font-size: 26px;
+    font-size: 25px;
     color: var(--dark-blue);
     line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 .section-heading .line {
     width: 65px;
     height: 4px;
     background: var(--orange);
-    margin-top: 13px;
+    margin-top: 12px;
     border-radius: 5px;
 }
 
@@ -216,7 +218,7 @@ section {
     background: white;
     border-left: 5px solid var(--green);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-size: 15px;
 }
 
@@ -230,7 +232,7 @@ section {
     border-radius: 13px;
     background: white;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 }
 
 table {
@@ -249,7 +251,7 @@ thead th {
 }
 
 tbody td {
-    padding: 16px 15px;
+    padding: 18px 15px;
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
@@ -274,11 +276,10 @@ tbody li {
 
 .level {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 7px;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 13px;
 }
 
 .level-100 {
@@ -304,7 +305,8 @@ tbody li {
 /* ================= YÊU CẦU ================= */
 .requirement {
     margin-top: 25px;
-    padding: 23px 25px;
+    margin-bottom: 25px;
+    padding: 22px 25px;
     background: #fff7e9;
     border-left: 5px solid var(--orange);
     border-radius: 11px;
@@ -325,13 +327,14 @@ tbody li {
 
 /* ================= CHÍNH SÁCH HỖ TRỢ ================= */
 .support {
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .support-heading {
     color: var(--blue);
     font-size: 19px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border-bottom: 2px solid #e2eaf1;
     padding-bottom: 10px;
     font-weight: 800;
@@ -339,7 +342,7 @@ tbody li {
 
 .support-list {
     display: grid;
-    gap: 14px;
+    gap: 13px;
 }
 
 .support-item {
@@ -437,6 +440,47 @@ tbody li {
     text-align: justify;
 }
 
+/* ================= ĐỀ MỤC 3 ================= */
+.notes-section {
+    background: #f4f8fc;
+    color: var(--text);
+}
+
+.notes-section .section-heading h2 {
+    color: var(--dark-blue);
+}
+
+.notes-card {
+    padding: 25px;
+    background: white;
+    border-left: 5px solid #269b63;
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+}
+
+.notes-card h3 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.notes-card p, .notes-card li {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.notes-card a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.notes-card a:hover {
+    text-decoration: underline;
+    color: var(--orange);
+}
+
 /* ================= ĐIỆN THOẠI ================= */
 @media(max-width: 700px) {
     .banner {
@@ -444,7 +488,7 @@ tbody li {
     }
 
     .banner h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .tab-list {
@@ -472,7 +516,7 @@ tbody li {
         font-size: 14px;
     }
 
-    .maintenance-card {
+    .maintenance-card, .notes-card {
         padding: 20px;
     }
 
@@ -485,23 +529,27 @@ tbody li {
 
 <body>
 
-<!-- ================= BANNER ================= -->
+<!-- ================= HEADER ================= -->
 <header class="banner">
     <div class="banner-content">
-        <h1>CHƯƠNG TRÌNH PHÁT TRIỂN<br><span>SINH VIÊN TINH HOA (DUE - ELITE)</span></h1>
+        <h1>
+            CHƯƠNG TRÌNH PHÁT TRIỂN<br>
+            <span>SINH VIÊN TINH HOA (DUE - ELITE)</span>
+        </h1>
     </div>
 </header>
 
 <!-- ================= THANH TAB ================= -->
 <nav class="tab-navigation">
     <div class="tab-list">
-        <a href="#doi-tuong" class="tab-link active">
+        
+        <a href="#de-muc-1" class="tab-link active">
             <span class="tab-number">01</span>
             1. ĐỐI TƯỢNG VÀ MỨC CẤP
         </a>
-        <a href="#nguyen-tac" class="tab-link">
+        <a href="#de-muc-2" class="tab-link">
             <span class="tab-number">02</span>
-            2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
+            2. NGUYÊN TẮC XÉT, CẤP VÀ ĐIỀU KIỆN DUY TRÌ
         </a>
     </div>
 </nav>
@@ -510,68 +558,21 @@ tbody li {
 <div class="introduction">
     <div class="container">
         <div class="intro-card">
-            Chính sách dành cho Sinh viên thuộc Chương trình cử nhân tài năng ngoại thương (DUE Elite) có thành tích học tập nổi bật, nhằm tạo nguồn nhân lực chất lượng cao, đáp ứng yêu cầu phát triển của xã hội.
+            Học bổng Tinh hoa (DUE - Elite) là danh hiệu học bổng danh giá nhất của Trường Đại học Kinh tế - Đại học Đà Nẵng dành cho những thí sinh xuất sắc nhất nhập học vào trường. Chương trình đồng hành và phát triển các tài năng trẻ trở thành các nhà lãnh đạo và chuyên gia kinh tế tương lai.
         </div>
     </div>
 </div>
 
-<!-- ================= ĐỀ MỤC 1 ================= -->
-<section class="criteria-section" id="doi-tuong">
-<div class="container">
-    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>- Đối tượng: Sinh viên thuộc Chương trình Cử nhân tài năng ngoại thương (DUE ELITE).</strong></div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Mức cấp:</p><div class="table-wrapper">
-<table>
-<thead><tr>
-<th>Nhóm – Mức miễn</th>
-<th>Đối tượng</th>
-</tr></thead>
-<tbody>
-<tr>
-<td><span class="level level-100">Nhóm 1 - Miễn 100% học phí</span></td>
-<td><span class="level level-25">25% số lượng SV có thành tích cao nhất của mỗi khóa.</span></td>
-</tr>
-<tr>
-<td><span class="level level-50">Nhóm 2 - Miễn 50% học phí</span></td>
-<td><span class="level level-25">25% số lượng SV có thành tích cao tiếp theo của mỗi khóa</span></td>
-</tr>
-</tbody></table></div><div class="support"><h3 class="support-heading">- Các chính sách hỗ trợ khác:</h3><div class="support-list"><div class="support-item"><div class="support-icon">📚</div><p><strong>+</strong> Được hỗ trợ kinh phí khi công bố trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</p></div><div class="support-item"><div class="support-icon">🌐</div><p><strong>+</strong> Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</p></div><div class="support-item"><div class="support-icon">🔬</div><p><strong>+</strong> Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</p></div></div></div>
-</div>
-</section>
-
-<!-- ================= ĐỀ MỤC 2 ================= -->
-<section class="maintenance-section" id="nguyen-tac">
-<div class="container">
-    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="table-wrapper">
-<table>
-<thead><tr>
-<th>Học kỳ</th>
-<th>Căn cứ</th>
-<th>Tiêu chí (TC) xét ưu tiên</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Học kỳ đầu tiên (Năm nhất)</td>
-<td>Kết quả xét tuyển sinh</td>
-<td><ul><li>TC 1: Đạt giải trong kỳ thi học sinh giỏi cấp Quốc gia, Quốc tế bậc THPT;</li><li>TC 2: Điểm xét tuyển (bao gồm điểm cộng và điểm ưu tiên);</li><li>TC 3: Điểm xét tuyển (không gồm điểm cộng và điểm ưu tiên);</li><li>TC 4: Điểm thi tốt nghiệp THPT môn Toán;</li><li>TC 5: Điểm trung bình môn Toán của cả năm lớp 10, 11 và 12.</li></ul></td>
-</tr>
-<tr>
-<td>Các học kỳ tiếp theo</td>
-<td><ul><li>Kết quả học tập và rèn luyện kỳ liền trước.</li><li>Yêu cầu: Sinh viên phải tích lũy từ 10 tín chỉ trở lên, có học lực và rèn luyện từ loại Khá trở lên, không có điểm F.</li></ul></td>
-<td><ul><li>TC 1: Điểm trung bình học kỳ theo thang điểm 4;</li><li>TC 2: Điểm trung bình học kỳ theo thang điểm 10;</li><li>TC 3: Điểm rèn luyện;</li><li>TC 4: Số lượng tín chỉ học trong học kỳ;</li><li>TC 5: Điểm trung bình chung tích lũy tại thời điểm xét;</li><li>TC 6: Thành tích nổi bật trong nghiên cứu khoa học, đổi mới sáng tạo và các hoạt động khác.</li></ul></td>
-</tr>
-</tbody></table></div></div>
-</div>
-</section>
+<!-- ================= CÁC ĐỀ MỤC ================= -->
+<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Sinh viên thuộc Chương trình Cử nhân tài năng ngoại thương (DUE ELITE).</div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Mức cấp:</p><div class="table-wrapper"><table><thead><tr><th>Nhóm – Mức miễn</th><th>Đối tượng</th></tr></thead><tbody><tr><td><span class="level level-100">Nhóm 1 - Miễn 100% học phí</span></td><td><span class="level level-25">25% số lượng SV có thành tích cao nhất của mỗi khóa.</span></td></tr><tr><td><span class="level level-50">Nhóm 2 - Miễn 50% học phí</span></td><td><span class="level level-25">25% số lượng SV có thành tích cao tiếp theo của mỗi khóa</span></td></tr></tbody></table></div><div class="support"><div class="support-heading">Chính sách hỗ trợ & Quyền lợi khác</div><div class="support-list"><div class="support-item"><div class="support-icon">📘</div><p>Được hỗ trợ kinh phí khi công bố trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</p></div><div class="support-item"><div class="support-icon">🎓</div><p>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</p></div><div class="support-item"><div class="support-icon">🌟</div><p>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</p></div></div></div></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP VÀ ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="table-wrapper"><table><thead><tr><th>Học kỳ</th><th>Căn cứ</th><th>Tiêu chí (TC) xét ưu tiên</th></tr></thead><tbody><tr><td>Học kỳ đầu tiên (Năm nhất)</td><td>Kết quả xét tuyển sinh</td><td><ul><li>TC 1: Đạt giải trong kỳ thi học sinh giỏi cấp Quốc gia, Quốc tế bậc THPT;</li><li>TC 2: Điểm xét tuyển (bao gồm điểm cộng và điểm ưu tiên);</li><li>TC 3: Điểm xét tuyển (không gồm điểm cộng và điểm ưu tiên);</li><li>TC 4: Điểm thi tốt nghiệp THPT môn Toán;</li><li>TC 5: Điểm trung bình môn Toán của cả năm lớp 10, 11 và 12.</li></ul></td></tr><tr><td>Các học kỳ tiếp theo</td><td>Kết quả học tập và rèn luyện kỳ liền trước.<br>Yêu cầu: Sinh viên phải tích lũy từ 10 tín chỉ trở lên, có học lực và rèn luyện từ loại Khá trở lên, không có điểm F.</td><td><ul><li>TC 1: Điểm trung bình học kỳ theo thang điểm 4;</li><li>TC 2: Điểm trung bình học kỳ theo thang điểm 10;</li><li>TC 3: Điểm rèn luyện;</li><li>TC 4: Số lượng tín chỉ học trong học kỳ;</li><li>TC 5: Điểm trung bình chung tích lũy tại thời điểm xét;</li><li>TC 6: Thành tích nổi bật trong nghiên cứu khoa học, đổi mới sáng tạo và các hoạt động khác.</li></ul></td></tr></tbody></table></div><div class="maintenance-card"><h3>Nguyên tắc chung</h3></div></div></div></section>
 
 <!-- ================= KẾT THÚC ================= -->
 <script>
 const tabs = document.querySelectorAll(".tab-link");
-const sections = [
-    document.getElementById("doi-tuong"),
-    document.getElementById("nguyen-tac")
-].filter(Boolean);
+const sections = document.querySelectorAll("section[id]");
 
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });

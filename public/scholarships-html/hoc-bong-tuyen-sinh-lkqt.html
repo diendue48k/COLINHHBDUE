@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1. ĐỐI TƯỢNG VÀ MỨC CẤP - DUE</title>
+<title>HỌC BỔNG TUYỂN SINH - DUE</title>
 <style>
 :root {
     --blue: #07549b;
@@ -42,7 +42,7 @@ body {
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 72px 20px 78px;
+    padding: 65px 20px 72px;
     background: linear-gradient(
         120deg,
         #063968,
@@ -84,7 +84,7 @@ body {
 }
 
 .banner h1 {
-    font-size: clamp(28px, 4.5vw, 44px);
+    font-size: clamp(26px, 4.2vw, 42px);
     line-height: 1.35;
     font-weight: 800;
     text-transform: uppercase;
@@ -120,10 +120,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 17px 25px;
+    padding: 17px 22px;
     color: #536579;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     transition: .25s;
     text-align: center;
@@ -150,15 +150,15 @@ body {
 }
 
 .tab-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #edf3f8;
     color: var(--blue);
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .tab-link.active .tab-number {
@@ -177,8 +177,9 @@ body {
     border-left: 5px solid var(--orange);
     border-radius: 13px;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 16px;
+    font-size: 15.5px;
     text-align: justify;
+    line-height: 1.75;
 }
 
 /* ================= CÁC ĐỀ MỤC ================= */
@@ -188,21 +189,22 @@ section {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .section-heading h2 {
-    font-size: 26px;
+    font-size: 25px;
     color: var(--dark-blue);
     line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 .section-heading .line {
     width: 65px;
     height: 4px;
     background: var(--orange);
-    margin-top: 13px;
+    margin-top: 12px;
     border-radius: 5px;
 }
 
@@ -216,7 +218,7 @@ section {
     background: white;
     border-left: 5px solid var(--green);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-size: 15px;
 }
 
@@ -230,7 +232,7 @@ section {
     border-radius: 13px;
     background: white;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 }
 
 table {
@@ -249,7 +251,7 @@ thead th {
 }
 
 tbody td {
-    padding: 16px 15px;
+    padding: 18px 15px;
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
@@ -274,11 +276,10 @@ tbody li {
 
 .level {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 7px;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 13px;
 }
 
 .level-100 {
@@ -304,7 +305,8 @@ tbody li {
 /* ================= YÊU CẦU ================= */
 .requirement {
     margin-top: 25px;
-    padding: 23px 25px;
+    margin-bottom: 25px;
+    padding: 22px 25px;
     background: #fff7e9;
     border-left: 5px solid var(--orange);
     border-radius: 11px;
@@ -325,13 +327,14 @@ tbody li {
 
 /* ================= CHÍNH SÁCH HỖ TRỢ ================= */
 .support {
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .support-heading {
     color: var(--blue);
     font-size: 19px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border-bottom: 2px solid #e2eaf1;
     padding-bottom: 10px;
     font-weight: 800;
@@ -339,7 +342,7 @@ tbody li {
 
 .support-list {
     display: grid;
-    gap: 14px;
+    gap: 13px;
 }
 
 .support-item {
@@ -437,6 +440,47 @@ tbody li {
     text-align: justify;
 }
 
+/* ================= ĐỀ MỤC 3 ================= */
+.notes-section {
+    background: #f4f8fc;
+    color: var(--text);
+}
+
+.notes-section .section-heading h2 {
+    color: var(--dark-blue);
+}
+
+.notes-card {
+    padding: 25px;
+    background: white;
+    border-left: 5px solid #269b63;
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+}
+
+.notes-card h3 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.notes-card p, .notes-card li {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.notes-card a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.notes-card a:hover {
+    text-decoration: underline;
+    color: var(--orange);
+}
+
 /* ================= ĐIỆN THOẠI ================= */
 @media(max-width: 700px) {
     .banner {
@@ -444,7 +488,7 @@ tbody li {
     }
 
     .banner h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .tab-list {
@@ -472,7 +516,7 @@ tbody li {
         font-size: 14px;
     }
 
-    .maintenance-card {
+    .maintenance-card, .notes-card {
         padding: 20px;
     }
 
@@ -485,21 +529,25 @@ tbody li {
 
 <body>
 
-<!-- ================= BANNER ================= -->
+<!-- ================= HEADER ================= -->
 <header class="banner">
     <div class="banner-content">
-        <h1><span>1. ĐỐI TƯỢNG VÀ MỨC CẤP</span></h1>
+        <h1>
+            HỌC BỔNG<br>
+            <span>TUYỂN SINH</span>
+        </h1>
     </div>
 </header>
 
 <!-- ================= THANH TAB ================= -->
 <nav class="tab-navigation">
     <div class="tab-list">
-        <a href="#doi-tuong" class="tab-link active">
+        
+        <a href="#de-muc-1" class="tab-link active">
             <span class="tab-number">01</span>
             1. ĐỐI TƯỢNG VÀ MỨC CẤP
         </a>
-        <a href="#nguyen-tac" class="tab-link">
+        <a href="#de-muc-2" class="tab-link">
             <span class="tab-number">02</span>
             2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
         </a>
@@ -510,58 +558,21 @@ tbody li {
 <div class="introduction">
     <div class="container">
         <div class="intro-card">
-            Học bổng nhằm thu hút và khuyến khích người học có kết quả tuyển sinh, thành tích học tập, rèn luyện nổi bật tham gia các chương trình cử nhân liên kết quốc tế của Nhà trường ở giai đoạn đào tạo: tiếng Anh, đại cương (BTEC HND).
+            Chính sách học bổng đầu vào hấp dẫn dành cho thí sinh có điểm xét tuyển cao hoặc chứng chỉ IELTS từ 6.5 trở lên đăng ký học các chương trình liên kết cấp bằng quốc tế.
         </div>
     </div>
 </div>
 
-<!-- ================= ĐỀ MỤC 1 ================= -->
-<section class="criteria-section" id="doi-tuong">
-<div class="container">
-    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>- Đối tượng: Sinh viên mới trúng tuyển, nhập học kỳ đầu tiên vào giai đoạn đào tạo chương trình tiếng Anh và đại cương (BTEC HND) của chương trình cử nhân liên kết quốc tế giữa Trường Đại học Kinh tế - Đại học Đà Nẵng với các tổ chức đối tác nước ngoài.</strong></div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Mức cấp, số lượng:</p><div class="table-wrapper">
-<table>
-<thead><tr>
-<th>Loại học bổng</th>
-<th>Mức cấp</th>
-<th>Số lượng</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Toàn phần</td>
-<td><span class="level level-100">100% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td>
-<td>Tối đa 5% tổng số sinh viên của mỗi chương trình đào tạo</td>
-</tr>
-<tr>
-<td>Bán phần</td>
-<td><span class="level level-50">50% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td>
-<td><span class="level level-25">Tối đa 20% tổng số sinh viên của mỗi chương trình đào tạo</span></td>
-</tr>
-<tr>
-<td>Khuyến khích</td>
-<td><span class="level level-25">25% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td>
-<td>Dành cho sinh viên không nhận được học bổng toàn phần và bán phần nêu trên</td>
-</tr>
-</tbody></table></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Tiêu chuẩn: Xét trong học kỳ đầu tiên, căn cứ vào một trong các điều kiện theo thứ tự ưu tiên như sau:</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Sinh viên đạt giải trong các kỳ thi học sinh giỏi cấp Quốc tế hoặc cấp Quốc gia trong 03 năm học THPT;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Sinh viên có kết quả học tập và rèn luyện xếp vị thứ Nhất, Nhì, Ba toàn khối 12 tại trường THPT;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Sinh viên đạt giải trong các kỳ thi học sinh giỏi cấp Thành phố trong 03 năm học THPT;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Sinh viên đạt giải năng khiếu, tài năng thanh lịch, tài năng về văn hóa nghệ thuật, âm nhạc, thể thao trong 03 năm học THPT;</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">+ Sinh viên đạt điểm xét tuyển từ 25 điểm trở lên;</p><div class="requirement"><h3>Yêu cầu & Điều kiện</h3><p>+ Sinh viên có kết quả thi chứng chỉ tiếng Anh quốc tế (IELTS hoặc chứng chỉ tiếng Anh quốc tế tương đương) từ 5.5 trở lên.</p></div>
-</div>
-</section>
-
-<!-- ================= ĐỀ MỤC 2 ================= -->
-<section class="maintenance-section" id="nguyen-tac">
-<div class="container">
-    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Nhà trường xét, cấp học bổng theo từng Khóa tuyển sinh; thời điểm xét: đầu học kỳ I năm thứ nhất (học kỳ đầu tiên).</li><li>Việc xét cấp thực hiện theo thứ tự kết quả và thành tích từ cao xuống thấp, từ học bổng Toàn phần, Bán phần đến Khuyến khích, cho đến hết số lượng học bổng được cấp cho từng loại học bổng.</li><li>Trường hợp điểm xét hoặc thành tích bằng nhau thì xét theo thành tích đặc biệt đóng góp cho sự nghiệp phát triển của Nhà trường, cộng đồng và xã hội.</li><li>Các tiêu chuẩn xét học bổng tuyển sinh nêu trên áp dụng từ năm tuyển sinh 2025.</li><li>Sinh viên không học đủ tổng số tín chỉ của một học kỳ, sinh viên thuộc diện nghỉ học, cảnh báo học tập, vi phạm các quy định của Nhà trường (chưa nộp học phí, bảo hiểm y tế, chưa thực hiện các quy định khác,…) không được xét, cấp học bổng.</li></ul></div></div>
-</div>
-</section>
+<!-- ================= CÁC ĐỀ MỤC ================= -->
+<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Sinh viên mới trúng tuyển, nhập học kỳ đầu tiên vào giai đoạn đào tạo chương trình tiếng Anh và đại cương (BTEC HND) của chương trình cử nhân liên kết quốc tế giữa Trường Đại học Kinh tế - Đại học Đà Nẵng với các tổ chức đối tác nước ngoài.</div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Mức cấp, số lượng:</p><div class="table-wrapper"><table><thead><tr><th>Loại học bổng</th><th>Mức cấp</th><th>Số lượng</th></tr></thead><tbody><tr><td>Toàn phần</td><td><span class="level level-100">100% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td><td>Tối đa 5% tổng số sinh viên của mỗi chương trình đào tạo</td></tr><tr><td>Bán phần</td><td><span class="level level-50">50% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td><td>Tối đa 20% tổng số sinh viên của mỗi chương trình đào tạo</td></tr><tr><td>Khuyến khích</td><td><span class="level level-25">25% học phí của học kỳ đầu tiên theo chương trình đào tạo</span></td><td>Dành cho sinh viên không nhận được học bổng toàn phần và bán phần nêu trên</td></tr></tbody></table></div><div class="requirement"><h3>Yêu cầu & Điều kiện xét cấp</h3><p>- Tiêu chuẩn: Xét trong học kỳ đầu tiên, căn cứ vào một trong các điều kiện theo thứ tự ưu tiên như sau:</p></div><div class="support"><div class="support-heading">Chính sách hỗ trợ & Quyền lợi khác</div><div class="support-list"><div class="support-item"><div class="support-icon">📘</div><p>Sinh viên đạt giải trong các kỳ thi học sinh giỏi cấp Quốc tế hoặc cấp Quốc gia trong 03 năm học THPT;</p></div><div class="support-item"><div class="support-icon">🎓</div><p>Sinh viên có kết quả học tập và rèn luyện xếp vị thứ Nhất, Nhì, Ba toàn khối 12 tại trường THPT;</p></div><div class="support-item"><div class="support-icon">🌟</div><p>Sinh viên đạt giải trong các kỳ thi học sinh giỏi cấp Thành phố trong 03 năm học THPT;</p></div><div class="support-item"><div class="support-icon">💡</div><p>Sinh viên đạt giải năng khiếu, tài năng thanh lịch, tài năng về văn hóa nghệ thuật, âm nhạc, thể thao trong 03 năm học THPT;</p></div><div class="support-item"><div class="support-icon">🏛️</div><p>Sinh viên đạt điểm xét tuyển từ 25 điểm trở lên;</p></div><div class="support-item"><div class="support-icon">📘</div><p>Sinh viên có kết quả thi chứng chỉ tiếng Anh quốc tế (IELTS hoặc chứng chỉ tiếng Anh quốc tế tương đương) từ 5.5 trở lên.</p></div></div></div></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Nhà trường xét, cấp học bổng theo từng Khóa tuyển sinh; thời điểm xét: đầu học kỳ I năm thứ nhất (học kỳ đầu tiên).</li><li>Việc xét cấp thực hiện theo thứ tự kết quả và thành tích từ cao xuống thấp, từ học bổng Toàn phần, Bán phần đến Khuyến khích, cho đến hết số lượng học bổng được cấp cho từng loại học bổng.</li><li>Trường hợp điểm xét hoặc thành tích bằng nhau thì xét theo thành tích đặc biệt đóng góp cho sự nghiệp phát triển của Nhà trường, cộng đồng và xã hội.</li><li>Các tiêu chuẩn xét học bổng tuyển sinh nêu trên áp dụng từ năm tuyển sinh 2025.</li><li>Sinh viên không học đủ tổng số tín chỉ của một học kỳ, sinh viên thuộc diện nghỉ học, cảnh báo học tập, vi phạm các quy định của Nhà trường (chưa nộp học phí, bảo hiểm y tế, chưa thực hiện các quy định khác,…) không được xét, cấp học bổng.</li></ul></div></div></div></section>
 
 <!-- ================= KẾT THÚC ================= -->
 <script>
 const tabs = document.querySelectorAll(".tab-link");
-const sections = [
-    document.getElementById("doi-tuong"),
-    document.getElementById("nguyen-tac")
-].filter(Boolean);
+const sections = document.querySelectorAll("section[id]");
 
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });

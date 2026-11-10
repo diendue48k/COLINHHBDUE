@@ -42,7 +42,7 @@ body {
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 72px 20px 78px;
+    padding: 65px 20px 72px;
     background: linear-gradient(
         120deg,
         #063968,
@@ -84,7 +84,7 @@ body {
 }
 
 .banner h1 {
-    font-size: clamp(28px, 4.5vw, 44px);
+    font-size: clamp(26px, 4.2vw, 42px);
     line-height: 1.35;
     font-weight: 800;
     text-transform: uppercase;
@@ -120,10 +120,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 17px 25px;
+    padding: 17px 22px;
     color: #536579;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     transition: .25s;
     text-align: center;
@@ -150,15 +150,15 @@ body {
 }
 
 .tab-number {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     border-radius: 50%;
     background: #edf3f8;
     color: var(--blue);
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .tab-link.active .tab-number {
@@ -177,8 +177,9 @@ body {
     border-left: 5px solid var(--orange);
     border-radius: 13px;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 16px;
+    font-size: 15.5px;
     text-align: justify;
+    line-height: 1.75;
 }
 
 /* ================= CÁC ĐỀ MỤC ================= */
@@ -188,21 +189,22 @@ section {
 }
 
 .section-heading {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .section-heading h2 {
-    font-size: 26px;
+    font-size: 25px;
     color: var(--dark-blue);
     line-height: 1.5;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 .section-heading .line {
     width: 65px;
     height: 4px;
     background: var(--orange);
-    margin-top: 13px;
+    margin-top: 12px;
     border-radius: 5px;
 }
 
@@ -216,7 +218,7 @@ section {
     background: white;
     border-left: 5px solid var(--green);
     border-radius: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 22px;
     font-size: 15px;
 }
 
@@ -230,7 +232,7 @@ section {
     border-radius: 13px;
     background: white;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 }
 
 table {
@@ -249,7 +251,7 @@ thead th {
 }
 
 tbody td {
-    padding: 16px 15px;
+    padding: 18px 15px;
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
@@ -274,11 +276,10 @@ tbody li {
 
 .level {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 6px 11px;
     border-radius: 7px;
     font-weight: 800;
     white-space: nowrap;
-    font-size: 13px;
 }
 
 .level-100 {
@@ -304,7 +305,8 @@ tbody li {
 /* ================= YÊU CẦU ================= */
 .requirement {
     margin-top: 25px;
-    padding: 23px 25px;
+    margin-bottom: 25px;
+    padding: 22px 25px;
     background: #fff7e9;
     border-left: 5px solid var(--orange);
     border-radius: 11px;
@@ -325,13 +327,14 @@ tbody li {
 
 /* ================= CHÍNH SÁCH HỖ TRỢ ================= */
 .support {
-    margin-top: 35px;
+    margin-top: 30px;
+    margin-bottom: 25px;
 }
 
 .support-heading {
     color: var(--blue);
     font-size: 19px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border-bottom: 2px solid #e2eaf1;
     padding-bottom: 10px;
     font-weight: 800;
@@ -339,7 +342,7 @@ tbody li {
 
 .support-list {
     display: grid;
-    gap: 14px;
+    gap: 13px;
 }
 
 .support-item {
@@ -437,6 +440,47 @@ tbody li {
     text-align: justify;
 }
 
+/* ================= ĐỀ MỤC 3 ================= */
+.notes-section {
+    background: #f4f8fc;
+    color: var(--text);
+}
+
+.notes-section .section-heading h2 {
+    color: var(--dark-blue);
+}
+
+.notes-card {
+    padding: 25px;
+    background: white;
+    border-left: 5px solid #269b63;
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+}
+
+.notes-card h3 {
+    font-size: 18px;
+    color: var(--blue);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.notes-card p, .notes-card li {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.notes-card a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.notes-card a:hover {
+    text-decoration: underline;
+    color: var(--orange);
+}
+
 /* ================= ĐIỆN THOẠI ================= */
 @media(max-width: 700px) {
     .banner {
@@ -444,7 +488,7 @@ tbody li {
     }
 
     .banner h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .tab-list {
@@ -472,7 +516,7 @@ tbody li {
         font-size: 14px;
     }
 
-    .maintenance-card {
+    .maintenance-card, .notes-card {
         padding: 20px;
     }
 
@@ -485,21 +529,25 @@ tbody li {
 
 <body>
 
-<!-- ================= BANNER ================= -->
+<!-- ================= HEADER ================= -->
 <header class="banner">
     <div class="banner-content">
-        <h1>CHƯƠNG TRÌNH PHÁT TRIỂN<br><span>NHÀ NGHIÊN CỨU TRẺ (HỌC VIÊN CAO HỌC)</span></h1>
+        <h1>
+            CHƯƠNG TRÌNH PHÁT TRIỂN<br>
+            <span>NHÀ NGHIÊN CỨU TRẺ (HỌC VIÊN CAO HỌC)</span>
+        </h1>
     </div>
 </header>
 
 <!-- ================= THANH TAB ================= -->
 <nav class="tab-navigation">
     <div class="tab-list">
-        <a href="#doi-tuong" class="tab-link active">
+        
+        <a href="#de-muc-1" class="tab-link active">
             <span class="tab-number">01</span>
             1. ĐỐI TƯỢNG VÀ MỨC CẤP
         </a>
-        <a href="#nguyen-tac" class="tab-link">
+        <a href="#de-muc-2" class="tab-link">
             <span class="tab-number">02</span>
             2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
         </a>
@@ -510,63 +558,21 @@ tbody li {
 <div class="introduction">
     <div class="container">
         <div class="intro-card">
-            Chính sách miễn học phí dành cho Học viên thuộc chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu có thành tích nổi bật trong học tập và nghiên cứu khoa học. Chính sách nhằm thu hút và phát triển người học có năng lực nghiên cứu, tạo nguồn Nhà nghiên cứu tiềm năng, nguồn Giảng viên và nhân lực học thuật chất lượng cao cho Trường Đại học Kinh tế.
+            Chương trình Học bổng Nhà nghiên cứu trẻ nhằm ươm mầm tài năng học thuật, khuyến khích học viên cao học tích cực tham gia nghiên cứu khoa học, công bố các công trình chất lượng cao trên các tạp chí uy tín trong nước và quốc tế.
         </div>
     </div>
 </div>
 
-<!-- ================= ĐỀ MỤC 1 ================= -->
-<section class="criteria-section" id="doi-tuong">
-<div class="container">
-    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>Đối tượng: Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.</strong></div></div><div class="table-wrapper">
-<table>
-<thead><tr>
-<th>TT</th>
-<th>Mức miễn</th>
-<th>Yêu cầu</th>
-</tr></thead>
-<tbody>
-<tr>
-<td><strong>1</strong></td>
-<td><span class="level level-100">100% học phí</span></td>
-<td><ul><li>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</li></ul></td>
-</tr>
-<tr>
-<td><strong>2</strong></td>
-<td><span class="level level-75">75% học phí</span></td>
-<td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td>
-</tr>
-<tr>
-<td><strong>3</strong></td>
-<td><span class="level level-50">50% học phí</span></td>
-<td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td>
-</tr>
-<tr>
-<td><strong>4</strong></td>
-<td><span class="level level-25">Tối đa 25% học phí</span></td>
-<td><ul><li>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.</li><li>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</li></ul></td>
-</tr>
-</tbody></table></div><div class="requirement"><h3>Yêu cầu & Điều kiện</h3><p>Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</p></div><div class="support"><h3 class="support-heading">- Các chính sách hỗ trợ khác:</h3><div class="support-list"><div class="support-item"><div class="support-icon">📚</div><p><strong>+</strong> Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</p></div><div class="support-item"><div class="support-icon">🌐</div><p><strong>+</strong> Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</p></div><div class="support-item"><div class="support-icon">🔬</div><p><strong>+</strong> Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</p></div></div></div>
-</div>
-</section>
-
-<!-- ================= ĐỀ MỤC 2 ================= -->
-<section class="maintenance-section" id="nguyen-tac">
-<div class="container">
-    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Năm thứ nhất: Nhà trường xét cấp cho các học viên thỏa các điều kiện nêu trên.</li></ul></div><div class="maintenance-card"><h3>- Năm thứ hai</h3><ul><li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li></ul></div></div>
-</div>
-</section>
+<!-- ================= CÁC ĐỀ MỤC ================= -->
+<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.</div><div class="table-wrapper"><table><thead><tr><th>TT</th><th>Mức miễn</th><th>Yêu cầu</th></tr></thead><tbody><tr><td>1</td><td><span class="level level-100">100% học phí</span></td><td>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</td></tr><tr><td>2</td><td><span class="level level-75">75% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td></tr><tr><td>3</td><td><span class="level level-50">50% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td></tr><tr><td>4</td><td><span class="level level-25">Tối đa 25% học phí</span></td><td>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.<br>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</td></tr></tbody></table></div><div class="table-wrapper"><table><thead><tr><th>Yêu cầu</th></tr></thead><tbody><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr></tbody></table></div><div class="support"><div class="support-heading">Chính sách hỗ trợ & Quyền lợi khác</div><div class="support-list"><div class="support-item"><div class="support-icon">📘</div><p>Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</p></div><div class="support-item"><div class="support-icon">🎓</div><p>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</p></div><div class="support-item"><div class="support-icon">🌟</div><p>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</p></div></div></div></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Năm thứ hai:</h3><ul><li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li><li>Đối với học viên được miễn học phí tối đa 25% học phí: Không áp dụng điều kiện duy trì đối với mức miễn học phí này.</li></ul></div></div></div></section>
 
 <!-- ================= KẾT THÚC ================= -->
 <script>
 const tabs = document.querySelectorAll(".tab-link");
-const sections = [
-    document.getElementById("doi-tuong"),
-    document.getElementById("nguyen-tac")
-].filter(Boolean);
+const sections = document.querySelectorAll("section[id]");
 
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });

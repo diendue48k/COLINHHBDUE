@@ -189,7 +189,7 @@ export const FAQSection: React.FC = () => {
                 onClick={scrollToContact}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-50 text-[#1760AB] hover:bg-[#1760AB] hover:text-white font-bold text-xs border border-blue-200/80 transition-all cursor-pointer"
               >
-                <span>Xem thông tin liên hệ CTSV</span>
+                <span>Xem thông tin liên hệ</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

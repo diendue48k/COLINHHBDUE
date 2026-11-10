@@ -384,7 +384,7 @@ function PortalContent() {
                       rel="noopener noreferrer"
                       className="text-xs sm:text-[13px] font-bold text-[#119046] hover:underline"
                     >
-                      Fanpage CTSV
+                      Fanpage DUE - Phòng Công tác Sinh viên
                     </a>
                   </div>
                 </div>
