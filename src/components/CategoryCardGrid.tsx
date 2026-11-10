@@ -119,23 +119,23 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
   return (
     <div
       id={`category-${category.id}`}
-      className={`bg-white rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-xl ${styles.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group h-full`}
+      className={`bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl ${styles.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group h-full`}
     >
       {/* 
-        Top Header: CHIỀU CAO CỐ ĐỊNH HOÀN TOÀN (h-20 sm:h-22)
+        Top Header: Rút gọn độ cao chuẩn đẹp (h-14 sm:h-16)
         - Căn giữa dọc và ngang tuyệt đối
         - Màu sắc khớp 100% sơ đồ 6 cột
       */}
       <div
-        className={`h-20 sm:h-22 px-4 bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0`}
+        className={`h-14 sm:h-16 px-3 bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0`}
       >
-        <h3 className="text-xs sm:text-[13px] md:text-sm font-black uppercase tracking-wide leading-tight max-w-[280px]">
+        <h3 className="text-[11.5px] sm:text-xs md:text-[13px] font-black uppercase tracking-wide leading-tight max-w-[280px]">
           {formatTitle(category.title)}
         </h3>
       </div>
 
-      {/* Program Items List: Đánh số 1 đến 21 chuẩn theo sơ đồ */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col gap-2.5 bg-slate-50/40">
+      {/* Program Items List: Rút gọn padding, line-spacing và độ cao nút */}
+      <div className="p-2.5 sm:p-3 flex-1 flex flex-col gap-1.5 bg-slate-50/40">
         {items.map((scholarship) => {
           const displayTitle = scholarship.cardTitle || scholarship.title;
 
@@ -144,28 +144,28 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
               key={scholarship.id}
               type="button"
               onClick={() => onSelectScholarship(scholarship)}
-              className={`w-full group/item text-left p-2.5 sm:p-3 rounded-2xl border border-slate-200/80 bg-white hover:bg-white ${styles.cardHoverBorder} shadow-2xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-between gap-2.5 cursor-pointer min-h-[50px]`}
+              className={`w-full group/item text-left py-1.5 px-2.5 sm:py-2 sm:px-3 rounded-xl border border-slate-200/80 bg-white hover:bg-white ${styles.cardHoverBorder} shadow-2xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150 flex items-center justify-between gap-2 cursor-pointer`}
             >
-              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
                 {/* Number Badge 1..21 matching diagram */}
-                <span className="w-6 h-6 rounded-lg bg-slate-100 text-slate-700 font-black text-[11px] flex items-center justify-center shrink-0 border border-slate-200 group-hover/item:border-blue-400 group-hover/item:bg-blue-50 group-hover/item:text-blue-700 transition-colors">
+                <span className="w-5 h-5 rounded-md bg-slate-100 text-slate-700 font-black text-[10px] flex items-center justify-center shrink-0 border border-slate-200 group-hover/item:border-blue-400 group-hover/item:bg-blue-50 group-hover/item:text-blue-700 transition-colors">
                   {scholarship.order}
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-800 group-hover/item:text-[#1760AB] block leading-snug">
+                  <span className="text-[11.5px] sm:text-[12px] font-bold text-slate-800 group-hover/item:text-[#1760AB] block leading-snug">
                     {displayTitle}
                   </span>
                 </div>
               </div>
 
-              <ChevronRight className="w-4 h-4 text-slate-300 group-hover/item:text-slate-700 group-hover/item:translate-x-0.5 transition-all shrink-0" />
+              <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover/item:text-slate-700 group-hover/item:translate-x-0.5 transition-all shrink-0" />
             </button>
           );
         })}
 
         {items.length === 0 && (
-          <div className="py-8 text-center text-xs text-slate-400 italic">
+          <div className="py-6 text-center text-xs text-slate-400 italic">
             Chưa có chương trình nào được cập nhật
           </div>
         )}

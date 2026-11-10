@@ -9,7 +9,7 @@ export const HeroBanner: React.FC = () => {
         <img
           src="/images/banner-due.png"
           alt="Cổng thông tin học bổng – Trường Đại học Kinh tế, Đại học Đà Nẵng"
-          className="w-full h-auto max-h-[460px] lg:max-h-[520px] object-cover object-center block"
+          className="w-full h-auto max-h-[300px] md:max-h-[350px] lg:max-h-[380px] object-cover object-center block"
           loading="eager"
         />
       </div>
