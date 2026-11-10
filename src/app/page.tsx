@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -27,6 +27,16 @@ import { FAQSection } from '@/components/FAQSection';
 import { Category, Scholarship, Announcement } from '@/types';
 import { initialData } from '@/data/initialData';
 
+const ANNOUNCEMENT_CATEGORY_FILTERS = [
+  { id: 'all', label: 'Tất cả thông báo', match: '' },
+  { id: 'dai-hoc', label: 'Học bổng Bậc Đại học', match: 'Đại học' },
+  { id: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường', match: 'ngoài trường' },
+  { id: 'mien-giam', label: 'Chính sách Miễn giảm', match: 'miễn giảm' },
+  { id: 'du-hoc', label: 'Học bổng Du học', match: 'Du học' },
+  { id: 'sau-dai-hoc', label: 'Học bổng Bậc Sau đại học', match: 'Sau đại học' },
+  { id: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế', match: 'Liên kết' },
+];
+
 function PortalContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -34,8 +44,18 @@ function PortalContent() {
   const [categories, setCategories] = useState<Category[]>(initialData.categories);
   const [scholarships, setScholarships] = useState<Scholarship[]>(initialData.scholarships);
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
+  const [selectedAnnouncementCategory, setSelectedAnnouncementCategory] = useState<string>('all');
   const [selectedScholarship, setSelectedScholarship] = useState<Scholarship | null>(null);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
+
+  const filteredAnnouncements = useMemo(() => {
+    if (selectedAnnouncementCategory === 'all') return announcements;
+    const catObj = ANNOUNCEMENT_CATEGORY_FILTERS.find((c) => c.id === selectedAnnouncementCategory);
+    if (!catObj) return announcements;
+    return announcements.filter((a) =>
+      a.category.toLowerCase().includes(catObj.match.toLowerCase())
+    );
+  }, [announcements, selectedAnnouncementCategory]);
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -186,9 +206,30 @@ function PortalContent() {
             </p>
           </div>
 
-          {/* Grid 6 Notification Cards (3 Cột x 2 Hàng) */}
+          {/* BỘ LỌC 6 DANH MỤC HỌC BỔNG TRỰC TIẾP TRÊN TRANG CHỦ */}
+          <div className="flex items-center justify-center gap-1.5 flex-wrap mb-4">
+            {ANNOUNCEMENT_CATEGORY_FILTERS.map((cat) => {
+              const isActive = selectedAnnouncementCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedAnnouncementCategory(cat.id)}
+                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-[#1760AB] text-white shadow-xs'
+                      : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Grid Notification Cards (3 Cột x 2 Hàng) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {announcements.slice(0, 6).map((ann, idx) => {
+            {filteredAnnouncements.map((ann, idx) => {
               const badgeColors = [
                 'bg-blue-50 text-[#1760AB] border-blue-200',
                 'bg-orange-50 text-[#F26524] border-orange-200',
@@ -234,16 +275,11 @@ function PortalContent() {
             })}
           </div>
 
-          {/* Nút xem tất cả thông báo căn giữa */}
-          <div className="mt-4 text-center">
-            <Link
-              href="/thong-bao"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] px-4 py-2 rounded-full border border-blue-200 shadow-2xs hover:shadow-xs transition-all"
-            >
-              <span>Xem tất cả thông báo</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+          {filteredAnnouncements.length === 0 && (
+            <div className="py-8 text-center text-slate-400 text-xs italic bg-white rounded-2xl border border-slate-200">
+              Không có thông báo nào thuộc danh mục này.
+            </div>
+          )}
         </section>
 
         {/* 
