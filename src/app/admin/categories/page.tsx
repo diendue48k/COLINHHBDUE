@@ -166,7 +166,7 @@ export default function AdminCategoriesPage() {
 
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
-                  <DynamicIcon name={cat.icon} className="w-5 h-5" />
+                  <DynamicIcon name={cat.icon || 'GraduationCap'} className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">

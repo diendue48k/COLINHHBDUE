@@ -11,11 +11,14 @@ interface CategoryCardGridProps {
   onSelectScholarship: (scholarship: Scholarship) => void;
 }
 
-// 3 Core Brand Colors of DUE: Blue (#1760AB), Orange (#F26524), Green (#119046)
+// 3 Core Brand Colors of DUE matching diagram:
+// Col 1 & 3: DUE Blue (#1760AB)
+// Col 2 & 4: DUE Orange (#F26524)
+// Col 5 & 6: DUE Green (#119046)
 const getCategoryStyle = (categoryId: string) => {
   switch (categoryId) {
-    case 'cat-1': // Sau đại học -> DUE Blue
-    case 'cat-6': // Du học -> DUE Blue
+    case 'cat-1': // Bậc Sau đại học -> Blue
+    case 'cat-3': // Đơn vị ngoài trường -> Blue
       return {
         gradientHeader: 'from-[#1760AB] to-[#2066AE]',
         borderHover: 'hover:border-[#1760AB]/60',
@@ -24,8 +27,8 @@ const getCategoryStyle = (categoryId: string) => {
         iconColor: 'text-[#1760AB]',
         activeDot: 'bg-[#1760AB]',
       };
-    case 'cat-2': // Đại học -> DUE Orange
-    case 'cat-4': // Miễn giảm & Trợ cấp -> DUE Orange
+    case 'cat-2': // Bậc Đại học -> Orange
+    case 'cat-4': // Miễn giảm & Trợ cấp -> Orange
       return {
         gradientHeader: 'from-[#F26524] to-[#FA7035]',
         borderHover: 'hover:border-[#F26524]/60',
@@ -34,8 +37,8 @@ const getCategoryStyle = (categoryId: string) => {
         iconColor: 'text-[#F26524]',
         activeDot: 'bg-[#F26524]',
       };
-    case 'cat-3': // Đơn vị ngoài trường -> DUE Green
-    case 'cat-5': // Cử nhân Liên kết quốc tế -> DUE Green
+    case 'cat-5': // Cử nhân Liên kết quốc tế -> Green
+    case 'cat-6': // Du học -> Green
     default:
       return {
         gradientHeader: 'from-[#119046] to-[#1BA855]',
@@ -60,21 +63,53 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
     .filter((s) => s.categoryId === category.id && s.isActive !== false)
     .sort((a, b) => a.order - b.order);
 
-  // Clean title for perfect visual balance
+  // Clean title for perfect visual balance matching diagram
   const formatTitle = (title: string) => {
-    if (title.includes('CỬ NHÂN LIÊN KẾT QUỐC TẾ')) {
+    if (title === 'HỌC BỔNG BẬC SAU ĐẠI HỌC') {
       return (
         <>
-          <span className="block">HỌC BỔNG CỬ NHÂN</span>
-          <span className="block">LIÊN KẾT QUỐC TẾ</span>
+          <span className="block">HỌC BỔNG</span>
+          <span className="block">BẬC SAU ĐẠI HỌC</span>
         </>
       );
     }
-    if (title.includes('MIỄN GIẢM TRỢ CẤP')) {
+    if (title === 'HỌC BỔNG BẬC ĐẠI HỌC') {
       return (
         <>
-          <span className="block">CHÍNH SÁCH MIỄN GIẢM</span>
-          <span className="block">TRỢ CẤP XÃ HỘI</span>
+          <span className="block">HỌC BỔNG</span>
+          <span className="block">BẬC ĐẠI HỌC</span>
+        </>
+      );
+    }
+    if (title === 'HỌC BỔNG ĐƠN VỊ NGOÀI TRƯỜNG') {
+      return (
+        <>
+          <span className="block">HỌC BỔNG</span>
+          <span className="block">ĐƠN VỊ NGOÀI TRƯỜNG</span>
+        </>
+      );
+    }
+    if (title === 'CHÍNH SÁCH MIỄN GIẢM TRỢ CẤP XÃ HỘI') {
+      return (
+        <>
+          <span className="block">CHÍNH SÁCH MIỄN</span>
+          <span className="block">GIẢM TRỢ CẤP XÃ HỘI</span>
+        </>
+      );
+    }
+    if (title.includes('CỬ NHÂN LIÊN KẾT QUỐC TẾ')) {
+      return (
+        <>
+          <span className="block">HỌC BỔNG CHƯƠNG TRÌNH</span>
+          <span className="block">CỬ NHÂN LIÊN KẾT QUỐC TẾ</span>
+        </>
+      );
+    }
+    if (title === 'HỌC BỔNG DU HỌC') {
+      return (
+        <>
+          <span className="block">HỌC BỔNG</span>
+          <span className="block">DU HỌC</span>
         </>
       );
     }
@@ -88,9 +123,8 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
     >
       {/* 
         Top Header: CHIỀU CAO CỐ ĐỊNH HOÀN TOÀN (h-20 sm:h-22)
-        - ĐÃ BỎ SUB NHỎ (slogan) theo yêu cầu người dùng
         - Căn giữa dọc và ngang tuyệt đối
-        - Đường phân cách dưới của mọi card trong hàng tạo thành 1 ĐƯỜNG THẲNG THƯỚC ĐO
+        - Màu sắc khớp 100% sơ đồ 6 cột
       */}
       <div
         className={`h-20 sm:h-22 px-4 bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0`}
@@ -100,7 +134,7 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
         </h3>
       </div>
 
-      {/* Program Items List: ĐÃ BỎ TOÀN BỘ CÁC SUB NHỎ (targetAudience) */}
+      {/* Program Items List: Đánh số 1 đến 21 chuẩn theo sơ đồ */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col gap-2.5 bg-slate-50/40">
         {items.map((scholarship) => {
           const displayTitle = scholarship.cardTitle || scholarship.title;
@@ -110,14 +144,14 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
               key={scholarship.id}
               type="button"
               onClick={() => onSelectScholarship(scholarship)}
-              className={`w-full group/item text-left p-3 sm:p-3.5 rounded-2xl border border-slate-200/80 bg-white hover:bg-white ${styles.cardHoverBorder} shadow-2xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer min-h-[50px]`}
+              className={`w-full group/item text-left p-2.5 sm:p-3 rounded-2xl border border-slate-200/80 bg-white hover:bg-white ${styles.cardHoverBorder} shadow-2xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 flex items-center justify-between gap-2.5 cursor-pointer min-h-[50px]`}
             >
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div
-                  className={`w-8 h-8 rounded-xl ${styles.iconBg} ${styles.iconColor} flex items-center justify-center shrink-0 group-hover/item:scale-105 transition-transform shadow-2xs`}
-                >
-                  <DynamicIcon name={scholarship.icon || 'GraduationCap'} className="w-4 h-4" />
-                </div>
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                {/* Number Badge 1..21 matching diagram */}
+                <span className="w-6 h-6 rounded-lg bg-slate-100 text-slate-700 font-black text-[11px] flex items-center justify-center shrink-0 border border-slate-200 group-hover/item:border-blue-400 group-hover/item:bg-blue-50 group-hover/item:text-blue-700 transition-colors">
+                  {scholarship.order}
+                </span>
+
                 <div className="min-w-0 flex-1">
                   <span className="text-xs sm:text-[13px] font-bold text-slate-800 group-hover/item:text-[#1760AB] block leading-snug">
                     {displayTitle}

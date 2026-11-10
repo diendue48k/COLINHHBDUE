@@ -68,11 +68,12 @@ export interface Category {
   description?: string;
   slogan?: string;
   shortTitle: string;
-  themeColor: ColorTheme;
-  icon: string;
+  themeColor?: ColorTheme;
+  color?: string;
+  icon?: string;
   order: number;
-  isActive: boolean;
-  illustration: 'cap' | 'handshake' | 'heart' | 'globe' | 'plane' | 'none';
+  isActive?: boolean;
+  illustration?: 'cap' | 'handshake' | 'heart' | 'globe' | 'plane' | 'none';
 }
 
 export interface Announcement {
@@ -131,10 +132,12 @@ export interface DatabaseState {
   scholarships: Scholarship[];
   announcements: Announcement[];
   faqs?: FAQItem[];
-  users: User[];
+  users?: User[];
   settings: SiteSettings;
   stats: {
     totalViews: number;
     dailyViews: { date: string; views: number }[];
   };
+  lastUpdatedAt?: string;
+  lastSyncedAt?: string;
 }
