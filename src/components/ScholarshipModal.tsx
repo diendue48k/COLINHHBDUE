@@ -9,13 +9,6 @@ import {
   Check,
   GraduationCap,
   ShieldCheck,
-  Award,
-  FileText,
-  Paperclip,
-  Globe,
-  Bell,
-  BarChart3,
-  FileCheck,
 } from 'lucide-react';
 import { Scholarship } from '@/types';
 import { DynamicIcon } from './DynamicIcon';
@@ -30,7 +23,6 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
   onClose,
 }) => {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'intro' | 'rules' | 'notices' | 'stats'>('intro');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -45,7 +37,6 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
   useEffect(() => {
     if (scholarship) {
       document.body.style.overflow = 'hidden';
-      setActiveTab('intro');
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -96,235 +87,101 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      {/* Modal Container: matching media_1794028856755_0443fc5f.png */}
-      <div className="relative w-full max-w-[880px] max-h-[88vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-slate-200">
+      <div className="relative w-full max-w-[920px] max-h-[88vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-slate-200">
         {/* Top Header Row with Centered Title & Close X Button */}
-        <div className="pt-6 px-6 sm:px-8 pb-2 bg-white sticky top-0 z-20 border-b border-slate-100">
+        <div className="pt-6 px-6 sm:px-8 pb-3 bg-white sticky top-0 z-20 border-b border-slate-100">
           <div className="relative flex flex-col items-center text-center pr-8 pl-8">
             {/* Title Centered */}
             <h2 className="text-base sm:text-[19px] font-black text-[#0B3B60] tracking-tight uppercase leading-snug">
               {scholarship.modalTitle || scholarship.title}
             </h2>
 
-            {/* Small decorative Orange & Green Dual-Color bar */}
+            {/* Decorative Orange & Green Dual-Color bar */}
             <div className="w-16 h-1 bg-gradient-to-r from-[#FA541C] to-[#10B981] rounded-full mx-auto my-2" />
 
             {/* Close button X top right */}
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-0 top-0 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors"
+              className="absolute right-0 top-0 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
               title="Đóng (Esc)"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
-
-          {/* Navigation Tabs Bar matching media_1794028856755_0443fc5f.png */}
-          <div className="flex items-center justify-center gap-2 sm:gap-6 pt-2 pb-1 overflow-x-auto no-scrollbar border-t border-slate-100 mt-2 text-xs font-bold">
-            <button
-              type="button"
-              onClick={() => setActiveTab('intro')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === 'intro'
-                  ? 'bg-[#0B4899] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-blue-700 hover:bg-slate-50'
-              }`}
-            >
-              Giới thiệu
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('rules')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === 'rules'
-                  ? 'bg-[#0B4899] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-blue-700 hover:bg-slate-50'
-              }`}
-            >
-              Quy định
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('notices')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === 'notices'
-                  ? 'bg-[#0B4899] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-blue-700 hover:bg-slate-50'
-              }`}
-            >
-              Thông báo
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('stats')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === 'stats'
-                  ? 'bg-[#0B4899] text-white shadow-xs'
-                  : 'text-slate-600 hover:text-blue-700 hover:bg-slate-50'
-              }`}
-            >
-              Thống kê
-            </button>
-          </div>
         </div>
 
-        {/* Scrollable Interior */}
+        {/* Scrollable Interior: Hiển thị trực tiếp toàn bộ mã HTML theo yêu cầu người dùng (bỏ các tab) */}
         <div className="overflow-y-auto px-6 sm:px-8 py-5 space-y-5 flex-1 text-slate-700">
-          {/* TAB 1: GIỚI THIỆU */}
-          {activeTab === 'intro' && (
+          {scholarship.introHtml && scholarship.introHtml.trim() ? (
+            <div
+              className="due-popup-html-content"
+              dangerouslySetInnerHTML={{ __html: scholarship.introHtml }}
+            />
+          ) : scholarship.htmlContent && scholarship.htmlContent.trim() ? (
+            <div
+              className="due-popup-html-content"
+              dangerouslySetInnerHTML={{ __html: scholarship.htmlContent }}
+            />
+          ) : (
             <div className="space-y-5">
-              {scholarship.introHtml && scholarship.introHtml.trim() ? (
-                <div
-                  className="due-popup-html-content"
-                  dangerouslySetInnerHTML={{ __html: scholarship.introHtml }}
-                />
-              ) : scholarship.htmlContent && scholarship.htmlContent.trim() ? (
-                <div
-                  className="due-popup-html-content"
-                  dangerouslySetInnerHTML={{ __html: scholarship.htmlContent }}
-                />
-              ) : (
-                <div className="space-y-5">
-                  {scholarship.intro && (
-                    <p className="text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
-                      {scholarship.intro}
-                    </p>
-                  )}
-                  {scholarship.sections &&
-                    scholarship.sections.map((section, idx) => (
-                      <div key={section.id || idx} className="space-y-3">
-                        <div className="flex items-center gap-2.5 bg-[#E1F0FD] py-1.5 px-3.5 rounded-full border border-blue-200/50">
-                          <span className="w-5 h-5 rounded-full bg-[#FA541C] text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">
-                            {section.number || idx + 1}
-                          </span>
-                          <h3 className="text-xs sm:text-[13px] font-black text-[#0B3B60] uppercase tracking-wide">
-                            {section.title}
-                          </h3>
-                        </div>
+              {scholarship.intro && (
+                <p className="text-xs sm:text-[13px] leading-relaxed text-slate-600 font-normal">
+                  {scholarship.intro}
+                </p>
+              )}
+              {scholarship.sections &&
+                scholarship.sections.map((section, idx) => (
+                  <div key={section.id || idx} className="space-y-3">
+                    <div className="flex items-center gap-2.5 bg-[#E1F0FD] py-1.5 px-3.5 rounded-full border border-blue-200/50">
+                      <span className="w-5 h-5 rounded-full bg-[#FA541C] text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">
+                        {section.number || idx + 1}
+                      </span>
+                      <h3 className="text-xs sm:text-[13px] font-black text-[#0B3B60] uppercase tracking-wide">
+                        {section.title}
+                      </h3>
+                    </div>
 
-                        <div className="flex items-start gap-4 pl-1">
-                          {renderSectionIcon(section.icon, idx)}
-                          <div className="flex-1 space-y-2 text-xs sm:text-[13px] text-slate-700 leading-relaxed pt-0.5">
-                            {section.bullets &&
-                              section.bullets.map((bullet, bIdx) => (
-                                <div key={bIdx} className="flex items-start gap-2.5">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#FA541C] shrink-0 mt-2 shadow-xs" />
-                                  <span className="flex-1">{bullet}</span>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
+                    <div className="flex items-start gap-4 pl-1">
+                      {renderSectionIcon(section.icon, idx)}
+                      <div className="flex-1 space-y-2 text-xs sm:text-[13px] text-slate-700 leading-relaxed pt-0.5">
+                        {section.bullets &&
+                          section.bullets.map((bullet, bIdx) => (
+                            <div key={bIdx} className="flex items-start gap-2.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#FA541C] shrink-0 mt-2 shadow-xs" />
+                              <span className="flex-1">{bullet}</span>
+                            </div>
+                          ))}
                       </div>
-                    ))}
-                </div>
-              )}
+                    </div>
+                  </div>
+                ))}
             </div>
           )}
 
-          {/* TAB 2: QUY ĐỊNH */}
-          {activeTab === 'rules' && (
-            <div className="space-y-4">
-              {scholarship.rulesHtml && scholarship.rulesHtml.trim() ? (
-                <div
-                  className="due-popup-html-content"
-                  dangerouslySetInnerHTML={{ __html: scholarship.rulesHtml }}
-                />
-              ) : (
-                <>
-                  <h3 className="text-sm font-bold text-[#0B3B60] uppercase">
-                    Quy chế & Tiêu chuẩn xét duyệt {scholarship.title}
-                  </h3>
-                  <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200 text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• Học bổng được xét và cấp theo từng học kỳ dựa trên kết quả học tập và rèn luyện chính thức của Trường Đại học Kinh tế – ĐHĐN.</p>
-                    <p>• Sinh viên phải tích lũy tối thiểu số tín chỉ theo quy định của khung chương trình đào tạo chuẩn.</p>
-                    <p>• Không bị kỷ luật từ mức khiển trách trở lên trong học kỳ xét học bổng.</p>
-                  </div>
-                </>
-              )}
-
-              {scholarship.documents && scholarship.documents.length > 0 && (
-                <div className="pt-2">
-                  <h4 className="text-xs font-bold text-slate-800 uppercase mb-2">Văn bản quy định đính kèm:</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {scholarship.documents.map((doc) => (
-                      <a
-                        key={doc.id}
-                        href={doc.url}
-                        download
-                        className="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 transition-all"
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <span className="w-8 h-8 rounded-lg bg-red-100 text-red-600 font-bold text-[10px] flex items-center justify-center uppercase">
-                            {doc.fileType || 'PDF'}
-                          </span>
-                          <span className="text-xs font-bold text-slate-800 truncate">{doc.title}</span>
-                        </div>
-                        <FileDown className="w-4 h-4 text-blue-600 shrink-0 ml-2" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* TAB 3: THÔNG BÁO */}
-          {activeTab === 'notices' && (
-            <div className="space-y-4">
-              {scholarship.noticesHtml && scholarship.noticesHtml.trim() ? (
-                <div
-                  className="due-popup-html-content"
-                  dangerouslySetInnerHTML={{ __html: scholarship.noticesHtml }}
-                />
-              ) : (
-                <div className="space-y-3">
-                  <h3 className="text-sm font-bold text-[#0B3B60] uppercase">
-                    Các thông báo mới nhất liên quan
-                  </h3>
-                  <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold text-[10px]">MỚI</span>
-                      <span className="text-slate-400 text-[11px]">Học kỳ I Năm học 2025 - 2026</span>
+          {scholarship.documents && scholarship.documents.length > 0 && (
+            <div className="pt-4 border-t border-slate-100">
+              <h4 className="text-xs font-bold text-slate-800 uppercase mb-2.5">
+                Văn bản & Tài liệu đính kèm:
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {scholarship.documents.map((doc) => (
+                  <a
+                    key={doc.id}
+                    href={doc.url}
+                    download
+                    className="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:bg-blue-50 hover:border-blue-300 transition-all"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className="w-8 h-8 rounded-lg bg-red-100 text-red-600 font-bold text-[10px] flex items-center justify-center uppercase shrink-0">
+                        {doc.fileType || 'PDF'}
+                      </span>
+                      <span className="text-xs font-bold text-slate-800 truncate">{doc.title}</span>
                     </div>
-                    <h4 className="font-bold text-slate-800 text-sm">Thông báo kế hoạch nộp minh chứng và xét cấp học bổng</h4>
-                    <p className="text-slate-600">Sinh viên kiểm tra điểm rèn luyện và bảng điểm học tập trên Cổng sinh viên DUE trước ngày 15 hàng tháng.</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* TAB 4: THỐNG KÊ */}
-          {activeTab === 'stats' && (
-            <div className="space-y-4">
-              {scholarship.statsHtml && scholarship.statsHtml.trim() ? (
-                <div
-                  className="due-popup-html-content"
-                  dangerouslySetInnerHTML={{ __html: scholarship.statsHtml }}
-                />
-              ) : (
-                <>
-                  <h3 className="text-sm font-bold text-[#0B3B60] uppercase">
-                    Thống kê giải ngân & Số lượng sinh viên nhận học bổng
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase">Tổng kinh phí năm học 2024-2025</span>
-                      <div className="text-lg font-black text-blue-900 mt-1">15.789.312.500 đ</div>
-                      <span className="text-emerald-600 font-bold text-[11px]">1.386 sinh viên thụ hưởng</span>
-                    </div>
-                    <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase">Học kỳ I Năm học 2025-2026</span>
-                      <div className="text-lg font-black text-emerald-800 mt-1">8.168.650.913 đ</div>
-                      <span className="text-emerald-700 font-bold text-[11px]">898 sinh viên thụ hưởng</span>
-                    </div>
-                  </div>
-                </>
-              )}
+                    <FileDown className="w-4 h-4 text-blue-600 shrink-0 ml-2" />
+                  </a>
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -336,7 +193,7 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
             <button
               type="button"
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
               title="Sao chép liên kết chia sẻ trực tiếp"
             >
               {copied ? (
@@ -355,18 +212,18 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5 text-slate-500" />
               <span>In trang</span>
             </button>
           </div>
 
-          {/* Right: Blue Close Button "Đóng ✕" matching Image 2 */}
+          {/* Right: Blue Close Button "Đóng ✕" */}
           <button
             type="button"
             onClick={onClose}
-            className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#0F52BA] hover:bg-[#0B4899] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all"
+            className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#0F52BA] hover:bg-[#0B4899] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
           >
             <span>Đóng</span>
             <X className="w-4 h-4" />

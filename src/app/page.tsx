@@ -293,8 +293,8 @@ function PortalContent() {
             <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
               THÔNG TIN LIÊN HỆ
             </h2>
-            <p className="text-xs text-slate-500 font-medium">
-              Đơn vị phụ trách: Phòng Công tác Sinh viên (CTSV) – Trường Đại học Kinh tế, Đại học Đà Nẵng
+            <p className="text-xs text-slate-600 font-bold uppercase tracking-wide">
+              PHÒNG CÔNG TÁC SINH VIÊN - TRƯỜNG ĐẠI HỌC KINH TẾ, ĐẠI HỌC ĐÀ NẴNG
             </p>
             <div className="pt-0.5">
               <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-50 text-blue-800 text-[11px] font-semibold border border-blue-200/80">
@@ -307,7 +307,7 @@ function PortalContent() {
           {/* 4 Khối thông tin liên hệ dàn đều full-width, tuyệt đối cân đối với toàn trang */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card 1: Địa chỉ */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#1760AB]/60 transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#1760AB]/60 transition-all flex flex-col justify-start">
               <div className="space-y-2">
                 <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1760AB] border border-blue-100 flex items-center justify-center shadow-2xs">
                   <MapPin className="w-4.5 h-4.5" />
@@ -322,19 +322,10 @@ function PortalContent() {
                   </p>
                 </div>
               </div>
-              <a
-                href="https://maps.google.com/?q=71+Ngu+Hanh+Son+Da+Nang"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#1760AB] hover:underline"
-              >
-                <span>Xem bản đồ chỉ đường</span>
-                <ChevronRight className="w-3 h-3" />
-              </a>
             </div>
 
             {/* Card 2: Hotline */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#F26524]/60 transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#F26524]/60 transition-all flex flex-col justify-start">
               <div className="space-y-2">
                 <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#F26524] border border-orange-100 flex items-center justify-center shadow-2xs">
                   <Phone className="w-4.5 h-4.5" />
@@ -347,22 +338,12 @@ function PortalContent() {
                   >
                     0236 3956 397
                   </a>
-                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    Tư vấn chế độ chính sách, học phí và các chương trình học bổng sinh viên.
-                  </p>
                 </div>
               </div>
-              <a
-                href="tel:02363956397"
-                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#F26524] hover:underline"
-              >
-                <span>Gọi ngay để được hỗ trợ</span>
-                <ChevronRight className="w-3 h-3" />
-              </a>
             </div>
 
             {/* Card 3: Email */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#009FE3]/60 transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#009FE3]/60 transition-all flex flex-col justify-start">
               <div className="space-y-2">
                 <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#009FE3] border border-sky-100 flex items-center justify-center shadow-2xs">
                   <Mail className="w-4.5 h-4.5" />
@@ -375,45 +356,39 @@ function PortalContent() {
                   >
                     phongcongtacsinhvien@due.edu.vn
                   </a>
-                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    Tiếp nhận hồ sơ xét cấp học bổng, đơn miễn giảm và thắc mắc người học.
-                  </p>
                 </div>
               </div>
-              <a
-                href="mailto:phongcongtacsinhvien@due.edu.vn"
-                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-sky-600 hover:underline"
-              >
-                <span>Gửi email trực tiếp</span>
-                <ChevronRight className="w-3 h-3" />
-              </a>
             </div>
 
             {/* Card 4: Kênh trực tuyến */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#119046]/60 transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#119046]/60 transition-all flex flex-col justify-start">
               <div className="space-y-2">
                 <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#119046] border border-emerald-100 flex items-center justify-center shadow-2xs">
                   <Globe className="w-4.5 h-4.5" />
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Cổng thông tin & Mạng xã hội</span>
-                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 mt-0.5 leading-snug">
-                    due.udn.vn • Fanpage CTSV
-                  </h4>
-                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    Cập nhật tin tức xét cấp học bổng mới nhất trên trang web và Fanpage Facebook.
-                  </p>
+                  <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                    <a
+                      href="https://due.udn.vn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs sm:text-[13px] font-bold text-slate-900 hover:text-[#119046] transition-colors"
+                    >
+                      due.udn.vn
+                    </a>
+                    <span className="text-slate-300">•</span>
+                    <a
+                      href="https://www.facebook.com/CTSV.DUE"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs sm:text-[13px] font-bold text-[#119046] hover:underline"
+                    >
+                      Fanpage CTSV
+                    </a>
+                  </div>
                 </div>
               </div>
-              <a
-                href="https://facebook.com/due.phongcongtacsinhvien"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#119046] hover:underline"
-              >
-                <span>Truy cập Fanpage CTSV</span>
-                <ChevronRight className="w-3 h-3" />
-              </a>
             </div>
           </div>
         </section>

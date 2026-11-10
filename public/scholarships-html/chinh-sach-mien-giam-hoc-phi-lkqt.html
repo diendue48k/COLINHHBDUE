@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHÍNH SÁCH MIỄN GIẢM HỌC PHÍ - DUE</title>
+<style>
+:root {
+    --blue: #07549b;
+    --dark-blue: #063968;
+    --light-blue: #eaf4ff;
+    --orange: #f58220;
+    --green: #269b63;
+    --text: #243447;
+    --muted: #637487;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f8fc;
+    color: var(--text);
+    line-height: 1.75;
+}
+
+.container {
+    width: min(1150px, 92%);
+    margin: auto;
+}
+
+/* ================= BANNER ================= */
+.banner {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 20px 78px;
+    background: linear-gradient(
+        120deg,
+        #063968,
+        #0876b9 65%,
+        #269b63
+    );
+    color: white;
+}
+
+.banner::before,
+.banner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+}
+
+.banner::before {
+    width: 380px;
+    height: 380px;
+    top: -200px;
+    right: 5%;
+}
+
+.banner::after {
+    width: 300px;
+    height: 300px;
+    bottom: -200px;
+    left: 5%;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+    max-width: 950px;
+    margin: auto;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.35;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.banner h1 span {
+    color: #ffb45e;
+}
+
+/* ================= THANH ĐIỀU HƯỚNG ================= */
+.tab-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,.98);
+    border-bottom: 1px solid #e1eaf2;
+    box-shadow: 0 5px 18px rgba(0,45,90,.08);
+    backdrop-filter: blur(12px);
+}
+
+.tab-list {
+    width: min(1150px, 95%);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 15px;
+}
+
+.tab-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 17px 25px;
+    color: #536579;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    transition: .25s;
+    text-align: center;
+}
+
+.tab-link:hover {
+    color: var(--blue);
+    background: #f3f8fd;
+}
+
+.tab-link.active {
+    color: var(--blue);
+}
+
+.tab-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    height: 4px;
+    border-radius: 5px 5px 0 0;
+    background: var(--orange);
+}
+
+.tab-number {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf3f8;
+    color: var(--blue);
+    font-size: 13px;
+}
+
+.tab-link.active .tab-number {
+    background: var(--blue);
+    color: white;
+}
+
+/* ================= GIỚI THIỆU ================= */
+.introduction {
+    padding: 38px 0 35px;
+}
+
+.intro-card {
+    padding: 27px 30px;
+    background: white;
+    border-left: 5px solid var(--orange);
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+    font-size: 16px;
+    text-align: justify;
+}
+
+/* ================= CÁC ĐỀ MỤC ================= */
+section {
+    padding: 55px 0;
+    scroll-margin-top: 85px;
+}
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 26px;
+    color: var(--dark-blue);
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.section-heading .line {
+    width: 65px;
+    height: 4px;
+    background: var(--orange);
+    margin-top: 13px;
+    border-radius: 5px;
+}
+
+/* ================= ĐỀ MỤC 1 ================= */
+.criteria-section {
+    background: #eaf3fb;
+}
+
+.object-box {
+    padding: 20px 23px;
+    background: white;
+    border-left: 5px solid var(--green);
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.object-box strong {
+    color: var(--blue);
+}
+
+/* ================= BẢNG HỌC BỔNG ================= */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 13px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+    margin-bottom: 24px;
+}
+
+table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: var(--dark-blue);
+    color: white;
+    padding: 16px 15px;
+    text-align: left;
+    font-size: 14.5px;
+    font-weight: 700;
+}
+
+tbody td {
+    padding: 16px 15px;
+    vertical-align: top;
+    border-bottom: 1px solid #e6edf4;
+    font-size: 14px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f7fbff;
+}
+
+tbody ul {
+    padding-left: 20px;
+}
+
+tbody li {
+    margin-bottom: 8px;
+    text-align: justify;
+}
+
+.level {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 7px;
+    font-weight: 800;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.level-100 {
+    background: #fff0df;
+    color: #d86a0b;
+}
+
+.level-75 {
+    background: #e4f7ed;
+    color: #16824b;
+}
+
+.level-50 {
+    background: #e6f1ff;
+    color: #07549b;
+}
+
+.level-25 {
+    background: #f0eaff;
+    color: #7650ae;
+}
+
+/* ================= YÊU CẦU ================= */
+.requirement {
+    margin-top: 25px;
+    padding: 23px 25px;
+    background: #fff7e9;
+    border-left: 5px solid var(--orange);
+    border-radius: 11px;
+}
+
+.requirement h3 {
+    color: #b95e09;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 800;
+}
+
+.requirement p {
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.7;
+}
+
+/* ================= CHÍNH SÁCH HỖ TRỢ ================= */
+.support {
+    margin-top: 35px;
+}
+
+.support-heading {
+    color: var(--blue);
+    font-size: 19px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #e2eaf1;
+    padding-bottom: 10px;
+    font-weight: 800;
+}
+
+.support-list {
+    display: grid;
+    gap: 14px;
+}
+
+.support-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,50,100,.04);
+}
+
+.support-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: var(--light-blue);
+    font-size: 19px;
+}
+
+.support-item:nth-child(2) .support-icon {
+    background: #e4f7ed;
+}
+
+.support-item:nth-child(3) .support-icon {
+    background: #fff0df;
+}
+
+.support-item:nth-child(4) .support-icon {
+    background: #f0eaff;
+}
+
+.support-item:nth-child(5) .support-icon {
+    background: #e6f1ff;
+}
+
+.support-item p {
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.65;
+}
+
+/* ================= ĐỀ MỤC 2 ================= */
+.maintenance-section {
+    background: linear-gradient(120deg, #063968, #0876b9);
+    color: white;
+}
+
+.maintenance-section .section-heading h2 {
+    color: white;
+}
+
+.maintenance-section .section-heading .line {
+    background: #ffb45e;
+}
+
+.maintenance-content {
+    display: grid;
+    gap: 20px;
+}
+
+.maintenance-card {
+    padding: 25px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 13px;
+}
+
+.maintenance-card h3 {
+    font-size: 18px;
+    color: #ffb45e;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.maintenance-card p {
+    font-size: 14.5px;
+    color: #edf6ff;
+    text-align: justify;
+    line-height: 1.7;
+}
+
+.maintenance-card ul {
+    padding-left: 22px;
+    margin-top: 10px;
+}
+
+.maintenance-card li {
+    font-size: 14.5px;
+    color: #edf6ff;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* ================= ĐIỆN THOẠI ================= */
+@media(max-width: 700px) {
+    .banner {
+        padding: 50px 16px;
+    }
+
+    .banner h1 {
+        font-size: 26px;
+    }
+
+    .tab-list {
+        justify-content: flex-start;
+        gap: 0;
+        overflow-x: auto;
+    }
+
+    .tab-link {
+        padding: 12px 14px;
+        font-size: 12px;
+        min-width: max-content;
+    }
+
+    section {
+        padding: 38px 0;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .intro-card {
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    .maintenance-card {
+        padding: 20px;
+    }
+
+    .object-box {
+        font-size: 13.5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= BANNER ================= -->
+<header class="banner">
+    <div class="banner-content">
+        <h1>CHÍNH SÁCH<br><span>MIỄN GIẢM HỌC PHÍ & TRỢ CẤP XÃ HỘI</span></h1>
+    </div>
+</header>
+
+<!-- ================= THANH TAB ================= -->
+<nav class="tab-navigation">
+    <div class="tab-list">
+        <a href="#doi-tuong" class="tab-link active">
+            <span class="tab-number">01</span>
+            1. ĐỐI TƯỢNG VÀ MỨC CẤP
+        </a>
+        <a href="#nguyen-tac" class="tab-link">
+            <span class="tab-number">02</span>
+            2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
+        </a>
+    </div>
+</nav>
+
+<!-- ================= GIỚI THIỆU ================= -->
+<div class="introduction">
+    <div class="container">
+        <div class="intro-card">
+            Chính sách miễn, giảm học phí nhằm nhằm hỗ trợ, tạo điều kiện thuận lợi cho sinh viên thuộc các đối tượng ưu tiên, bao gồm sinh viên có anh, chị, em ruột đang hoặc đã theo học tại Trung tâm; sinh viên là con của cán bộ, viên chức đang công tác tại Đại học Đà Nẵng và các đơn vị thành viên; sinh viên có hoàn cảnh đặc biệt khó khăn; góp phần tạo điều kiện thuận lợi để sinh viên tham gia học tập, hoàn thành chương trình đào tạo và nhận bằng cử nhân.
+        </div>
+    </div>
+</div>
+
+<!-- ================= ĐỀ MỤC 1 ================= -->
+<section class="criteria-section" id="doi-tuong">
+<div class="container">
+    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Sinh viên chương trình quốc tế có anh chị em ruột cùng học tại DUE hoặc có người thân là cán bộ viên chức ĐHĐN</div></div><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Sinh viên có anh/chị/em ruột đã hoặc đang theo học các chương trình liên kết đào tạo tại Viện đào tạo Quốc tế trong vòng 05 năm tính đến thời điểm nhập học: Giảm 10% học phí của 03 năm đầu tiên theo chương trình đào tạo đăng ký và được giảm theo từng học kỳ.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Sinh viên là con của cán bộ, viên chức đang công tác tại Trường Đại học Kinh tế - Đại học Đà Nẵng: Giảm 50% học phí học kỳ đầu tiên theo chương trình đào tạo đăng ký. Sinh viên là con của cán bộ, viên chức đang công tác tại Đại học Đà Nẵng hoặc tại các trường khác thuộc Đại học Đà Nẵng: Giảm 25% học phí học kỳ đầu tiên theo chương trình đào tạo đăng ký.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Sinh viên đang học theo hệ đào tạo chính quy của Trường Đại học Kinh tế đăng ký học chuyển tiếp năm cuối đại học (Top Up) của các chương trình liên kết đào tạo tại Trung tâm: Giảm 10% học phí của học kỳ I năm cuối đại học theo chương trình đào tạo đăng ký.</p><p style="margin-bottom: 12px; font-size: 14.5px; text-align: justify;">- Sinh viên theo học các chương trình liên kết đào tạo có hoàn cảnh đặc biệt khó khăn (mồ côi cả cha lẫn mẹ, khuyết tật, bệnh hiểm nghèo,…): Mức giảm học phí do Giám đốc xem xét và quyết định theo từng trường hợp cụ thể.</p>
+</div>
+</section>
+
+<!-- ================= ĐỀ MỤC 2 ================= -->
+<section class="maintenance-section" id="nguyen-tac">
+<div class="container">
+    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Việc xét miễn, giảm học phí căn cứ vào đối tượng, điều kiện và hồ sơ minh chứng theo quy định; sinh viên phải đáp ứng đầy đủ các điều kiện tương ứng với từng chính sách.</li><li>Mức miễn, giảm học phí được áp dụng theo từng đối tượng và thời gian quy định tại chính sách. Đối với các trường hợp được giảm học phí theo từng học kỳ, việc áp dụng thực hiện tương ứng với từng học kỳ đủ điều kiện.</li><li>Đối với sinh viên có hoàn cảnh đặc biệt khó khăn, mức giảm học phí do Giám đốc xem xét, quyết định trên cơ sở hồ sơ và tình hình thực tế của từng trường hợp.</li><li>Trường hợp sinh viên đồng thời thuộc nhiều diện được giảm học phí và được hưởng học bổng thì chỉ được hưởng một chế độ ưu đãi cao nhất.</li></ul></div></div>
+</div>
+</section>
+
+<!-- ================= KẾT THÚC ================= -->
+<script>
+const tabs = document.querySelectorAll(".tab-link");
+const sections = [
+    document.getElementById("doi-tuong"),
+    document.getElementById("nguyen-tac")
+].filter(Boolean);
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", function() {
+        tabs.forEach(item => item.classList.remove("active"));
+        this.classList.add("active");
+    });
+});
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            tabs.forEach(tab => {
+                tab.classList.toggle(
+                    "active",
+                    tab.getAttribute("href") === "#" + entry.target.id
+                );
+            });
+        }
+    });
+}, {
+    rootMargin: "-90px 0px -55% 0px",
+    threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

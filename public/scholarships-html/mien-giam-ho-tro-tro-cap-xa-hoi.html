@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHÍNH SÁCH MIỄN/GIẢM HỌC PHÍ, HỖ TRỢ CHI PHÍ HỌC TẬP VÀ TRỢ CẤP XÃ HỘI - DUE</title>
+<style>
+:root {
+    --blue: #07549b;
+    --dark-blue: #063968;
+    --light-blue: #eaf4ff;
+    --orange: #f58220;
+    --green: #269b63;
+    --text: #243447;
+    --muted: #637487;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f8fc;
+    color: var(--text);
+    line-height: 1.75;
+}
+
+.container {
+    width: min(1150px, 92%);
+    margin: auto;
+}
+
+/* ================= BANNER ================= */
+.banner {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 20px 78px;
+    background: linear-gradient(
+        120deg,
+        #063968,
+        #0876b9 65%,
+        #269b63
+    );
+    color: white;
+}
+
+.banner::before,
+.banner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+}
+
+.banner::before {
+    width: 380px;
+    height: 380px;
+    top: -200px;
+    right: 5%;
+}
+
+.banner::after {
+    width: 300px;
+    height: 300px;
+    bottom: -200px;
+    left: 5%;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+    max-width: 950px;
+    margin: auto;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.35;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.banner h1 span {
+    color: #ffb45e;
+}
+
+/* ================= THANH ĐIỀU HƯỚNG ================= */
+.tab-navigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,.98);
+    border-bottom: 1px solid #e1eaf2;
+    box-shadow: 0 5px 18px rgba(0,45,90,.08);
+    backdrop-filter: blur(12px);
+}
+
+.tab-list {
+    width: min(1150px, 95%);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 15px;
+}
+
+.tab-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 17px 25px;
+    color: #536579;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    transition: .25s;
+    text-align: center;
+}
+
+.tab-link:hover {
+    color: var(--blue);
+    background: #f3f8fd;
+}
+
+.tab-link.active {
+    color: var(--blue);
+}
+
+.tab-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    height: 4px;
+    border-radius: 5px 5px 0 0;
+    background: var(--orange);
+}
+
+.tab-number {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #edf3f8;
+    color: var(--blue);
+    font-size: 13px;
+}
+
+.tab-link.active .tab-number {
+    background: var(--blue);
+    color: white;
+}
+
+/* ================= GIỚI THIỆU ================= */
+.introduction {
+    padding: 38px 0 35px;
+}
+
+.intro-card {
+    padding: 27px 30px;
+    background: white;
+    border-left: 5px solid var(--orange);
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+    font-size: 16px;
+    text-align: justify;
+}
+
+/* ================= CÁC ĐỀ MỤC ================= */
+section {
+    padding: 55px 0;
+    scroll-margin-top: 85px;
+}
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 26px;
+    color: var(--dark-blue);
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.section-heading .line {
+    width: 65px;
+    height: 4px;
+    background: var(--orange);
+    margin-top: 13px;
+    border-radius: 5px;
+}
+
+/* ================= ĐỀ MỤC 1 ================= */
+.criteria-section {
+    background: #eaf3fb;
+}
+
+.object-box {
+    padding: 20px 23px;
+    background: white;
+    border-left: 5px solid var(--green);
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.object-box strong {
+    color: var(--blue);
+}
+
+/* ================= BẢNG HỌC BỔNG ================= */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 13px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,50,100,.06);
+    margin-bottom: 24px;
+}
+
+table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: var(--dark-blue);
+    color: white;
+    padding: 16px 15px;
+    text-align: left;
+    font-size: 14.5px;
+    font-weight: 700;
+}
+
+tbody td {
+    padding: 16px 15px;
+    vertical-align: top;
+    border-bottom: 1px solid #e6edf4;
+    font-size: 14px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #f7fbff;
+}
+
+tbody ul {
+    padding-left: 20px;
+}
+
+tbody li {
+    margin-bottom: 8px;
+    text-align: justify;
+}
+
+.level {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 7px;
+    font-weight: 800;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.level-100 {
+    background: #fff0df;
+    color: #d86a0b;
+}
+
+.level-75 {
+    background: #e4f7ed;
+    color: #16824b;
+}
+
+.level-50 {
+    background: #e6f1ff;
+    color: #07549b;
+}
+
+.level-25 {
+    background: #f0eaff;
+    color: #7650ae;
+}
+
+/* ================= YÊU CẦU ================= */
+.requirement {
+    margin-top: 25px;
+    padding: 23px 25px;
+    background: #fff7e9;
+    border-left: 5px solid var(--orange);
+    border-radius: 11px;
+}
+
+.requirement h3 {
+    color: #b95e09;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 800;
+}
+
+.requirement p {
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.7;
+}
+
+/* ================= CHÍNH SÁCH HỖ TRỢ ================= */
+.support {
+    margin-top: 35px;
+}
+
+.support-heading {
+    color: var(--blue);
+    font-size: 19px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #e2eaf1;
+    padding-bottom: 10px;
+    font-weight: 800;
+}
+
+.support-list {
+    display: grid;
+    gap: 14px;
+}
+
+.support-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,50,100,.04);
+}
+
+.support-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: var(--light-blue);
+    font-size: 19px;
+}
+
+.support-item:nth-child(2) .support-icon {
+    background: #e4f7ed;
+}
+
+.support-item:nth-child(3) .support-icon {
+    background: #fff0df;
+}
+
+.support-item:nth-child(4) .support-icon {
+    background: #f0eaff;
+}
+
+.support-item:nth-child(5) .support-icon {
+    background: #e6f1ff;
+}
+
+.support-item p {
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.65;
+}
+
+/* ================= ĐỀ MỤC 2 ================= */
+.maintenance-section {
+    background: linear-gradient(120deg, #063968, #0876b9);
+    color: white;
+}
+
+.maintenance-section .section-heading h2 {
+    color: white;
+}
+
+.maintenance-section .section-heading .line {
+    background: #ffb45e;
+}
+
+.maintenance-content {
+    display: grid;
+    gap: 20px;
+}
+
+.maintenance-card {
+    padding: 25px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 13px;
+}
+
+.maintenance-card h3 {
+    font-size: 18px;
+    color: #ffb45e;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.maintenance-card p {
+    font-size: 14.5px;
+    color: #edf6ff;
+    text-align: justify;
+    line-height: 1.7;
+}
+
+.maintenance-card ul {
+    padding-left: 22px;
+    margin-top: 10px;
+}
+
+.maintenance-card li {
+    font-size: 14.5px;
+    color: #edf6ff;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* ================= ĐIỆN THOẠI ================= */
+@media(max-width: 700px) {
+    .banner {
+        padding: 50px 16px;
+    }
+
+    .banner h1 {
+        font-size: 26px;
+    }
+
+    .tab-list {
+        justify-content: flex-start;
+        gap: 0;
+        overflow-x: auto;
+    }
+
+    .tab-link {
+        padding: 12px 14px;
+        font-size: 12px;
+        min-width: max-content;
+    }
+
+    section {
+        padding: 38px 0;
+    }
+
+    .section-heading h2 {
+        font-size: 21px;
+    }
+
+    .intro-card {
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    .maintenance-card {
+        padding: 20px;
+    }
+
+    .object-box {
+        font-size: 13.5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= BANNER ================= -->
+<header class="banner">
+    <div class="banner-content">
+        <h1>CHÍNH SÁCH<br><span>MIỄN GIẢM HỌC PHÍ & TRỢ CẤP XÃ HỘI</span></h1>
+    </div>
+</header>
+
+<!-- ================= THANH TAB ================= -->
+<nav class="tab-navigation">
+    <div class="tab-list">
+        <a href="#doi-tuong" class="tab-link active">
+            <span class="tab-number">01</span>
+            1. ĐỐI TƯỢNG VÀ MỨC CẤP
+        </a>
+        <a href="#nguyen-tac" class="tab-link">
+            <span class="tab-number">02</span>
+            2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
+        </a>
+    </div>
+</nav>
+
+<!-- ================= GIỚI THIỆU ================= -->
+<div class="introduction">
+    <div class="container">
+        <div class="intro-card">
+            Chính sách hỗ trợ người học được thực hiện theo quy định của Nhà nước, của Đại học Đà Nẵng, nhằm hỗ trợ các nhóm đối tượng được hưởng chính sách, tạo điều kiện để người học yên tâm học tập. Nhà trường triển khai chính sách đúng đối tượng, điều kiện và mức hưởng, góp phần bảo đảm quyền lợi và cơ hội học tập của người học.
+        </div>
+    </div>
+</div>
+
+<!-- ================= ĐỀ MỤC 1 ================= -->
+<section class="criteria-section" id="doi-tuong">
+<div class="container">
+    <div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Sinh viên là con thương binh, liệt sĩ, người có công; SV khuyết tật; hộ nghèo, dân tộc thiểu số</div></div><div class="table-wrapper">
+<table>
+<thead><tr>
+<th>Đối tượng</th>
+<th>Mức cấp</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><ul><li>Con người có công thuộc diện quy định.</li><li>Sinh viên thuộc diện bảo trợ xã hội; mồ côi cả cha mẹ, không nơi nương tựa.</li><li>Sinh viên khuyết tật.</li><li>Sinh viên dân tộc thiểu số thuộc hộ nghèo, cận nghèo.</li><li>Sinh viên dân tộc rất ít người ở vùng khó khăn.</li><li>Sinh viên hệ cử tuyển.</li></ul></td>
+<td><span class="level level-100">Miễn 100% học phí</span></td>
+</tr>
+<tr>
+<td>Sinh viên dân tộc thiểu số ở địa bàn đặc biệt khó khăn theo quy định.</td>
+<td>Giảm 70% học phí</td>
+</tr>
+<tr>
+<td>Con cán bộ, công chức, viên chức, công nhân có cha/mẹ hưởng trợ cấp thường xuyên do tai nạn lao động hoặc bệnh nghề nghiệp.</td>
+<td><span class="level level-50">Giảm 50% học phí</span></td>
+</tr>
+<tr>
+<td>Vợ (chồng), con của viên chức, người lao động đang công tác tại Đại học Đà Nẵng</td>
+<td><span class="level level-50">Hỗ trợ 50% học phí</span></td>
+</tr>
+<tr>
+<td>Vợ (chồng), con của viên chức, người lao động trước đây đã công tác, nay đã nghỉ hưu, mất sức và đã giải quyết chế độ tại Đại học Đà Nẵng</td>
+<td><span class="level level-25">Hỗ trợ 25% học phí</span></td>
+</tr>
+<tr>
+<td>Sinh viên thuộc các dân tộc rất ít người: Cống, Mảng, Pu Péo, Si La, Cờ Lao, Bố Y, La Ha, Ngái, Chứt, Ơ Đu, Brâu, Rơ Măm, Lô Lô, Lự, Pà Thẻn, La Hủ.</td>
+<td><span class="level level-100">Hỗ trợ học tập bằng 100% mức lương cơ sở, cấp cho 12 tháng/năm</span></td>
+</tr>
+<tr>
+<td>Sinh viên là người dân tộc thiểu số thuộc hộ nghèo hoặc hộ cận nghèo.</td>
+<td>Hỗ trợ chi phí học tập bằng 60% mức lương cơ sở, cấp cho 10 tháng/năm</td>
+</tr>
+<tr>
+<td>Sinh viên là người dân tộc ít người có hộ khẩu thường trú từ 3 năm trở lên tại vùng cao</td>
+<td>Trợ cấp xã hội 140.000 đồng/tháng</td>
+</tr>
+<tr>
+<td><ul><li>Sinh viên mồ côi cả cha lẫn mẹ, không nơi nương tựa.</li><li>Sinh viên khuyết tật suy giảm khả năng lao động từ 41% trở lên và gặp khó khăn về kinh tế.</li><li>Sinh viên có hoàn cảnh đặc biệt khó khăn về kinh tế, vượt khó học tập (gia đình thuộc diện hộ nghèo).</li></ul></td>
+<td>Trợ cấp xã hội 100.000 đồng/tháng</td>
+</tr>
+</tbody></table></div>
+</div>
+</section>
+
+<!-- ================= ĐỀ MỤC 2 ================= -->
+<section class="maintenance-section" id="nguyen-tac">
+<div class="container">
+    <div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Nguyên tắc chung</h3><ul><li>Nhà trường thực hiện chính sách theo từng học kỳ.</li><li>Trường hợp sinh viên thuộc nhiều nhóm đối tượng chính sách, chỉ được hưởng một chế độ ưu đãi cao nhất.</li><li>Xét miễn, giảm học phí tại cơ sở giáo dục đại học nơi sinh viên đang theo học. Không áp dụng nếu sinh viên đã được hưởng chính sách tại cơ sở đào tạo trước đó và tiếp tục học tại cơ sở khác cùng cấp, cùng trình độ. Chính sách được áp dụng trong thời gian đào tạo theo chương trình chuẩn và đối với học phần học lần thứ nhất.</li><li>Sinh viên học tại nhiều trường/khoa cùng lúc: chỉ hưởng tại một cơ sở/khoa; học song ngành thì chỉ áp dụng cho ngành thứ nhất.</li><li>Sinh viên thuộc nhiều đối tượng chính sách chỉ hưởng một chế độ ưu đãi cao nhất.</li><li>Mức hỗ trợ theo học phí theo Nghị định số 238/2025/NĐ-CP.</li><li>Không áp dụng trong thời gian bị kỷ luật, ngừng học, thôi học hoặc học phần cải thiện điểm hoặc ngoài chương trình.</li></ul></div><div class="maintenance-card"><h3>Nộp hồ sơ</h3><ul><li>Thời gian nộp: Sinh viên thực hiện theo thông báo của Nhà trường, dự kiến gồm 02 đợt hằng năm: Đợt 1 từ ngày 15–30/8 và Đợt 2 từ ngày 02–30/01. Hồ sơ chỉ cần nộp một lần trong toàn khóa học; sinh viên bổ sung khi có thay đổi về đối tượng hoặc thông tin liên quan đến chính sách. Sinh viên tạm ngừng/bảo lưu phải nộp hồ sơ khi quay lại học.</li></ul></div><div class="maintenance-card"><h3>+  Hình thức nộp: Thực hiện theo các bước sau</h3><ul><li>Bước 1: Kê khai trực tuyến tại https://forms.cloud.microsoft/r/WHKXjacLJT</li><li>Bước 2: Tải và điền vào các mẫu đơn đề nghị hưởng chính sách: https://shorturl.at/OFbTf</li><li>Bước 3: Nộp đơn và các minh chứng (bản sao công chứng có giá trị trong vòng 06 tháng tính đến ngày nộp hồ sơ) tại Phòng Công tác sinh viên.</li></ul></div><div class="maintenance-card"><h3>+ SV có cha/ mẹ đang công tác tại ĐHĐN</h3><ul><li>Thời điểm xét hưởng: Tính từ khi sinh viên nộp đầy đủ hồ sơ hợp lệ.</li></ul></div><div class="maintenance-card"><h3>Tài liệu, văn bản liên quan</h3><ul><li>Nghị định số 238/2025/NĐ-CP của Chính phủ: Quy định về chính sách học phí, miễn, giảm, hỗ trợ học phí, hỗ trợ chi phí học tập và giá dịch vụ trong lĩnh vực giáo dục, đào tạo: https://shorturl.at/Ks9LL</li><li>Quyết định 60/QĐ-BDTTG năm 2026 công bố danh sách thôn, xã vùng đồng bào dân tộc thiểu số và miền núi, thôn đặc biệt khó khăn, xã khu vực I, II, III giai đoạn 2026-2030 do Bộ trưởng Bộ Dân tộc và Tôn giáo ban hành: https://shorturl.at/yA9lb</li></ul></div></div>
+</div>
+</section>
+
+<!-- ================= KẾT THÚC ================= -->
+<script>
+const tabs = document.querySelectorAll(".tab-link");
+const sections = [
+    document.getElementById("doi-tuong"),
+    document.getElementById("nguyen-tac")
+].filter(Boolean);
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", function() {
+        tabs.forEach(item => item.classList.remove("active"));
+        this.classList.add("active");
+    });
+});
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            tabs.forEach(tab => {
+                tab.classList.toggle(
+                    "active",
+                    tab.getAttribute("href") === "#" + entry.target.id
+                );
+            });
+        }
+    });
+}, {
+    rootMargin: "-90px 0px -55% 0px",
+    threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

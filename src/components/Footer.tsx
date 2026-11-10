@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
 
             <div className="space-y-2 text-[11px] text-slate-300">
               <p className="font-bold text-white text-xs">
-                PHÒNG CÔNG TÁC SINH VIÊN (CTSV)
+                PHÒNG CÔNG TÁC SINH VIÊN
               </p>
 
               {/* Địa chỉ */}
@@ -110,6 +110,14 @@ export const Footer: React.FC = () => {
                 <Globe className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>
                   Website chính thức: <a href="https://due.udn.vn" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-emerald-300 transition-colors">due.udn.vn</a>
+                </span>
+              </div>
+
+              {/* Fanpage */}
+              <div className="flex items-center gap-2">
+                <Globe className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                <span>
+                  Fanpage CTSV: <a href="https://www.facebook.com/CTSV.DUE" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:text-blue-300 transition-colors">facebook.com/CTSV.DUE</a>
                 </span>
               </div>
             </div>
@@ -180,7 +188,7 @@ export const Footer: React.FC = () => {
       <div className="w-full bg-[#021324] py-3 px-4 sm:px-6 lg:px-8 border-t border-blue-950/80 text-[11px] text-slate-400">
         <div className="w-full max-w-[1760px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
           <span>
-            © 2025 – 2026 <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>. Thiết kế và phát triển bởi Dịu Linh và Diện Suy
+            Thiết kế và phát triển bởi Dịu Linh và Diện Suy
           </span>
           <span className="text-slate-500">
             Cổng thông tin Học bổng & Chế độ chính sách người học DUE

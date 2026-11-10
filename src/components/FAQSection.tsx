@@ -181,7 +181,7 @@ export const FAQSection: React.FC = () => {
               Hiện nay chưa có câu hỏi nào trong mục này
             </h4>
             <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto">
-              Hệ thống đang tiếp tục cập nhật các nội dung giải đáp chính thức. Mọi thắc mắc hoặc cần hỗ trợ thêm, người học vui lòng liên hệ trực tiếp Phòng Công tác Sinh viên (CTSV).
+              Hệ thống đang tiếp tục cập nhật các nội dung giải đáp chính thức. Mọi thắc mắc hoặc cần hỗ trợ thêm, người học vui lòng liên hệ trực tiếp Phòng Công tác Sinh viên.
             </p>
             <div className="pt-2">
               <button
@@ -206,7 +206,7 @@ export const FAQSection: React.FC = () => {
           </div>
           <h3 className="text-base sm:text-lg font-black">Bạn vẫn còn thắc mắc cần được giải đáp?</h3>
           <p className="text-[11px] text-white/85 max-w-lg">
-            Đừng ngần ngại liên hệ trực tiếp với Phòng Công tác Sinh viên (CTSV) để được tư vấn và hỗ trợ nhanh chóng nhất.
+            Đừng ngần ngại liên hệ trực tiếp với Phòng Công tác Sinh viên để được tư vấn và hỗ trợ nhanh chóng nhất.
           </p>
         </div>
 
