@@ -118,12 +118,12 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
       className={`rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-lg ${styles.borderHover} transition-all duration-200 flex flex-col justify-start overflow-hidden group bg-white h-full`}
     >
       {/* 
-        Top Header: Độ cao thoáng đãng, cỡ chữ to bằng tiêu đề "CƠ HỘI DÀNH CHO BẠN" (text-xl sm:text-2xl font-black) theo yêu cầu người dùng
+        Top Header: Thu nhỏ 15% theo yêu cầu người dùng (cỡ chữ ~17-20px, chiều cao ~70px)
       */}
       <div
-        className={`py-5 px-4 min-h-[82px] bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0 shadow-xs`}
+        className={`py-3.5 px-4 min-h-[70px] bg-gradient-to-r ${styles.gradientHeader} text-white flex items-center justify-center text-center shrink-0 shadow-xs`}
       >
-        <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase tracking-wide leading-tight max-w-[340px]">
+        <h3 className="text-[15px] sm:text-[17px] lg:text-[20px] font-black uppercase tracking-wide leading-tight max-w-[290px]">
           {formatTitle(category.title)}
         </h3>
       </div>
