@@ -258,224 +258,140 @@ function PortalContent() {
           ----------------------------------------------------------
         */}
         <section id="muc-lien-he" className="pt-2 border-t border-slate-200 scroll-mt-28">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-9 h-9 rounded-xl bg-[#119046] text-white flex items-center justify-center shadow-xs shrink-0">
-              <Headphones className="w-4.5 h-4.5" />
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-[#119046] text-white flex items-center justify-center shadow-xs shrink-0">
+                <Headphones className="w-4.5 h-4.5" />
+              </div>
+              <div>
+                <h2 className="text-lg sm:text-xl font-black text-[#1760AB] uppercase tracking-tight">
+                  THÔNG TIN LIÊN HỆ
+                </h2>
+                <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
+                  Đơn vị phụ trách: Phòng Công tác Sinh viên (CTSV) – Trường Đại học Kinh tế, Đại học Đà Nẵng
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-black text-[#1760AB] uppercase tracking-tight">
-                LIÊN HỆ
-              </h2>
-              <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
-                Chúng tôi luôn sẵn sàng hỗ trợ và giải đáp các thắc mắc liên quan đến học bổng và chính sách hỗ trợ người học.
-              </p>
+
+            {/* Giờ làm việc badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-[11px] font-bold shrink-0">
+              <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+              <span>Thứ Hai – Thứ Sáu (07:30 – 11:30 | 13:30 – 17:00)</span>
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            {/* Cột trái – Thông tin liên hệ */}
-            <div className="w-full bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs space-y-3.5">
-              <div className="border-b border-slate-100 pb-2">
-                <span className="text-[11.5px] sm:text-xs font-black text-[#1760AB] tracking-wider uppercase">
-                  ĐƠN VỊ PHỤ TRÁCH: PHÒNG CÔNG TÁC SINH VIÊN – TRƯỜNG ĐẠI HỌC KINH TẾ (DUE)
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {/* Địa chỉ */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-blue-50/60 border border-blue-100">
-                  <div className="w-8 h-8 rounded-lg bg-[#1760AB] text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div className="text-[11.5px] space-y-0.5">
-                    <span className="font-extrabold text-[#1760AB] block uppercase text-[10px]">Địa chỉ văn phòng:</span>
-                    <p className="text-slate-800 font-bold leading-snug">
-                      Phòng H214, Tòa nhà Hành chính, Trường Đại học Kinh tế – Đại học Đà Nẵng
-                    </p>
-                    <p className="text-slate-500 font-medium text-[11px]">71 Ngũ Hành Sơn, Phường Mỹ An, Quận Ngũ Hành Sơn, TP. Đà Nẵng</p>
-                  </div>
+          {/* 4 Khối thông tin liên hệ dàn đều full-width, tuyệt đối cân đối với toàn trang */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Card 1: Địa chỉ */}
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#1760AB]/60 transition-all flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1760AB] border border-blue-100 flex items-center justify-center shadow-2xs">
+                  <MapPin className="w-4.5 h-4.5" />
                 </div>
-
-                {/* Điện thoại */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-orange-50/70 border border-orange-100">
-                  <div className="w-8 h-8 rounded-lg bg-[#F26524] text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div className="text-[11.5px] space-y-0.5">
-                    <span className="font-extrabold text-[#F26524] block uppercase text-[10px]">Điện thoại đường dây nóng (Hotline):</span>
-                    <a
-                      href="tel:02363956397"
-                      className="text-sm font-black text-slate-900 hover:text-[#F26524] transition-colors inline-block"
-                    >
-                      0236 3956 397
-                    </a>
-                    <span className="text-slate-500 text-[10.5px] block">(Hỗ trợ giải đáp các chế độ chính sách và học bổng sinh viên)</span>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50/70 border border-sky-100">
-                  <div className="w-8 h-8 rounded-lg bg-[#009FE3] text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div className="text-[11.5px] space-y-0.5">
-                    <span className="font-extrabold text-[#009FE3] block uppercase text-[10px]">Hộp thư điện tử (Email):</span>
-                    <a
-                      href="mailto:phongcongtacsinhvien@due.edu.vn"
-                      className="text-xs font-bold text-slate-900 hover:text-[#009FE3] transition-colors inline-block"
-                    >
-                      phongcongtacsinhvien@due.edu.vn
-                    </a>
-                  </div>
-                </div>
-
-                {/* Website */}
-                <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-100">
-                  <div className="w-8 h-8 rounded-lg bg-[#119046] text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <Globe className="w-4 h-4" />
-                  </div>
-                  <div className="text-[11.5px] space-y-0.5">
-                    <span className="font-extrabold text-[#119046] block uppercase text-[10px]">Trang thông tin điện tử (Website):</span>
-                    <a
-                      href="https://due.udn.vn"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold text-slate-900 hover:text-[#119046] transition-colors inline-block"
-                    >
-                      www.due.edu.vn &nbsp;|&nbsp; hocbong.id.vn
-                    </a>
-                  </div>
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Địa chỉ văn phòng</span>
+                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 mt-0.5 leading-snug">
+                    Phòng H214, Tòa nhà Đa năng
+                  </h4>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    71 Ngũ Hành Sơn, Phường Ngũ Hành Sơn, TP. Đà Nẵng
+                  </p>
                 </div>
               </div>
-
-              {/* Thời gian làm việc */}
-              <div className="flex items-center gap-2 text-[11px] text-slate-500 pt-1.5 border-t border-slate-100">
-                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                <span>
-                  <strong>Thời gian làm việc:</strong> Thứ Hai – Thứ Sáu (Sáng: 07:30 – 11:30 | Chiều: 13:30 – 17:00)
-                </span>
-              </div>
+              <a
+                href="https://maps.google.com/?q=71+Ngu+Hanh+Son+Da+Nang"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#1760AB] hover:underline"
+              >
+                <span>Xem bản đồ chỉ đường</span>
+                <ChevronRight className="w-3 h-3" />
+              </a>
             </div>
 
-            {/* Tạm ẩn Form liên hệ trực tuyến theo yêu cầu (lưu code đầy đủ để bật lại khi cần) */}
-            {false && (
-              <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-xs mt-4">
-                <div className="border-b border-slate-100 pb-2 mb-3">
-                  <span className="text-[11px] font-black text-[#F26524] tracking-wider uppercase">
-                    GỬI YÊU CẦU TƯ VẤN & HỖ TRỢ TRỰC TUYẾN
-                  </span>
+            {/* Card 2: Hotline */}
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#F26524]/60 transition-all flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#F26524] border border-orange-100 flex items-center justify-center shadow-2xs">
+                  <Phone className="w-4.5 h-4.5" />
                 </div>
-
-                {contactSubmitted ? (
-                  <div className="p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-center space-y-2.5">
-                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-xs">
-                      <CheckCircle2 className="w-6 h-6" />
-                    </div>
-                    <h4 className="text-xs font-bold text-emerald-900">Đã gửi yêu cầu thành công!</h4>
-                    <p className="text-[11px] text-emerald-700 leading-relaxed">
-                      Phòng Công tác Sinh viên Trường Đại học Kinh tế – ĐHĐN đã tiếp nhận thông tin và sẽ phản hồi qua email của bạn trong thời gian sớm nhất.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setContactSubmitted(false);
-                        setContactForm({
-                          fullName: '',
-                          email: '',
-                          phone: '',
-                          topic: 'hoc-bong-dh',
-                          content: '',
-                        });
-                      }}
-                      className="mt-1 text-xs font-bold text-emerald-800 underline hover:text-emerald-950"
-                    >
-                      Gửi yêu cầu khác
-                    </button>
-                  </div>
-                ) : (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setContactSubmitted(true);
-                    }}
-                    className="space-y-2.5 text-xs"
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Đường dây nóng (Hotline)</span>
+                  <a
+                    href="tel:02363956397"
+                    className="text-base sm:text-lg font-black text-[#F26524] hover:underline block mt-0.5 tracking-tight"
                   >
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Họ và tên *</label>
-                      <input
-                        required
-                        type="text"
-                        value={contactForm.fullName}
-                        onChange={(e) => setContactForm({ ...contactForm, fullName: e.target.value })}
-                        placeholder="Nguyễn Văn A"
-                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Email *</label>
-                        <input
-                          required
-                          type="email"
-                          value={contactForm.email}
-                          onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                          placeholder="email@due.edu.vn"
-                          className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Số điện thoại *</label>
-                        <input
-                          required
-                          type="tel"
-                          value={contactForm.phone}
-                          onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                          placeholder="0905 xxx xxx"
-                          className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] font-medium text-slate-800 text-xs"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nhóm vấn đề cần liên hệ *</label>
-                      <select
-                        value={contactForm.topic}
-                        onChange={(e) => setContactForm({ ...contactForm, topic: e.target.value })}
-                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-700 font-medium text-xs"
-                      >
-                        <option value="hoc-bong-dh">1. Học bổng Khuyến khích học tập & Tài năng Đại học</option>
-                        <option value="hoc-bong-sdh">2. Học bổng Sau Đại học (Cao học / NCS)</option>
-                        <option value="doanh-nghiep">3. Học bổng Doanh nghiệp & Đơn vị ngoài trường</option>
-                        <option value="mien-giam">4. Miễn giảm học phí & Trợ cấp xã hội</option>
-                        <option value="quoc-te">5. Học bổng Cử nhân Liên kết & Du học</option>
-                        <option value="khac">6. Vấn đề khác</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">Nội dung cần hỗ trợ *</label>
-                      <textarea
-                        required
-                        rows={2.5}
-                        value={contactForm.content}
-                        onChange={(e) => setContactForm({ ...contactForm, content: e.target.value })}
-                        placeholder="Mô tả cụ thể câu hỏi hoặc nội dung bạn cần Nhà trường hỗ trợ..."
-                        className="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-[#1760AB] text-slate-800 font-medium leading-relaxed text-xs"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="w-full py-2 px-4 rounded-xl bg-[#1760AB] hover:bg-blue-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
-                    >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Gửi liên hệ</span>
-                    </button>
-                  </form>
-                )}
+                    0236 3956 397
+                  </a>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    Tư vấn chế độ chính sách, học phí và các chương trình học bổng sinh viên.
+                  </p>
+                </div>
               </div>
-            )}
+              <a
+                href="tel:02363956397"
+                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#F26524] hover:underline"
+              >
+                <span>Gọi ngay để được hỗ trợ</span>
+                <ChevronRight className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Card 3: Email */}
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#009FE3]/60 transition-all flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#009FE3] border border-sky-100 flex items-center justify-center shadow-2xs">
+                  <Mail className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Hộp thư điện tử</span>
+                  <a
+                    href="mailto:phongcongtacsinhvien@due.edu.vn"
+                    className="text-xs sm:text-[12.5px] font-bold text-slate-900 hover:text-sky-600 block mt-0.5 break-all"
+                  >
+                    phongcongtacsinhvien@due.edu.vn
+                  </a>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    Tiếp nhận hồ sơ xét cấp học bổng, đơn miễn giảm và thắc mắc người học.
+                  </p>
+                </div>
+              </div>
+              <a
+                href="mailto:phongcongtacsinhvien@due.edu.vn"
+                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-sky-600 hover:underline"
+              >
+                <span>Gửi email trực tiếp</span>
+                <ChevronRight className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Card 4: Kênh trực tuyến */}
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#119046]/60 transition-all flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#119046] border border-emerald-100 flex items-center justify-center shadow-2xs">
+                  <Globe className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Cổng thông tin & Mạng xã hội</span>
+                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 mt-0.5 leading-snug">
+                    due.udn.vn • Fanpage CTSV
+                  </h4>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    Cập nhật tin tức xét cấp học bổng mới nhất trên trang web và Fanpage Facebook.
+                  </p>
+                </div>
+              </div>
+              <a
+                href="https://facebook.com/due.phongcongtacsinhvien"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold text-[#119046] hover:underline"
+              >
+                <span>Truy cập Fanpage CTSV</span>
+                <ChevronRight className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </section>
 

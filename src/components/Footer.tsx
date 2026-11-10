@@ -37,17 +37,12 @@ export const Footer: React.FC = () => {
           {/* CỘT 1: NHẬN DIỆN THƯƠNG HIỆU & GIỚI THIỆU (col-span-4) */}
           <div className="lg:col-span-4 space-y-2.5">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1 shadow-md shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1 shadow-md shrink-0">
                 <img
-                  src="/images/logo-due-shield.png"
-                  alt="DUE 1975"
+                  src="/images/logo-due.png?v=20261110"
+                  alt="Trường Đại học Kinh tế – Đại học Đà Nẵng"
                   className="w-full h-full object-contain"
-                  onError={(e) => {
-                    // Fallback to text shield if image file not loaded
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
                 />
-                <span className="text-[11px] font-black text-[#1760AB]">DUE</span>
               </div>
               <div>
                 <span className="text-[10px] font-semibold text-blue-200 uppercase tracking-wider block">
@@ -89,8 +84,8 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-blue-400 shrink-0 mt-0.5" />
                 <span className="leading-snug">
-                  Phòng H214, Tòa nhà Hành chính, Trường Đại học Kinh tế – Đại học Đà Nẵng<br />
-                  <span className="text-slate-400">71 Ngũ Hành Sơn, P. Mỹ An, Q. Ngũ Hành Sơn, TP. Đà Nẵng</span>
+                  Phòng H214, Tòa nhà Đa năng, Trường Đại học Kinh tế – Đại học Đà Nẵng<br />
+                  <span className="text-slate-400">71 Ngũ Hành Sơn, Phường Ngũ Hành Sơn, TP. Đà Nẵng</span>
                 </span>
               </div>
 
