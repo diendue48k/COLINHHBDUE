@@ -444,7 +444,10 @@ function PortalContent() {
         scholarships={scholarships}
         categories={activeCategories}
         initialQuery={searchQuery}
-        onSelectScholarship={handleSelectScholarship}
+        onSelectScholarship={(s) => {
+          setSearchOpen(false);
+          handleSelectScholarship(s);
+        }}
       />
 
       {/* Modal thông báo */}

@@ -83,6 +83,7 @@ export interface Announcement {
   excerpt: string;
   content: string;
   category: string;
+  categoryId?: string;
   publishedAt: string;
   expiresAt?: string;
   isPinned: boolean;

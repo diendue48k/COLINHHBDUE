@@ -87,7 +87,6 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
               srcDoc={htmlSource}
               title={scholarship.title}
               className="w-full h-full border-0"
-              sandbox="allow-scripts allow-same-origin allow-popups"
             />
           ) : (
             <div className="p-8 text-center text-slate-500 font-medium">

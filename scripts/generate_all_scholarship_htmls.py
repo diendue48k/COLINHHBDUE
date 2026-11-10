@@ -593,7 +593,7 @@ section {{
 .table-wrapper {{
     overflow-x: auto;
     border-radius: 13px;
-    background: white;
+    background: #ffffff !important;
     box-shadow: 0 8px 25px rgba(0,50,100,.06);
     margin-bottom: 25px;
 }}
@@ -602,11 +602,13 @@ table {{
     width: 100%;
     min-width: 760px;
     border-collapse: collapse;
+    color: #243447 !important;
+    background: #ffffff !important;
 }}
 
 thead th {{
-    background: var(--dark-blue);
-    color: white;
+    background: #063968 !important;
+    color: #ffffff !important;
     padding: 16px 15px;
     text-align: left;
     font-size: 14.5px;
@@ -618,14 +620,20 @@ tbody td {{
     vertical-align: top;
     border-bottom: 1px solid #e6edf4;
     font-size: 14px;
+    color: #243447 !important;
+    background: #ffffff !important;
+}}
+
+tbody td, tbody td p, tbody td span, tbody td li, tbody td ul {{
+    color: #243447 !important;
 }}
 
 tbody tr:last-child td {{
     border-bottom: none;
 }}
 
-tbody tr:hover {{
-    background: #f7fbff;
+tbody tr:hover td {{
+    background: #f7fbff !important;
 }}
 
 tbody ul {{
@@ -635,6 +643,7 @@ tbody ul {{
 tbody li {{
     margin-bottom: 8px;
     text-align: justify;
+    color: #243447 !important;
 }}
 
 .level {{
@@ -646,23 +655,23 @@ tbody li {{
 }}
 
 .level-100 {{
-    background: #fff0df;
-    color: #d86a0b;
+    background: #fff0df !important;
+    color: #d86a0b !important;
 }}
 
 .level-75 {{
-    background: #e4f7ed;
-    color: #16824b;
+    background: #e4f7ed !important;
+    color: #16824b !important;
 }}
 
 .level-50 {{
-    background: #e6f1ff;
-    color: #07549b;
+    background: #e6f1ff !important;
+    color: #07549b !important;
 }}
 
 .level-25 {{
-    background: #f0eaff;
-    color: #7650ae;
+    background: #f0eaff !important;
+    color: #7650ae !important;
 }}
 
 /* ================= YÊU CẦU ================= */
@@ -976,5 +985,13 @@ sections.forEach(section => observer.observe(section));
 existing_db['scholarships'] = scholarships
 with open(DB_PATH, 'w', encoding='utf-8') as f:
     json.dump(existing_db, f, ensure_ascii=False, indent=2)
+
+# Also update src/data/initialData.ts
+INITIAL_DATA_PATH = r"d:\CÔ LINH HBDUE\src\data\initialData.ts"
+with open(INITIAL_DATA_PATH, 'w', encoding='utf-8') as f:
+    f.write('import { DatabaseState } from "@/types";\n\n')
+    f.write('export const initialData: DatabaseState = ')
+    json.dump(existing_db, f, ensure_ascii=False, indent=2)
+    f.write(';\n')
 
 print("Successfully generated all 21 scholarship HTMLs with dynamic sections matching document!")
