@@ -179,10 +179,6 @@ export const FAQSection: React.FC = () => {
     <section id="muc-faq" className="w-full pt-2 border-t border-slate-200">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-4 space-y-1">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[#059669] text-[11px] font-black uppercase tracking-wide">
-          <HelpCircle className="w-3.5 h-3.5" />
-          <span>CÂU HỎI THƯỜNG GẶP</span>
-        </div>
         <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
           CÂU HỎI THƯỜNG GẶP
         </h2>

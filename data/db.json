@@ -30,7 +30,7 @@
         "views": 0
       }
     ],
-    "totalViews": 3
+    "totalViews": 6
   },
   "categories": [
     {
@@ -279,7 +279,7 @@
   "scholarships": [
     {
       "createdAt": "2025-01-10",
-      "viewsCount": 2,
+      "viewsCount": 4,
       "updatedAt": "2026-11-10T15:02:25.927Z",
       "policyType": "hoc-bong",
       "order": 1,
@@ -1053,7 +1053,7 @@
         "address": "Phòng A105, 71 Ngũ Hành Sơn, TP. Đà Nẵng",
         "department": "Phòng Công tác Sinh viên (Bộ phận Chế độ Chính sách)"
       },
-      "viewsCount": 0,
+      "viewsCount": 1,
       "order": 14,
       "policyType": "mien-giam",
       "createdAt": "2025-01-10",
