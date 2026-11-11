@@ -175,7 +175,6 @@ export default function AdminScholarshipsPage() {
               <tr>
                 <th className="py-3 px-4">Tên chương trình</th>
                 <th className="py-3 px-4">Nhóm học bổng</th>
-                <th className="py-3 px-4">Đối tượng thụ hưởng</th>
                 <th className="py-3 px-4 text-center">Lượt xem</th>
                 <th className="py-3 px-4 text-center">Trạng thái</th>
                 <th className="py-3 px-4 text-right">Thao tác</th>
@@ -205,12 +204,6 @@ export default function AdminScholarshipsPage() {
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">
                         {category?.shortTitle || category?.title || 'Chung'}
-                      </span>
-                    </td>
-
-                    <td className="py-3.5 px-4 max-w-xs">
-                      <span className="line-clamp-1 text-slate-500">
-                        {item.targetAudience || '—'}
                       </span>
                     </td>
 

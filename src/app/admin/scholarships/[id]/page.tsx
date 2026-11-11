@@ -644,34 +644,6 @@ export default function ScholarshipEditorPage() {
                 </label>
               </div>
             </div>
-
-            {/* Target Audience */}
-            <div className="md:col-span-2">
-              <label className="block font-bold text-slate-700 mb-1">
-                Đối tượng thụ hưởng
-              </label>
-              <input
-                type="text"
-                value={formData.targetAudience}
-                onChange={(e) => setFormData({ ...formData, targetAudience: e.target.value })}
-                placeholder="vd: Học viên cao học chính quy tại DUE có công bố khoa học hoặc tham gia đề tài NCKH"
-                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700"
-              />
-            </div>
-
-            {/* Short Intro */}
-            <div className="md:col-span-2">
-              <label className="block font-bold text-slate-700 mb-1">
-                Mô tả tóm tắt chương trình
-              </label>
-              <textarea
-                rows={2}
-                value={formData.intro || ''}
-                onChange={(e) => setFormData({ ...formData, intro: e.target.value })}
-                placeholder="Đoạn văn ngắn giới thiệu mục tiêu, ý nghĩa..."
-                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700 text-xs"
-              />
-            </div>
           </div>
         </div>
 

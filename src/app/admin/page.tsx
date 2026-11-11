@@ -328,9 +328,6 @@ export default function AdminDashboardPage() {
                     <h4 className="text-xs font-bold text-slate-800 truncate">
                       {s.title}
                     </h4>
-                    <span className="text-[10px] text-slate-400">
-                      {s.targetAudience?.slice(0, 30)}...
-                    </span>
                   </div>
                 </div>
 
