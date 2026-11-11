@@ -10,19 +10,17 @@ import {
   Eye,
   Code,
   Search,
-  ChevronDown,
-  ExternalLink,
 } from 'lucide-react';
-import { FAQItem } from '@/types';
+import { FAQItem, FAQCategory } from '@/types';
 
-const CATEGORY_OPTIONS = [
+const CATEGORY_OPTIONS: { value: FAQCategory; label: string }[] = [
+  { value: 'dai-hoc', label: 'Học bổng Bậc Đại học' },
+  { value: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường' },
+  { value: 'mien-giam', label: 'Chính sách Miễn giảm' },
+  { value: 'du-hoc', label: 'Học bổng Du học' },
+  { value: 'sau-dai-hoc', label: 'Học bổng Bậc Sau đại học' },
+  { value: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế' },
   { value: 'chung', label: 'Thông tin chung' },
-  { value: 'dai-hoc', label: 'Học bổng ĐH' },
-  { value: 'sau-dai-hoc', label: 'Học bổng SĐH' },
-  { value: 'quoc-te', label: 'Quốc tế & Du học' },
-  { value: 'mien-giam', label: 'Miễn giảm học phí & Trợ cấp' },
-  { value: 'ho-so', label: 'Hồ sơ & Quy trình' },
-  { value: 'khac', label: 'Vấn đề khác' },
 ];
 
 export default function AdminFaqsPage() {
@@ -38,7 +36,7 @@ export default function AdminFaqsPage() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/data?type=faqs');
+      const res = await fetch('/api/data?type=faqs', { cache: 'no-store' });
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json)) setFaqs(json);
@@ -57,8 +55,8 @@ export default function AdminFaqsPage() {
   const handleCreate = () => {
     const newItem: FAQItem = {
       id: `faq-${Date.now()}`,
-      category: 'chung',
-      categoryLabel: 'Thông tin chung',
+      category: 'dai-hoc',
+      categoryLabel: 'Học bổng Bậc Đại học',
       question: '',
       answerHtml: '<p>Nhập câu trả lời bằng mã HTML hoặc văn bản thường...</p>',
       order: faqs.length + 1,
@@ -75,14 +73,30 @@ export default function AdminFaqsPage() {
     setIsModalOpen(true);
   };
 
+  const handleToggleActive = async (faq: FAQItem) => {
+    const updated = { ...faq, isActive: !faq.isActive };
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'save_faq', payload: updated }),
+      });
+      if (res.ok) {
+        await loadData();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingItem) return;
 
     const catObj = CATEGORY_OPTIONS.find((c) => c.value === editingItem.category);
-    const payload = {
+    const payload: FAQItem = {
       ...editingItem,
-      categoryLabel: catObj ? catObj.label : 'Thông tin chung',
+      categoryLabel: catObj ? catObj.label : editingItem.categoryLabel || 'Thông tin chung',
     };
 
     try {
@@ -146,7 +160,7 @@ export default function AdminFaqsPage() {
             <span>Quản lý Câu hỏi thường gặp ({faqs.length})</span>
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Soạn thảo, giải đáp thắc mắc và cập nhật câu hỏi hiển thị tại mục F&A trang chủ
+            Soạn thảo, giải đáp thắc mắc và cập nhật câu hỏi hiển thị tại mục Câu hỏi thường gặp ngoài Trang chủ
           </p>
         </div>
 
@@ -205,15 +219,18 @@ export default function AdminFaqsPage() {
                 <span className="text-[10px] font-bold text-slate-400">
                   Thứ tự: {faq.order || index + 1}
                 </span>
-                <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    faq.isActive
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : 'bg-slate-100 text-slate-500'
+                <button
+                  type="button"
+                  onClick={() => handleToggleActive(faq)}
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full cursor-pointer transition-colors ${
+                    faq.isActive !== false
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
+                      : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                   }`}
+                  title="Bấm để bật/tắt hiển thị"
                 >
-                  {faq.isActive ? 'Đang hiển thị' : 'Đang ẩn'}
-                </span>
+                  {faq.isActive !== false ? 'Đang hiển thị' : 'Đang ẩn'}
+                </button>
               </div>
 
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#1760AB] transition-colors leading-snug">
@@ -258,7 +275,12 @@ export default function AdminFaqsPage() {
 
       {/* Edit / Create FAQ Modal */}
       {isModalOpen && editingItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsModalOpen(false);
+          }}
+        >
           <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
             <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
               <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight flex items-center gap-2">
@@ -268,7 +290,7 @@ export default function AdminFaqsPage() {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 flex items-center justify-center text-sm font-bold transition-colors"
+                className="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 flex items-center justify-center text-sm font-bold transition-colors cursor-pointer"
               >
                 ✕
               </button>
@@ -276,121 +298,120 @@ export default function AdminFaqsPage() {
 
             <form onSubmit={handleSave} className="flex-1 flex flex-col min-h-0 overflow-hidden">
               <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
-              {/* Question */}
-              <div>
-                <label className="block font-bold text-slate-700 mb-1">
-                  Tiêu đề câu hỏi thường gặp *
-                </label>
-                <input
-                  required
-                  type="text"
-                  value={editingItem.question}
-                  onChange={(e) => setEditingItem({ ...editingItem, question: e.target.value })}
-                  placeholder="vd: Điều kiện xét cấp Học bổng Khuyến khích học tập tại DUE là gì?"
-                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:border-blue-500 font-bold text-slate-800"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {/* Category */}
-                <div className="sm:col-span-2">
-                  <label className="block font-bold text-slate-700 mb-1">Nhóm chủ đề *</label>
-                  <select
-                    value={editingItem.category}
-                    onChange={(e) =>
-                      setEditingItem({
-                        ...editingItem,
-                        category: e.target.value as any,
-                      })
-                    }
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:border-blue-500"
-                  >
-                    {CATEGORY_OPTIONS.map((c) => (
-                      <option key={c.value} value={c.value}>
-                        {c.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Order */}
+                {/* Question */}
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Thứ tự hiển thị</label>
-                  <input
-                    type="number"
-                    value={editingItem.order}
-                    onChange={(e) =>
-                      setEditingItem({ ...editingItem, order: parseInt(e.target.value) || 1 })
-                    }
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold"
-                  />
-                </div>
-              </div>
-
-              {/* Active Toggle */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="faqActive"
-                  checked={editingItem.isActive}
-                  onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
-                  className="w-4 h-4 text-blue-600 rounded"
-                />
-                <label htmlFor="faqActive" className="text-xs font-bold text-slate-700 cursor-pointer">
-                  Kích hoạt hiển thị công khai trên website
-                </label>
-              </div>
-
-              {/* Answer Content with HTML Editor & Live Preview */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="block font-bold text-slate-700 text-xs">
-                    Nội dung câu trả lời (Soạn thảo bằng mã HTML & CSS trực tiếp) *
+                  <label className="block font-bold text-slate-700 mb-1">
+                    Tiêu đề câu hỏi thường gặp *
                   </label>
-                  <button
-                    type="button"
-                    onClick={() => setPreviewHtml(!previewHtml)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 border border-blue-200 transition-colors cursor-pointer"
-                  >
-                    {previewHtml ? (
-                      <>
-                        <Code className="w-3.5 h-3.5" />
-                        <span>Quay lại sửa mã HTML</span>
-                      </>
-                    ) : (
-                      <>
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Xem trước hiển thị</span>
-                      </>
-                    )}
-                  </button>
+                  <input
+                    required
+                    type="text"
+                    value={editingItem.question}
+                    onChange={(e) => setEditingItem({ ...editingItem, question: e.target.value })}
+                    placeholder="vd: Điều kiện xét cấp Học bổng Khuyến khích học tập tại DUE là gì?"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:border-blue-500 font-bold text-slate-800"
+                  />
                 </div>
 
-                {previewHtml ? (
-                  <div
-                    className="w-full p-4 min-h-[220px] max-h-[340px] overflow-y-auto bg-white border-2 border-dashed border-blue-300 rounded-2xl due-popup-html-content text-xs leading-relaxed"
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        editingItem.answerHtml ||
-                        '<p class="text-slate-400 italic">Chưa có nội dung để xem trước...</p>',
-                    }}
-                  />
-                ) : (
-                  <textarea
-                    rows={8}
-                    value={editingItem.answerHtml}
-                    onChange={(e) =>
-                      setEditingItem({ ...editingItem, answerHtml: e.target.value })
-                    }
-                    placeholder="<p>Nội dung câu trả lời bằng HTML...</p>"
-                    className="w-full p-3 font-mono text-xs bg-slate-900 text-emerald-400 border border-slate-700 rounded-2xl leading-relaxed focus:outline-none focus:border-blue-500 shadow-inner"
-                  />
-                )}
-                <span className="text-[11px] text-slate-400 mt-1 block">
-                  Hỗ trợ đầy đủ các thẻ HTML: &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;table&gt;, style inline...
-                </span>
-              </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {/* Category */}
+                  <div className="sm:col-span-2">
+                    <label className="block font-bold text-slate-700 mb-1">Nhóm chủ đề *</label>
+                    <select
+                      value={editingItem.category}
+                      onChange={(e) =>
+                        setEditingItem({
+                          ...editingItem,
+                          category: e.target.value as FAQCategory,
+                        })
+                      }
+                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:border-blue-500"
+                    >
+                      {CATEGORY_OPTIONS.map((c) => (
+                        <option key={c.value} value={c.value}>
+                          {c.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
+                  {/* Order */}
+                  <div>
+                    <label className="block font-bold text-slate-700 mb-1">Thứ tự hiển thị</label>
+                    <input
+                      type="number"
+                      value={editingItem.order}
+                      onChange={(e) =>
+                        setEditingItem({ ...editingItem, order: parseInt(e.target.value) || 1 })
+                      }
+                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold"
+                    />
+                  </div>
+                </div>
+
+                {/* Active Toggle */}
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="faqActive"
+                    checked={editingItem.isActive}
+                    onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
+                    className="w-4 h-4 text-blue-600 rounded"
+                  />
+                  <label htmlFor="faqActive" className="text-xs font-bold text-slate-700 cursor-pointer">
+                    Kích hoạt hiển thị công khai trên website
+                  </label>
+                </div>
+
+                {/* Answer Content with HTML Editor & Live Preview */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block font-bold text-slate-700 text-xs">
+                      Nội dung câu trả lời (Soạn thảo bằng mã HTML & CSS trực tiếp) *
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setPreviewHtml(!previewHtml)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold text-blue-600 hover:text-blue-800 bg-blue-50 border border-blue-200 transition-colors cursor-pointer"
+                    >
+                      {previewHtml ? (
+                        <>
+                          <Code className="w-3.5 h-3.5" />
+                          <span>Quay lại sửa mã HTML</span>
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Xem trước hiển thị</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {previewHtml ? (
+                    <div
+                      className="w-full p-4 min-h-[220px] max-h-[340px] overflow-y-auto bg-white border-2 border-dashed border-blue-300 rounded-2xl due-popup-html-content text-xs leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          editingItem.answerHtml ||
+                          '<p class="text-slate-400 italic">Chưa có nội dung để xem trước...</p>',
+                      }}
+                    />
+                  ) : (
+                    <textarea
+                      rows={8}
+                      value={editingItem.answerHtml}
+                      onChange={(e) =>
+                        setEditingItem({ ...editingItem, answerHtml: e.target.value })
+                      }
+                      placeholder="<p>Nội dung câu trả lời bằng HTML...</p>"
+                      className="w-full p-3 font-mono text-xs bg-slate-900 text-emerald-400 border border-slate-700 rounded-2xl leading-relaxed focus:outline-none focus:border-blue-500 shadow-inner"
+                    />
+                  )}
+                  <span className="text-[11px] text-slate-400 mt-1 block">
+                    Hỗ trợ đầy đủ các thẻ HTML: &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;table&gt;, style inline...
+                  </span>
+                </div>
               </div>
 
               {/* Modal Buttons */}

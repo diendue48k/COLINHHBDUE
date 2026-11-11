@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   Calendar,
@@ -10,36 +10,26 @@ import {
   Mail,
   MapPin,
   Clock,
-  Send,
-  CheckCircle2,
   Globe,
-  Headphones,
 } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { HeroBanner } from '@/components/HeroBanner';
 import { CategoryCardGrid } from '@/components/CategoryCardGrid';
 import { ScholarshipModal } from '@/components/ScholarshipModal';
-import { AnnouncementModal } from '@/components/AnnouncementModal';
+import {
+  AnnouncementModal,
+  ANNOUNCEMENT_CATEGORY_FILTERS,
+  matchesAnnouncementCategory,
+} from '@/components/AnnouncementModal';
 import { SearchFilterModal } from '@/components/SearchFilterModal';
 import { NotificationsModal } from '@/components/NotificationsModal';
 import { FAQSection } from '@/components/FAQSection';
 import { Category, Scholarship, Announcement } from '@/types';
 import { initialData } from '@/data/initialData';
 
-const ANNOUNCEMENT_CATEGORY_FILTERS = [
-  { id: 'all', label: 'Tất cả thông báo', match: '' },
-  { id: 'dai-hoc', label: 'Học bổng Bậc Đại học', match: 'Đại học' },
-  { id: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường', match: 'ngoài trường' },
-  { id: 'mien-giam', label: 'Chính sách Miễn giảm', match: 'miễn giảm' },
-  { id: 'du-hoc', label: 'Học bổng Du học', match: 'Du học' },
-  { id: 'sau-dai-hoc', label: 'Học bổng Bậc Sau đại học', match: 'Sau đại học' },
-  { id: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế', match: 'Liên kết' },
-];
-
 function PortalContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   // Ngăn chặn hiển thị lồng nhau nếu trang bị tải trong iframe
   const [isInsideIframe, setIsInsideIframe] = useState(false);
@@ -57,27 +47,13 @@ function PortalContent() {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
 
   const filteredAnnouncements = useMemo(() => {
-    if (selectedAnnouncementCategory === 'all') return announcements;
-    const catObj = ANNOUNCEMENT_CATEGORY_FILTERS.find((c) => c.id === selectedAnnouncementCategory);
-    if (!catObj) return announcements;
-    return announcements.filter((a) =>
-      a.category.toLowerCase().includes(catObj.match.toLowerCase())
-    );
+    return announcements
+      .filter((a) => a.isActive !== false && matchesAnnouncementCategory(a, selectedAnnouncementCategory));
   }, [announcements, selectedAnnouncementCategory]);
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [contactSubmitted, setContactSubmitted] = useState(false);
-
-  // Form states
-  const [contactForm, setContactForm] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    topic: 'hoc-bong-dh',
-    content: '',
-  });
 
   // Fetch updated data from API on mount
   useEffect(() => {
@@ -97,7 +73,7 @@ function PortalContent() {
     loadData();
   }, []);
 
-  // Handle deep-link via query parameter: ?scholarship=slug-or-id
+  // Handle deep-link via query parameter: ?scholarship=slug-or-id or ?search=keyword
   useEffect(() => {
     const slug = searchParams.get('scholarship');
     if (slug && scholarships.length > 0) {
@@ -105,6 +81,11 @@ function PortalContent() {
       if (found) {
         setSelectedScholarship(found);
       }
+    }
+    const q = searchParams.get('search');
+    if (q !== null) {
+      setSearchQuery(q);
+      setSearchOpen(true);
     }
   }, [searchParams, scholarships]);
 
@@ -430,7 +411,7 @@ function PortalContent() {
 
       {/* 
         ============================================================
-        FOOTER: Ở ĐÁY CÙNG TRANG (4 CỘT CHUẨN ĐẠI HỌC CAO CẤP)
+        FOOTER: Ở ĐÁY CÙNG TRANG
         ============================================================
       */}
       <Footer />

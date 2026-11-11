@@ -295,7 +295,15 @@ tr:nth-child(even) td {
 <script>
 const tabs = document.querySelectorAll(".tab-link");
 tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
+    tab.addEventListener("click", function(e) {
+        const href = this.getAttribute("href");
+        if (href && href.startsWith("#")) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
         tabs.forEach(item => item.classList.remove("active"));
         this.classList.add("active");
     });
@@ -336,10 +344,10 @@ export default function ScholarshipEditorPage() {
     sections: [],
     documents: [],
     contact: {
-      department: 'Phòng Công tác Sinh viên, Trường ĐH Kinh tế – ĐHĐN',
-      phone: '0236 3 654 321',
-      email: 'scholarship@due.edu.vn',
-      address: '71 Ngũ Hành Sơn, TP. Đà Nẵng',
+      department: 'Phòng Công tác Sinh viên, Trường Đại học Kinh tế – Đại học Đà Nẵng',
+      phone: '0236 3956 397',
+      email: 'phongcongtacsinhvien@due.edu.vn',
+      address: 'Phòng H214, Tòa nhà Đa năng, 71 Ngũ Hành Sơn, Phường Ngũ Hành Sơn, TP. Đà Nẵng',
     },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -554,7 +562,87 @@ export default function ScholarshipEditorPage() {
                 <option value="FileText">FileText (Văn bản)</option>
                 <option value="ShieldCheck">ShieldCheck (Khiên bảo vệ)</option>
                 <option value="Plane">Plane (Máy bay du học)</option>
+                <option value="BookOpen">BookOpen (Sách học thuật)</option>
+                <option value="Sparkles">Sparkles (Ngôi sao nổi bật)</option>
               </select>
+            </div>
+
+            {/* Education Level */}
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">
+                Bậc đào tạo áp dụng
+              </label>
+              <select
+                value={formData.educationLevel || 'dai-hoc'}
+                onChange={(e) => setFormData({ ...formData, educationLevel: e.target.value as Scholarship['educationLevel'] })}
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700 font-medium"
+              >
+                <option value="dai-hoc">Bậc Đại học</option>
+                <option value="sau-dai-hoc">Bậc Sau đại học</option>
+                <option value="lien-ket-quoc-te">Cử nhân Liên kết quốc tế</option>
+                <option value="du-hoc">Học bổng Du học</option>
+                <option value="tat-ca">Tất cả bậc đào tạo</option>
+              </select>
+            </div>
+
+            {/* Policy Type */}
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">
+                Loại hình chính sách
+              </label>
+              <select
+                value={formData.policyType || 'hoc-bong'}
+                onChange={(e) => setFormData({ ...formData, policyType: e.target.value as Scholarship['policyType'] })}
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700 font-medium"
+              >
+                <option value="hoc-bong">Học bổng</option>
+                <option value="khen-thuong">Khen thưởng thành tích</option>
+                <option value="mien-giam">Miễn giảm học phí</option>
+                <option value="tro-cap">Hỗ trợ chi phí / Trợ cấp</option>
+                <option value="chinh-sach-nha-nuoc">Chính sách Nhà nước</option>
+                <option value="du-hoc">Học bổng Trao đổi / Du học</option>
+              </select>
+            </div>
+
+            {/* Slug & Display Order */}
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">
+                Đường dẫn định danh (Slug)
+              </label>
+              <input
+                type="text"
+                value={formData.slug}
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                placeholder="vd: hoc-bong-tinh-hoa"
+                className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700 font-mono"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">
+                  Thứ tự hiển thị
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  value={formData.order || 1}
+                  onChange={(e) => setFormData({ ...formData, order: Number(e.target.value) || 1 })}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-blue-500 text-slate-700 font-bold"
+                />
+              </div>
+
+              <div className="flex items-end pb-2">
+                <label className="inline-flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                  <input
+                    type="checkbox"
+                    checked={formData.isActive !== false}
+                    onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
+                  />
+                  <span>Đang hiển thị</span>
+                </label>
+              </div>
             </div>
 
             {/* Target Audience */}

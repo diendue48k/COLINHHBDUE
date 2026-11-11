@@ -102,9 +102,32 @@ export interface User {
   createdAt: string;
 }
 
+export interface ContactInquiry {
+  id: string;
+  fullName: string;
+  email: string;
+  phone?: string;
+  topic: string;
+  content: string;
+  status: 'new' | 'resolved';
+  createdAt: string;
+}
+
+export type FAQCategory =
+  | 'dai-hoc'
+  | 'ngoai-truong'
+  | 'mien-giam'
+  | 'du-hoc'
+  | 'sau-dai-hoc'
+  | 'lien-ket'
+  | 'chung'
+  | 'quoc-te'
+  | 'ho-so'
+  | 'khac';
+
 export interface FAQItem {
   id: string;
-  category: 'chung' | 'dai-hoc' | 'sau-dai-hoc' | 'quoc-te' | 'mien-giam' | 'ho-so' | 'khac';
+  category: FAQCategory;
   categoryLabel: string;
   question: string;
   answerHtml: string;
@@ -134,6 +157,7 @@ export interface DatabaseState {
   announcements: Announcement[];
   faqs?: FAQItem[];
   users?: User[];
+  inquiries?: ContactInquiry[];
   settings: SiteSettings;
   stats: {
     totalViews: number;

@@ -11,32 +11,112 @@ import {
   Bell,
   CheckCircle2,
   Calendar,
+  Download,
+  MessageSquare,
+  Trash2,
+  Check,
 } from 'lucide-react';
-import { DatabaseState, Scholarship } from '@/types';
+import { ContactInquiry, DatabaseState } from '@/types';
 import { initialData } from '@/data/initialData';
 
 export default function AdminDashboardPage() {
   const [data, setData] = useState<DatabaseState>(initialData);
-  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
 
   const loadData = async () => {
     try {
-      const res = await fetch('/api/data');
+      const res = await fetch('/api/data', { cache: 'no-store' });
       if (res.ok) {
         const json = await res.json();
         setData(json);
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleExportReport = () => {
+    const exportPayload = {
+      exportedAt: new Date().toISOString(),
+      portal: 'Cổng thông tin Học bổng – Trường Đại học Kinh tế, Đại học Đà Nẵng',
+      summary: {
+        totalCategories: data.categories?.length || 0,
+        totalScholarships: data.scholarships?.length || 0,
+        activeScholarships: data.scholarships?.filter((s) => s.isActive !== false).length || 0,
+        totalAnnouncements: data.announcements?.length || 0,
+        totalFaqs: data.faqs?.length || 0,
+        totalInquiries: data.inquiries?.length || 0,
+        totalViews: data.scholarships?.reduce((sum, s) => sum + (s.viewsCount || 0), 0) || 0,
+      },
+      database: data,
+    };
+    const blob = new Blob([JSON.stringify(exportPayload, null, 2)], {
+      type: 'application/json;charset=utf-8',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `DUE_Scholarship_Backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setMessage('Đã xuất tệp sao lưu & báo cáo dữ liệu thành công!');
+    setTimeout(() => setMessage(''), 2500);
+  };
+
+  const handleToggleInquiryStatus = async (inquiry: ContactInquiry) => {
+    const updated: ContactInquiry = {
+      ...inquiry,
+      status: inquiry.status === 'resolved' ? 'new' : 'resolved',
+    };
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'save_inquiry',
+          payload: updated,
+        }),
+      });
+      if (res.ok) {
+        setMessage(
+          updated.status === 'resolved'
+            ? 'Đã đánh dấu xử lý câu hỏi!'
+            : 'Đã chuyển về trạng thái chờ phản hồi!'
+        );
+        await loadData();
+        setTimeout(() => setMessage(''), 2500);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleDeleteInquiry = async (id: string) => {
+    if (!window.confirm('Bạn có chắc muốn xóa câu hỏi liên hệ này?')) return;
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete_inquiry',
+          payload: { id },
+        }),
+      });
+      if (res.ok) {
+        setMessage('Đã xóa câu hỏi liên hệ!');
+        await loadData();
+        setTimeout(() => setMessage(''), 2500);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // Sort scholarships by views count descending
   const topScholarships = [...(data.scholarships || [])]
@@ -48,12 +128,13 @@ export default function AdminDashboardPage() {
   const totalCategories = data.categories?.length || 0;
   const totalViews = data.scholarships?.reduce((sum, s) => sum + (s.viewsCount || 0), 0) || 0;
   const totalAnnouncements = data.announcements?.length || 0;
+  const inquiries = data.inquiries || [];
 
   return (
     <div className="space-y-6">
       {/* Alert toast if any */}
       {message && (
-        <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-xs font-bold flex items-center gap-2">
+        <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-xs font-bold flex items-center gap-2 animate-fade-in">
           <CheckCircle2 className="w-4 h-4 text-green-600" />
           <span>{message}</span>
         </div>
@@ -71,6 +152,15 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            type="button"
+            onClick={handleExportReport}
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-bold shadow-xs transition-colors cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-blue-600" />
+            <span>Sao lưu & Xuất báo cáo (JSON)</span>
+          </button>
+
           <Link
             href="/admin/scholarships/new"
             className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors"
@@ -252,6 +342,85 @@ export default function AdminDashboardPage() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Student Contact Inquiries Section */}
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/90 shadow-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="w-4 h-4 text-blue-600" />
+            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-tight">
+              Câu hỏi & Thắc mắc từ Người học ({inquiries.length})
+            </h3>
+          </div>
+          <Link
+            href="/lien-he"
+            target="_blank"
+            className="text-xs text-blue-600 hover:underline font-semibold"
+          >
+            Xem trang Liên hệ
+          </Link>
+        </div>
+
+        {inquiries.length === 0 ? (
+          <div className="p-6 rounded-xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+            Hiện chưa có câu hỏi trực tuyến mới từ biểu mẫu Liên hệ.
+          </div>
+        ) : (
+          <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+            {inquiries.map((inq) => (
+              <div
+                key={inq.id}
+                className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition-colors text-xs"
+              >
+                <div className="space-y-1 min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-bold text-slate-900">{inq.fullName}</span>
+                    <span className="text-slate-500">({inq.email})</span>
+                    {inq.topic && (
+                      <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold text-[10px]">
+                        {inq.topic}
+                      </span>
+                    )}
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        inq.status === 'resolved'
+                          ? 'bg-emerald-100 text-emerald-700'
+                          : 'bg-amber-100 text-amber-800'
+                      }`}
+                    >
+                      {inq.status === 'resolved' ? 'Đã phản hồi' : 'Chờ xử lý'}
+                    </span>
+                  </div>
+                  <p className="text-slate-700 leading-relaxed">{inq.content}</p>
+                </div>
+
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => handleToggleInquiryStatus(inq)}
+                    className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold inline-flex items-center gap-1 transition-colors cursor-pointer ${
+                      inq.status === 'resolved'
+                        ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                    }`}
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>{inq.status === 'resolved' ? 'Mở lại' : 'Đã xử lý'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteInquiry(inq.id)}
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                    title="Xóa câu hỏi"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

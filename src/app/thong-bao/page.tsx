@@ -5,24 +5,20 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { AnnouncementModal } from '@/components/AnnouncementModal';
+import {
+  AnnouncementModal,
+  triggerAnnouncementDownload,
+  ANNOUNCEMENT_CATEGORY_FILTERS,
+  matchesAnnouncementCategory,
+} from '@/components/AnnouncementModal';
 import { Announcement } from '@/types';
 import { initialData } from '@/data/initialData';
 import { Calendar, FileText, Download, ArrowLeft, Search, ChevronRight, X } from 'lucide-react';
 
-const CATEGORY_FILTERS = [
-  { id: 'all', label: 'Tất cả thông báo', match: '' },
-  { id: 'dai-hoc', label: 'Học bổng Bậc Đại học', match: 'Đại học' },
-  { id: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường', match: 'ngoài trường' },
-  { id: 'mien-giam', label: 'Chính sách Miễn giảm', match: 'miễn giảm' },
-  { id: 'du-hoc', label: 'Học bổng Du học', match: 'Du học' },
-  { id: 'sau-dai-hoc', label: 'Học bổng Bậc Sau đại học', match: 'Sau đại học' },
-  { id: 'lien-ket', label: 'Học bổng Chương trình Cử nhân Liên kết quốc tế', match: 'Liên kết' },
-];
-
 function AnnouncementsContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
+  const idParam = searchParams.get('id');
 
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
   const [search, setSearch] = useState('');
@@ -31,7 +27,7 @@ function AnnouncementsContent() {
 
   useEffect(() => {
     if (categoryParam) {
-      const exists = CATEGORY_FILTERS.some((c) => c.id === categoryParam);
+      const exists = ANNOUNCEMENT_CATEGORY_FILTERS.some((c) => c.id === categoryParam);
       if (exists) {
         setSelectedCategory(categoryParam);
       }
@@ -39,7 +35,7 @@ function AnnouncementsContent() {
   }, [categoryParam]);
 
   useEffect(() => {
-    fetch('/api/data?type=announcements')
+    fetch('/api/data?type=announcements', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setAnnouncements(data);
@@ -47,14 +43,22 @@ function AnnouncementsContent() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    if (idParam && announcements.length > 0) {
+      const found = announcements.find((a) => a.id === idParam || a.slug === idParam);
+      if (found) {
+        setSelectedAnnouncement(found);
+      }
+    }
+  }, [idParam, announcements]);
+
   const filtered = useMemo(() => {
     return announcements.filter((a) => {
+      if (a.isActive === false) return false;
+
       // Category match
-      if (selectedCategory !== 'all') {
-        const catObj = CATEGORY_FILTERS.find((c) => c.id === selectedCategory);
-        if (catObj && !a.category.toLowerCase().includes(catObj.match.toLowerCase())) {
-          return false;
-        }
+      if (!matchesAnnouncementCategory(a, selectedCategory)) {
+        return false;
       }
 
       // Search query match
@@ -110,7 +114,7 @@ function AnnouncementsContent() {
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -121,7 +125,7 @@ function AnnouncementsContent() {
           {/* BỘ LỌC PHÂN LOẠI 6 DANH MỤC HỌC BỔNG */}
           <div className="pt-2 border-t border-slate-100">
             <div className="flex items-center gap-1.5 flex-wrap">
-              {CATEGORY_FILTERS.map((cat) => {
+              {ANNOUNCEMENT_CATEGORY_FILTERS.map((cat) => {
                 const isActive = selectedCategory === cat.id;
                 return (
                   <button
@@ -183,8 +187,8 @@ function AnnouncementsContent() {
                     {item.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    {item.content || item.excerpt}
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                    {item.excerpt || item.content}
                   </p>
 
                   <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
@@ -193,7 +197,9 @@ function AnnouncementsContent() {
                         <FileText className="w-4 h-4 shrink-0" />
                         <span className="truncate">{item.attachmentName}</span>
                       </div>
-                    ) : <div />}
+                    ) : (
+                      <div />
+                    )}
 
                     <div className="flex items-center gap-2 shrink-0">
                       <button
@@ -206,14 +212,14 @@ function AnnouncementsContent() {
                       </button>
 
                       {item.attachmentName && (
-                        <a
-                          href={item.attachmentUrl || '#'}
-                          download
-                          className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors"
+                        <button
+                          type="button"
+                          onClick={() => triggerAnnouncementDownload(item)}
+                          className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>Tải văn bản</span>
-                        </a>
+                        </button>
                       )}
                     </div>
                   </div>

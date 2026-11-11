@@ -83,7 +83,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Trường Đại học Kinh tế – Đại học Đà Nẵng' }],
   icons: {
-    icon: '/favicon.ico',
+    icon: '/images/logo-due-shield.png',
+    shortcut: '/images/logo-due-shield.png',
+    apple: '/images/logo-due-shield.png',
   },
 };
 

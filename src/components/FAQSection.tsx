@@ -7,21 +7,14 @@ import {
   Search,
   MessageCircle,
   ArrowRight,
+  X,
 } from 'lucide-react';
+import { FAQItem } from '@/types';
 
-interface FAQ {
-  id: string;
-  category: 'all' | 'dai-hoc' | 'ngoai-truong' | 'mien-giam' | 'du-hoc' | 'sau-dai-hoc' | 'lien-ket';
-  categoryLabel: string;
-  question: string;
-  answerHtml: string;
-}
-
-// Dữ liệu mẫu đã được xóa hoàn toàn theo yêu cầu người dùng
-const FAQ_LIST: FAQ[] = [];
+const FAQ_LIST: FAQItem[] = [];
 
 // 6 danh mục học bổng chuẩn
-const CATEGORIES = [
+export const FAQ_CATEGORIES = [
   { id: 'all', label: 'Tất cả câu hỏi' },
   { id: 'dai-hoc', label: 'Học bổng Bậc Đại học' },
   { id: 'ngoai-truong', label: 'Học bổng Đơn vị ngoài trường' },
@@ -32,13 +25,13 @@ const CATEGORIES = [
 ];
 
 export const FAQSection: React.FC = () => {
-  const [faqs, setFaqs] = useState<FAQ[]>(FAQ_LIST);
+  const [faqs, setFaqs] = useState<FAQItem[]>(FAQ_LIST);
   const [activeTab, setActiveTab] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    fetch('/api/data?type=faqs')
+    fetch('/api/data?type=faqs', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -58,20 +51,33 @@ export const FAQSection: React.FC = () => {
   };
 
   const filteredFAQs = useMemo(() => {
-    return faqs.filter((faq) => {
-      const matchCategory = activeTab === 'all' || faq.category === activeTab;
-      const matchSearch =
-        searchQuery.trim() === '' ||
-        faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.answerHtml.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchCategory && matchSearch;
-    });
+    return faqs
+      .filter((faq) => {
+        if (faq.isActive === false) return false;
+        const matchCategory =
+          activeTab === 'all' ||
+          faq.category === activeTab ||
+          (activeTab === 'du-hoc' && faq.category === 'quoc-te');
+        const matchSearch =
+          searchQuery.trim() === '' ||
+          faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          faq.answerHtml.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchCategory && matchSearch;
+      })
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
   }, [faqs, activeTab, searchQuery]);
 
   const scrollToContact = () => {
     const el = document.getElementById('muc-lien-he');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 120;
+      const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight - 16;
+      window.scrollTo({
+        top: offsetPosition > 0 ? offsetPosition : 0,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -97,13 +103,22 @@ export const FAQSection: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Tìm nhanh câu hỏi, từ khóa (GPA, hồ sơ, thời gian nhận tiền...)..."
-            className="w-full pl-10 pr-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#1760AB] transition-all shadow-inner"
+            className="w-full pl-10 pr-8 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-[#1760AB] transition-all shadow-inner"
           />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
         {/* 6 Category Pills + Tất cả câu hỏi */}
         <div className="flex items-center justify-center gap-1.5 flex-wrap">
-          {CATEGORIES.map((cat) => {
+          {FAQ_CATEGORIES.map((cat) => {
             const isActive = activeTab === cat.id;
             return (
               <button

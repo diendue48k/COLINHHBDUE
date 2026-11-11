@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { Search, User, Menu, X } from 'lucide-react';
 import { Category } from '@/types';
 
@@ -18,12 +19,40 @@ export const Header: React.FC<HeaderProps> = ({
   searchQuery = '',
   setSearchQuery,
 }) => {
+  const pathname = usePathname();
+  const router = useRouter();
   const [activeMenu, setActiveMenu] = useState<string>('co-hoi');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [localQuery, setLocalQuery] = useState('');
+
+  useEffect(() => {
+    if (pathname === '/thong-bao') {
+      setActiveMenu('muc-thong-bao');
+    } else if (pathname === '/lien-he') {
+      setActiveMenu('muc-lien-he');
+    } else if (pathname === '/huong-dan') {
+      setActiveMenu('muc-faq');
+    }
+  }, [pathname]);
+
+  const effectiveQuery = setSearchQuery ? searchQuery : localQuery;
+
+  const handleInputChange = (val: string) => {
+    if (setSearchQuery) {
+      setSearchQuery(val);
+    } else {
+      setLocalQuery(val);
+    }
+  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (onOpenSearch) onOpenSearch();
+    if (onOpenSearch) {
+      onOpenSearch();
+    } else {
+      const q = effectiveQuery.trim();
+      router.push(q ? `/?search=${encodeURIComponent(q)}` : '/?search=');
+    }
   };
 
   // Cuộn trang mượt mà với bù trừ chính xác chiều cao của Sticky Header
@@ -42,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
         behavior: 'smooth',
       });
     } else {
-      window.location.href = `/#${id}`;
+      router.push(`/#${id}`);
     }
   };
 
@@ -68,14 +97,14 @@ export const Header: React.FC<HeaderProps> = ({
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
+              value={effectiveQuery}
+              onChange={(e) => handleInputChange(e.target.value)}
               placeholder="Tìm kiếm học bổng, chính sách hỗ trợ..."
               className="w-48 sm:w-72 md:w-80 pl-4 pr-9 py-2 rounded-full border border-slate-200 bg-slate-50/80 hover:bg-white focus:bg-white focus:border-[#1760AB] text-xs font-medium text-slate-800 placeholder-slate-400 shadow-inner focus:outline-none transition-all"
             />
             <button
               type="submit"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-[#1760AB] transition-colors"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-[#1760AB] transition-colors cursor-pointer"
               title="Tìm kiếm"
             >
               <Search className="w-3.5 h-3.5" />
@@ -97,7 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors"
+            className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
             title="Menu điều hướng"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -160,7 +189,7 @@ export const Header: React.FC<HeaderProps> = ({
               LIÊN HỆ
             </button>
 
-            {/* 4. CÂU HỎI THƯỜNG GẶP (ĐÃ ĐỔI THEO YÊU CẦU NGƯỜI DÙNG) */}
+            {/* 4. CÂU HỎI THƯỜNG GẶP */}
             <button
               type="button"
               onClick={() => scrollToSection('muc-faq')}

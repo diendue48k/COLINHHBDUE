@@ -73,9 +73,8 @@ def clean_tab_title(heading_text, idx):
     t = heading_text.strip()
     m = re.match(r'^((\d+(\.\d+)*)|[IVXLCDM]+)[\.\)]\s*(.*)$', t)
     if m:
-        num = m.group(1)
         rest = m.group(4).strip()
-        return f"{num}. {rest.upper()}"
+        return f"{idx + 1}. {rest.upper()}"
     else:
         return f"{idx + 1}. {t.upper()}"
 
@@ -216,7 +215,7 @@ for prog_idx, prog in enumerate(programs):
         slug_id = f"de-muc-{s_idx + 1}"
         sections.append({
             'index': s_idx + 1,
-            'heading': s_heading,
+            'heading': tab_title,
             'tab_title': tab_title,
             'id': slug_id,
             'elements': sec_elems

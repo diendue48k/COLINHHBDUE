@@ -8,10 +8,50 @@ import { Phone, Mail, MapPin, Clock, ArrowLeft, Send, CheckCircle2 } from 'lucid
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: '',
+    studentIdOrEmail: '',
+    programOfInterest: '',
+    message: '',
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'save_inquiry',
+          payload: {
+            fullName: formData.fullName.trim(),
+            email: formData.studentIdOrEmail.trim(),
+            topic: formData.programOfInterest.trim() || 'Chung',
+            content: formData.message.trim(),
+          },
+        }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({
+          fullName: '',
+          studentIdOrEmail: '',
+          programOfInterest: '',
+          message: '',
+        });
+      } else {
+        setErrorMsg('Không thể gửi câu hỏi lúc này. Vui lòng thử lại hoặc liên hệ qua email.');
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMsg('Đã xảy ra lỗi kết nối. Vui lòng thử lại.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -47,9 +87,9 @@ export default function ContactPage() {
                   <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                   <div>
                     <strong className="block text-blue-900 font-bold">Phòng Công tác Sinh viên (Bộ phận Học bổng)</strong>
-                    <span>Tầng 1, Nhà Hiệu bộ, Trường Đại học Kinh tế – Đại học Đà Nẵng</span>
+                    <span>Phòng H214, Tòa nhà Đa năng, Trường Đại học Kinh tế – Đại học Đà Nẵng</span>
                     <br />
-                    <span className="text-slate-500">71 Ngũ Hành Sơn, Q. Ngũ Hành Sơn, TP. Đà Nẵng</span>
+                    <span className="text-slate-500">71 Ngũ Hành Sơn, Phường Ngũ Hành Sơn, TP. Đà Nẵng</span>
                   </div>
                 </div>
 
@@ -104,11 +144,18 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3 text-xs">
+                  {errorMsg && (
+                    <div className="p-2.5 rounded-lg bg-red-50 border border-red-200 text-red-700 font-semibold">
+                      {errorMsg}
+                    </div>
+                  )}
                   <div>
                     <label className="block font-bold text-slate-600 mb-1">Họ và tên *</label>
                     <input
                       required
                       type="text"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="Nguyễn Văn A"
                       className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -119,6 +166,8 @@ export default function ContactPage() {
                     <input
                       required
                       type="text"
+                      value={formData.studentIdOrEmail}
+                      onChange={(e) => setFormData({ ...formData, studentIdOrEmail: e.target.value })}
                       placeholder="2111215... hoặc email@due.edu.vn"
                       className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -128,6 +177,8 @@ export default function ContactPage() {
                     <label className="block font-bold text-slate-600 mb-1">Chương trình học bổng quan tâm</label>
                     <input
                       type="text"
+                      value={formData.programOfInterest}
+                      onChange={(e) => setFormData({ ...formData, programOfInterest: e.target.value })}
                       placeholder="vd: Học bổng Tinh hoa, Người học quốc tế..."
                       className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -138,6 +189,8 @@ export default function ContactPage() {
                     <textarea
                       required
                       rows={3}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Mô tả chi tiết câu hỏi hoặc vấn đề bạn cần được hỗ trợ..."
                       className="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -145,10 +198,11 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
+                    disabled={submitting}
+                    className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
-                    <span>Gửi thắc mắc đến DUE</span>
+                    <span>{submitting ? 'Đang gửi thắc mắc...' : 'Gửi thắc mắc đến DUE'}</span>
                   </button>
                 </form>
               )}

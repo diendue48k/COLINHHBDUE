@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { Search, X, Filter, ChevronRight, SlidersHorizontal, BookOpen } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, X, ChevronRight } from 'lucide-react';
 import { Scholarship, Category } from '@/types';
 import { DynamicIcon } from './DynamicIcon';
 
@@ -27,19 +27,37 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
   const [selectedPolicyType, setSelectedPolicyType] = useState<string>('all');
 
+  useEffect(() => {
+    if (isOpen) {
+      setKeyword(initialQuery || '');
+    }
+  }, [initialQuery, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   // Filtered list
   const filteredScholarships = useMemo(() => {
     return scholarships.filter((item) => {
+      if (item.isActive === false) return false;
+
       // Keyword match
       if (keyword.trim()) {
         const q = keyword.toLowerCase();
-        const matchesTitle = item.title.toLowerCase().includes(q);
+        const matchesTitle = item.title.toLowerCase().includes(q) || (item.cardTitle || '').toLowerCase().includes(q);
         const matchesTarget = (item.targetAudience || '').toLowerCase().includes(q);
         const matchesIntro = (item.intro || '').toLowerCase().includes(q);
-        const matchesSections = item.sections.some((s) =>
-          s.bullets.some((b) => b.toLowerCase().includes(q))
+        const matchesSections = (item.sections || []).some((s) =>
+          (s.bullets || []).some((b) => b.toLowerCase().includes(q))
         );
-        if (!matchesTitle && !matchesTarget && !matchesIntro && !matchesSections) {
+        const matchesHtml = (item.htmlContent || item.introHtml || '').toLowerCase().includes(q);
+        if (!matchesTitle && !matchesTarget && !matchesIntro && !matchesSections && !matchesHtml) {
           return false;
         }
       }
@@ -91,7 +109,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-full transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -114,7 +132,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
               <button
                 type="button"
                 onClick={() => setKeyword('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -133,7 +151,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:border-blue-500 text-xs text-slate-700"
               >
-                <option value="all">Tất cả nhóm (6 nhóm)</option>
+                <option value="all">Tất cả nhóm ({categories.length} nhóm)</option>
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.title}
@@ -175,6 +193,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                 <option value="khen-thuong">Khen thưởng & KKHT</option>
                 <option value="mien-giam">Miễn giảm học phí</option>
                 <option value="tro-cap">Trợ cấp & Vay vốn</option>
+                <option value="chinh-sach-nha-nuoc">Chính sách Nhà nước (Nghị định)</option>
                 <option value="du-hoc">Học bổng đối tác nước ngoài</option>
               </select>
             </div>
@@ -193,7 +212,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                   onSelectScholarship(s);
                   onClose();
                 }}
-                className="w-full bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-400 text-left transition-all flex items-center justify-between gap-3 group"
+                className="w-full bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-400 text-left transition-all flex items-center justify-between gap-3 group cursor-pointer"
               >
                 <div className="flex items-start gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors mt-0.5">
@@ -211,7 +230,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                       )}
                     </div>
                     <h3 className="text-sm font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
-                      {s.title}
+                      {s.cardTitle || s.title}
                     </h3>
                     <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
                       {s.intro}
@@ -236,7 +255,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                 Không tìm thấy chương trình học bổng phù hợp
               </h4>
               <p className="text-xs text-slate-400 mt-1">
-                Vui lòng thử lại với từ khóa khác hoặc xóa bộ lọc để xem toàn bộ 6 nhóm học bổng.
+                Vui lòng thử lại với từ khóa khác hoặc xóa bộ lọc để xem toàn bộ các nhóm học bổng.
               </p>
               <button
                 type="button"
@@ -246,7 +265,7 @@ export const SearchFilterModal: React.FC<SearchFilterModalProps> = ({
                   setSelectedLevel('all');
                   setSelectedPolicyType('all');
                 }}
-                className="mt-3 px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors"
+                className="mt-3 px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 Đặt lại bộ lọc
               </button>

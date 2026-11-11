@@ -14,8 +14,37 @@ interface CategoryCardGridProps {
 // DUE Brand Color mapping matching exactly the user layout:
 // Row 1: Col 1 Blue, Col 2 Orange, Col 3 Green
 // Row 2: Col 4 Orange, Col 5 Green, Col 6 Blue
-const getCategoryStyle = (categoryId: string) => {
-  switch (categoryId) {
+const getCategoryStyle = (category: Category) => {
+  // Respect themeColor if explicitly configured
+  if (category.themeColor === 'deepBlue' || category.themeColor === 'skyBlue') {
+    return {
+      gradientHeader: 'from-[#1760AB] to-[#2066AE]',
+      borderHover: 'hover:border-[#1760AB]/70',
+      cardHoverBorder: 'hover:border-[#1760AB] hover:shadow-xs',
+      iconBg: 'bg-blue-50',
+      iconColor: 'text-[#1760AB]',
+    };
+  }
+  if (category.themeColor === 'orange' || category.themeColor === 'amber') {
+    return {
+      gradientHeader: 'from-[#F26524] to-[#FA7035]',
+      borderHover: 'hover:border-[#F26524]/70',
+      cardHoverBorder: 'hover:border-[#F26524] hover:shadow-xs',
+      iconBg: 'bg-orange-50',
+      iconColor: 'text-[#F26524]',
+    };
+  }
+  if (category.themeColor === 'emerald' || category.themeColor === 'forestGreen') {
+    return {
+      gradientHeader: 'from-[#119046] to-[#1BA855]',
+      borderHover: 'hover:border-[#119046]/70',
+      cardHoverBorder: 'hover:border-[#119046] hover:shadow-xs',
+      iconBg: 'bg-emerald-50',
+      iconColor: 'text-[#119046]',
+    };
+  }
+
+  switch (category.id) {
     case 'cat-1': // Bậc Sau đại học -> DUE Blue
     case 'cat-6': // Du học -> DUE Blue
       return {
@@ -52,7 +81,7 @@ export const CategoryCardGrid: React.FC<CategoryCardGridProps> = ({
   scholarships,
   onSelectScholarship,
 }) => {
-  const styles = getCategoryStyle(category.id);
+  const styles = getCategoryStyle(category);
 
   // Filter scholarships belonging to this category, sorted by order
   const items = scholarships

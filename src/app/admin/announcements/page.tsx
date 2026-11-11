@@ -12,9 +12,21 @@ import {
   Download,
   Code,
   Eye,
+  EyeOff,
+  Upload,
+  Pin,
 } from 'lucide-react';
 import { Announcement } from '@/types';
 import { initialData } from '@/data/initialData';
+
+const CATEGORY_MAP: Record<string, string> = {
+  'Học bổng Bậc Đại học': 'cat-1',
+  'Học bổng Bậc Sau đại học': 'cat-2',
+  'Học bổng Đơn vị ngoài trường': 'cat-3',
+  'Chính sách miễn giảm': 'cat-4',
+  'Cử nhân Liên kết quốc tế': 'cat-5',
+  'Học bổng Du học': 'cat-6',
+};
 
 export default function AdminAnnouncementsPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
@@ -22,6 +34,7 @@ export default function AdminAnnouncementsPage() {
   const [editingItem, setEditingItem] = useState<Announcement | null>(null);
   const [message, setMessage] = useState('');
   const [previewHtml, setPreviewHtml] = useState(false);
+  const [uploadingFile, setUploadingFile] = useState(false);
 
   const loadData = async () => {
     try {
@@ -46,22 +59,81 @@ export default function AdminAnnouncementsPage() {
       title: '',
       excerpt: '',
       content: '',
-      category: 'Học bổng Đại học',
+      category: 'Học bổng Bậc Đại học',
+      categoryId: 'cat-1',
       publishedAt: new Date().toISOString().split('T')[0],
       expiresAt: '',
       isPinned: false,
       isActive: true,
       badgeText: 'MỚI',
       attachmentName: '',
-      attachmentUrl: '#',
+      attachmentUrl: '',
     };
     setEditingItem(newItem);
+    setPreviewHtml(false);
     setIsModalOpen(true);
   };
 
   const handleEdit = (ann: Announcement) => {
-    setEditingItem({ ...ann });
+    setEditingItem({
+      ...ann,
+      attachmentUrl: ann.attachmentUrl === '#' ? '' : ann.attachmentUrl || '',
+    });
+    setPreviewHtml(false);
     setIsModalOpen(true);
+  };
+
+  const handleToggleActive = async (ann: Announcement) => {
+    const updated: Announcement = {
+      ...ann,
+      isActive: ann.isActive === false ? true : false,
+    };
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'save_announcement', payload: updated }),
+      });
+      if (res.ok) {
+        setMessage(updated.isActive ? 'Đã hiển thị thông báo!' : 'Đã ẩn thông báo!');
+        await loadData();
+        setTimeout(() => setMessage(''), 2500);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !editingItem) return;
+    setUploadingFile(true);
+    try {
+      const form = new FormData();
+      form.append('file', file);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: form,
+      });
+      const json = await res.json();
+      if (res.ok && json.ok) {
+        setEditingItem({
+          ...editingItem,
+          attachmentName: json.attachmentName || file.name,
+          attachmentUrl: json.attachmentUrl,
+        });
+        setMessage(`Đã tải tệp "${json.attachmentName || file.name}" lên thành công!`);
+        setTimeout(() => setMessage(''), 2500);
+      } else {
+        window.alert(json.error || 'Tải tệp lên thất bại');
+      }
+    } catch (err) {
+      console.error(err);
+      window.alert('Đã xảy ra lỗi khi tải tệp lên');
+    } finally {
+      setUploadingFile(false);
+      e.target.value = '';
+    }
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -137,18 +209,35 @@ export default function AdminAnnouncementsPage() {
         {announcements.map((ann) => (
           <div
             key={ann.id}
-            className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors"
+            className={`p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors ${
+              ann.isActive === false ? 'opacity-60 bg-slate-50/50' : ''
+            }`}
           >
             <div className="space-y-1.5 min-w-0 flex-1">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 uppercase">
                   {ann.category}
                 </span>
+                {ann.isPinned && (
+                  <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 inline-flex items-center gap-1">
+                    <Pin className="w-2.5 h-2.5" />
+                    <span>GHIM</span>
+                  </span>
+                )}
                 {ann.badgeText && (
                   <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-red-500 text-white">
                     {ann.badgeText}
                   </span>
                 )}
+                <span
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    ann.isActive === false
+                      ? 'bg-slate-200 text-slate-600'
+                      : 'bg-emerald-100 text-emerald-700'
+                  }`}
+                >
+                  {ann.isActive === false ? 'Đang ẩn' : 'Đang hiển thị'}
+                </span>
                 <span className="text-xs text-slate-400 flex items-center gap-1">
                   <Calendar className="w-3.5 h-3.5" />
                   <span>Ngày đăng: {ann.publishedAt}</span>
@@ -179,8 +268,20 @@ export default function AdminAnnouncementsPage() {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="button"
+                onClick={() => handleToggleActive(ann)}
+                className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                  ann.isActive === false
+                    ? 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50'
+                    : 'text-emerald-600 hover:text-slate-600 hover:bg-slate-100'
+                }`}
+                title={ann.isActive === false ? 'Bật hiển thị thông báo' : 'Ẩn thông báo'}
+              >
+                {ann.isActive === false ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+              <button
+                type="button"
                 onClick={() => handleEdit(ann)}
-                className="p-2 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50"
+                className="p-2 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer"
                 title="Sửa thông báo"
               >
                 <Edit className="w-4 h-4" />
@@ -188,7 +289,7 @@ export default function AdminAnnouncementsPage() {
               <button
                 type="button"
                 onClick={() => handleDelete(ann.id, ann.title)}
-                className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50"
+                className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 cursor-pointer"
                 title="Xóa thông báo"
               >
                 <Trash2 className="w-4 h-4" />
@@ -244,14 +345,21 @@ export default function AdminAnnouncementsPage() {
                     <label className="block font-bold text-slate-700 mb-1">Nhóm / Danh mục</label>
                     <select
                       value={editingItem.category}
-                      onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
+                      onChange={(e) => {
+                        const catTitle = e.target.value;
+                        setEditingItem({
+                          ...editingItem,
+                          category: catTitle,
+                          categoryId: CATEGORY_MAP[catTitle] || editingItem.categoryId || 'cat-1',
+                        });
+                      }}
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
                     >
-                      <option value="Học bổng Đại học">Học bổng Đại học</option>
-                      <option value="Học bổng Sau Đại học">Học bổng Sau Đại học</option>
-                      <option value="Đơn vị ngoài trường">Đơn vị ngoài trường</option>
-                      <option value="Chính sách & Miễn giảm">Chính sách & Miễn giảm</option>
-                      <option value="Liên kết quốc tế">Liên kết quốc tế</option>
+                      <option value="Học bổng Bậc Đại học">Học bổng Bậc Đại học</option>
+                      <option value="Học bổng Bậc Sau đại học">Học bổng Bậc Sau đại học</option>
+                      <option value="Học bổng Đơn vị ngoài trường">Học bổng Đơn vị ngoài trường</option>
+                      <option value="Chính sách miễn giảm">Chính sách miễn giảm</option>
+                      <option value="Cử nhân Liên kết quốc tế">Cử nhân Liên kết quốc tế</option>
                       <option value="Học bổng Du học">Học bổng Du học</option>
                     </select>
                   </div>
@@ -266,6 +374,28 @@ export default function AdminAnnouncementsPage() {
                       className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
                     />
                   </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-6 pt-1 pb-1">
+                  <label className="inline-flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.isPinned || false}
+                      onChange={(e) => setEditingItem({ ...editingItem, isPinned: e.target.checked })}
+                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
+                    />
+                    <span>Ghim thông báo lên đầu</span>
+                  </label>
+
+                  <label className="inline-flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.isActive !== false}
+                      onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
+                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
+                    />
+                    <span>Hiển thị công khai ngoài Cổng thông tin</span>
+                  </label>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -335,30 +465,52 @@ export default function AdminAnnouncementsPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Tên file đính kèm</label>
-                    <input
-                      type="text"
-                      value={editingItem.attachmentName || ''}
-                      onChange={(e) =>
-                        setEditingItem({ ...editingItem, attachmentName: e.target.value })
-                      }
-                      placeholder="Thong_bao_DUE_2025.pdf"
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                    />
+                <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <span className="font-bold text-slate-800 block">Tài liệu / Biểu mẫu đính kèm</span>
+                      <span className="text-[10px] text-slate-500">
+                        Tải tệp từ máy tính (PDF, DOCX, XLSX, ZIP tối đa 20MB) hoặc nhập đường dẫn file
+                      </span>
+                    </div>
+                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold cursor-pointer shadow-xs shrink-0">
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>{uploadingFile ? 'Đang tải lên...' : 'Chọn tệp từ máy tính'}</span>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.png,.jpg,.jpeg"
+                        onChange={handleFileUpload}
+                        disabled={uploadingFile}
+                        className="hidden"
+                      />
+                    </label>
                   </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Đường dẫn file (URL)</label>
-                    <input
-                      type="text"
-                      value={editingItem.attachmentUrl || ''}
-                      onChange={(e) =>
-                        setEditingItem({ ...editingItem, attachmentUrl: e.target.value })
-                      }
-                      placeholder="/files/..."
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                    />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Tên file hiển thị</label>
+                      <input
+                        type="text"
+                        value={editingItem.attachmentName || ''}
+                        onChange={(e) =>
+                          setEditingItem({ ...editingItem, attachmentName: e.target.value })
+                        }
+                        placeholder="Thong_bao_DUE_2025.pdf"
+                        className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Đường dẫn file (URL)</label>
+                      <input
+                        type="text"
+                        value={editingItem.attachmentUrl || ''}
+                        onChange={(e) =>
+                          setEditingItem({ ...editingItem, attachmentUrl: e.target.value })
+                        }
+                        placeholder="/files/... (Để trống sẽ tự xuất bản thông báo .doc)"
+                        className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
