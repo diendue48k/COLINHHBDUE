@@ -3,615 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHƯƠNG TRÌNH PHÁT TRIỂN NHÀ NGHIÊN CỨU TRẺ (HỌC VIÊN CAO HỌC) - DUE</title>
+<title>Chương trình Phát triển Nhà nghiên cứu trẻ (Học viên cao học) | DUE</title>
+
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
 :root {
-    --blue: #07549b;
-    --dark-blue: #063968;
-    --light-blue: #eaf4ff;
-    --orange: #f58220;
-    --green: #269b63;
-    --text: #243447;
-    --muted: #637487;
+    --xanh-duong: #07549b;
+    --xanh-dam: #063968;
+    --xanh-nhat: #eaf4ff;
+    --cam: #f58220;
+    --cam-nhat: #fff0df;
+    --xanh-la: #269b63;
+    --xanh-la-nhat: #e4f7ed;
+    --chu: #243447;
+    --chu-phu: #5a6b7e;
+    --trang: #ffffff;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 85px;
-}
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: "SVN-Gilroy", "SVN-Griloy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif;
     background: #f4f8fc;
-    color: var(--text);
-    line-height: 1.75;
+    color: var(--chu);
+    line-height: 1.6;
+    font-size: 15px;
 }
 
-.container {
-    width: min(1150px, 92%);
-    margin: auto;
-}
+.container { width: min(1150px, 92%); margin: auto; }
 
-/* ================= BANNER ================= */
+/* PHẦN ĐẦU TRANG */
 .banner {
     position: relative;
     overflow: hidden;
-    padding: 65px 20px 72px;
-    background: linear-gradient(
-        120deg,
-        #063968,
-        #0876b9 65%,
-        #269b63
-    );
-    color: white;
+    padding: 42px 20px 46px;
+    color: var(--trang);
+    background: linear-gradient(120deg, #063968 0%, #0876b9 65%, #269b63 100%);
 }
-
-.banner::before,
-.banner::after {
+.banner::before, .banner::after {
     content: "";
     position: absolute;
     border-radius: 50%;
     background: rgba(255,255,255,.07);
     pointer-events: none;
 }
-
-.banner::before {
-    width: 380px;
-    height: 380px;
-    top: -200px;
-    right: 5%;
-}
-
-.banner::after {
-    width: 300px;
-    height: 300px;
-    bottom: -200px;
-    left: 5%;
-}
-
-.banner-content {
+.banner::before { width: 300px; height: 300px; top: -170px; right: 5%; }
+.banner::after  { width: 240px; height: 240px; bottom: -170px; left: 5%; }
+.banner-noi-dung {
     position: relative;
     z-index: 1;
-    max-width: 950px;
+    max-width: 920px;
     margin: auto;
     text-align: center;
 }
-
 .banner h1 {
-    font-size: clamp(26px, 4.2vw, 42px);
-    line-height: 1.35;
-    font-weight: 800;
+    font-size: clamp(24px, 4vw, 38px);
+    line-height: 1.25;
     text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 14px;
 }
-
-.banner h1 span {
-    color: #ffb45e;
+.banner h1 span { color: #ffb45e; }
+.banner h1 small {
+    display: block;
+    font-size: .5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    color: #e8f3ff;
 }
-
-/* ================= THANH ĐIỀU HƯỚNG ================= */
-.tab-navigation {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(255,255,255,.98);
-    border-bottom: 1px solid #e1eaf2;
-    box-shadow: 0 5px 18px rgba(0,45,90,.08);
-    backdrop-filter: blur(12px);
-}
-
-.tab-list {
-    width: min(1150px, 95%);
+.banner p {
+    max-width: 840px;
     margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 15px;
+    color: #e8f3ff;
+    font-size: 15.5px;
 }
+.banner p strong { color: #ffffff; }
 
-.tab-link {
-    position: relative;
+/* TIÊU ĐỀ CÁC MỤC */
+section { padding: 34px 0; }
+
+.tieu-de-muc {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 17px 22px;
-    color: #536579;
-    text-decoration: none;
-    font-size: 13.5px;
-    font-weight: 800;
-    transition: .25s;
-    text-align: center;
+    gap: 12px;
+    margin-bottom: 18px;
 }
-
-.tab-link:hover {
-    color: var(--blue);
-    background: #f3f8fd;
-}
-
-.tab-link.active {
-    color: var(--blue);
-}
-
-.tab-link.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 15px;
-    right: 15px;
-    height: 4px;
-    border-radius: 5px 5px 0 0;
-    background: var(--orange);
-}
-
-.tab-number {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    display: inline-grid;
-    place-items: center;
-    border-radius: 50%;
-    background: #edf3f8;
-    color: var(--blue);
-    font-size: 12.5px;
-}
-
-.tab-link.active .tab-number {
-    background: var(--blue);
-    color: white;
-}
-
-/* ================= GIỚI THIỆU ================= */
-.introduction {
-    padding: 38px 0 35px;
-}
-
-.intro-card {
-    padding: 27px 30px;
-    background: white;
-    border-left: 5px solid var(--orange);
-    border-radius: 13px;
-    box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    font-size: 15.5px;
-    text-align: justify;
-    line-height: 1.75;
-}
-
-/* ================= CÁC ĐỀ MỤC ================= */
-section {
-    padding: 55px 0;
-    scroll-margin-top: 85px;
-}
-
-.section-heading {
-    margin-bottom: 28px;
-}
-
-.section-heading h2 {
-    font-size: 25px;
-    color: var(--dark-blue);
-    line-height: 1.5;
-    text-transform: uppercase;
-    font-weight: 800;
-}
-
-.section-heading .line {
-    width: 65px;
-    height: 4px;
-    background: var(--orange);
-    margin-top: 12px;
-    border-radius: 5px;
-}
-
-/* ================= ĐỀ MỤC 1 ================= */
-.criteria-section {
-    background: #eaf3fb;
-}
-
-.object-box {
-    padding: 20px 23px;
-    background: white;
-    border-left: 5px solid var(--green);
-    border-radius: 10px;
-    margin-bottom: 22px;
-    font-size: 15px;
-}
-
-.object-box strong {
-    color: var(--blue);
-}
-
-/* ================= BẢNG HỌC BỔNG ================= */
-.table-wrapper {
-    overflow-x: auto;
-    border-radius: 13px;
-    background: #ffffff !important;
-    box-shadow: 0 8px 25px rgba(0,50,100,.06);
-    margin-bottom: 25px;
-}
-
-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
-    color: #243447 !important;
-    background: #ffffff !important;
-}
-
-thead th {
-    background: #063968 !important;
-    color: #ffffff !important;
-    padding: 16px 15px;
-    text-align: left;
-    font-size: 14.5px;
-    font-weight: 700;
-}
-
-tbody td {
-    padding: 18px 15px;
-    vertical-align: top;
-    border-bottom: 1px solid #e6edf4;
-    font-size: 14px;
-    color: #243447 !important;
-    background: #ffffff !important;
-}
-
-tbody td, tbody td p, tbody td span, tbody td li, tbody td ul {
-    color: #243447 !important;
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
-tbody tr:hover td {
-    background: #f7fbff !important;
-}
-
-tbody ul {
-    padding-left: 20px;
-}
-
-tbody li {
-    margin-bottom: 8px;
-    text-align: justify;
-    color: #243447 !important;
-}
-
-.level {
-    display: inline-block;
-    padding: 6px 11px;
-    border-radius: 7px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.level-100 {
-    background: #fff0df !important;
-    color: #d86a0b !important;
-}
-
-.level-75 {
-    background: #e4f7ed !important;
-    color: #16824b !important;
-}
-
-.level-50 {
-    background: #e6f1ff !important;
-    color: #07549b !important;
-}
-
-.level-25 {
-    background: #f0eaff !important;
-    color: #7650ae !important;
-}
-
-/* ================= YÊU CẦU ================= */
-.requirement {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    padding: 22px 25px;
-    background: #fff7e9;
-    border-left: 5px solid var(--orange);
-    border-radius: 11px;
-}
-
-.requirement h3 {
-    color: #b95e09;
-    font-size: 16px;
-    margin-bottom: 8px;
-    font-weight: 800;
-}
-
-.requirement p {
-    font-size: 14px;
-    text-align: justify;
-    line-height: 1.7;
-}
-
-/* ================= CHÍNH SÁCH HỖ TRỢ ================= */
-.support {
-    margin-top: 30px;
-    margin-bottom: 25px;
-}
-
-.support-heading {
-    color: var(--blue);
-    font-size: 19px;
-    margin-bottom: 16px;
-    border-bottom: 2px solid #e2eaf1;
-    padding-bottom: 10px;
-    font-weight: 800;
-}
-
-.support-list {
-    display: grid;
-    gap: 13px;
-}
-
-.support-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 16px 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,50,100,.04);
-}
-
-.support-icon {
+.tieu-de-muc .so {
+    flex: none;
     width: 38px;
     height: 38px;
-    flex-shrink: 0;
+    border-radius: 10px;
     display: grid;
     place-items: center;
+    background: var(--cam);
+    color: var(--trang);
+    font-weight: 800;
+    font-size: 16px;
+}
+.tieu-de-muc h2 {
+    color: var(--xanh-dam);
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+/* ĐỐI TƯỢNG */
+.doi-tuong {
+    background: var(--trang);
     border-radius: 10px;
-    background: var(--light-blue);
-    font-size: 19px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    border-left: 5px solid var(--xanh-duong);
+    box-shadow: 0 4px 16px rgba(0,50,100,.05);
 }
+.doi-tuong strong { color: var(--xanh-duong); }
 
-.support-item:nth-child(2) .support-icon {
-    background: #e4f7ed;
-}
-
-.support-item:nth-child(3) .support-icon {
-    background: #fff0df;
-}
-
-.support-item:nth-child(4) .support-icon {
-    background: #f0eaff;
-}
-
-.support-item:nth-child(5) .support-icon {
-    background: #e6f1ff;
-}
-
-.support-item p {
-    font-size: 14px;
-    text-align: justify;
-    line-height: 1.65;
-}
-
-/* ================= ĐỀ MỤC 2 ================= */
-.maintenance-section {
-    background: linear-gradient(120deg, #063968, #0876b9);
-    color: white;
-}
-
-.maintenance-section .section-heading h2 {
-    color: white;
-}
-
-.maintenance-section .section-heading .line {
-    background: #ffb45e;
-}
-
-.maintenance-content {
+/* CÁC MỨC HỌC BỔNG */
+.danh-sach-hoc-bong {
     display: grid;
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.the-hoc-bong {
+    background: var(--trang);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,50,100,.06);
+    border-top: 4px solid var(--xanh-duong);
+    transition: .25s;
+}
+.the-hoc-bong:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,50,100,.12); }
+.the-hoc-bong .phan-tram { font-size: 32px; font-weight: 900; line-height: 1.15; }
+.the-hoc-bong .phan-tram small { font-size: 15px; font-weight: 700; }
+.the-hoc-bong .nhan-muc  { font-size: 13.5px; font-weight: 700; color: var(--xanh-dam); }
+.the-hoc-bong:nth-child(1) { border-color: var(--cam); }
+.the-hoc-bong:nth-child(1) .phan-tram { color: var(--cam); }
+.the-hoc-bong:nth-child(2) { border-color: var(--xanh-la); }
+.the-hoc-bong:nth-child(2) .phan-tram { color: var(--xanh-la); }
+.the-hoc-bong:nth-child(3) .phan-tram { color: var(--xanh-duong); }
+.the-hoc-bong:nth-child(4) { border-color: #8b65c7; }
+.the-hoc-bong:nth-child(4) .phan-tram { color: #8b65c7; }
+
+/* BẢNG */
+.khung-bang {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: var(--trang);
+    box-shadow: 0 6px 22px rgba(0,50,100,.07);
+}
+table { width: 100%; border-collapse: collapse; min-width: 680px; }
+thead th {
+    background: var(--xanh-dam);
+    color: var(--trang);
+    text-align: left;
+    padding: 11px 14px;
+    font-size: 14px;
+}
+tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #e8eef5;
+    vertical-align: top;
+    font-size: 14px;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f6faff; }
+tbody ul { padding-left: 18px; list-style: "– "; }
+tbody li { margin-bottom: 4px; }
+tbody li:last-child { margin-bottom: 0; }
+
+.muc-mien {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 7px;
+    font-weight: 800;
+    font-size: 13.5px;
+}
+.muc-100 { background: var(--cam-nhat); color: #d86a0b; }
+.muc-75  { background: var(--xanh-la-nhat); color: #16824b; }
+.muc-50  { background: var(--xanh-nhat); color: #07549b; }
+.muc-25  { background: #f0eaff; color: #7650ae; }
+
+/* YÊU CẦU + HỖ TRỢ (2 CỘT) */
+.hai-cot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+.luu-y {
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #fff7e9;
+    border-left: 5px solid var(--cam);
+}
+.luu-y h3 { color: #b95e09; margin-bottom: 4px; font-size: 16px; }
+.luu-y p  { font-size: 14px; }
+
+.ho-tro {
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #f0f7f3;
+    border-left: 5px solid var(--xanh-la);
+}
+.ho-tro h3 { color: #16824b; margin-bottom: 6px; font-size: 16px; }
+.ho-tro ul { list-style: none; }
+.ho-tro li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.ho-tro li:last-child { margin-bottom: 0; }
+.ho-tro .bieu-tuong {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    background: var(--trang);
 }
 
-.maintenance-card {
-    padding: 25px;
+/* ĐIỀU KIỆN DUY TRÌ */
+.khu-vuc-duy-tri {
+    background: linear-gradient(120deg, #063968, #0876b9);
+    color: var(--trang);
+}
+.khu-vuc-duy-tri .tieu-de-muc h2 { color: var(--trang); }
+.danh-sach-duy-tri {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+}
+.the-duy-tri {
     background: rgba(255,255,255,.1);
     border: 1px solid rgba(255,255,255,.2);
-    border-radius: 13px;
+    border-radius: 12px;
+    padding: 16px 18px;
 }
+.the-duy-tri h3 { color: #ffb45e; margin-bottom: 6px; font-size: 17px; }
+.the-duy-tri p, .the-duy-tri li { font-size: 14px; color: #e8f3ff; }
+.the-duy-tri ul { padding-left: 18px; list-style: "+ "; }
+.the-duy-tri li { margin-bottom: 6px; }
+.the-duy-tri li:last-child { margin-bottom: 0; }
 
-.maintenance-card h3 {
-    font-size: 18px;
-    color: #ffb45e;
-    margin-bottom: 10px;
-    font-weight: 800;
+/* CHÂN TRANG */
+.chan-trang {
+    padding: 18px 15px;
+    background: #042c50;
+    color: #d7e8f8;
+    text-align: center;
+    font-size: 13px;
 }
+.chan-trang strong { color: var(--trang); font-size: 14px; }
 
-.maintenance-card p {
-    font-size: 14.5px;
-    color: #edf6ff;
-    text-align: justify;
-    line-height: 1.7;
+/* ĐIỆN THOẠI */
+@media (max-width: 850px) {
+    .danh-sach-hoc-bong { grid-template-columns: repeat(2, 1fr); }
+    .hai-cot, .danh-sach-duy-tri { grid-template-columns: 1fr; }
 }
-
-.maintenance-card ul {
-    padding-left: 22px;
-    margin-top: 10px;
-}
-
-.maintenance-card li {
-    font-size: 14.5px;
-    color: #edf6ff;
-    margin-bottom: 10px;
-    text-align: justify;
-}
-
-/* ================= ĐỀ MỤC 3 ================= */
-.notes-section {
-    background: #f4f8fc;
-    color: var(--text);
-}
-
-.notes-section .section-heading h2 {
-    color: var(--dark-blue);
-}
-
-.notes-card {
-    padding: 25px;
-    background: white;
-    border-left: 5px solid #269b63;
-    border-radius: 13px;
-    box-shadow: 0 8px 25px rgba(0,50,100,.06);
-}
-
-.notes-card h3 {
-    font-size: 18px;
-    color: var(--blue);
-    margin-bottom: 10px;
-    font-weight: 800;
-}
-
-.notes-card p, .notes-card li {
-    font-size: 14px;
-    line-height: 1.7;
-    text-align: justify;
-}
-
-.notes-card a {
-    color: var(--blue);
-    font-weight: 700;
-}
-
-.notes-card a:hover {
-    text-decoration: underline;
-    color: var(--orange);
-}
-
-/* ================= ĐIỆN THOẠI ================= */
-@media(max-width: 700px) {
-    .banner {
-        padding: 50px 16px;
-    }
-
-    .banner h1 {
-        font-size: 25px;
-    }
-
-    .tab-list {
-        justify-content: flex-start;
-        gap: 0;
-        overflow-x: auto;
-    }
-
-    .tab-link {
-        padding: 12px 14px;
-        font-size: 12px;
-        min-width: max-content;
-    }
-
-    section {
-        padding: 38px 0;
-    }
-
-    .section-heading h2 {
-        font-size: 21px;
-    }
-
-    .intro-card {
-        padding: 20px;
-        font-size: 14px;
-    }
-
-    .maintenance-card, .notes-card {
-        padding: 20px;
-    }
-
-    .object-box {
-        font-size: 13.5px;
-    }
+@media (max-width: 600px) {
+    section { padding: 26px 0; }
+    .banner { padding: 32px 16px 36px; }
+    .banner p { font-size: 14.5px; }
+    .tieu-de-muc h2 { font-size: 19px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- PHẦN ĐẦU TRANG -->
 <header class="banner">
-    <div class="banner-content">
+    <div class="banner-noi-dung">
         <h1>
-            CHƯƠNG TRÌNH PHÁT TRIỂN<br>
-            <span>NHÀ NGHIÊN CỨU TRẺ (HỌC VIÊN CAO HỌC)</span>
+            CHƯƠNG TRÌNH PHÁT TRIỂN<br><span>NHÀ NGHIÊN CỨU TRẺ</span>
+            <small>(HỌC VIÊN CAO HỌC)</small>
         </h1>
+        <p>
+            Chính sách miễn học phí dành cho <strong>Học viên</strong> thuộc chương trình đào tạo
+            trình độ thạc sĩ hệ chính quy định hướng nghiên cứu có thành tích nổi bật trong học tập
+            và nghiên cứu khoa học. Chính sách nhằm thu hút và phát triển người học có năng lực
+            nghiên cứu, tạo nguồn Nhà nghiên cứu tiềm năng, nguồn Giảng viên và nhân lực học thuật
+            chất lượng cao cho Trường Đại học Kinh tế.
+        </p>
     </div>
 </header>
 
-<!-- ================= THANH TAB ================= -->
-<nav class="tab-navigation">
-    <div class="tab-list">
-        
-        <a href="#de-muc-1" class="tab-link active">
-            <span class="tab-number">01</span>
-            1. ĐỐI TƯỢNG VÀ MỨC CẤP
-        </a>
-        <a href="#de-muc-2" class="tab-link">
-            <span class="tab-number">02</span>
-            2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ
-        </a>
-    </div>
-</nav>
+<!-- 1. ĐỐI TƯỢNG VÀ MỨC CẤP -->
+<section>
+<div class="container">
 
-<!-- ================= GIỚI THIỆU ================= -->
-<div class="introduction">
-    <div class="container">
-        <div class="intro-card">
-            Chương trình Học bổng Nhà nghiên cứu trẻ nhằm ươm mầm tài năng học thuật, khuyến khích học viên cao học tích cực tham gia nghiên cứu khoa học, công bố các công trình chất lượng cao trên các tạp chí uy tín trong nước và quốc tế.
+    <div class="tieu-de-muc">
+        <div class="so">1</div>
+        <h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2>
+    </div>
+
+    <div class="doi-tuong">
+        <strong>Đối tượng:</strong>
+        Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.
+    </div>
+
+    <div class="danh-sach-hoc-bong">
+        <div class="the-hoc-bong"><div class="phan-tram">100%</div><div class="nhan-muc">học phí</div></div>
+        <div class="the-hoc-bong"><div class="phan-tram">75%</div><div class="nhan-muc">học phí</div></div>
+        <div class="the-hoc-bong"><div class="phan-tram">50%</div><div class="nhan-muc">học phí</div></div>
+        <div class="the-hoc-bong"><div class="phan-tram"><small>Tối đa</small> 25%</div><div class="nhan-muc">học phí</div></div>
+    </div>
+
+    <div class="khung-bang">
+    <table>
+        <thead>
+            <tr>
+                <th style="width:55px">TT</th>
+                <th style="width:170px">Mức miễn</th>
+                <th>Yêu cầu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td><span class="muc-mien muc-100">100% học phí</span></td>
+                <td>
+                    <ul>
+                        <li>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.</li>
+                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.</li>
+                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.</li>
+                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td><span class="muc-mien muc-75">75% học phí</span></td>
+                <td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td><span class="muc-mien muc-50">50% học phí</span></td>
+                <td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td>
+            </tr>
+            <tr>
+                <td><strong>4</strong></td>
+                <td><span class="muc-mien muc-25">Tối đa 25% học phí</span></td>
+                <td>
+                    <ul>
+                        <li>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.</li>
+                        <li>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div class="hai-cot">
+        <div class="luu-y">
+            <h3>Yêu cầu</h3>
+            <p>
+                Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu
+                bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng
+                điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung
+                chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn
+                bộ số học phí đã được miễn.
+            </p>
+        </div>
+
+        <div class="ho-tro">
+            <h3>Các chính sách hỗ trợ khác:</h3>
+            <ul>
+                <li><span class="bieu-tuong">📚</span><span>Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</span></li>
+                <li><span class="bieu-tuong">🌐</span><span>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</span></li>
+                <li><span class="bieu-tuong">🔬</span><span>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</span></li>
+            </ul>
         </div>
     </div>
+
 </div>
+</section>
 
-<!-- ================= CÁC ĐỀ MỤC ================= -->
-<section class="criteria-section" id="de-muc-1"><div class="container"><div class="section-heading"><h2>1. ĐỐI TƯỢNG VÀ MỨC CẤP</h2><div class="line"></div></div><div class="object-box"><strong>Đối tượng thụ hưởng:</strong> Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.</div><div class="table-wrapper"><table><thead><tr><th>TT</th><th>Mức miễn</th><th>Yêu cầu</th></tr></thead><tbody><tr><td>1</td><td><span class="level level-100">100% học phí</span></td><td>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.<br>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</td></tr><tr><td>2</td><td><span class="level level-75">75% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td></tr><tr><td>3</td><td><span class="level level-50">50% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td></tr><tr><td>4</td><td><span class="level level-25">Tối đa 25% học phí</span></td><td>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.<br>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</td></tr></tbody></table></div><div class="table-wrapper"><table><thead><tr><th>Yêu cầu</th></tr></thead><tbody><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr><tr><td><span class="level level-100">Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</span></td></tr></tbody></table></div><div class="support"><div class="support-heading">Chính sách hỗ trợ & Quyền lợi khác</div><div class="support-list"><div class="support-item"><div class="support-icon">📘</div><p>Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</p></div><div class="support-item"><div class="support-icon">🎓</div><p>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</p></div><div class="support-item"><div class="support-icon">🌟</div><p>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</p></div></div></div></div></section><section class="maintenance-section" id="de-muc-2"><div class="container"><div class="section-heading"><h2>2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2><div class="line"></div></div><div class="maintenance-content"><div class="maintenance-card"><h3>Năm thứ hai:</h3><ul><li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li><li>Đối với học viên được miễn học phí tối đa 25% học phí: Không áp dụng điều kiện duy trì đối với mức miễn học phí này.</li></ul></div></div></div></section>
+<!-- 2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ -->
+<section class="khu-vuc-duy-tri">
+<div class="container">
 
-<!-- ================= KẾT THÚC ================= -->
-<script>
-const tabs = document.querySelectorAll(".tab-link");
-const sections = document.querySelectorAll("section[id]");
+    <div class="tieu-de-muc">
+        <div class="so">2</div>
+        <h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2>
+    </div>
 
-document.addEventListener("click", function(e) {
-    const tab = e.target.closest(".tab-link");
-    if (!tab) return;
-    e.preventDefault();
-    tabs.forEach(item => item.classList.remove("active"));
-    tab.classList.add("active");
-    const targetId = tab.getAttribute("href").replace("#", "");
-    const target = document.getElementById(targetId);
-    if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-});
+    <div class="danh-sach-duy-tri">
+        <div class="the-duy-tri">
+            <h3>Năm thứ nhất</h3>
+            <p>Nhà trường xét cấp cho các học viên thỏa các điều kiện nêu trên.</p>
+        </div>
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            tabs.forEach(tab => {
-                tab.classList.toggle(
-                    "active",
-                    tab.getAttribute("href") === "#" + entry.target.id
-                );
-            });
-        }
-    });
-}, {
-    rootMargin: "-90px 0px -55% 0px",
-    threshold: 0
-});
+        <div class="the-duy-tri">
+            <h3>Năm thứ hai</h3>
+            <ul>
+                <li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li>
+                <li>Đối với học viên được miễn học phí tối đa 25% học phí: Không áp dụng điều kiện duy trì đối với mức miễn học phí này.</li>
+            </ul>
+        </div>
+    </div>
 
-sections.forEach(section => observer.observe(section));
-</script>
+</div>
+</section>
+
+<!-- CHÂN TRANG -->
+<footer class="chan-trang">
+    <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>
+</footer>
 
 </body>
 </html>

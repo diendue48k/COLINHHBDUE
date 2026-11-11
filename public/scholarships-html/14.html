@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHÍNH SÁCH MIỄN/GIẢM HỌC PHÍ, HỖ TRỢ CHI PHÍ HỌC TẬP VÀ TRỢ CẤP XÃ HỘI | DUE</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root {
+    --xanh-duong: #07549b;
+    --xanh-dam: #063968;
+    --xanh-nhat: #eaf4ff;
+    --cam: #f58220;
+    --cam-nhat: #fff0df;
+    --xanh-la: #269b63;
+    --xanh-la-nhat: #e4f7ed;
+    --chu: #243447;
+    --chu-phu: #5a6b7e;
+    --trang: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif;
+    background: #f4f8fc;
+    color: var(--chu);
+    line-height: 1.6;
+    font-size: 15px;
+}
+a { color: var(--xanh-duong); word-break: break-all; }
+.container { width: min(1150px, 92%); margin: auto; }
+
+/* PHẦN ĐẦU TRANG */
+.banner {
+    position: relative;
+    overflow: hidden;
+    padding: 42px 20px 46px;
+    color: var(--trang);
+    background: linear-gradient(120deg, #063968 0%, #0876b9 65%, #269b63 100%);
+}
+.banner::before, .banner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+}
+.banner::before { width: 300px; height: 300px; top: -170px; right: 5%; }
+.banner::after  { width: 240px; height: 240px; bottom: -170px; left: 5%; }
+.banner-noi-dung { position: relative; z-index: 1; max-width: 920px; margin: auto; text-align: center; }
+.banner h1 {
+    font-size: clamp(24px, 4vw, 38px);
+    line-height: 1.25;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+.banner h1 span { color: #ffb45e; }
+.banner h1 small {
+    display: block;
+    font-size: .5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    color: #e8f3ff;
+}
+.banner h1 .nhan-tren-tieu-de {
+    display: inline-block;
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    margin-bottom: 12px;
+}
+.banner h1 .nhan-tren-tieu-de + br { display: none; }
+.banner p { max-width: 840px; margin: auto; color: #e8f3ff; font-size: 15.5px; }
+.banner p + p { margin-top: 8px; }
+
+/* TIÊU ĐỀ CÁC MỤC */
+section { padding: 34px 0; }
+.khu-vuc-nhat { background: #eaf3fb; }
+.tieu-de-muc { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.tieu-de-muc .so {
+    flex: none;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 8px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--cam);
+    color: var(--trang);
+    font-weight: 800;
+    font-size: 16px;
+}
+.tieu-de-muc h2 { color: var(--xanh-dam); font-size: 22px; line-height: 1.3; }
+.tieu-de-nho {
+    color: var(--xanh-dam);
+    font-size: 16px;
+    margin: 4px 0 10px;
+    padding-left: 10px;
+    border-left: 4px solid var(--cam);
+    line-height: 1.3;
+}
+.khu-vuc-toi .tieu-de-nho { color: #ffb45e; }
+
+/* KHỐI NỘI DUNG */
+.luoi-khoi { columns: 2 360px; column-gap: 16px; margin-bottom: 16px; }
+.luoi-khoi.mot { columns: 1; }
+.luoi-khoi:last-child { margin-bottom: 0; }
+.khoi {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    background: var(--trang);
+    border-radius: 10px;
+    padding: 12px 18px;
+    border-left: 5px solid var(--xanh-duong);
+    box-shadow: 0 4px 16px rgba(0,50,100,.05);
+    font-size: 14.5px;
+}
+.luoi-khoi .khoi:last-child { margin-bottom: 0; }
+.khoi p + p, .khoi p + ul { margin-top: 6px; }
+.khoi h3 { font-size: 16px; margin-bottom: 6px; color: var(--xanh-duong); }
+.khoi strong { color: var(--xanh-duong); }
+.khoi ul { padding-left: 18px; list-style: "+ "; }
+.khoi li { margin-bottom: 4px; }
+.khoi li:last-child { margin-bottom: 0; }
+.khoi li.khong-dau { list-style: none; }
+.khoi-cam { border-left-color: var(--cam); }
+.khoi-cam strong, .khoi-cam h3 { color: #c96510; }
+.khoi-la { border-left-color: var(--xanh-la); background: #f3faf6; }
+.khoi-la strong, .khoi-la h3 { color: #16824b; }
+.khoi-luu-y { border-left-color: var(--cam); background: #fff7e9; }
+.khoi-luu-y h3 { color: #b95e09; margin-bottom: 4px; }
+
+.khu-vuc-toi {
+    background: linear-gradient(120deg, #063968, #0876b9);
+    color: var(--trang);
+}
+.khu-vuc-toi .tieu-de-muc h2 { color: var(--trang); }
+.khu-vuc-toi .khoi {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-left: 4px solid #ffb45e;
+    box-shadow: none;
+    color: #e8f3ff;
+}
+.khu-vuc-toi .khoi strong, .khu-vuc-toi .khoi h3 { color: #ffb45e; }
+.khu-vuc-toi a { color: #ffd59e; }
+
+/* CÁC MỨC HỌC BỔNG */
+.danh-sach-hoc-bong {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.the-hoc-bong {
+    background: var(--trang);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,50,100,.06);
+    border-top: 4px solid var(--cam);
+    transition: .25s;
+}
+.the-hoc-bong:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,50,100,.12); }
+.the-hoc-bong .nhan-tren { font-size: 13.5px; font-weight: 700; color: var(--chu-phu); }
+.the-hoc-bong .phan-tram { font-size: 32px; font-weight: 900; line-height: 1.15; color: var(--cam); }
+.the-hoc-bong .phan-tram small { font-size: 15px; font-weight: 700; }
+.the-hoc-bong .nhan-muc { font-size: 13.5px; font-weight: 700; color: var(--xanh-dam); }
+.the-hoc-bong:nth-child(4n+2) { border-color: var(--xanh-la); }
+.the-hoc-bong:nth-child(4n+2) .phan-tram { color: var(--xanh-la); }
+.the-hoc-bong:nth-child(4n+3) { border-color: var(--xanh-duong); }
+.the-hoc-bong:nth-child(4n+3) .phan-tram { color: var(--xanh-duong); }
+.the-hoc-bong:nth-child(4n+4) { border-color: #8b65c7; }
+.the-hoc-bong:nth-child(4n+4) .phan-tram { color: #8b65c7; }
+
+/* BẢNG */
+.khung-bang {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: var(--trang);
+    box-shadow: 0 6px 22px rgba(0,50,100,.07);
+    margin-bottom: 16px;
+    color: var(--chu);
+}
+.khung-bang:last-child { margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; }
+table.cot-3, table.cot-4 { min-width: 680px; }
+table.cot-5 { min-width: 820px; }
+thead th {
+    background: var(--xanh-dam);
+    color: var(--trang);
+    text-align: left;
+    padding: 11px 14px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #e8eef5;
+    vertical-align: top;
+    font-size: 14px;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f6faff; }
+tbody td strong { color: var(--xanh-dam); }
+tbody ul { padding-left: 18px; list-style: "– "; }
+tbody li.cong { list-style: "+ "; }
+tbody li { margin-bottom: 4px; }
+tbody li:last-child { margin-bottom: 0; }
+tbody td p + p, tbody td p + ul, tbody td ul + p { margin-top: 6px; }
+td.ghi-chu-bang { background: #fff7e9; font-style: italic; }
+td.ghi-chu-bang strong { color: #b95e09; }
+
+.muc-mien {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 7px;
+    font-weight: 800;
+    font-size: 13.5px;
+}
+.muc-100 { background: var(--cam-nhat); color: #d86a0b; }
+.muc-75  { background: var(--xanh-la-nhat); color: #16824b; }
+.muc-50  { background: var(--xanh-nhat); color: #07549b; }
+.muc-25  { background: #f0eaff; color: #7650ae; }
+
+/* CHÂN TRANG */
+.chan-trang {
+    padding: 18px 15px;
+    background: #042c50;
+    color: #d7e8f8;
+    text-align: center;
+    font-size: 13px;
+}
+.chan-trang strong { color: var(--trang); font-size: 14px; }
+
+/* ĐIỆN THOẠI */
+@media (max-width: 600px) {
+    section { padding: 26px 0; }
+    .banner { padding: 32px 16px 36px; }
+    .banner p { font-size: 14.5px; }
+    .tieu-de-muc h2 { font-size: 19px; }
+    .danh-sach-hoc-bong { grid-template-columns: repeat(2, 1fr); }
+}
+
+</style>
+</head>
+<body>
+
+<header class="banner">
+    <div class="banner-noi-dung">
+        <h1>CHÍNH SÁCH<br><span>MIỄN/GIẢM HỌC PHÍ, HỖ TRỢ CHI PHÍ HỌC TẬP VÀ TRỢ CẤP XÃ HỘI</span></h1>
+        <p>Chính sách hỗ trợ người học được thực hiện theo quy định của Nhà nước, của Đại học Đà Nẵng, nhằm hỗ trợ các nhóm đối tượng được hưởng chính sách, tạo điều kiện để người học yên tâm học tập. Nhà trường triển khai chính sách đúng đối tượng, điều kiện và mức hưởng, góp phần bảo đảm quyền lợi và cơ hội học tập của người học.</p>
+    </div>
+</header>
+
+<section>
+<div class="container">
+    <div class="tieu-de-muc"><div class="so">1</div><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2></div>
+    <div class="khung-bang"><table class="cot-2"><thead><tr><th>Đối tượng</th><th>Mức cấp</th></tr></thead><tbody><tr><td><ul><li>Con người có công thuộc diện quy định.</li><li>Sinh viên thuộc diện bảo trợ xã hội; mồ côi cả cha mẹ, không nơi nương tựa.</li><li>Sinh viên khuyết tật.</li><li>Sinh viên dân tộc thiểu số thuộc hộ nghèo, cận nghèo.</li><li>Sinh viên dân tộc rất ít người ở vùng khó khăn.</li><li>Sinh viên hệ cử tuyển.</li></ul></td><td><span class="muc-mien muc-100">Miễn 100% học phí</span></td></tr><tr><td>Sinh viên dân tộc thiểu số ở địa bàn đặc biệt khó khăn theo quy định.</td><td><span class="muc-mien muc-75">Giảm 70% học phí</span></td></tr><tr><td>Con cán bộ, công chức, viên chức, công nhân có cha/mẹ hưởng trợ cấp thường xuyên do tai nạn lao động hoặc bệnh nghề nghiệp.</td><td><span class="muc-mien muc-50">Giảm 50% học phí</span></td></tr><tr><td>Vợ (chồng), con của viên chức, người lao động đang công tác tại Đại học Đà Nẵng</td><td><span class="muc-mien muc-25">Hỗ trợ 50% học phí</span></td></tr><tr><td>Vợ (chồng), con của viên chức, người lao động trước đây đã công tác, nay đã nghỉ hưu, mất sức và đã giải quyết chế độ tại Đại học Đà Nẵng</td><td><span class="muc-mien muc-100">Hỗ trợ 25% học phí</span></td></tr><tr><td>Sinh viên thuộc các dân tộc rất ít người: Cống, Mảng, Pu Péo, Si La, Cờ Lao, Bố Y, La Ha, Ngái, Chứt, Ơ Đu, Brâu, Rơ Măm, Lô Lô, Lự, Pà Thẻn, La Hủ.</td><td>Hỗ trợ học tập bằng 100% mức lương cơ sở, cấp cho 12 tháng/năm</td></tr><tr><td>Sinh viên là người dân tộc thiểu số thuộc hộ nghèo hoặc hộ cận nghèo.</td><td>Hỗ trợ chi phí học tập bằng 60% mức lương cơ sở, cấp cho 10 tháng/năm</td></tr><tr><td>Sinh viên là người dân tộc ít người có hộ khẩu thường trú từ 3 năm trở lên tại vùng cao</td><td>Trợ cấp xã hội 140.000 đồng/tháng</td></tr><tr><td><ul><li>Sinh viên mồ côi cả cha lẫn mẹ, không nơi nương tựa.</li><li>Sinh viên khuyết tật suy giảm khả năng lao động từ 41% trở lên và gặp khó khăn về kinh tế.</li><li>Sinh viên có hoàn cảnh đặc biệt khó khăn về kinh tế, vượt khó học tập (gia đình thuộc diện hộ nghèo).</li></ul></td><td>Trợ cấp xã hội 100.000 đồng/tháng</td></tr></tbody></table></div>
+</div>
+</section>
+<section class="khu-vuc-toi">
+<div class="container">
+    <div class="tieu-de-muc"><div class="so">2</div><h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2></div>
+    <div class="luoi-khoi"><div class="khoi khoi-cam"><h3>Nguyên tắc chung:</h3><ul><li>Nhà trường thực hiện chính sách theo từng học kỳ.</li><li>Trường hợp sinh viên thuộc nhiều nhóm đối tượng chính sách, chỉ được hưởng một chế độ ưu đãi cao nhất.</li><li>Xét miễn, giảm học phí tại cơ sở giáo dục đại học nơi sinh viên đang theo học. Không áp dụng nếu sinh viên đã được hưởng chính sách tại cơ sở đào tạo trước đó và tiếp tục học tại cơ sở khác cùng cấp, cùng trình độ. Chính sách được áp dụng trong thời gian đào tạo theo chương trình chuẩn và đối với học phần học lần thứ nhất.</li><li>Sinh viên học tại nhiều trường/khoa cùng lúc: chỉ hưởng tại một cơ sở/khoa; học song ngành thì chỉ áp dụng cho ngành thứ nhất.</li><li>Sinh viên thuộc nhiều đối tượng chính sách chỉ hưởng một chế độ ưu đãi cao nhất.</li><li>Mức hỗ trợ theo học phí theo Nghị định số 238/2025/NĐ-CP.</li><li>Không áp dụng trong thời gian bị kỷ luật, ngừng học, thôi học hoặc học phần cải thiện điểm hoặc ngoài chương trình.</li></ul></div><div class="khoi khoi-la"><h3>Nộp hồ sơ:</h3><ul><li><strong>Thời gian nộp:</strong> Sinh viên thực hiện theo thông báo của Nhà trường, dự kiến gồm 02 đợt hằng năm: Đợt 1 từ ngày 15–30/8 và Đợt 2 từ ngày 02–30/01. Hồ sơ chỉ cần nộp một lần trong toàn khóa học; sinh viên bổ sung khi có thay đổi về đối tượng hoặc thông tin liên quan đến chính sách. Sinh viên tạm ngừng/bảo lưu phải nộp hồ sơ khi quay lại học.</li><li><strong>Hình thức nộp:</strong> Thực hiện theo các bước sau:</li><li class="khong-dau"><strong>Bước 1:</strong> Kê khai trực tuyến tại <a href="https://forms.cloud.microsoft/r/WHKXjacLJT" target="_blank" rel="noopener">https://forms.cloud.microsoft/r/WHKXjacLJT</a></li><li class="khong-dau"><strong>Bước 2:</strong> Tải và điền vào các mẫu đơn đề nghị hưởng chính sách: <a href="https://shorturl.at/OFbTf" target="_blank" rel="noopener">https://shorturl.at/OFbTf</a></li><li class="khong-dau"><strong>Bước 3:</strong> Nộp đơn và các minh chứng (bản sao công chứng có giá trị trong vòng 06 tháng tính đến ngày nộp hồ sơ) tại Phòng Công tác sinh viên.</li><li class="khong-dau"><strong>Các loại hồ sơ nộp hằng kỳ:</strong></li><li>Giấy xác nhận hộ nghèo/cận nghèo</li><li>Giấy xác nhận thông tin về cư trú</li><li>SV có cha/ mẹ đang công tác tại ĐHĐN</li></ul></div><div class="khoi khoi-duong"><p><strong>Thời điểm xét hưởng:</strong> Tính từ khi sinh viên nộp đầy đủ hồ sơ hợp lệ.</p></div></div>
+</div>
+</section>
+<section class="khu-vuc-nhat">
+<div class="container">
+    <div class="tieu-de-muc"><div class="so">3</div><h2>GHI CHÚ</h2></div>
+    <div class="luoi-khoi mot"><div class="khoi khoi-cam"><h3>Tài liệu, văn bản liên quan:</h3><ul><li><strong>Nghị định số 238/2025/NĐ-CP của Chính phủ:</strong> Quy định về chính sách học phí, miễn, giảm, hỗ trợ học phí, hỗ trợ chi phí học tập và giá dịch vụ trong lĩnh vực giáo dục, đào tạo: <a href="https://shorturl.at/Ks9LL" target="_blank" rel="noopener">https://shorturl.at/Ks9LL</a></li><li>Quyết định 60/QĐ-BDTTG năm 2026 công bố danh sách thôn, xã vùng đồng bào dân tộc thiểu số và miền núi, thôn đặc biệt khó khăn, xã khu vực I, II, III giai đoạn 2026-2030 do Bộ trưởng Bộ Dân tộc và Tôn giáo ban hành: <a href="https://shorturl.at/yA9lb" target="_blank" rel="noopener">https://shorturl.at/yA9lb</a></li></ul></div></div>
+</div>
+</section>
+
+<footer class="chan-trang">
+    <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>
+</footer>
+
+</body>
+</html>

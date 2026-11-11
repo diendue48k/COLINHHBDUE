@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HỌC BỔNG THEO NGHỊ ĐỊNH SỐ 179/2026/NĐ-CP CỦA CHÍNH PHỦ | DUE</title>
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+:root {
+    --xanh-duong: #07549b;
+    --xanh-dam: #063968;
+    --xanh-nhat: #eaf4ff;
+    --cam: #f58220;
+    --cam-nhat: #fff0df;
+    --xanh-la: #269b63;
+    --xanh-la-nhat: #e4f7ed;
+    --chu: #243447;
+    --chu-phu: #5a6b7e;
+    --trang: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif;
+    background: #f4f8fc;
+    color: var(--chu);
+    line-height: 1.6;
+    font-size: 15px;
+}
+a { color: var(--xanh-duong); word-break: break-all; }
+.container { width: min(1150px, 92%); margin: auto; }
+
+/* PHẦN ĐẦU TRANG */
+.banner {
+    position: relative;
+    overflow: hidden;
+    padding: 42px 20px 46px;
+    color: var(--trang);
+    background: linear-gradient(120deg, #063968 0%, #0876b9 65%, #269b63 100%);
+}
+.banner::before, .banner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+}
+.banner::before { width: 300px; height: 300px; top: -170px; right: 5%; }
+.banner::after  { width: 240px; height: 240px; bottom: -170px; left: 5%; }
+.banner-noi-dung { position: relative; z-index: 1; max-width: 920px; margin: auto; text-align: center; }
+.banner h1 {
+    font-size: clamp(24px, 4vw, 38px);
+    line-height: 1.25;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+.banner h1 span { color: #ffb45e; }
+.banner h1 small {
+    display: block;
+    font-size: .5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    color: #e8f3ff;
+}
+.banner h1 .nhan-tren-tieu-de {
+    display: inline-block;
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    margin-bottom: 12px;
+}
+.banner h1 .nhan-tren-tieu-de + br { display: none; }
+.banner p { max-width: 840px; margin: auto; color: #e8f3ff; font-size: 15.5px; }
+.banner p + p { margin-top: 8px; }
+
+/* TIÊU ĐỀ CÁC MỤC */
+section { padding: 34px 0; }
+.khu-vuc-nhat { background: #eaf3fb; }
+.tieu-de-muc { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.tieu-de-muc .so {
+    flex: none;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 8px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: var(--cam);
+    color: var(--trang);
+    font-weight: 800;
+    font-size: 16px;
+}
+.tieu-de-muc h2 { color: var(--xanh-dam); font-size: 22px; line-height: 1.3; }
+.tieu-de-nho {
+    color: var(--xanh-dam);
+    font-size: 16px;
+    margin: 4px 0 10px;
+    padding-left: 10px;
+    border-left: 4px solid var(--cam);
+    line-height: 1.3;
+}
+.khu-vuc-toi .tieu-de-nho { color: #ffb45e; }
+
+/* KHỐI NỘI DUNG */
+.luoi-khoi { columns: 2 360px; column-gap: 16px; margin-bottom: 16px; }
+.luoi-khoi.mot { columns: 1; }
+.luoi-khoi:last-child { margin-bottom: 0; }
+.khoi {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    background: var(--trang);
+    border-radius: 10px;
+    padding: 12px 18px;
+    border-left: 5px solid var(--xanh-duong);
+    box-shadow: 0 4px 16px rgba(0,50,100,.05);
+    font-size: 14.5px;
+}
+.luoi-khoi .khoi:last-child { margin-bottom: 0; }
+.khoi p + p, .khoi p + ul { margin-top: 6px; }
+.khoi h3 { font-size: 16px; margin-bottom: 6px; color: var(--xanh-duong); }
+.khoi strong { color: var(--xanh-duong); }
+.khoi ul { padding-left: 18px; list-style: "+ "; }
+.khoi li { margin-bottom: 4px; }
+.khoi li:last-child { margin-bottom: 0; }
+.khoi li.khong-dau { list-style: none; }
+.khoi-cam { border-left-color: var(--cam); }
+.khoi-cam strong, .khoi-cam h3 { color: #c96510; }
+.khoi-la { border-left-color: var(--xanh-la); background: #f3faf6; }
+.khoi-la strong, .khoi-la h3 { color: #16824b; }
+.khoi-luu-y { border-left-color: var(--cam); background: #fff7e9; }
+.khoi-luu-y h3 { color: #b95e09; margin-bottom: 4px; }
+
+.khu-vuc-toi {
+    background: linear-gradient(120deg, #063968, #0876b9);
+    color: var(--trang);
+}
+.khu-vuc-toi .tieu-de-muc h2 { color: var(--trang); }
+.khu-vuc-toi .khoi {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-left: 4px solid #ffb45e;
+    box-shadow: none;
+    color: #e8f3ff;
+}
+.khu-vuc-toi .khoi strong, .khu-vuc-toi .khoi h3 { color: #ffb45e; }
+.khu-vuc-toi a { color: #ffd59e; }
+
+/* CÁC MỨC HỌC BỔNG */
+.danh-sach-hoc-bong {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.the-hoc-bong {
+    background: var(--trang);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,50,100,.06);
+    border-top: 4px solid var(--cam);
+    transition: .25s;
+}
+.the-hoc-bong:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,50,100,.12); }
+.the-hoc-bong .nhan-tren { font-size: 13.5px; font-weight: 700; color: var(--chu-phu); }
+.the-hoc-bong .phan-tram { font-size: 32px; font-weight: 900; line-height: 1.15; color: var(--cam); }
+.the-hoc-bong .phan-tram small { font-size: 15px; font-weight: 700; }
+.the-hoc-bong .nhan-muc { font-size: 13.5px; font-weight: 700; color: var(--xanh-dam); }
+.the-hoc-bong:nth-child(4n+2) { border-color: var(--xanh-la); }
+.the-hoc-bong:nth-child(4n+2) .phan-tram { color: var(--xanh-la); }
+.the-hoc-bong:nth-child(4n+3) { border-color: var(--xanh-duong); }
+.the-hoc-bong:nth-child(4n+3) .phan-tram { color: var(--xanh-duong); }
+.the-hoc-bong:nth-child(4n+4) { border-color: #8b65c7; }
+.the-hoc-bong:nth-child(4n+4) .phan-tram { color: #8b65c7; }
+
+/* BẢNG */
+.khung-bang {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: var(--trang);
+    box-shadow: 0 6px 22px rgba(0,50,100,.07);
+    margin-bottom: 16px;
+    color: var(--chu);
+}
+.khung-bang:last-child { margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; }
+table.cot-3, table.cot-4 { min-width: 680px; }
+table.cot-5 { min-width: 820px; }
+thead th {
+    background: var(--xanh-dam);
+    color: var(--trang);
+    text-align: left;
+    padding: 11px 14px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #e8eef5;
+    vertical-align: top;
+    font-size: 14px;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f6faff; }
+tbody td strong { color: var(--xanh-dam); }
+tbody ul { padding-left: 18px; list-style: "– "; }
+tbody li.cong { list-style: "+ "; }
+tbody li { margin-bottom: 4px; }
+tbody li:last-child { margin-bottom: 0; }
+tbody td p + p, tbody td p + ul, tbody td ul + p { margin-top: 6px; }
+td.ghi-chu-bang { background: #fff7e9; font-style: italic; }
+td.ghi-chu-bang strong { color: #b95e09; }
+
+.muc-mien {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 7px;
+    font-weight: 800;
+    font-size: 13.5px;
+}
+.muc-100 { background: var(--cam-nhat); color: #d86a0b; }
+.muc-75  { background: var(--xanh-la-nhat); color: #16824b; }
+.muc-50  { background: var(--xanh-nhat); color: #07549b; }
+.muc-25  { background: #f0eaff; color: #7650ae; }
+
+/* CHÂN TRANG */
+.chan-trang {
+    padding: 18px 15px;
+    background: #042c50;
+    color: #d7e8f8;
+    text-align: center;
+    font-size: 13px;
+}
+.chan-trang strong { color: var(--trang); font-size: 14px; }
+
+/* ĐIỆN THOẠI */
+@media (max-width: 600px) {
+    section { padding: 26px 0; }
+    .banner { padding: 32px 16px 36px; }
+    .banner p { font-size: 14.5px; }
+    .tieu-de-muc h2 { font-size: 19px; }
+    .danh-sach-hoc-bong { grid-template-columns: repeat(2, 1fr); }
+}
+
+</style>
+</head>
+<body>
+
+<header class="banner">
+    <div class="banner-noi-dung">
+        <h1>HỌC BỔNG<br><span>THEO NGHỊ ĐỊNH SỐ 179/2026/NĐ-CP CỦA CHÍNH PHỦ</span></h1>
+        <p>Học bổng được thực hiện theo Nghị định số 179/2026/NĐ-CP ngày 20/5/2026 của Chính phủ, nhằm khuyến khích và hỗ trợ người học theo đuổi các ngành khoa học cơ bản, kỹ thuật then chốt và công nghệ chiến lược. Chính sách góp phần khuyến khích người học có năng lực, thành tích phù hợp lựa chọn và theo đuổi các lĩnh vực đào tạo chiến lược của đất nước, đồng thời tạo điều kiện về tài chính để người học yên tâm học tập, nghiên cứu và phát triển trong quá trình đào tạo.</p>
+    </div>
+</header>
+
+<section>
+<div class="container">
+    <div class="tieu-de-muc"><div class="so">1</div><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2></div>
+    <div class="luoi-khoi mot"><div class="khoi khoi-cam"><p><strong>Đối tượng:</strong> Người học trúng tuyển vào chương trình đào tạo ngành khoa học cơ bản của Trường và đáp ứng một trong các điều kiện sau:</p><ul><li>Đạt giải nhất, nhì, ba trong kỳ thi chọn học sinh giỏi quốc gia hoặc quốc tế dành cho học sinh trung học phổ thông theo quy định của Bộ Giáo dục và Đào tạo; thời gian đạt giải không quá 03 năm tính tới thời điểm xét duyệt;</li><li>Tổng điểm môn Toán và hai trong các môn Vật lí, Hoá học, Sinh học và Tiếng Anh của kỳ thi tốt nghiệp trung học phổ thông từ 22,50 trở lên theo thang điểm 30 không bao gồm điểm ưu tiên, điểm cộng và trúng tuyển thuộc nhóm 30% thí sinh đạt điểm trúng tuyển cao nhất cùng nhóm ngành đào tạo trên phạm vi toàn quốc trong đợt xét tuyển chung của năm tuyển sinh.</li></ul></div></div><h3 class="tieu-de-nho">Mức cấp:</h3><div class="khung-bang"><table class="cot-5"><thead><tr><th>Đối tượng</th><th>Chương trình đào tạo tài năng</th><th>Chương trình đào tạo ngành vi mạch bán dẫn, các ngành khoa học cơ bản</th><th>Chương trình đào tạo các ngành kỹ thuật then chốt và công nghệ chiến lược</th><th>Thời gian hưởng</th></tr></thead><tbody><tr><td>Sinh viên</td><td>5.500.000 đồng/tháng</td><td>4.200.000 đồng/tháng</td><td>3.700.000 đồng/tháng</td><td>10 tháng/năm; tổng thời gian hưởng học bổng không quá 04 năm với chương trình đào tạo cử nhân</td></tr><tr><td>Học viên cao học</td><td>7.400.000 đồng/tháng</td><td>6.300.000 đồng/tháng</td><td>5.500.000 đồng/tháng.</td><td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 02 năm;</td></tr><tr><td>Nghiên cứu sinh</td><td></td><td>8.400.000 đồng/tháng</td><td>7.400.000 đồng/tháng.</td><td>12 tháng/năm; tổng thời gian hưởng học bổng không quá 03 năm đối với nghiên cứu sinh có đầu vào trình độ thạc sĩ, không quá 04 năm đối với nghiên cứu sinh có đầu vào trình độ đại học.</td></tr></tbody></table></div><div class="luoi-khoi mot"><div class="khoi khoi-la"><p><strong>Thời gian hưởng học bổng:</strong> Người học chương trình đào tạo tích hợp trình độ đại học thạc sĩ được hưởng học bổng 12 tháng/năm trong thời gian không quá 3 năm theo chế độ sinh viên đại học và không quá 2 năm theo chế độ học viên cao học.</p></div></div>
+</div>
+</section>
+<section class="khu-vuc-toi">
+<div class="container">
+    <div class="tieu-de-muc"><div class="so">2</div><h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2></div>
+    <div class="luoi-khoi"><div class="khoi khoi-cam"><p><strong>Quy trình xét, cấp:</strong> Được thông báo và thực hiện theo hướng dẫn của Bộ Giáo dục và Đào tạo.</p></div><div class="khoi khoi-la"><p><strong>Điều kiện duy trì:</strong> Người học tiếp tục được hưởng học bổng khi không bị kỷ luật từ mức khiển trách trở lên trong kỳ xét cấp học bổng và đáp ứng yêu cầu:</p><ul><li>Đối với sinh viên chương trình đào tạo cử nhân, chương trình đào tạo tích hợp: kết quả học tập trung bình tích lũy của các năm học liền trước đạt loại khá trở lên và tích lũy tối thiểu 24 tín chỉ sau năm học đầu tiên, tối thiểu 28 tín chỉ trong một năm học kể từ năm học thứ hai;</li><li>Đối với học viên chương trình đào tạo thạc sĩ, chương trình đào tạo tích hợp: sau năm thứ nhất tích lũy tối thiểu 40% tổng số tín chỉ của chương trình đào tạo, có điểm trung bình tích lũy đạt tối thiểu 3,0 trở lên theo thang điểm 4 và có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo;</li><li>Đối với nghiên cứu sinh chương trình đào tạo tiến sĩ: có kết quả nghiên cứu và công bố khoa học theo quy định của cơ sở đào tạo.</li></ul></div></div>
+</div>
+</section>
+
+<footer class="chan-trang">
+    <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>
+</footer>
+
+</body>
+</html>
