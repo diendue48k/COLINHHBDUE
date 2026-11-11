@@ -3,7 +3,9 @@ import { User } from '@/types';
 export const ADMIN_USERS: User[] = [
   {
     id: 'usr-1',
-    name: 'TS. Nguyễn Văn Quản Trị',
+    username: 'admin',
+    password: 'Admin@DUE2026',
+    name: 'Quản trị viên Hệ thống DUE',
     email: 'admin@due.edu.vn',
     role: 'admin',
     avatar: '/images/logo-due-shield.png',
@@ -11,7 +13,9 @@ export const ADMIN_USERS: User[] = [
   },
   {
     id: 'usr-2',
-    name: 'Ban Quản trị Học bổng DUE',
+    username: 'ctsv',
+    password: 'CTSV@DUE2026',
+    name: 'Phòng Công tác Sinh viên DUE',
     email: 'phongcongtacsinhvien@due.edu.vn',
     role: 'admin',
     avatar: '/images/logo-due-shield.png',
@@ -19,22 +23,22 @@ export const ADMIN_USERS: User[] = [
   },
 ];
 
-export const CURRENT_USER_KEY = 'due_portal_admin_user';
-export const LOGGED_OUT_KEY = 'due_portal_admin_logged_out';
+export const CURRENT_USER_KEY = 'due_portal_admin_session_v2';
 
 export function getStoredUser(): User | null {
   if (typeof window === 'undefined') return null;
-  if (localStorage.getItem(LOGGED_OUT_KEY) === 'true') {
-    return null;
-  }
   const raw = localStorage.getItem(CURRENT_USER_KEY);
   if (!raw) {
-    return ADMIN_USERS[0];
+    return null;
   }
   try {
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.id && parsed.email) {
+      return parsed;
+    }
+    return null;
   } catch (e) {
-    return ADMIN_USERS[0];
+    return null;
   }
 }
 
@@ -42,10 +46,10 @@ export function setStoredUser(user: User | null): void {
   if (typeof window === 'undefined') return;
   if (!user) {
     localStorage.removeItem(CURRENT_USER_KEY);
-    localStorage.setItem(LOGGED_OUT_KEY, 'true');
   } else {
-    localStorage.removeItem(LOGGED_OUT_KEY);
-    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+    const safeUser: User = { ...user };
+    delete safeUser.password;
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(safeUser));
   }
 }
 

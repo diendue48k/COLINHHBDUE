@@ -201,6 +201,40 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true });
       }
 
+      case 'login': {
+        const identifier = (payload?.identifier || payload?.email || payload?.username || '')
+          .trim()
+          .toLowerCase();
+        const password = (payload?.password || '').trim();
+        if (!identifier || !password) {
+          return NextResponse.json(
+            { error: 'Vui lòng nhập đầy đủ tên đăng nhập/email và mật khẩu' },
+            { status: 400 }
+          );
+        }
+        if (!db.users || db.users.length === 0) {
+          db.users = [...ADMIN_USERS];
+        }
+        const matched = db.users.find((u) => {
+          const defaultMatch = ADMIN_USERS.find((du) => du.id === u.id || du.email === u.email);
+          const expectedPassword = u.password || defaultMatch?.password || 'Admin@DUE2026';
+          const expectedUsername = (u.username || defaultMatch?.username || u.email.split('@')[0]).toLowerCase();
+          return (
+            (u.email.toLowerCase() === identifier || expectedUsername === identifier) &&
+            expectedPassword === password
+          );
+        });
+        if (!matched) {
+          return NextResponse.json(
+            { error: 'Tài khoản hoặc mật khẩu không chính xác!' },
+            { status: 401 }
+          );
+        }
+        const safeUser: User = { ...matched };
+        delete safeUser.password;
+        return NextResponse.json({ success: true, user: safeUser });
+      }
+
       case 'save_user': {
         const user: User = payload;
         if (!user?.id || !user?.name || !user?.email) {
@@ -209,9 +243,18 @@ export async function POST(request: Request) {
         if (!db.users) db.users = [...ADMIN_USERS];
         const index = db.users.findIndex((u) => u.id === user.id);
         if (index >= 0) {
-          db.users[index] = user;
+          const existing = db.users[index];
+          db.users[index] = {
+            ...existing,
+            ...user,
+            password: user.password?.trim() ? user.password.trim() : existing.password,
+          };
         } else {
-          db.users.push(user);
+          db.users.push({
+            ...user,
+            username: user.username?.trim() || user.email.split('@')[0],
+            password: user.password?.trim() || 'Admin@DUE2026',
+          });
         }
         await saveDatabaseAsync(db);
         return NextResponse.json({ success: true, data: user, users: db.users });

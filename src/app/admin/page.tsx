@@ -171,8 +171,8 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 3 Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Card 1: Tổng số chương trình */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm flex items-center justify-between">
           <div>
@@ -224,24 +224,6 @@ export default function AdminDashboardPage() {
           </div>
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
             <Eye className="w-6 h-6" />
-          </div>
-        </div>
-
-        {/* Card 4: Thông báo hoạt động */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
-              Thông báo xét cấp
-            </span>
-            <span className="text-2xl sm:text-3xl font-black text-slate-800 mt-1 block">
-              {totalAnnouncements}
-            </span>
-            <span className="text-[11px] text-blue-600 font-semibold">
-              Đang tiếp nhận hồ sơ
-            </span>
-          </div>
-          <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
-            <Bell className="w-6 h-6" />
           </div>
         </div>
       </div>
