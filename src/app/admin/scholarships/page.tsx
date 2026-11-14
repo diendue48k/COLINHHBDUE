@@ -96,8 +96,11 @@ export default function AdminScholarshipsPage() {
         }),
       });
       if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data)) {
+          setScholarships(json.data);
+        }
         setActionMessage(`Đã chuyển "${item.title}" sang vị trí số ${targetIdx + 1} trong nhóm!`);
-        await loadData();
         setTimeout(() => setActionMessage(''), 2000);
       }
     } catch (e) {
@@ -137,8 +140,11 @@ export default function AdminScholarshipsPage() {
         }),
       });
       if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data)) {
+          setScholarships(json.data);
+        }
         setActionMessage(`Đã đặt "${item.title}" ở vị trí số ${targetIndex + 1} trong nhóm!`);
-        await loadData();
         setTimeout(() => setActionMessage(''), 2000);
       }
     } catch (e) {

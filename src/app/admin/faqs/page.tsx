@@ -168,8 +168,11 @@ export default function AdminFaqsPage() {
         }),
       });
       if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data)) {
+          setFaqs(json.data);
+        }
         setMessage('Đã cập nhật vị trí câu hỏi thường gặp!');
-        await loadData();
         setTimeout(() => setMessage(''), 2000);
       }
     } catch (e) {

@@ -63,8 +63,11 @@ export default function AdminCategoriesPage() {
         }),
       });
       if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data)) {
+          setCategories(json.data);
+        }
         setMessage('Đã cập nhật vị trí nhóm học bổng!');
-        await loadData();
         setTimeout(() => setMessage(''), 2000);
       }
     } catch (e) {
@@ -90,8 +93,11 @@ export default function AdminCategoriesPage() {
         }),
       });
       if (res.ok) {
+        const json = await res.json();
+        if (Array.isArray(json.data)) {
+          setCategories(json.data);
+        }
         setMessage(`Đã chuyển "${cat.shortTitle || cat.title}" sang vị trí Cột ${clampedIndex + 1}!`);
-        await loadData();
         setTimeout(() => setMessage(''), 2000);
       }
     } catch (e) {

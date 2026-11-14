@@ -49,14 +49,18 @@ async function syncAll() {
   }
 
   // Also save a master document for single-trip fast fetching
+  const nowIso = new Date().toISOString();
   await setDoc(doc(db, 'portal', 'main_database'), {
     categories: data.categories,
     scholarships: data.scholarships,
     announcements: data.announcements,
     faqs: data.faqs || [],
+    users: data.users || [],
+    inquiries: data.inquiries || [],
     settings: data.settings || {},
     stats: data.stats || {},
-    lastSyncedAt: new Date().toISOString(),
+    lastUpdatedAt: nowIso,
+    lastSyncedAt: nowIso,
   });
 
   console.log('🎉 Successfully synced all data to Firebase Firestore (project hbclinh)!');

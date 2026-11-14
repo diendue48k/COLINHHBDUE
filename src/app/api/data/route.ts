@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing or invalid action' }, { status: 400 });
     }
 
-    const db = getDatabase();
+    const db = await getDatabaseAsync();
     if (!db.users || db.users.length === 0) {
       db.users = [...ADMIN_USERS];
     }
