@@ -150,15 +150,10 @@ function PortalContent() {
       <div className="w-full flex-1">
         <main id="co-hoi" className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-6 scroll-mt-28">
           {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-4 space-y-1">
+          <div className="text-center max-w-2xl mx-auto mb-4">
             <h1 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
               CƠ HỘI DÀNH CHO BẠN
             </h1>
-            <p className="text-xs text-slate-500 font-medium leading-normal">
-              Khám phá các chương trình học bổng, chính sách hỗ trợ và cơ hội phát triển dành cho người học
-              <br />
-              tại Trường Đại học Kinh tế – Đại học Đà Nẵng.
-            </p>
           </div>
 
           {/* 3 CỘT × 2 HÀNG BỐ CỤC HIỆN ĐẠI (Category Cards) */}
