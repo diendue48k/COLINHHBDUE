@@ -10,6 +10,8 @@ import {
   Eye,
   Code,
   Search,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react';
 import { FAQItem, FAQCategory } from '@/types';
 
@@ -134,7 +136,48 @@ export default function AdminFaqsPage() {
     }
   };
 
-  const filteredFaqs = faqs.filter((f) => {
+  const sortedFaqs = [...faqs].sort((a, b) => (a.order || 0) - (b.order || 0));
+
+  const handleMoveFaq = async (faq: FAQItem, direction: -1 | 1) => {
+    const catFaqs = sortedFaqs.filter((f) =>
+      filterCategory === 'all' ? true : f.category === faq.category
+    );
+    const currentIdx = catFaqs.findIndex((f) => f.id === faq.id);
+    const targetIdx = currentIdx + direction;
+    if (currentIdx < 0 || targetIdx < 0 || targetIdx >= catFaqs.length) return;
+
+    const reordered = [...catFaqs];
+    const [moved] = reordered.splice(currentIdx, 1);
+    reordered.splice(targetIdx, 0, moved);
+
+    const updates = reordered.map((f, idx) => ({ id: f.id, order: idx + 1 }));
+    setFaqs((prev) =>
+      prev.map((f) => {
+        const u = updates.find((x) => x.id === f.id);
+        return u ? { ...f, order: u.order } : f;
+      })
+    );
+
+    try {
+      const res = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reorder_faqs',
+          payload: { items: updates },
+        }),
+      });
+      if (res.ok) {
+        setMessage('Đã cập nhật vị trí câu hỏi thường gặp!');
+        await loadData();
+        setTimeout(() => setMessage(''), 2000);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const filteredFaqs = sortedFaqs.filter((f) => {
     const matchCat = filterCategory === 'all' || f.category === filterCategory;
     const matchSearch =
       searchQuery.trim() === '' ||
@@ -244,7 +287,27 @@ export default function AdminFaqsPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2 shrink-0 pt-1">
+            <div className="flex items-center gap-1.5 shrink-0 pt-1">
+              <button
+                type="button"
+                disabled={index === 0}
+                onClick={() => handleMoveFaq(faq, -1)}
+                className="p-1.5 rounded-xl bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+                title="Di chuyển lên"
+              >
+                <ArrowUp className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                type="button"
+                disabled={index === filteredFaqs.length - 1}
+                onClick={() => handleMoveFaq(faq, 1)}
+                className="p-1.5 rounded-xl bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+                title="Di chuyển xuống"
+              >
+                <ArrowDown className="w-3.5 h-3.5" />
+              </button>
+
               <button
                 type="button"
                 onClick={() => handleEdit(faq)}

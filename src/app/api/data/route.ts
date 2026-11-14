@@ -150,6 +150,49 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true });
       }
 
+      case 'reorder_categories': {
+        const items: { id: string; order: number }[] = payload?.items || [];
+        if (!Array.isArray(items) || items.length === 0) {
+          return NextResponse.json({ error: 'Invalid reorder payload' }, { status: 400 });
+        }
+        items.forEach((item) => {
+          const found = db.categories.find((c) => c.id === item.id);
+          if (found) found.order = item.order;
+        });
+        db.categories.sort((a, b) => (a.order || 0) - (b.order || 0));
+        await saveDatabaseAsync(db);
+        return NextResponse.json({ success: true, data: db.categories });
+      }
+
+      case 'reorder_scholarships': {
+        const items: { id: string; order: number }[] = payload?.items || [];
+        if (!Array.isArray(items) || items.length === 0) {
+          return NextResponse.json({ error: 'Invalid reorder payload' }, { status: 400 });
+        }
+        items.forEach((item) => {
+          const found = db.scholarships.find((s) => s.id === item.id);
+          if (found) found.order = item.order;
+        });
+        db.scholarships.sort((a, b) => (a.order || 0) - (b.order || 0));
+        await saveDatabaseAsync(db);
+        return NextResponse.json({ success: true, data: db.scholarships });
+      }
+
+      case 'reorder_faqs': {
+        const items: { id: string; order: number }[] = payload?.items || [];
+        if (!Array.isArray(items) || items.length === 0) {
+          return NextResponse.json({ error: 'Invalid reorder payload' }, { status: 400 });
+        }
+        if (!db.faqs) db.faqs = [];
+        items.forEach((item) => {
+          const found = db.faqs!.find((f) => f.id === item.id);
+          if (found) found.order = item.order;
+        });
+        db.faqs.sort((a, b) => (a.order || 0) - (b.order || 0));
+        await saveDatabaseAsync(db);
+        return NextResponse.json({ success: true, data: db.faqs });
+      }
+
       case 'save_announcement': {
         const announcement: Announcement = payload;
         if (!announcement?.id || !announcement?.title) {
