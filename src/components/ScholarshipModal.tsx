@@ -125,79 +125,74 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-900/65 backdrop-blur-sm animate-fade-in"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
+      className="fixed inset-0 z-50 bg-white animate-fade-in flex flex-col w-screen h-screen overflow-hidden"
     >
-      <div className="relative w-full max-w-[1100px] h-[92vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-slate-200">
-        {/* Floating Top-Right Close Button with high contrast */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute right-3.5 top-3.5 z-40 w-9 h-9 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all backdrop-blur-xs shadow-lg cursor-pointer"
-          title="Đóng (Esc)"
-        >
-          <X className="w-5 h-5" />
-        </button>
+      {/* Floating Top-Right Close Button with high contrast */}
+      <button
+        type="button"
+        onClick={onClose}
+        className="fixed right-4 top-4 z-50 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center transition-all backdrop-blur-xs shadow-lg cursor-pointer"
+        title="Đóng (Esc)"
+      >
+        <X className="w-5 h-5" />
+      </button>
 
-        {/* Content Container hosting the full HTML in an iframe */}
-        <div className="flex-1 w-full h-full overflow-hidden bg-[#f4f8fc]">
-          {htmlSource ? (
-            <iframe
-              ref={iframeRef}
-              srcDoc={htmlSource}
-              title={scholarship.title}
-              className="w-full h-full border-0"
-            />
-          ) : (
-            <div className="p-8 text-center text-slate-500 font-medium">
-              Đang tải nội dung học bổng...
-            </div>
-          )}
-        </div>
-
-        {/* Modal Bottom Action Bar */}
-        <div className="px-5 py-2.5 bg-white border-t border-slate-200 flex items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
-              title="Sao chép liên kết chia sẻ trực tiếp"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-green-600" />
-                  <span className="text-green-600 font-bold">Đã sao chép!</span>
-                </>
-              ) : (
-                <>
-                  <Share2 className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Chia sẻ link</span>
-                </>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={handlePrint}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
-            >
-              <Printer className="w-3.5 h-3.5 text-slate-500" />
-              <span>In trang</span>
-            </button>
+      {/* Content Container hosting the full HTML in an iframe */}
+      <div className="flex-1 w-full h-full overflow-hidden bg-[#f4f8fc]">
+        {htmlSource ? (
+          <iframe
+            ref={iframeRef}
+            srcDoc={htmlSource}
+            title={scholarship.title}
+            className="w-full h-full border-0"
+          />
+        ) : (
+          <div className="p-8 text-center text-slate-500 font-medium">
+            Đang tải nội dung học bổng...
           </div>
+        )}
+      </div>
+
+      {/* Modal Bottom Action Bar */}
+      <div className="px-6 py-2.5 bg-white border-t border-slate-200 flex items-center justify-between gap-3 shrink-0 shadow-md z-40">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleCopyLink}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
+            title="Sao chép liên kết chia sẻ trực tiếp"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-green-600" />
+                <span className="text-green-600 font-bold">Đã sao chép!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-3.5 h-3.5 text-slate-500" />
+                <span>Chia sẻ link</span>
+              </>
+            )}
+          </button>
 
           <button
             type="button"
-            onClick={onClose}
-            className="flex items-center gap-1.5 px-5 py-1.5 rounded-xl bg-[#0F52BA] hover:bg-[#0B4899] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer"
+            onClick={handlePrint}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors cursor-pointer"
           >
-            <span>Đóng</span>
-            <X className="w-4 h-4" />
+            <Printer className="w-3.5 h-3.5 text-slate-500" />
+            <span>In trang</span>
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex items-center gap-1.5 px-5 py-1.5 rounded-xl bg-[#0F52BA] hover:bg-[#0B4899] text-white text-xs sm:text-sm font-bold shadow-sm transition-all cursor-pointer"
+        >
+          <span>Đóng</span>
+          <X className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );
