@@ -133,7 +133,7 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
     }
   };
 
-  const htmlSource = scholarship.introHtml || scholarship.htmlContent || '';
+  const htmlSource = scholarship.htmlContent || scholarship.introHtml || '';
 
   return (
     <div

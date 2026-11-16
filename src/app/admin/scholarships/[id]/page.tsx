@@ -416,7 +416,7 @@ export default function ScholarshipEditorPage() {
       const payload: Scholarship = {
         ...formData,
         htmlContent: fullHtml,
-        introHtml: fullHtml,
+        introHtml: '',
         updatedAt: new Date().toISOString(),
       };
 

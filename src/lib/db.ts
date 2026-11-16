@@ -13,6 +13,18 @@ const globalForDb = globalThis as unknown as {
   __dueMemoryDb?: DatabaseState;
 };
 
+function sanitizeForFirestore(data: DatabaseState): DatabaseState {
+  const copy = JSON.parse(JSON.stringify(data)) as DatabaseState;
+  if (Array.isArray(copy.scholarships)) {
+    copy.scholarships.forEach((s) => {
+      if (s.htmlContent && s.introHtml === s.htmlContent) {
+        delete s.introHtml;
+      }
+    });
+  }
+  return copy;
+}
+
 function getTodayDateString(): string {
   const now = new Date();
   const offsetMs = 7 * 60 * 60 * 1000;
@@ -82,7 +94,7 @@ export async function getDatabaseAsync(): Promise<DatabaseState> {
       // If local/memory is newer than remote Firestore, keep local/memory and push to Firestore
       if (localTime > remoteTime) {
         setDoc(docRef, {
-          ...localData,
+          ...sanitizeForFirestore(localData),
           lastUpdatedAt: localData.lastUpdatedAt,
           lastSyncedAt: localData.lastUpdatedAt,
         }).catch(() => {});
@@ -123,7 +135,7 @@ export function saveDatabase(data: DatabaseState): boolean {
   }
 
   setDoc(doc(firestoreDb, 'portal', 'main_database'), {
-    ...data,
+    ...sanitizeForFirestore(data),
     lastUpdatedAt: nowIso,
     lastSyncedAt: nowIso,
   }).catch((err) => {
@@ -157,7 +169,7 @@ export async function saveDatabaseAsync(data: DatabaseState): Promise<boolean> {
   try {
     await Promise.race([
       setDoc(doc(firestoreDb, 'portal', 'main_database'), {
-        ...data,
+        ...sanitizeForFirestore(data),
         lastUpdatedAt: nowIso,
         lastSyncedAt: nowIso,
       }),
