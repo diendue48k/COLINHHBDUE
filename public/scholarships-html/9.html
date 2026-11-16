@@ -6,272 +6,160 @@
 <title>CHƯƠNG TRÌNH PHÁT TRIỂN SINH VIÊN QUỐC TẾ | DUE</title>
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
+/* ===== MÀU: nội dung dùng nền trắng + chữ trung tính + MỘT màu nhấn (xanh dương đậm).
+   Cam chỉ ở số thứ tự mục; 3 màu logo chỉ xuất hiện ở dải nhận diện của banner và chân trang. ===== */
 :root {
-    --xanh-duong: #07549b;
-    --xanh-dam: #063968;
-    --xanh-nhat: #eaf4ff;
-    --cam: #f58220;
-    --cam-nhat: #fff0df;
-    --xanh-la: #269b63;
-    --xanh-la-nhat: #e4f7ed;
-    --chu: #243447;
-    --chu-phu: #5a6b7e;
-    --trang: #ffffff;
+    --cam: #f26522; --la: #0f9145; --duong: #165fa8; --duong-dam: #0d3f73;
+    --chu: #1f2d3d; --chu-phu: #5b6b7c; --vien: #e6ebf1; --nen: #f5f7fa; --trang: #fff;
+    --co-chu: 15.5px;          /* MỘT cỡ chữ cho toàn bộ nội dung */
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-    font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif;
-    background: #f4f8fc;
-    color: var(--chu);
-    line-height: 1.6;
-    font-size: 15px;
-}
-a { color: var(--xanh-duong); word-break: break-all; }
-.container { width: min(1150px, 92%); margin: auto; }
+body { font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif; background: var(--nen); color: var(--chu); font-size: var(--co-chu); line-height: 1.65; }
+a { color: var(--duong); }
+.container { width: min(1040px, 92%); margin: auto; }
+p, li, td, th { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
 
-/* PHẦN ĐẦU TRANG */
-.banner {
-    position: relative;
-    overflow: hidden;
-    padding: 42px 20px 46px;
-    color: var(--trang);
-    background: linear-gradient(120deg, #063968 0%, #0876b9 65%, #269b63 100%);
-}
-.banner::before, .banner::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,.07);
-    pointer-events: none;
-}
-.banner::before { width: 300px; height: 300px; top: -170px; right: 5%; }
-.banner::after  { width: 240px; height: 240px; bottom: -170px; left: 5%; }
-.banner-noi-dung { position: relative; z-index: 1; max-width: 920px; margin: auto; text-align: center; }
-.banner h1 {
-    font-size: clamp(24px, 4vw, 38px);
-    line-height: 1.25;
-    text-transform: uppercase;
-    font-weight: 800;
-    margin-bottom: 14px;
-}
-.banner h1 span { color: #ffb45e; }
-.banner h1 small {
-    display: block;
-    font-size: .5em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-top: 6px;
-    color: #e8f3ff;
-}
-.banner h1 .nhan-tren-tieu-de {
-    display: inline-block;
-    font-style: normal;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    padding: 4px 14px;
-    border-radius: 20px;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.3);
-    margin-bottom: 12px;
-}
-.banner h1 .nhan-tren-tieu-de + br { display: none; }
-.banner p { max-width: 840px; margin: auto; color: #e8f3ff; font-size: 15.5px; }
+/* ---------- THANH TRÊN ---------- */
+.thanh-tren { background: var(--trang); border-bottom: 1px solid var(--vien); }
+.thanh-tren .container { padding: 8px 0; }
+.ve-trang-chu { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--duong-dam); font-weight: 800; font-size: 14px; letter-spacing: .3px; }
+.ve-trang-chu .logo { height: 40px; width: auto; display: block; }
+.huy-hieu { display: inline-block; padding: 1px 7px; border: 2px solid var(--duong); border-radius: 7px; font-weight: 900; font-size: 14px; line-height: 1.2; }
+.huy-hieu .d { color: var(--cam); } .huy-hieu .u { color: var(--la); } .huy-hieu .e { color: var(--duong); }
+
+/* ---------- BANNER ---------- */
+.banner { position: relative; color: var(--trang); background: var(--duong-dam); padding: 32px 0 36px; text-align: center; }
+.banner::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: linear-gradient(90deg, var(--cam) 0 33.3%, var(--la) 33.3% 66.6%, var(--duong) 66.6%); }
+.banner h1 { font-size: clamp(23px, 3.3vw, 33px); line-height: 1.3; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; }
+.banner h1 .lien { white-space: nowrap; }
+.banner h1 small { display: block; font-size: .55em; font-weight: 700; letter-spacing: 1px; margin-top: 4px; opacity: .85; }
+.banner h1 .nhan-tren-tieu-de { display: table; margin: 0 auto 10px; font-style: normal; font-size: 13px; letter-spacing: 1.5px; padding: 2px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.4); }
+.banner p { max-width: 900px; margin: auto; color: rgba(255,255,255,.88); }
 .banner p + p { margin-top: 8px; }
 
-/* TIÊU ĐỀ CÁC MỤC */
-section { padding: 34px 0; }
-.khu-vuc-nhat { background: #eaf3fb; }
-.tieu-de-muc { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.tieu-de-muc .so {
-    flex: none;
-    min-width: 38px;
-    height: 38px;
-    padding: 0 8px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    background: var(--cam);
-    color: var(--trang);
-    font-weight: 800;
-    font-size: 16px;
-}
-.tieu-de-muc h2 { color: var(--xanh-dam); font-size: 22px; line-height: 1.3; }
-.tieu-de-nho {
-    color: var(--xanh-dam);
-    font-size: 16px;
-    margin: 4px 0 10px;
-    padding-left: 10px;
-    border-left: 4px solid var(--cam);
-    line-height: 1.3;
-}
-.khu-vuc-toi .tieu-de-nho { color: #ffb45e; }
+/* ---------- MỤC ---------- */
+main { padding: 26px 0 34px; }
+.muc { margin-bottom: 22px; }
+.tieu-de-muc { display: flex; align-items: center; gap: 12px; padding: 11px 18px; border-radius: 12px 12px 0 0; background: var(--duong); }
+.tieu-de-muc .so { flex: none; min-width: 32px; height: 32px; padding: 0 7px; border-radius: 8px; display: grid; place-items: center; background: var(--cam); color: var(--trang); font-weight: 800; font-size: 15px; }
+.tieu-de-muc h2 { font-size: 17px; line-height: 1.3; color: var(--trang); text-transform: uppercase; }
+.noi-dung { background: var(--trang); border: 1px solid var(--vien); border-top: 0; border-radius: 0 0 12px 12px; padding: 4px 24px; box-shadow: 0 4px 16px rgba(13,63,115,.06); }
 
-/* KHỐI NỘI DUNG */
-.luoi-khoi { columns: 2 360px; column-gap: 16px; margin-bottom: 16px; }
-.luoi-khoi.mot { columns: 1; }
-.luoi-khoi:last-child { margin-bottom: 0; }
-.khoi {
-    break-inside: avoid;
-    margin-bottom: 14px;
-    background: var(--trang);
-    border-radius: 10px;
-    padding: 12px 18px;
-    border-left: 5px solid var(--xanh-duong);
-    box-shadow: 0 4px 16px rgba(0,50,100,.05);
-    font-size: 14.5px;
-}
-.luoi-khoi .khoi:last-child { margin-bottom: 0; }
-.khoi p + p, .khoi p + ul { margin-top: 6px; }
-.khoi h3 { font-size: 16px; margin-bottom: 6px; color: var(--xanh-duong); }
-.khoi strong { color: var(--xanh-duong); }
-.khoi ul { padding-left: 18px; list-style: "+ "; }
-.khoi li { margin-bottom: 4px; }
-.khoi li:last-child { margin-bottom: 0; }
-.khoi li.khong-dau { list-style: none; }
-.khoi-cam { border-left-color: var(--cam); }
-.khoi-cam strong, .khoi-cam h3 { color: #c96510; }
-.khoi-la { border-left-color: var(--xanh-la); background: #f3faf6; }
-.khoi-la strong, .khoi-la h3 { color: #16824b; }
-.khoi-luu-y { border-left-color: var(--cam); background: #fff7e9; }
-.khoi-luu-y h3 { color: #b95e09; margin-bottom: 4px; }
+/* Hàng thông tin: nhãn trái – nội dung phải, ngăn bằng đường kẻ mảnh */
+.hang { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 6px 24px; padding: 14px 0; border-top: 1px solid var(--vien); }
+.hang:first-child { border-top: 0; }
+.hang .nhan { font-weight: 700; color: var(--duong-dam); }
+.hang .gia-tri > * + * { margin-top: 8px; }
+.hang-rong { display: block; }
+.hang-rong > * + * { margin-top: 8px; }
+.hang-tieu-de { padding-bottom: 0; }
+.hang-tieu-de + .hang { border-top: 0; }
+.hang h3 { font-size: var(--co-chu); color: var(--duong-dam); }
+.noi-dung strong { color: var(--duong-dam); font-weight: 700; }
 
-.khu-vuc-toi {
-    background: linear-gradient(120deg, #063968, #0876b9);
-    color: var(--trang);
-}
-.khu-vuc-toi .tieu-de-muc h2 { color: var(--trang); }
-.khu-vuc-toi .khoi {
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
-    border-left: 4px solid #ffb45e;
-    box-shadow: none;
-    color: #e8f3ff;
-}
-.khu-vuc-toi .khoi strong, .khu-vuc-toi .khoi h3 { color: #ffb45e; }
-.khu-vuc-toi a { color: #ffd59e; }
+/* Danh sách: chấm tròn nhỏ, một màu */
+.ds-y, .ds-con { list-style: none; }
+.ds-y > li, .ds-con > li { position: relative; padding-left: 18px; }
+.ds-y > li + li { margin-top: 8px; }
+.ds-con > li + li { margin-top: 4px; }
+.ds-y > li::before, .ds-con > li::before { content: ""; position: absolute; left: 3px; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: var(--duong); }
+.ds-con { margin-top: 6px; }
+.ds-con > li::before { background: transparent; border: 1.5px solid var(--chu-phu); width: 5px; height: 5px; }
+.ds-con > li.khong-dau::before { content: none; }
+.ds-y > li > p + p { margin-top: 4px; }
 
-/* CÁC MỨC HỌC BỔNG */
-.danh-sach-hoc-bong {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 12px;
-    margin-bottom: 16px;
-}
-.the-hoc-bong {
-    background: var(--trang);
-    border-radius: 12px;
-    padding: 14px 12px;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(0,50,100,.06);
-    border-top: 4px solid var(--cam);
-    transition: .25s;
-}
-.the-hoc-bong:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,50,100,.12); }
-.the-hoc-bong .nhan-tren { font-size: 13.5px; font-weight: 700; color: var(--chu-phu); }
-.the-hoc-bong .phan-tram { font-size: 32px; font-weight: 900; line-height: 1.15; color: var(--cam); }
-.the-hoc-bong .phan-tram small { font-size: 15px; font-weight: 700; }
-.the-hoc-bong .nhan-muc { font-size: 13.5px; font-weight: 700; color: var(--xanh-dam); }
-.the-hoc-bong:nth-child(4n+2) { border-color: var(--xanh-la); }
-.the-hoc-bong:nth-child(4n+2) .phan-tram { color: var(--xanh-la); }
-.the-hoc-bong:nth-child(4n+3) { border-color: var(--xanh-duong); }
-.the-hoc-bong:nth-child(4n+3) .phan-tram { color: var(--xanh-duong); }
-.the-hoc-bong:nth-child(4n+4) { border-color: #8b65c7; }
-.the-hoc-bong:nth-child(4n+4) .phan-tram { color: #8b65c7; }
+/* ---------- BẢNG: nền trắng, kẻ mảnh, tiêu đề xám nhạt ---------- */
+.khung-bang { overflow-x: auto; border: 1px solid var(--vien); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: var(--co-chu); }
+table.cot-4 { min-width: 720px; }
+table.cot-5 { min-width: 860px; }
+th { background: var(--nen); color: var(--duong-dam); text-align: left; padding: 8px 12px; font-weight: 700; vertical-align: middle; }
+td { padding: 8px 12px; border-top: 1px solid var(--vien); vertical-align: top; }
+thead th { border-bottom: 1px solid var(--vien); }
+thead + tbody tr:first-child td { border-top: 0; }
+td ul { list-style: none; }
+td li { position: relative; padding-left: 16px; }
+td li + li { margin-top: 3px; }
+td li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 5px; height: 5px; border-radius: 50%; background: var(--duong); }
+td li.cong::before { background: transparent; border: 1.5px solid var(--chu-phu); width: 4px; height: 4px; }
+td p + p, td p + ul, td ul + p { margin-top: 6px; }
+.giu-dong { white-space: nowrap; }
+.muc-gia { font-weight: 700; color: var(--duong-dam); white-space: nowrap; }
+td.ghi-chu-bang { color: var(--chu-phu); font-style: italic; }
+td.ghi-chu-bang strong { color: inherit; font-weight: 400; }
 
-/* BẢNG */
-.khung-bang {
-    overflow-x: auto;
-    border-radius: 12px;
-    background: var(--trang);
-    box-shadow: 0 6px 22px rgba(0,50,100,.07);
-    margin-bottom: 16px;
-    color: var(--chu);
-}
-.khung-bang:last-child { margin-bottom: 0; }
-table { width: 100%; border-collapse: collapse; }
-table.cot-3, table.cot-4 { min-width: 680px; }
-table.cot-5 { min-width: 820px; }
-thead th {
-    background: var(--xanh-dam);
-    color: var(--trang);
-    text-align: left;
-    padding: 11px 14px;
-    font-size: 14px;
-    vertical-align: middle;
-}
-tbody td {
-    padding: 11px 14px;
-    border-bottom: 1px solid #e8eef5;
-    vertical-align: top;
-    font-size: 14px;
-}
-tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: #f6faff; }
-tbody td strong { color: var(--xanh-dam); }
-tbody ul { padding-left: 18px; list-style: "– "; }
-tbody li.cong { list-style: "+ "; }
-tbody li { margin-bottom: 4px; }
-tbody li:last-child { margin-bottom: 0; }
-tbody td p + p, tbody td p + ul, tbody td ul + p { margin-top: 6px; }
-td.ghi-chu-bang { background: #fff7e9; font-style: italic; }
-td.ghi-chu-bang strong { color: #b95e09; }
+/* Bảng ngang (bảng 2 cột ngắn được xoay) */
+table.bang-ngang th { width: 1%; white-space: nowrap; border-top: 1px solid var(--vien); border-right: 1px solid var(--vien); }
+table.bang-ngang tr:first-child th, table.bang-ngang tr:first-child td { border-top: 0; }
+table.bang-ngang td { border-left: 1px solid var(--vien); vertical-align: middle; }
+table.bang-ngang tr:first-child td strong { color: var(--duong-dam); }
+table.bang-ngang td.ghi-chu-bang { border-left: 0; }
+.chi-man-hep { display: none; }
+/* Bảng xoay (bảng nhiều cột, ít dòng) */
+table.bang-xoay td.nhan-hang { font-weight: 700; color: var(--mau-dam, var(--duong-dam)); width: 30%; background: var(--nen); }
+table.bang-xoay td { width: 23%; }
 
-.muc-mien {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 7px;
-    font-weight: 800;
-    font-size: 13.5px;
-}
-.muc-100 { background: var(--cam-nhat); color: #d86a0b; }
-.muc-75  { background: var(--xanh-la-nhat); color: #16824b; }
-.muc-50  { background: var(--xanh-nhat); color: #07549b; }
-.muc-25  { background: #f0eaff; color: #7650ae; }
+/* ---------- MỖI PHẦN MỘT MÀU LOGO: Phần 1 cam – Phần 2 xanh lá – Phần 3 xanh dương ---------- */
+.muc:nth-of-type(3n+1) { --mau: var(--cam);   --mau-dam: #b84a12; --mau-nhat: #fef3ec; }
+.muc:nth-of-type(3n+2) { --mau: var(--la);    --mau-dam: #0b6f35; --mau-nhat: #eef8f2; }
+.muc:nth-of-type(3n+3) { --mau: var(--duong); --mau-dam: var(--duong-dam); --mau-nhat: #eef3fa; }
+.muc .tieu-de-muc { background: var(--mau); }
+.muc .tieu-de-muc .so { background: rgba(255,255,255,.22); }
+.muc .hang .nhan, .muc .hang h3, .muc .noi-dung strong, .muc .muc-gia { color: var(--mau-dam); }
+.muc .ds-y > li::before, .muc td li::before { background: var(--mau); }
+.muc .ds-con > li::before, .muc td li.cong::before { background: transparent; border-color: var(--mau); }
+.muc th { background: var(--mau-nhat); color: var(--mau-dam); }
+.muc table.bang-ngang tr:first-child td strong { color: var(--mau-dam); }
 
-/* CHÂN TRANG */
-.chan-trang {
-    padding: 18px 15px;
-    background: #042c50;
-    color: #d7e8f8;
-    text-align: center;
-    font-size: 13px;
-}
-.chan-trang strong { color: var(--trang); font-size: 14px; }
+/* ---------- CHÂN TRANG ---------- */
+.chan-trang { position: relative; padding: 18px 15px; background: var(--duong-dam); color: var(--trang); text-align: center; font-size: 14px; }
+.chan-trang::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+    background: linear-gradient(90deg, var(--cam) 0 33.3%, var(--la) 33.3% 66.6%, var(--duong) 66.6%); }
+.chan-trang strong { white-space: nowrap; }
 
-/* ĐIỆN THOẠI */
+/* ---------- MÀN HÌNH NHỎ ---------- */
+/* Màn hình vừa và nhỏ: bảng ngang trở lại dạng dọc để không bị tràn */
+@media (max-width: 960px) { .chi-man-rong { display: none; } .chi-man-hep { display: block; } }
+@media (max-width: 700px) {
+    .hang { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
 @media (max-width: 600px) {
-    section { padding: 26px 0; }
-    .banner { padding: 32px 16px 36px; }
-    .banner p { font-size: 14.5px; }
-    .tieu-de-muc h2 { font-size: 19px; }
-    .danh-sach-hoc-bong { grid-template-columns: repeat(2, 1fr); }
+    :root { --co-chu: 15px; }
+    .banner { padding: 24px 0 28px; }
+    .banner h1 .lien { white-space: normal; }
+    .noi-dung { padding: 2px 16px; }
+    .tieu-de-muc h2 { font-size: 15.5px; }
+    .tieu-de-muc { padding: 10px 14px; }
+    .chan-trang strong { font-size: 12px; }
 }
 
 </style>
 </head>
 <body>
 
+<nav class="thanh-tren" aria-label="Điều hướng">
+    <div class="container"><a href="index.html" class="ve-trang-chu"><img src="data:image/png;base64,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" alt="Logo Trường Đại học Kinh tế – Đại học Đà Nẵng" class="logo">CỔNG THÔNG TIN HỌC BỔNG</a></div>
+</nav>
+
 <header class="banner">
-    <div class="banner-noi-dung">
-        <h1>CHƯƠNG TRÌNH PHÁT TRIỂN<br><span>SINH VIÊN QUỐC TẾ</span></h1>
+    <div class="container">
+        <h1><span class="lien">CHƯƠNG TRÌNH PHÁT TRIỂN</span> <span class="lien">SINH VIÊN QUỐC TẾ</span></h1>
         <p>Chương trình nhằm thu hút và phát triển người học quốc tế, góp phần mở rộng hợp tác giáo dục và đào tạo quốc tế của Trường Đại học Kinh tế - Đại học Đà Nẵng. Chương trình góp phần xây dựng môi trường học tập đa văn hóa, qua đó nâng cao vị thế và hình ảnh của trường trong mạng lưới giáo dục khu vực và quốc tế.</p>
     </div>
 </header>
 
-<section>
-<div class="container">
-    <div class="tieu-de-muc"><div class="so">1</div><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2></div>
-    <div class="luoi-khoi"><div class="khoi khoi-cam"><p>Sinh viên có quốc tịch nước ngoài.</p></div><div class="khoi khoi-la"><p>Hỗ trợ học phí và/hoặc sinh hoạt phí cho người học quốc tế theo từng chương trình đào tạo, học tập, nghiên cứu hoặc chương trình hợp tác quốc tế của Trường.</p></div><div class="khoi khoi-duong"><p>Mức cấp được xác định theo từng thông báo.</p></div></div>
-</div>
+<main class="container">
+<section class="muc">
+    <div class="tieu-de-muc"><span class="so">1</span><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2></div>
+    <div class="noi-dung"><div class="hang hang-rong"><ul class="ds-y"><li><p>Sinh viên có quốc tịch nước ngoài.</p></li><li><p>Hỗ trợ học phí và/hoặc sinh hoạt phí cho người học quốc tế theo từng chương trình đào tạo, học tập, nghiên cứu hoặc chương trình hợp tác quốc tế của Trường.</p></li><li><p>Mức cấp được xác định theo từng thông báo.</p></li></ul></div></div>
 </section>
-<section class="khu-vuc-toi">
-<div class="container">
-    <div class="tieu-de-muc"><div class="so">2</div><h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2></div>
-    <div class="luoi-khoi"><div class="khoi khoi-cam"><p>Đối tượng, điều kiện, thời gian hỗ trợ và số suất được xác định cụ thể theo từng thông báo của Trường trên cơ sở mục tiêu của chương trình, đối tượng tuyển sinh và khả năng cân đối nguồn kinh phí của Trường.</p></div><div class="khoi khoi-la"><p>Việc tiếp tục hỗ trợ đối với người học trong các học kỳ/năm học tiếp theo được thực hiện theo điều kiện duy trì quy định tại từng chương trình.</p></div><div class="khoi khoi-duong"><p>Người thụ hưởng có trách nhiệm thực hiện đầy đủ các yêu cầu, cam kết của chương trình và sử dụng khoản hỗ trợ đúng mục đích; trường hợp không đáp ứng điều kiện hoặc vi phạm các cam kết, Trường xem xét, điều chỉnh hoặc chấm dứt hỗ trợ theo quy định.</p></div></div>
-</div>
+<section class="muc">
+    <div class="tieu-de-muc"><span class="so">2</span><h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2></div>
+    <div class="noi-dung"><div class="hang hang-rong"><ul class="ds-y"><li><p>Đối tượng, điều kiện, thời gian hỗ trợ và số suất được xác định cụ thể theo từng thông báo của Trường trên cơ sở mục tiêu của chương trình, đối tượng tuyển sinh và khả năng cân đối nguồn kinh phí của Trường.</p></li><li><p>Việc tiếp tục hỗ trợ đối với người học trong các học kỳ/năm học tiếp theo được thực hiện theo điều kiện duy trì quy định tại từng chương trình.</p></li><li><p>Người thụ hưởng có trách nhiệm thực hiện đầy đủ các yêu cầu, cam kết của chương trình và sử dụng khoản hỗ trợ đúng mục đích; trường hợp không đáp ứng điều kiện hoặc vi phạm các cam kết, Trường xem xét, điều chỉnh hoặc chấm dứt hỗ trợ theo quy định.</p></li></ul></div></div>
 </section>
+</main>
 
 <footer class="chan-trang">
     <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>

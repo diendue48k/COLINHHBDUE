@@ -93,6 +93,22 @@ export interface Announcement {
   attachmentUrl?: string;
 }
 
+export interface NewsArticle {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  thumbnailUrl?: string;
+  publishedAt: string;
+  author?: string;
+  isPinned: boolean;
+  isActive: boolean;
+  viewsCount?: number;
+  order?: number;
+}
+
 export interface User {
   id: string;
   username?: string;
@@ -157,6 +173,7 @@ export interface DatabaseState {
   categories: Category[];
   scholarships: Scholarship[];
   announcements: Announcement[];
+  news?: NewsArticle[];
   faqs?: FAQItem[];
   users?: User[];
   inquiries?: ContactInquiry[];

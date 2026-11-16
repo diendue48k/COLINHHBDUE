@@ -22,10 +22,11 @@ import {
   ANNOUNCEMENT_CATEGORY_FILTERS,
   matchesAnnouncementCategory,
 } from '@/components/AnnouncementModal';
+import { NewsModal } from '@/components/NewsModal';
 import { SearchFilterModal } from '@/components/SearchFilterModal';
 import { NotificationsModal } from '@/components/NotificationsModal';
 import { FAQSection } from '@/components/FAQSection';
-import { Category, Scholarship, Announcement } from '@/types';
+import { Category, Scholarship, Announcement, NewsArticle } from '@/types';
 import { initialData } from '@/data/initialData';
 
 function PortalContent() {
@@ -42,14 +43,29 @@ function PortalContent() {
   const [categories, setCategories] = useState<Category[]>(initialData.categories);
   const [scholarships, setScholarships] = useState<Scholarship[]>(initialData.scholarships);
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
+  const [newsList, setNewsList] = useState<NewsArticle[]>(initialData.news || []);
   const [selectedAnnouncementCategory, setSelectedAnnouncementCategory] = useState<string>('all');
   const [selectedScholarship, setSelectedScholarship] = useState<Scholarship | null>(null);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
+  const [selectedNewsArticle, setSelectedNewsArticle] = useState<NewsArticle | null>(null);
 
   const filteredAnnouncements = useMemo(() => {
     return announcements
       .filter((a) => a.isActive !== false && matchesAnnouncementCategory(a, selectedAnnouncementCategory));
   }, [announcements, selectedAnnouncementCategory]);
+
+  const activeNews = useMemo(() => {
+    return [...newsList]
+      .filter((n) => n.isActive !== false)
+      .sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        if ((a.order || 0) !== (b.order || 0)) {
+          return (a.order || 999) - (b.order || 999);
+        }
+        return (b.publishedAt || '').localeCompare(a.publishedAt || '');
+      });
+  }, [newsList]);
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -65,6 +81,7 @@ function PortalContent() {
           if (data.categories) setCategories(data.categories);
           if (data.scholarships) setScholarships(data.scholarships);
           if (data.announcements) setAnnouncements(data.announcements);
+          if (Array.isArray(data.news)) setNewsList(data.news);
         }
       } catch (e) {
         console.error('Failed to load portal data, using initial data:', e);
@@ -285,6 +302,87 @@ function PortalContent() {
 
         {/* 
           ----------------------------------------------------------
+          PHẦN 2.5 – TIN TỨC & SỰ KIỆN HỌC BỔNG
+          ----------------------------------------------------------
+        */}
+        <section id="muc-tin-tuc" className="pt-2 border-t border-slate-200 scroll-mt-28">
+          <div className="text-center max-w-2xl mx-auto mb-5 space-y-1">
+            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
+              TIN TỨC
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">
+              Các hoạt động trao học bổng, hợp tác doanh nghiệp và gương sáng sinh viên Trường Đại học Kinh tế – ĐHĐN.
+            </p>
+          </div>
+
+          {activeNews.length === 0 ? (
+            <div className="py-8 text-center text-slate-400 text-xs italic bg-white rounded-2xl border border-slate-200">
+              Chưa có bài viết tin tức nào được đăng tải.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {activeNews.slice(0, 6).map((article) => (
+                <div
+                  key={article.id}
+                  onClick={() => setSelectedNewsArticle(article)}
+                  className="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-[#1760AB] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between group"
+                >
+                  <div>
+                    {article.thumbnailUrl && (
+                      <div className="h-44 w-full overflow-hidden bg-slate-100">
+                        <img
+                          src={article.thumbnailUrl}
+                          alt={article.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <div className="p-4 space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase border bg-blue-50 text-[#1760AB] border-blue-200">
+                          {article.category}
+                        </span>
+                        <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>{article.publishedAt}</span>
+                        </span>
+                      </div>
+
+                      <h3 className="text-xs sm:text-[13.5px] font-bold text-slate-900 group-hover:text-[#1760AB] leading-snug line-clamp-2 transition-colors">
+                        {article.title}
+                      </h3>
+
+                      <p className="text-[11.5px] text-slate-500 line-clamp-2 leading-relaxed">
+                        {article.excerpt || article.content.replace(/<[^>]+>/g, '')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1760AB]">
+                    <span className="flex items-center gap-1">
+                      <span>Đọc bài viết</span>
+                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <span className="text-[10.5px] text-slate-400 font-normal">Nhấn để mở</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/tin-tuc"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-[13px] font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] border border-blue-200 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
+            >
+              <span>Xem tất cả tin tức</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </section>
+
+        {/* 
+          ----------------------------------------------------------
           PHẦN 3 – LIÊN HỆ
           ----------------------------------------------------------
         */}
@@ -421,6 +519,12 @@ function PortalContent() {
       <AnnouncementModal
         announcement={selectedAnnouncement}
         onClose={() => setSelectedAnnouncement(null)}
+      />
+
+      {/* Popup chi tiết tin tức */}
+      <NewsModal
+        article={selectedNewsArticle}
+        onClose={() => setSelectedNewsArticle(null)}
       />
 
       {/* Modal tìm kiếm đa năng */}

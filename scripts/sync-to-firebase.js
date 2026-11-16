@@ -48,12 +48,20 @@ async function syncAll() {
     await setDoc(doc(db, 'system', 'stats'), data.stats);
   }
 
+  if (data.news && Array.isArray(data.news)) {
+    console.log(`Syncing ${data.news.length} news articles to Firestore...`);
+    for (const article of data.news) {
+      await setDoc(doc(db, 'news', article.id), article);
+    }
+  }
+
   // Also save a master document for single-trip fast fetching
   const nowIso = new Date().toISOString();
   await setDoc(doc(db, 'portal', 'main_database'), {
     categories: data.categories,
     scholarships: data.scholarships,
     announcements: data.announcements,
+    news: data.news || [],
     faqs: data.faqs || [],
     users: data.users || [],
     inquiries: data.inquiries || [],

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getDatabase, getDatabaseAsync, saveDatabaseAsync, incrementScholarshipViews } from '@/lib/db';
 import { ADMIN_USERS } from '@/lib/auth';
-import { Scholarship, Category, Announcement, User, FAQItem, ContactInquiry } from '@/types';
+import { Scholarship, Category, Announcement, NewsArticle, User, FAQItem, ContactInquiry } from '@/types';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -30,6 +30,9 @@ export async function GET(request: Request) {
     }
     if (type === 'announcements') {
       return NextResponse.json(db.announcements, { headers: noCacheHeaders });
+    }
+    if (type === 'news') {
+      return NextResponse.json(db.news || [], { headers: noCacheHeaders });
     }
     if (type === 'faqs') {
       return NextResponse.json(db.faqs || [], { headers: noCacheHeaders });
@@ -215,6 +218,48 @@ export async function POST(request: Request) {
         db.announcements = db.announcements.filter((a) => a.id !== payload.id);
         await saveDatabaseAsync(db);
         return NextResponse.json({ success: true });
+      }
+
+      case 'save_news': {
+        const article: NewsArticle = payload;
+        if (!article?.id || !article?.title) {
+          return NextResponse.json({ error: 'Missing required news fields' }, { status: 400 });
+        }
+        if (!db.news) db.news = [];
+        const index = db.news.findIndex((n) => n.id === article.id);
+        if (index >= 0) {
+          db.news[index] = article;
+        } else {
+          db.news.unshift(article);
+        }
+        await saveDatabaseAsync(db);
+        return NextResponse.json({ success: true, data: article, news: db.news });
+      }
+
+      case 'delete_news': {
+        if (!payload?.id) {
+          return NextResponse.json({ error: 'Missing news id' }, { status: 400 });
+        }
+        if (db.news) {
+          db.news = db.news.filter((n) => n.id !== payload.id);
+          await saveDatabaseAsync(db);
+        }
+        return NextResponse.json({ success: true, news: db.news || [] });
+      }
+
+      case 'reorder_news': {
+        const items: { id: string; order: number }[] = payload?.items || [];
+        if (!Array.isArray(items) || items.length === 0) {
+          return NextResponse.json({ error: 'Invalid reorder payload' }, { status: 400 });
+        }
+        if (!db.news) db.news = [];
+        items.forEach((item) => {
+          const found = db.news!.find((n) => n.id === item.id);
+          if (found) found.order = item.order;
+        });
+        db.news.sort((a, b) => (a.order || 0) - (b.order || 0));
+        await saveDatabaseAsync(db);
+        return NextResponse.json({ success: true, data: db.news });
       }
 
       case 'save_faq': {

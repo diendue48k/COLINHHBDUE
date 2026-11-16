@@ -28,6 +28,8 @@ export const Header: React.FC<HeaderProps> = ({
   useEffect(() => {
     if (pathname === '/thong-bao') {
       setActiveMenu('muc-thong-bao');
+    } else if (pathname === '/tin-tuc') {
+      setActiveMenu('muc-tin-tuc');
     } else if (pathname === '/lien-he') {
       setActiveMenu('muc-lien-he');
     } else if (pathname === '/huong-dan') {
@@ -176,7 +178,20 @@ export const Header: React.FC<HeaderProps> = ({
               THÔNG BÁO
             </button>
 
-            {/* 3. LIÊN HỆ */}
+            {/* 3. TIN TỨC */}
+            <button
+              type="button"
+              onClick={() => scrollToSection('muc-tin-tuc')}
+              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
+                activeMenu === 'muc-tin-tuc'
+                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
+                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
+              }`}
+            >
+              TIN TỨC
+            </button>
+
+            {/* 4. LIÊN HỆ */}
             <button
               type="button"
               onClick={() => scrollToSection('muc-lien-he')}
@@ -221,6 +236,14 @@ export const Header: React.FC<HeaderProps> = ({
               className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
             >
               THÔNG BÁO
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollToSection('muc-tin-tuc')}
+              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
+            >
+              TIN TỨC
             </button>
 
             <button

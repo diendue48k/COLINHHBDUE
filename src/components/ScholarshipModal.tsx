@@ -57,6 +57,12 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
         links.forEach((a) => {
           a.onclick = (e) => {
             const href = a.getAttribute('href');
+            if (href === 'index.html' || href === '/' || a.classList.contains('ve-trang-chu')) {
+              e.preventDefault();
+              e.stopPropagation();
+              onClose();
+              return false;
+            }
             if (href && href.startsWith('#')) {
               e.preventDefault();
               e.stopPropagation();
@@ -78,6 +84,12 @@ export const ScholarshipModal: React.FC<ScholarshipModalProps> = ({
             const a = (e.target as HTMLElement).closest('a');
             if (a) {
               const href = a.getAttribute('href');
+              if (href === 'index.html' || href === '/' || a.classList.contains('ve-trang-chu')) {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+                return;
+              }
               if (href && href.startsWith('#')) {
                 e.preventDefault();
                 e.stopPropagation();

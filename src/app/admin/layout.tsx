@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Layers,
   Bell,
+  Newspaper,
   Users,
   LogOut,
   ExternalLink,
@@ -112,6 +113,11 @@ export default function AdminLayout({
       title: 'Quản lý Thông báo',
       href: '/admin/announcements',
       icon: Bell,
+    },
+    {
+      title: 'Quản lý Tin tức',
+      href: '/admin/news',
+      icon: Newspaper,
     },
     {
       title: 'Câu hỏi thường gặp',

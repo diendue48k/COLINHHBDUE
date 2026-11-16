@@ -3,419 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chương trình Phát triển Nhà nghiên cứu trẻ (Học viên cao học) | DUE</title>
-
+<title>CHƯƠNG TRÌNH PHÁT TRIỂN NHÀ NGHIÊN CỨU TRẺ (HỌC VIÊN CAO HỌC) | DUE</title>
 <link rel="stylesheet" href="/fonts/fonts.css">
 <style>
+/* ===== MÀU: nội dung dùng nền trắng + chữ trung tính + MỘT màu nhấn (xanh dương đậm).
+   Cam chỉ ở số thứ tự mục; 3 màu logo chỉ xuất hiện ở dải nhận diện của banner và chân trang. ===== */
 :root {
-    --xanh-duong: #07549b;
-    --xanh-dam: #063968;
-    --xanh-nhat: #eaf4ff;
-    --cam: #f58220;
-    --cam-nhat: #fff0df;
-    --xanh-la: #269b63;
-    --xanh-la-nhat: #e4f7ed;
-    --chu: #243447;
-    --chu-phu: #5a6b7e;
-    --trang: #ffffff;
+    --cam: #f26522; --la: #0f9145; --duong: #165fa8; --duong-dam: #0d3f73;
+    --chu: #1f2d3d; --chu-phu: #5b6b7c; --vien: #e6ebf1; --nen: #f5f7fa; --trang: #fff;
+    --co-chu: 15.5px;          /* MỘT cỡ chữ cho toàn bộ nội dung */
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif; background: var(--nen); color: var(--chu); font-size: var(--co-chu); line-height: 1.65; }
+a { color: var(--duong); }
+.container { width: min(1040px, 92%); margin: auto; }
+p, li, td, th { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
 
-html { scroll-behavior: smooth; }
+/* ---------- THANH TRÊN ---------- */
+.thanh-tren { background: var(--trang); border-bottom: 1px solid var(--vien); }
+.thanh-tren .container { padding: 8px 0; }
+.ve-trang-chu { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--duong-dam); font-weight: 800; font-size: 14px; letter-spacing: .3px; }
+.ve-trang-chu .logo { height: 40px; width: auto; display: block; }
+.huy-hieu { display: inline-block; padding: 1px 7px; border: 2px solid var(--duong); border-radius: 7px; font-weight: 900; font-size: 14px; line-height: 1.2; }
+.huy-hieu .d { color: var(--cam); } .huy-hieu .u { color: var(--la); } .huy-hieu .e { color: var(--duong); }
 
-body {
-    font-family: "SVN-Gilroy", "SVN-Griloy", "Segoe UI", Arial, sans-serif;
-    background: #f4f8fc;
-    color: var(--chu);
-    line-height: 1.6;
-    font-size: 15px;
-}
+/* ---------- BANNER ---------- */
+.banner { position: relative; color: var(--trang); background: var(--duong-dam); padding: 32px 0 36px; text-align: center; }
+.banner::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: linear-gradient(90deg, var(--cam) 0 33.3%, var(--la) 33.3% 66.6%, var(--duong) 66.6%); }
+.banner h1 { font-size: clamp(23px, 3.3vw, 33px); line-height: 1.3; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; }
+.banner h1 .lien { white-space: nowrap; }
+.banner h1 small { display: block; font-size: .55em; font-weight: 700; letter-spacing: 1px; margin-top: 4px; opacity: .85; }
+.banner h1 .nhan-tren-tieu-de { display: table; margin: 0 auto 10px; font-style: normal; font-size: 13px; letter-spacing: 1.5px; padding: 2px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,.4); }
+.banner p { max-width: 900px; margin: auto; color: rgba(255,255,255,.88); }
+.banner p + p { margin-top: 8px; }
 
-.container { width: min(1150px, 92%); margin: auto; }
+/* ---------- MỤC ---------- */
+main { padding: 26px 0 34px; }
+.muc { margin-bottom: 22px; }
+.tieu-de-muc { display: flex; align-items: center; gap: 12px; padding: 11px 18px; border-radius: 12px 12px 0 0; background: var(--duong); }
+.tieu-de-muc .so { flex: none; min-width: 32px; height: 32px; padding: 0 7px; border-radius: 8px; display: grid; place-items: center; background: var(--cam); color: var(--trang); font-weight: 800; font-size: 15px; }
+.tieu-de-muc h2 { font-size: 17px; line-height: 1.3; color: var(--trang); text-transform: uppercase; }
+.noi-dung { background: var(--trang); border: 1px solid var(--vien); border-top: 0; border-radius: 0 0 12px 12px; padding: 4px 24px; box-shadow: 0 4px 16px rgba(13,63,115,.06); }
 
-/* PHẦN ĐẦU TRANG */
-.banner {
-    position: relative;
-    overflow: hidden;
-    padding: 42px 20px 46px;
-    color: var(--trang);
-    background: linear-gradient(120deg, #063968 0%, #0876b9 65%, #269b63 100%);
-}
-.banner::before, .banner::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,.07);
-    pointer-events: none;
-}
-.banner::before { width: 300px; height: 300px; top: -170px; right: 5%; }
-.banner::after  { width: 240px; height: 240px; bottom: -170px; left: 5%; }
-.banner-noi-dung {
-    position: relative;
-    z-index: 1;
-    max-width: 920px;
-    margin: auto;
-    text-align: center;
-}
-.banner h1 {
-    font-size: clamp(24px, 4vw, 38px);
-    line-height: 1.25;
-    text-transform: uppercase;
-    font-weight: 800;
-    margin-bottom: 14px;
-}
-.banner h1 span { color: #ffb45e; }
-.banner h1 small {
-    display: block;
-    font-size: .5em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-top: 6px;
-    color: #e8f3ff;
-}
-.banner p {
-    max-width: 840px;
-    margin: auto;
-    color: #e8f3ff;
-    font-size: 15.5px;
-}
-.banner p strong { color: #ffffff; }
+/* Hàng thông tin: nhãn trái – nội dung phải, ngăn bằng đường kẻ mảnh */
+.hang { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 6px 24px; padding: 14px 0; border-top: 1px solid var(--vien); }
+.hang:first-child { border-top: 0; }
+.hang .nhan { font-weight: 700; color: var(--duong-dam); }
+.hang .gia-tri > * + * { margin-top: 8px; }
+.hang-rong { display: block; }
+.hang-rong > * + * { margin-top: 8px; }
+.hang-tieu-de { padding-bottom: 0; }
+.hang-tieu-de + .hang { border-top: 0; }
+.hang h3 { font-size: var(--co-chu); color: var(--duong-dam); }
+.noi-dung strong { color: var(--duong-dam); font-weight: 700; }
 
-/* TIÊU ĐỀ CÁC MỤC */
-section { padding: 34px 0; }
+/* Danh sách: chấm tròn nhỏ, một màu */
+.ds-y, .ds-con { list-style: none; }
+.ds-y > li, .ds-con > li { position: relative; padding-left: 18px; }
+.ds-y > li + li { margin-top: 8px; }
+.ds-con > li + li { margin-top: 4px; }
+.ds-y > li::before, .ds-con > li::before { content: ""; position: absolute; left: 3px; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: var(--duong); }
+.ds-con { margin-top: 6px; }
+.ds-con > li::before { background: transparent; border: 1.5px solid var(--chu-phu); width: 5px; height: 5px; }
+.ds-con > li.khong-dau::before { content: none; }
+.ds-y > li > p + p { margin-top: 4px; }
 
-.tieu-de-muc {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-.tieu-de-muc .so {
-    flex: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    background: var(--cam);
-    color: var(--trang);
-    font-weight: 800;
-    font-size: 16px;
-}
-.tieu-de-muc h2 {
-    color: var(--xanh-dam);
-    font-size: 22px;
-    line-height: 1.3;
-}
+/* ---------- BẢNG: nền trắng, kẻ mảnh, tiêu đề xám nhạt ---------- */
+.khung-bang { overflow-x: auto; border: 1px solid var(--vien); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: var(--co-chu); }
+table.cot-4 { min-width: 720px; }
+table.cot-5 { min-width: 860px; }
+th { background: var(--nen); color: var(--duong-dam); text-align: left; padding: 8px 12px; font-weight: 700; vertical-align: middle; }
+td { padding: 8px 12px; border-top: 1px solid var(--vien); vertical-align: top; }
+thead th { border-bottom: 1px solid var(--vien); }
+thead + tbody tr:first-child td { border-top: 0; }
+td ul { list-style: none; }
+td li { position: relative; padding-left: 16px; }
+td li + li { margin-top: 3px; }
+td li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 5px; height: 5px; border-radius: 50%; background: var(--duong); }
+td li.cong::before { background: transparent; border: 1.5px solid var(--chu-phu); width: 4px; height: 4px; }
+td p + p, td p + ul, td ul + p { margin-top: 6px; }
+.giu-dong { white-space: nowrap; }
+.muc-gia { font-weight: 700; color: var(--duong-dam); white-space: nowrap; }
+td.ghi-chu-bang { color: var(--chu-phu); font-style: italic; }
+td.ghi-chu-bang strong { color: inherit; font-weight: 400; }
 
-/* ĐỐI TƯỢNG */
-.doi-tuong {
-    background: var(--trang);
-    border-radius: 10px;
-    padding: 12px 18px;
-    margin-bottom: 16px;
-    border-left: 5px solid var(--xanh-duong);
-    box-shadow: 0 4px 16px rgba(0,50,100,.05);
-}
-.doi-tuong strong { color: var(--xanh-duong); }
+/* Bảng ngang (bảng 2 cột ngắn được xoay) */
+table.bang-ngang th { width: 1%; white-space: nowrap; border-top: 1px solid var(--vien); border-right: 1px solid var(--vien); }
+table.bang-ngang tr:first-child th, table.bang-ngang tr:first-child td { border-top: 0; }
+table.bang-ngang td { border-left: 1px solid var(--vien); vertical-align: middle; }
+table.bang-ngang tr:first-child td strong { color: var(--duong-dam); }
+table.bang-ngang td.ghi-chu-bang { border-left: 0; }
+.chi-man-hep { display: none; }
+/* Bảng xoay (bảng nhiều cột, ít dòng) */
+table.bang-xoay td.nhan-hang { font-weight: 700; color: var(--mau-dam, var(--duong-dam)); width: 30%; background: var(--nen); }
+table.bang-xoay td { width: 23%; }
 
-/* CÁC MỨC HỌC BỔNG */
-.danh-sach-hoc-bong {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 16px;
-}
-.the-hoc-bong {
-    background: var(--trang);
-    border-radius: 12px;
-    padding: 14px 12px;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(0,50,100,.06);
-    border-top: 4px solid var(--xanh-duong);
-    transition: .25s;
-}
-.the-hoc-bong:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,50,100,.12); }
-.the-hoc-bong .phan-tram { font-size: 32px; font-weight: 900; line-height: 1.15; }
-.the-hoc-bong .phan-tram small { font-size: 15px; font-weight: 700; }
-.the-hoc-bong .nhan-muc  { font-size: 13.5px; font-weight: 700; color: var(--xanh-dam); }
-.the-hoc-bong:nth-child(1) { border-color: var(--cam); }
-.the-hoc-bong:nth-child(1) .phan-tram { color: var(--cam); }
-.the-hoc-bong:nth-child(2) { border-color: var(--xanh-la); }
-.the-hoc-bong:nth-child(2) .phan-tram { color: var(--xanh-la); }
-.the-hoc-bong:nth-child(3) .phan-tram { color: var(--xanh-duong); }
-.the-hoc-bong:nth-child(4) { border-color: #8b65c7; }
-.the-hoc-bong:nth-child(4) .phan-tram { color: #8b65c7; }
+/* ---------- MỖI PHẦN MỘT MÀU LOGO: Phần 1 cam – Phần 2 xanh lá – Phần 3 xanh dương ---------- */
+.muc:nth-of-type(3n+1) { --mau: var(--cam);   --mau-dam: #b84a12; --mau-nhat: #fef3ec; }
+.muc:nth-of-type(3n+2) { --mau: var(--la);    --mau-dam: #0b6f35; --mau-nhat: #eef8f2; }
+.muc:nth-of-type(3n+3) { --mau: var(--duong); --mau-dam: var(--duong-dam); --mau-nhat: #eef3fa; }
+.muc .tieu-de-muc { background: var(--mau); }
+.muc .tieu-de-muc .so { background: rgba(255,255,255,.22); }
+.muc .hang .nhan, .muc .hang h3, .muc .noi-dung strong, .muc .muc-gia { color: var(--mau-dam); }
+.muc .ds-y > li::before, .muc td li::before { background: var(--mau); }
+.muc .ds-con > li::before, .muc td li.cong::before { background: transparent; border-color: var(--mau); }
+.muc th { background: var(--mau-nhat); color: var(--mau-dam); }
+.muc table.bang-ngang tr:first-child td strong { color: var(--mau-dam); }
 
-/* BẢNG */
-.khung-bang {
-    overflow-x: auto;
-    border-radius: 12px;
-    background: var(--trang);
-    box-shadow: 0 6px 22px rgba(0,50,100,.07);
-}
-table { width: 100%; border-collapse: collapse; min-width: 680px; }
-thead th {
-    background: var(--xanh-dam);
-    color: var(--trang);
-    text-align: left;
-    padding: 11px 14px;
-    font-size: 14px;
-}
-tbody td {
-    padding: 11px 14px;
-    border-bottom: 1px solid #e8eef5;
-    vertical-align: top;
-    font-size: 14px;
-}
-tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: #f6faff; }
-tbody ul { padding-left: 18px; list-style: "– "; }
-tbody li { margin-bottom: 4px; }
-tbody li:last-child { margin-bottom: 0; }
+/* ---------- CHÂN TRANG ---------- */
+.chan-trang { position: relative; padding: 18px 15px; background: var(--duong-dam); color: var(--trang); text-align: center; font-size: 14px; }
+.chan-trang::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+    background: linear-gradient(90deg, var(--cam) 0 33.3%, var(--la) 33.3% 66.6%, var(--duong) 66.6%); }
+.chan-trang strong { white-space: nowrap; }
 
-.muc-mien {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 7px;
-    font-weight: 800;
-    font-size: 13.5px;
-}
-.muc-100 { background: var(--cam-nhat); color: #d86a0b; }
-.muc-75  { background: var(--xanh-la-nhat); color: #16824b; }
-.muc-50  { background: var(--xanh-nhat); color: #07549b; }
-.muc-25  { background: #f0eaff; color: #7650ae; }
-
-/* YÊU CẦU + HỖ TRỢ (2 CỘT) */
-.hai-cot {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 16px;
-}
-.luu-y {
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: #fff7e9;
-    border-left: 5px solid var(--cam);
-}
-.luu-y h3 { color: #b95e09; margin-bottom: 4px; font-size: 16px; }
-.luu-y p  { font-size: 14px; }
-
-.ho-tro {
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: #f0f7f3;
-    border-left: 5px solid var(--xanh-la);
-}
-.ho-tro h3 { color: #16824b; margin-bottom: 6px; font-size: 16px; }
-.ho-tro ul { list-style: none; }
-.ho-tro li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-.ho-tro li:last-child { margin-bottom: 0; }
-.ho-tro .bieu-tuong {
-    flex: none;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: grid;
-    place-items: center;
-    font-size: 15px;
-    background: var(--trang);
-}
-
-/* ĐIỀU KIỆN DUY TRÌ */
-.khu-vuc-duy-tri {
-    background: linear-gradient(120deg, #063968, #0876b9);
-    color: var(--trang);
-}
-.khu-vuc-duy-tri .tieu-de-muc h2 { color: var(--trang); }
-.danh-sach-duy-tri {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 16px;
-}
-.the-duy-tri {
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 12px;
-    padding: 16px 18px;
-}
-.the-duy-tri h3 { color: #ffb45e; margin-bottom: 6px; font-size: 17px; }
-.the-duy-tri p, .the-duy-tri li { font-size: 14px; color: #e8f3ff; }
-.the-duy-tri ul { padding-left: 18px; list-style: "+ "; }
-.the-duy-tri li { margin-bottom: 6px; }
-.the-duy-tri li:last-child { margin-bottom: 0; }
-
-/* CHÂN TRANG */
-.chan-trang {
-    padding: 18px 15px;
-    background: #042c50;
-    color: #d7e8f8;
-    text-align: center;
-    font-size: 13px;
-}
-.chan-trang strong { color: var(--trang); font-size: 14px; }
-
-/* ĐIỆN THOẠI */
-@media (max-width: 850px) {
-    .danh-sach-hoc-bong { grid-template-columns: repeat(2, 1fr); }
-    .hai-cot, .danh-sach-duy-tri { grid-template-columns: 1fr; }
+/* ---------- MÀN HÌNH NHỎ ---------- */
+/* Màn hình vừa và nhỏ: bảng ngang trở lại dạng dọc để không bị tràn */
+@media (max-width: 960px) { .chi-man-rong { display: none; } .chi-man-hep { display: block; } }
+@media (max-width: 700px) {
+    .hang { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 @media (max-width: 600px) {
-    section { padding: 26px 0; }
-    .banner { padding: 32px 16px 36px; }
-    .banner p { font-size: 14.5px; }
-    .tieu-de-muc h2 { font-size: 19px; }
+    :root { --co-chu: 15px; }
+    .banner { padding: 24px 0 28px; }
+    .banner h1 .lien { white-space: normal; }
+    .noi-dung { padding: 2px 16px; }
+    .tieu-de-muc h2 { font-size: 15.5px; }
+    .tieu-de-muc { padding: 10px 14px; }
+    .chan-trang strong { font-size: 12px; }
 }
+
 </style>
 </head>
-
 <body>
 
-<!-- PHẦN ĐẦU TRANG -->
+<nav class="thanh-tren" aria-label="Điều hướng">
+    <div class="container"><a href="index.html" class="ve-trang-chu"><img src="data:image/png;base64,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" alt="Logo Trường Đại học Kinh tế – Đại học Đà Nẵng" class="logo">CỔNG THÔNG TIN HỌC BỔNG</a></div>
+</nav>
+
 <header class="banner">
-    <div class="banner-noi-dung">
-        <h1>
-            CHƯƠNG TRÌNH PHÁT TRIỂN<br><span>NHÀ NGHIÊN CỨU TRẺ</span>
-            <small>(HỌC VIÊN CAO HỌC)</small>
-        </h1>
-        <p>
-            Chính sách miễn học phí dành cho <strong>Học viên</strong> thuộc chương trình đào tạo
-            trình độ thạc sĩ hệ chính quy định hướng nghiên cứu có thành tích nổi bật trong học tập
-            và nghiên cứu khoa học. Chính sách nhằm thu hút và phát triển người học có năng lực
-            nghiên cứu, tạo nguồn Nhà nghiên cứu tiềm năng, nguồn Giảng viên và nhân lực học thuật
-            chất lượng cao cho Trường Đại học Kinh tế.
-        </p>
+    <div class="container">
+        <h1><span class="lien">CHƯƠNG TRÌNH PHÁT TRIỂN</span> <span class="lien">NHÀ NGHIÊN CỨU TRẺ</span> <small>(HỌC VIÊN CAO HỌC)</small></h1>
+        <p>Chính sách miễn học phí dành cho Học viên thuộc chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu có thành tích nổi bật trong học tập và nghiên cứu khoa học. Chính sách nhằm thu hút và phát triển người học có năng lực nghiên cứu, tạo nguồn Nhà nghiên cứu tiềm năng, nguồn Giảng viên và nhân lực học thuật chất lượng cao cho Trường Đại học Kinh tế.</p>
     </div>
 </header>
 
-<!-- 1. ĐỐI TƯỢNG VÀ MỨC CẤP -->
-<section>
-<div class="container">
-
-    <div class="tieu-de-muc">
-        <div class="so">1</div>
-        <h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2>
-    </div>
-
-    <div class="doi-tuong">
-        <strong>Đối tượng:</strong>
-        Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.
-    </div>
-
-    <div class="danh-sach-hoc-bong">
-        <div class="the-hoc-bong"><div class="phan-tram">100%</div><div class="nhan-muc">học phí</div></div>
-        <div class="the-hoc-bong"><div class="phan-tram">75%</div><div class="nhan-muc">học phí</div></div>
-        <div class="the-hoc-bong"><div class="phan-tram">50%</div><div class="nhan-muc">học phí</div></div>
-        <div class="the-hoc-bong"><div class="phan-tram"><small>Tối đa</small> 25%</div><div class="nhan-muc">học phí</div></div>
-    </div>
-
-    <div class="khung-bang">
-    <table>
-        <thead>
-            <tr>
-                <th style="width:55px">TT</th>
-                <th style="width:170px">Mức miễn</th>
-                <th>Yêu cầu</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>1</strong></td>
-                <td><span class="muc-mien muc-100">100% học phí</span></td>
-                <td>
-                    <ul>
-                        <li>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.</li>
-                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.</li>
-                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.</li>
-                        <li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>2</strong></td>
-                <td><span class="muc-mien muc-75">75% học phí</span></td>
-                <td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td>
-            </tr>
-            <tr>
-                <td><strong>3</strong></td>
-                <td><span class="muc-mien muc-50">50% học phí</span></td>
-                <td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td>
-            </tr>
-            <tr>
-                <td><strong>4</strong></td>
-                <td><span class="muc-mien muc-25">Tối đa 25% học phí</span></td>
-                <td>
-                    <ul>
-                        <li>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.</li>
-                        <li>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-
-    <div class="hai-cot">
-        <div class="luu-y">
-            <h3>Yêu cầu</h3>
-            <p>
-                Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu
-                bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng
-                điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung
-                chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn
-                bộ số học phí đã được miễn.
-            </p>
-        </div>
-
-        <div class="ho-tro">
-            <h3>Các chính sách hỗ trợ khác:</h3>
-            <ul>
-                <li><span class="bieu-tuong">📚</span><span>Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</span></li>
-                <li><span class="bieu-tuong">🌐</span><span>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</span></li>
-                <li><span class="bieu-tuong">🔬</span><span>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</span></li>
-            </ul>
-        </div>
-    </div>
-
-</div>
+<main class="container">
+<section class="muc">
+    <div class="tieu-de-muc"><span class="so">1</span><h2>ĐỐI TƯỢNG VÀ MỨC CẤP</h2></div>
+    <div class="noi-dung"><div class="hang"><div class="nhan">Đối tượng</div><div class="gia-tri"><p>Học viên chương trình đào tạo trình độ thạc sĩ hệ chính quy định hướng nghiên cứu.</p></div></div><div class="hang hang-rong"><div class="khung-bang"><table class="cot-3"><thead><tr><th style="width:55px">TT</th><th>Mức miễn</th><th>Yêu cầu</th></tr></thead><tbody><tr><td class="giu-dong"><strong>1</strong></td><td class="giu-dong"><span class="muc-gia">100% học phí</span></td><td><ul><li>Tốt nghiệp đại học loại Xuất sắc với thành tích thủ khoa chuyên ngành và có thực hiện khóa luận tốt nghiệp hoặc có báo cáo tại Hội nghị/Cuộc thi Sinh viên nghiên cứu khoa học (NCKH) từ cấp Khoa trở lên.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và được các Khoa trong Trường ĐHKT - ĐHĐN giới thiệu tham gia chương trình phát triển giảng viên.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi, giải thưởng NCKH cấp Bộ hoặc tương đương dành cho SV (bao gồm: Giải thưởng Khoa học và Công nghệ dành cho SV trong các cơ sở giáo dục đại học; Giải thưởng SV NCKH Euréka; Hội thi Khoa học SV toàn quốc Olympic Kinh tế lượng và Ứng dụng) hoặc trong cuộc thi SV NCKH cấp tỉnh/thành phố trực thuộc Trung ương.</li><li>Hoặc tốt nghiệp đại học loại Giỏi trở lên và là tác giả đứng tên đầu/tác giả liên hệ của bài báo trong danh mục WoS/Scopus.</li></ul></td></tr><tr><td class="giu-dong"><strong>2</strong></td><td class="giu-dong"><span class="muc-gia">75% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong Cuộc thi SV NCKH cấp Đại học Đà Nẵng hoặc tương đương.</td></tr><tr><td class="giu-dong"><strong>3</strong></td><td class="giu-dong"><span class="muc-gia">50% học phí</span></td><td>Tốt nghiệp đại học loại Giỏi trở lên và đạt giải trong cuộc thi SV NCKH cấp Trường.</td></tr><tr><td class="giu-dong"><strong>4</strong></td><td class="giu-dong"><span class="muc-gia">Tối đa 25% học phí</span></td><td><ul><li>Cựu sinh viên của Trường ĐHKT - ĐHĐN tốt nghiệp đại học từ loại Khá trở lên trong thời hạn 02 năm, tính từ ngày ký bằng tốt nghiệp đến thời điểm thông báo tuyển sinh và đã có tích lũy một số tín chỉ trong Chương trình tích hợp Cử nhân - Thạc sĩ.</li><li>Mức miễn thực tế được xác định tương ứng với số tín chỉ thuộc chương trình đào tạo trình độ thạc sĩ đã được tích lũy trong Chương trình tích hợp Cử nhân - Thạc sĩ và được công nhận vào chương trình đào tạo thạc sĩ.</li></ul></td></tr></tbody></table></div></div><div class="hang"><div class="nhan">Yêu cầu</div><div class="gia-tri"><p>Học viên được miễn 100%, 75% hoặc 50% học phí phải có chứng chỉ tiếng Anh đạt tối thiểu bậc 4/6 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam. Trường hợp chưa đáp ứng điều kiện về chứng chỉ tiếng Anh tại thời điểm trúng tuyển, học viên phải cam kết bổ sung chứng chỉ đạt yêu cầu trước khi tốt nghiệp; nếu không đáp ứng, học viên phải hoàn trả toàn bộ số học phí đã được miễn.</p></div></div><div class="hang"><div class="nhan">Các chính sách hỗ trợ khác</div><div class="gia-tri"><ul class="ds-con"><li>Được hỗ trợ kinh phí công bố bài báo trên các tạp chí thuộc WoS/Scopus theo Quy chế chi tiêu nội bộ.</li><li>Được xem xét hỗ trợ tham gia hội thảo, seminar, workshop khoa học do Trường hoặc đối tác tổ chức.</li><li>Được ưu tiên tham gia các nhóm nghiên cứu, đề tài khoa học, hoạt động học thuật và đồng tác giả bài báo khoa học.</li></ul></div></div></div>
 </section>
-
-<!-- 2. NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ -->
-<section class="khu-vuc-duy-tri">
-<div class="container">
-
-    <div class="tieu-de-muc">
-        <div class="so">2</div>
-        <h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2>
-    </div>
-
-    <div class="danh-sach-duy-tri">
-        <div class="the-duy-tri">
-            <h3>Năm thứ nhất</h3>
-            <p>Nhà trường xét cấp cho các học viên thỏa các điều kiện nêu trên.</p>
-        </div>
-
-        <div class="the-duy-tri">
-            <h3>Năm thứ hai</h3>
-            <ul>
-                <li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li>
-                <li>Đối với học viên được miễn học phí tối đa 25% học phí: Không áp dụng điều kiện duy trì đối với mức miễn học phí này.</li>
-            </ul>
-        </div>
-    </div>
-
-</div>
+<section class="muc">
+    <div class="tieu-de-muc"><span class="so">2</span><h2>NGUYÊN TẮC XÉT, CẤP – ĐIỀU KIỆN DUY TRÌ</h2></div>
+    <div class="noi-dung"><div class="hang"><div class="nhan">Năm thứ nhất</div><div class="gia-tri"><p>Nhà trường xét cấp cho các học viên thỏa các điều kiện nêu trên.</p></div></div><div class="hang"><div class="nhan">Năm thứ hai</div><div class="gia-tri"><ul class="ds-con"><li>Đối với học viên được miễn 100%, 75% và 50% học phí, để tiếp tục được hưởng chính sách, học viên phải đáp ứng một trong hai điều kiện: Điểm trung bình chung tích lũy năm thứ nhất từ 3,0/4,0 trở lên; hoặc có ít nhất 01 công bố khoa học quốc tế trên các tạp chí thuộc danh mục do Hội đồng Giáo sư Nhà nước quy định.</li><li>Đối với học viên được miễn học phí tối đa 25% học phí: Không áp dụng điều kiện duy trì đối với mức miễn học phí này.</li></ul></div></div></div>
 </section>
+</main>
 
-<!-- CHÂN TRANG -->
 <footer class="chan-trang">
     <strong>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</strong>
 </footer>
