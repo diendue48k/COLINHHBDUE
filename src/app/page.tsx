@@ -235,8 +235,8 @@ function PortalContent() {
     }
 
     function vuaTieuDeNhom() {
-      vuaMotDong('.khoi-nhom header h3', 16, 11);
-      vuaMotDong('.khoi-nhom .ten-hb', 14, 12);
+      vuaMotDong('.khoi-nhom header h3', 18, 13);
+      vuaMotDong('.khoi-nhom .ten-hb', 15.5, 13);
     }
 
     vuaTieuDeNhom();
