@@ -14,55 +14,9 @@
     "youtubeUrl": "https://due.udn.vn",
     "zaloUrl": "https://due.udn.vn"
   },
-  "announcements": [
-    {
-      "id": "ann-1",
-      "slug": "thong-bao-hoc-bong-1",
-      "title": "Tiêu đề thông báo học bổng (thay nội dung)",
-      "excerpt": "Thông báo xét cấp học bổng dành cho sinh viên bậc Đại học tại Trường Đại học Kinh tế – ĐHĐN.",
-      "content": "<p>Nội dung chi tiết thông báo học bổng bậc Đại học. Quản trị viên có thể chỉnh sửa tiêu đề, nội dung và đính kèm văn bản tại trang Quản lý Thông báo.</p>",
-      "category": "Học bổng bậc Đại học",
-      "categoryId": "cat-2",
-      "publishedAt": "2026-11-10",
-      "isPinned": true,
-      "isActive": true,
-      "badgeText": "MỚI",
-      "attachmentName": "",
-      "attachmentUrl": ""
-    },
-    {
-      "id": "ann-2",
-      "slug": "thong-bao-hoc-bong-2",
-      "title": "Tiêu đề thông báo học bổng (thay nội dung)",
-      "excerpt": "Thông báo tiếp nhận hồ sơ chế độ chính sách xã hội, miễn giảm học phí.",
-      "content": "<p>Nội dung chi tiết thông báo Chính sách xã hội. Quản trị viên có thể chỉnh sửa tại trang Quản lý Thông báo.</p>",
-      "category": "Chính sách xã hội",
-      "categoryId": "cat-4",
-      "publishedAt": "2026-11-05",
-      "isPinned": false,
-      "isActive": true,
-      "badgeText": "",
-      "attachmentName": "",
-      "attachmentUrl": ""
-    },
-    {
-      "id": "ann-3",
-      "slug": "thong-bao-hoc-bong-3",
-      "title": "Tiêu đề thông báo học bổng (thay nội dung)",
-      "excerpt": "Thông báo chương trình học bổng tài trợ từ các doanh nghiệp đối tác và cựu sinh viên DUE.",
-      "content": "<p>Nội dung chi tiết thông báo Học bổng tài trợ. Quản trị viên có thể chỉnh sửa tại trang Quản lý Thông báo.</p>",
-      "category": "Học bổng tài trợ",
-      "categoryId": "cat-3",
-      "publishedAt": "2026-10-28",
-      "isPinned": false,
-      "isActive": true,
-      "badgeText": "",
-      "attachmentName": "",
-      "attachmentUrl": ""
-    }
-  ],
-  "lastUpdatedAt": "2026-11-18T12:22:41.151Z",
-  "lastSyncedAt": "2026-11-18T12:22:41.151Z",
+  "announcements": [],
+  "lastUpdatedAt": "2026-11-18T12:32:50.979Z",
+  "lastSyncedAt": "2026-11-18T12:32:50.979Z",
   "categories": [
     {
       "id": "cat-2",
@@ -1409,90 +1363,5 @@
       "createdAt": "2025-01-15"
     }
   ],
-  "news": [
-    {
-      "id": "news-1",
-      "slug": "su-kien-trao-hoc-bong-1",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng. Quản trị viên có thể tải ảnh và cập nhật nội dung tại mục Quản lý Tin tức.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 1
-    },
-    {
-      "id": "news-2",
-      "slug": "su-kien-trao-hoc-bong-2",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 2
-    },
-    {
-      "id": "news-3",
-      "slug": "su-kien-trao-hoc-bong-3",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 3
-    },
-    {
-      "id": "news-4",
-      "slug": "su-kien-trao-hoc-bong-4",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 4
-    },
-    {
-      "id": "news-5",
-      "slug": "su-kien-trao-hoc-bong-5",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 5
-    },
-    {
-      "id": "news-6",
-      "slug": "su-kien-trao-hoc-bong-6",
-      "title": "Tên sự kiện trao học bổng (thay nội dung)",
-      "excerpt": "Hoạt động trao học bổng tại Trường Đại học Kinh tế – Đại học Đà Nẵng.",
-      "content": "<p>Nội dung chi tiết về sự kiện trao học bổng.</p>",
-      "category": "Lễ trao học bổng",
-      "thumbnailUrl": "",
-      "publishedAt": "--/--/2026",
-      "author": "Phòng Công tác Sinh viên DUE",
-      "isPinned": false,
-      "isActive": true,
-      "order": 6
-    }
-  ]
+  "news": []
 }

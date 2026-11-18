@@ -411,13 +411,13 @@ function PortalContent() {
         </section>
 
         {/* ============ SỰ KIỆN TRAO HỌC BỔNG (TIN TỨC) ============ */}
-        {activeNews.length > 0 && (
-          <section className="su-kien-due muc-trang-chu" id="su-kien">
-            <div className="container-due">
-              <div className="tieu-de-due">
-                <div className="nho">Hoạt động trao học bổng</div>
-              </div>
+        <section className="su-kien-due muc-trang-chu" id="su-kien">
+          <div className="container-due">
+            <div className="tieu-de-due">
+              <div className="nho">Hoạt động trao học bổng</div>
+            </div>
 
+            {activeNews.length > 0 ? (
               <div className="khung-su-kien">
                 <button
                   className="nut-truot trai"
@@ -475,9 +475,13 @@ function PortalContent() {
                   ›
                 </button>
               </div>
-            </div>
-          </section>
-        )}
+            ) : (
+              <div className="hop-due" style={{ textAlign: 'center', color: 'var(--chu-phu)', fontSize: '14px', padding: '18px' }}>
+                Chưa có hoạt động trao học bổng.
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* ============ LIÊN HỆ ============ */}
         <section className="lien-he-due muc-trang-chu" id="lien-he">
