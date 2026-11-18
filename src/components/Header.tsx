@@ -1,43 +1,117 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Search, User, Menu, X } from 'lucide-react';
-import { Category } from '@/types';
+import { Category, Scholarship } from '@/types';
+import { initialData } from '@/data/initialData';
 
 interface HeaderProps {
   categories?: Category[];
+  scholarships?: Scholarship[];
   onOpenSearch?: () => void;
   onOpenNotifications?: () => void;
+  onSelectScholarship?: (s: Scholarship) => void;
   searchQuery?: string;
   setSearchQuery?: (q: string) => void;
 }
 
+function boDau(str: string): string {
+  return (str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase();
+}
+
 export const Header: React.FC<HeaderProps> = ({
-  onOpenSearch,
+  categories = initialData.categories,
+  scholarships = initialData.scholarships,
+  onSelectScholarship,
   searchQuery = '',
   setSearchQuery,
 }) => {
   const pathname = usePathname();
   const router = useRouter();
-  const [activeMenu, setActiveMenu] = useState<string>('co-hoi');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string>('nhom-hoc-bong');
   const [localQuery, setLocalQuery] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+
+  const effectiveQuery = setSearchQuery ? searchQuery : localQuery;
 
   useEffect(() => {
     if (pathname === '/thong-bao') {
-      setActiveMenu('muc-thong-bao');
+      setActiveMenu('thong-bao');
     } else if (pathname === '/tin-tuc') {
-      setActiveMenu('muc-tin-tuc');
-    } else if (pathname === '/lien-he') {
-      setActiveMenu('muc-lien-he');
+      setActiveMenu('su-kien');
     } else if (pathname === '/huong-dan') {
-      setActiveMenu('muc-faq');
+      setActiveMenu('hoi-dap');
+    } else if (pathname === '/lien-he') {
+      setActiveMenu('lien-he');
     }
   }, [pathname]);
 
-  const effectiveQuery = setSearchQuery ? searchQuery : localQuery;
+  // Update active menu on scroll when on homepage
+  useEffect(() => {
+    if (pathname !== '/') return;
+    const sectionIds = ['nhom-hoc-bong', 'thong-bao', 'hoi-dap', 'su-kien', 'lien-he'];
+    const handleScroll = () => {
+      let cur = sectionIds[0];
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 170) {
+          cur = id;
+        }
+      });
+      setActiveMenu(cur);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [pathname]);
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  const catNameMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    categories.forEach((c) => {
+      map[c.id] = (c.title || '').replace(/\|/g, ' ');
+    });
+    return map;
+  }, [categories]);
+
+  const searchResults = useMemo(() => {
+    const q = boDau(effectiveQuery.trim());
+    if (!q) return [];
+    const words = q.split(/\s+/);
+    const seenSlugs = new Set<string>();
+    return scholarships
+      .filter((s) => s.isActive !== false)
+      .filter((s) => {
+        const text = boDau(
+          `${s.title} ${s.cardTitle || ''} ${s.shortTitle || ''} ${catNameMap[s.categoryId] || ''}`
+        );
+        return words.every((w) => text.includes(w));
+      })
+      .filter((s) => {
+        // Deduplicate items that share the same title across Đại học & Sau đại học in search dropdown
+        const key = s.title.toLowerCase();
+        if (seenSlugs.has(key)) return false;
+        seenSlugs.add(key);
+        return true;
+      });
+  }, [effectiveQuery, scholarships, catNameMap]);
 
   const handleInputChange = (val: string) => {
     if (setSearchQuery) {
@@ -45,225 +119,163 @@ export const Header: React.FC<HeaderProps> = ({
     } else {
       setLocalQuery(val);
     }
+    setSelectedIndex(-1);
+    setDropdownOpen(val.trim().length > 0);
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onOpenSearch) {
-      onOpenSearch();
+  const handleSelectResult = (item: Scholarship) => {
+    setDropdownOpen(false);
+    if (onSelectScholarship) {
+      onSelectScholarship(item);
     } else {
-      const q = effectiveQuery.trim();
-      router.push(q ? `/?search=${encodeURIComponent(q)}` : '/?search=');
+      router.push(`/?scholarship=${encodeURIComponent(item.slug || item.id)}`);
     }
   };
 
-  // Cuộn trang mượt mà với bù trừ chính xác chiều cao của Sticky Header
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!searchResults.length) return;
+      const next =
+        (selectedIndex + (e.key === 'ArrowDown' ? 1 : -1) + searchResults.length) %
+        searchResults.length;
+      setSelectedIndex(next);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (searchResults.length > 0) {
+        const chosen = searchResults[Math.max(selectedIndex, 0)];
+        handleSelectResult(chosen);
+      }
+    } else if (e.key === 'Escape') {
+      setDropdownOpen(false);
+    }
+  };
+
   const scrollToSection = (id: string) => {
     setActiveMenu(id);
-    setMobileMenuOpen(false);
     const el = document.getElementById(id);
     if (el) {
-      const header = document.querySelector('header');
-      const headerHeight = header ? header.offsetHeight : 125;
-      const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerHeight - 16;
-
-      window.scrollTo({
-        top: offsetPosition > 0 ? offsetPosition : 0,
-        behavior: 'smooth',
-      });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       router.push(`/#${id}`);
     }
   };
 
   return (
-    <header className="w-full bg-white sticky top-0 z-40 border-b border-slate-100 shadow-xs">
-      {/* 
-        ROW 1: KHU VỰC NHẬN DIỆN THƯƠNG HIỆU & TÌM KIẾM / ADMIN
-        - Bên trái: Logo Cổng thông tin học bổng DUE chính thức (1536x279)
-        - Bên phải: Thanh tìm kiếm "Tìm kiếm học bổng, chính sách hỗ trợ..." & nút Admin
-      */}
-      <div className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-4">
-        {/* Brand Logo DUE */}
-        <Link href="/" className="flex items-center shrink-0 group">
+    <header className="dau-trang due-portal-v2">
+      <div className="container-due hang1">
+        <Link className="thuong-hieu" href="/">
           <img
-            src="/images/logo-cong-thong-tin.png"
-            alt="CỔNG THÔNG TIN HỌC BỔNG - TRƯỜNG ĐẠI HỌC KINH TẾ - ĐHĐN"
-            className="h-12 sm:h-14 md:h-15 w-auto object-contain transition-transform group-hover:scale-[1.01]"
+            src="/images/logo-due-new.png"
+            alt="Logo Trường Đại học Kinh tế – Đại học Đà Nẵng"
           />
+          <span>
+            <small>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</small>
+            <b>CỔNG THÔNG TIN HỌC BỔNG</b>
+          </span>
         </Link>
 
-        {/* Right: Search Box & Admin Entry */}
-        <div className="flex items-center gap-3">
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <input
-              type="text"
-              value={effectiveQuery}
-              onChange={(e) => handleInputChange(e.target.value)}
-              placeholder="Tìm kiếm học bổng, chính sách hỗ trợ..."
-              className="w-48 sm:w-72 md:w-80 pl-4 pr-9 py-2 rounded-full border border-slate-200 bg-slate-50/80 hover:bg-white focus:bg-white focus:border-[#1760AB] text-xs font-medium text-slate-800 placeholder-slate-400 shadow-inner focus:outline-none transition-all"
-            />
-            <button
-              type="submit"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-[#1760AB] transition-colors cursor-pointer"
-              title="Tìm kiếm"
-            >
-              <Search className="w-3.5 h-3.5" />
-            </button>
-          </form>
-
-          <div className="w-[1px] h-6 bg-slate-200 hidden sm:block" />
-
-          {/* Admin Dashboard */}
-          <Link
-            href="/admin"
-            className="w-9 h-9 rounded-full bg-[#1760AB] hover:bg-[#0A376B] text-white flex items-center justify-center shadow-xs transition-transform hover:scale-105 shrink-0"
-            title="Khu vực Quản trị DUE (Admin)"
+        <div className="o-tim" role="search" ref={searchBoxRef}>
+          <input
+            type="search"
+            value={effectiveQuery}
+            onChange={(e) => handleInputChange(e.target.value)}
+            onFocus={() => {
+              if (effectiveQuery.trim()) setDropdownOpen(true);
+            }}
+            onKeyDown={handleKeyDown}
+            placeholder="Tìm học bổng, chính sách hỗ trợ…"
+            autoComplete="off"
+            aria-label="Tìm học bổng"
+          />
+          <svg
+            className="icon-tim"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            aria-hidden="true"
           >
-            <User className="w-4 h-4" />
-          </Link>
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-            title="Menu điều hướng"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {dropdownOpen && effectiveQuery.trim().length > 0 && (
+            <div className="ket-qua-tim" role="listbox">
+              {searchResults.length > 0 ? (
+                searchResults.map((item, idx) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="option"
+                    aria-selected={idx === selectedIndex}
+                    className={idx === selectedIndex ? 'chon' : ''}
+                    onClick={() => handleSelectResult(item)}
+                  >
+                    {item.cardTitle || item.title}
+                    <span>
+                      {catNameMap[item.categoryId] || 'Học bổng DUE'}
+                      {item.shortTitle ? ` · ${item.shortTitle}` : ''}
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <div className="rong">Không tìm thấy chương trình phù hợp.</div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* 
-        ROW 2: THANH MENU ĐIỀU HƯỚNG CĂN GIỮA, 100% CHỮ TRẮNG TINH (KHÔNG MỜ)
-        4 mục chính:
-        1. CƠ HỘI DÀNH CHO BẠN
-        2. THÔNG BÁO
-        3. LIÊN HỆ
-        4. CÂU HỎI THƯỜNG GẶP
-      */}
-      <div
-        className="w-full shadow-md text-white"
-        style={{
-          background: 'linear-gradient(90deg, #0171D7 0%, #0E87A7 35%, #1B9C78 70%, #2BB73F 100%)',
-        }}
-      >
-        <div className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center h-12 sm:h-13">
-          <nav className="hidden md:flex items-center justify-center gap-10 lg:gap-14 h-full">
-            {/* 1. CƠ HỘI DÀNH CHO BẠN */}
+      <nav className="menu-due" aria-label="Menu chính">
+        <ul>
+          <li>
             <button
               type="button"
-              onClick={() => scrollToSection('co-hoi')}
-              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
-                activeMenu === 'co-hoi'
-                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
-                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
-              }`}
+              onClick={() => scrollToSection('nhom-hoc-bong')}
+              className={activeMenu === 'nhom-hoc-bong' ? 'dang-xem' : ''}
             >
-              CƠ HỘI DÀNH CHO BẠN
+              Cơ hội dành cho bạn
             </button>
-
-            {/* 2. THÔNG BÁO */}
+          </li>
+          <li>
             <button
               type="button"
-              onClick={() => scrollToSection('muc-thong-bao')}
-              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
-                activeMenu === 'muc-thong-bao'
-                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
-                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
-              }`}
+              onClick={() => scrollToSection('thong-bao')}
+              className={activeMenu === 'thong-bao' ? 'dang-xem' : ''}
             >
-              THÔNG BÁO
+              Thông báo
             </button>
-
-            {/* 3. TIN TỨC */}
+          </li>
+          <li>
             <button
               type="button"
-              onClick={() => scrollToSection('muc-tin-tuc')}
-              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
-                activeMenu === 'muc-tin-tuc'
-                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
-                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
-              }`}
+              onClick={() => scrollToSection('hoi-dap')}
+              className={activeMenu === 'hoi-dap' ? 'dang-xem' : ''}
             >
-              TIN TỨC
+              Câu hỏi thường gặp
             </button>
-
-            {/* 4. LIÊN HỆ */}
+          </li>
+          <li>
             <button
               type="button"
-              onClick={() => scrollToSection('muc-lien-he')}
-              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
-                activeMenu === 'muc-lien-he'
-                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
-                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
-              }`}
+              onClick={() => scrollToSection('su-kien')}
+              className={activeMenu === 'su-kien' ? 'dang-xem' : ''}
             >
-              LIÊN HỆ
+              Hoạt động trao học bổng
             </button>
-
-            {/* 4. CÂU HỎI THƯỜNG GẶP */}
+          </li>
+          <li>
             <button
               type="button"
-              onClick={() => scrollToSection('muc-faq')}
-              className={`h-full flex items-center px-2 text-sm sm:text-[14px] font-black uppercase tracking-wider text-white transition-all cursor-pointer relative ${
-                activeMenu === 'muc-faq'
-                  ? 'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-white after:rounded-t-full'
-                  : 'hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:h-0.5 hover:after:bg-white/80'
-              }`}
+              onClick={() => scrollToSection('lien-he')}
+              className={activeMenu === 'lien-he' ? 'dang-xem' : ''}
             >
-              CÂU HỎI THƯỜNG GẶP
+              Liên hệ
             </button>
-          </nav>
-        </div>
-
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden px-4 py-3 bg-[#041E38]/98 backdrop-blur-md border-t border-white/20 flex flex-col gap-1.5 animate-fade-in text-white text-xs font-black text-center">
-            <button
-              type="button"
-              onClick={() => scrollToSection('co-hoi')}
-              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
-            >
-              CƠ HỘI DÀNH CHO BẠN
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('muc-thong-bao')}
-              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
-            >
-              THÔNG BÁO
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('muc-tin-tuc')}
-              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
-            >
-              TIN TỨC
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('muc-lien-he')}
-              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
-            >
-              LIÊN HỆ
-            </button>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection('muc-faq')}
-              className="py-2.5 px-4 rounded-xl hover:bg-white/10 uppercase text-white"
-            >
-              CÂU HỎI THƯỜNG GẶP
-            </button>
-          </div>
-        )}
-      </div>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };

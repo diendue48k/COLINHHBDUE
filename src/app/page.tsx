@@ -1,38 +1,95 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import {
-  Calendar,
-  ChevronRight,
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  Globe,
-} from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { HeroBanner } from '@/components/HeroBanner';
-import { CategoryCardGrid } from '@/components/CategoryCardGrid';
 import { ScholarshipModal } from '@/components/ScholarshipModal';
-import {
-  AnnouncementModal,
-  ANNOUNCEMENT_CATEGORY_FILTERS,
-  matchesAnnouncementCategory,
-} from '@/components/AnnouncementModal';
+import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { NewsModal } from '@/components/NewsModal';
-import { SearchFilterModal } from '@/components/SearchFilterModal';
-import { NotificationsModal } from '@/components/NotificationsModal';
-import { FAQSection } from '@/components/FAQSection';
-import { Category, Scholarship, Announcement, NewsArticle } from '@/types';
+import { Category, Scholarship, Announcement, NewsArticle, FAQItem } from '@/types';
 import { initialData } from '@/data/initialData';
+
+function getCategoryColorClass(category: Category, index: number): string {
+  if (category.themeColor === 'orange' || category.themeColor === 'amber') return 'cam';
+  if (category.themeColor === 'emerald' || category.themeColor === 'forestGreen') return 'la';
+  if (category.themeColor === 'deepBlue' || category.themeColor === 'skyBlue') return '';
+  return index % 2 === 0 ? 'cam' : 'la';
+}
+
+function renderCategoryIcon(iconName?: string) {
+  switch (iconName) {
+    case 'BookOpen':
+    case 'sach':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+        </svg>
+      );
+    case 'Globe':
+    case 'diaCau':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+          <path d="M2 12h20" />
+        </svg>
+      );
+    case 'Plane':
+    case 'mayBay':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+        </svg>
+      );
+    case 'Handshake':
+    case 'Star':
+    case 'batTay':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+          <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+          <path d="m21 3 1 11h-2" />
+          <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
+          <path d="M3 4h8" />
+        </svg>
+      );
+    case 'ShieldCheck':
+    case 'khien':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+          <path d="m9 12 2 2 4-4" />
+        </svg>
+      );
+    case 'GraduationCap':
+    case 'muCuNhan':
+    default:
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z" />
+          <path d="M22 10v6" />
+          <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+        </svg>
+      );
+  }
+}
+
+function renderSplitTitle(rawTitle: string) {
+  const parts = (rawTitle || '').split('|');
+  return parts.map((p, idx) => (
+    <React.Fragment key={idx}>
+      {idx > 0 && ' '}
+      <span className="lien">{p.trim()}</span>
+    </React.Fragment>
+  ));
+}
 
 function PortalContent() {
   const searchParams = useSearchParams();
 
-  // Ngăn chặn hiển thị lồng nhau nếu trang bị tải trong iframe
   const [isInsideIframe, setIsInsideIframe] = useState(false);
   useEffect(() => {
     if (typeof window !== 'undefined' && window.self !== window.top) {
@@ -44,15 +101,98 @@ function PortalContent() {
   const [scholarships, setScholarships] = useState<Scholarship[]>(initialData.scholarships);
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialData.announcements);
   const [newsList, setNewsList] = useState<NewsArticle[]>(initialData.news || []);
-  const [selectedAnnouncementCategory, setSelectedAnnouncementCategory] = useState<string>('all');
+  const [faqs, setFaqs] = useState<FAQItem[]>(initialData.faqs || []);
+  const [settings, setSettings] = useState(initialData.settings);
+
   const [selectedScholarship, setSelectedScholarship] = useState<Scholarship | null>(null);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
   const [selectedNewsArticle, setSelectedNewsArticle] = useState<NewsArticle | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredAnnouncements = useMemo(() => {
-    return announcements
-      .filter((a) => a.isActive !== false && matchesAnnouncementCategory(a, selectedAnnouncementCategory));
-  }, [announcements, selectedAnnouncementCategory]);
+  const daiAnhRef = useRef<HTMLDivElement>(null);
+
+  // Fetch live data from API
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const res = await fetch('/api/data', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.categories)) setCategories(data.categories);
+          if (Array.isArray(data.scholarships)) setScholarships(data.scholarships);
+          if (Array.isArray(data.announcements)) setAnnouncements(data.announcements);
+          if (Array.isArray(data.news)) setNewsList(data.news);
+          if (Array.isArray(data.faqs)) setFaqs(data.faqs);
+          if (data.settings) setSettings(data.settings);
+        }
+      } catch (e) {
+        console.error('Failed to load portal data:', e);
+      }
+    }
+    loadData();
+  }, []);
+
+  // Deep-link support (?scholarship=slug-or-id)
+  useEffect(() => {
+    const slug = searchParams.get('scholarship');
+    if (slug && scholarships.length > 0) {
+      const found = scholarships.find((s) => s.slug === slug || s.id === slug);
+      if (found) {
+        setSelectedScholarship(found);
+      }
+    }
+    const q = searchParams.get('search');
+    if (q) {
+      setSearchQuery(q);
+    }
+  }, [searchParams, scholarships]);
+
+  const handleSelectScholarship = (scholarship: Scholarship) => {
+    setSelectedScholarship(scholarship);
+    const url = new URL(window.location.href);
+    url.searchParams.set('scholarship', scholarship.slug || scholarship.id);
+    window.history.pushState({}, '', url.toString());
+
+    fetch('/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'increment_views',
+        payload: { id: scholarship.id },
+      }),
+    }).catch(() => {});
+  };
+
+  const handleCloseModal = () => {
+    setSelectedScholarship(null);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('scholarship');
+    window.history.pushState({}, '', url.toString());
+  };
+
+  const activeCategories = useMemo(() => {
+    return [...categories]
+      .filter((c) => c.isActive !== false)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+  }, [categories]);
+
+  const activeAnnouncements = useMemo(() => {
+    return [...announcements]
+      .filter((a) => a.isActive !== false)
+      .sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return (b.publishedAt || '').localeCompare(a.publishedAt || '');
+      })
+      .slice(0, 4);
+  }, [announcements]);
+
+  const activeFaqs = useMemo(() => {
+    return [...faqs]
+      .filter((f) => f.isActive !== false)
+      .sort((a, b) => (a.order || 0) - (b.order || 0))
+      .slice(0, 6);
+  }, [faqs]);
 
   const activeNews = useMemo(() => {
     return [...newsList]
@@ -67,484 +207,410 @@ function PortalContent() {
       });
   }, [newsList]);
 
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Fetch updated data from API on mount
+  // Auto-shrink font size so all category headers and scholarship titles fit on 1 line uniformly
   useEffect(() => {
-    async function loadData() {
-      try {
-        const res = await fetch('/api/data', { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.categories) setCategories(data.categories);
-          if (data.scholarships) setScholarships(data.scholarships);
-          if (data.announcements) setAnnouncements(data.announcements);
-          if (Array.isArray(data.news)) setNewsList(data.news);
+    function vuaMotDong(selector: string, lon: number, nho: number) {
+      const ds = Array.from(document.querySelectorAll<HTMLElement>(selector));
+      if (!ds.length) return;
+      if (window.getComputedStyle(ds[0]).whiteSpace !== 'nowrap') {
+        ds.forEach((e) => {
+          e.style.fontSize = '';
+        });
+        return;
+      }
+      let nhoNhat = lon;
+      ds.forEach((e) => {
+        let c = lon;
+        e.style.fontSize = c + 'px';
+        while (e.scrollWidth > e.clientWidth && c > nho) {
+          c -= 0.25;
+          e.style.fontSize = c + 'px';
         }
-      } catch (e) {
-        console.error('Failed to load portal data, using initial data:', e);
-      }
+        nhoNhat = Math.min(nhoNhat, c);
+      });
+      ds.forEach((e) => {
+        e.style.fontSize = nhoNhat + 'px';
+      });
     }
-    loadData();
-  }, []);
 
-  // Handle deep-link via query parameter: ?scholarship=slug-or-id or ?search=keyword
+    function vuaTieuDeNhom() {
+      vuaMotDong('.khoi-nhom header h3', 16, 11);
+      vuaMotDong('.khoi-nhom .ten-hb', 14, 12);
+    }
+
+    vuaTieuDeNhom();
+    window.addEventListener('resize', vuaTieuDeNhom);
+    return () => window.removeEventListener('resize', vuaTieuDeNhom);
+  }, [activeCategories, scholarships]);
+
+  // Auto-slide horizontal events strip (SU_KIEN)
+  const slideEvents = (dir: -1 | 1) => {
+    const el = daiAnhRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>('.anh-su-kien');
+    const step = (card ? card.offsetWidth : 260) + 14;
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+    if (dir > 0 && atEnd) {
+      el.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      el.scrollBy({ left: dir * step, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
-    const slug = searchParams.get('scholarship');
-    if (slug && scholarships.length > 0) {
-      const found = scholarships.find((s) => s.slug === slug || s.id === slug);
-      if (found) {
-        setSelectedScholarship(found);
-      }
-    }
-    const q = searchParams.get('search');
-    if (q !== null) {
-      setSearchQuery(q);
-      setSearchOpen(true);
-    }
-  }, [searchParams, scholarships]);
-
-  // Open scholarship modal & increment views
-  const handleSelectScholarship = (scholarship: Scholarship) => {
-    setSelectedScholarship(scholarship);
-    const url = new URL(window.location.href);
-    url.searchParams.set('scholarship', scholarship.slug || scholarship.id);
-    window.history.pushState({}, '', url.toString());
-
-    fetch('/api/data', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'increment_views',
-        payload: { id: scholarship.id },
-      }),
-    }).catch((err) => console.error(err));
-  };
-
-  const handleCloseModal = () => {
-    setSelectedScholarship(null);
-    const url = new URL(window.location.href);
-    url.searchParams.delete('scholarship');
-    window.history.pushState({}, '', url.toString());
-  };
-
-  const activeCategories = [...categories]
-    .filter((c) => c.isActive !== false)
-    .sort((a, b) => a.order - b.order);
+    if (!activeNews.length) return;
+    const timer = setInterval(() => {
+      slideEvents(1);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [activeNews.length]);
 
   if (isInsideIframe) return null;
 
+  const hotlineText = settings?.hotline || '0236 3956 397';
+  const emailText = settings?.email || 'phongcongtacsinhvien@due.edu.vn';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F4F9FF] via-[#EBF4FE] to-[#F2F8FE] flex flex-col font-sans selection:bg-[#1760AB] selection:text-white">
-      {/* 
-        HEADER: Official Brand Identity & Centered 4-Item Menu (No icons, 100% Solid Crisp White Text)
-        Gradient: linear-gradient(90deg, #0171D7 0%, #0E87A7 35%, #1B9C78 70%, #2BB73F 100%)
-      */}
+    <div className="due-portal-v2 min-h-screen flex flex-col">
+      {/* ============ ĐẦU TRANG ============ */}
       <Header
         categories={activeCategories}
-        onOpenSearch={() => setSearchOpen(true)}
-        onOpenNotifications={() => setNotificationsOpen(true)}
+        scholarships={scholarships}
+        onSelectScholarship={handleSelectScholarship}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
 
-      {/* 
-        ============================================================
-        HERO BANNER: NẰM NGAY DƯỚI THANH MENU
-        Nhận diện thương hiệu DUE, khẩu hiệu, 4 chỉ số & CTA nhanh
-        ============================================================
-      */}
-      <HeroBanner />
-
-      {/* 
-        ============================================================
-        PHẦN 1 – CƠ HỘI DÀNH CHO BẠN
-        Lưới 3 Cột × 2 Hàng (Cân đối, Chiều cao đồng đều, Không có sub nhỏ)
-        ============================================================
-      */}
-      <div className="w-full flex-1">
-        <main id="co-hoi" className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-6 scroll-mt-28">
-          {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-4">
-            <h1 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
-              CƠ HỘI DÀNH CHO BẠN
-            </h1>
-          </div>
-
-          {/* 3 CỘT × 2 HÀNG BỐ CỤC HIỆN ĐẠI (Category Cards) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 items-stretch">
-            {activeCategories.map((category) => (
-              <CategoryCardGrid
-                key={category.id}
-                category={category}
-                scholarships={scholarships}
-                onSelectScholarship={handleSelectScholarship}
+      <main className="flex-1">
+        {/* ============ BANNER ============ */}
+        <section className="banner-due">
+          <div className="container-due">
+            <div>
+              <h1>
+                Cơ hội nhận học bổng tại{' '}
+                <span className="due" aria-label="DUE">
+                  <b className="d">D</b>
+                  <b className="u">U</b>
+                  <b className="e">E</b>
+                </span>
+              </h1>
+            </div>
+            <div className="anh-banner">
+              <img
+                src="/images/banner-due-co-hoi.png"
+                alt="Sinh viên Trường Đại học Kinh tế"
+                onError={(e) => {
+                  const parent = e.currentTarget.parentElement;
+                  if (parent) parent.style.display = 'none';
+                }}
               />
-            ))}
-          </div>
-        </main>
-      </div>
-
-      {/* 
-        ============================================================
-        CONTAINER CHO CÁC PHẦN 2, 3, 4
-        ============================================================
-      */}
-      <div className="w-full max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
-        {/* 
-          ----------------------------------------------------------
-          PHẦN 2 – THÔNG BÁO (HIỂN THỊ ĐỦ 6 THÔNG BÁO THEO YÊU CẦU)
-          ----------------------------------------------------------
-        */}
-        <section id="muc-thong-bao" className="pt-1 scroll-mt-28">
-          {/* Section Header Căn giữa */}
-          <div className="text-center max-w-2xl mx-auto mb-4 space-y-1">
-            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
-              THÔNG BÁO
-            </h2>
-            <p className="text-xs text-slate-500 font-medium">
-              Cập nhật nhanh chóng các thông tin, chính sách và cơ hội học bổng mới nhất dành cho người học.
-            </p>
-          </div>
-
-          {/* BỘ LỌC 6 DANH MỤC HỌC BỔNG TRỰC TIẾP TRÊN TRANG CHỦ */}
-          <div className="flex items-center justify-center gap-1.5 flex-wrap mb-4">
-            {ANNOUNCEMENT_CATEGORY_FILTERS.map((cat) => {
-              const isActive = selectedAnnouncementCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setSelectedAnnouncementCategory(cat.id)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-[#1760AB] text-white shadow-xs'
-                      : 'bg-white text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Grid Notification Cards (3 Cột x 2 Hàng) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredAnnouncements.slice(0, 6).map((ann, idx) => {
-              const badgeColors = [
-                'bg-blue-50 text-[#1760AB] border-blue-200',
-                'bg-orange-50 text-[#F26524] border-orange-200',
-                'bg-emerald-50 text-[#119046] border-emerald-200',
-              ];
-              const badgeClass = badgeColors[idx % 3];
-
-              return (
-                <div
-                  key={ann.id}
-                  onClick={() => setSelectedAnnouncement(ann)}
-                  className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-[#1760AB] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-3 group"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase border ${badgeClass}`}>
-                        {ann.category}
-                      </span>
-                      <span className="flex items-center gap-1 text-[11px] text-slate-400">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span>{ann.publishedAt}</span>
-                      </span>
-                    </div>
-
-                    <h3 className="text-xs sm:text-[13px] font-bold text-slate-900 group-hover:text-[#1760AB] leading-snug line-clamp-2 transition-colors">
-                      {ann.title}
-                    </h3>
-
-                    <p className="text-[11.5px] text-slate-500 line-clamp-2 leading-relaxed">
-                      {ann.excerpt || ann.content}
-                    </p>
-                  </div>
-
-                  <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1760AB] group-hover:text-blue-700">
-                    <span className="flex items-center gap-1">
-                      <span>Xem chi tiết thông báo</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <span className="text-[10.5px] text-slate-400 font-normal">Nhấn để mở</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {filteredAnnouncements.length === 0 && (
-            <div className="py-8 text-center text-slate-400 text-xs italic bg-white rounded-2xl border border-slate-200">
-              Không có thông báo nào thuộc danh mục này.
             </div>
-          )}
-
-          {/* Nút Xem tất cả thông báo căn giữa */}
-          <div className="mt-6 text-center">
-            <Link
-              href={
-                selectedAnnouncementCategory !== 'all'
-                  ? `/thong-bao?category=${selectedAnnouncementCategory}`
-                  : '/thong-bao'
-              }
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-[13px] font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] border border-blue-200 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
-            >
-              <span>Xem tất cả thông báo</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
         </section>
 
-        {/* 
-          ----------------------------------------------------------
-          PHẦN 2.5 – TIN TỨC & SỰ KIỆN HỌC BỔNG
-          ----------------------------------------------------------
-        */}
-        <section id="muc-tin-tuc" className="pt-2 border-t border-slate-200 scroll-mt-28">
-          <div className="text-center max-w-2xl mx-auto mb-5 space-y-1">
-            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
-              TIN TỨC
-            </h2>
-            <p className="text-xs text-slate-500 font-medium">
-              Các hoạt động trao học bổng, hợp tác doanh nghiệp và gương sáng sinh viên Trường Đại học Kinh tế – ĐHĐN.
-            </p>
-          </div>
-
-          {activeNews.length === 0 ? (
-            <div className="py-8 text-center text-slate-400 text-xs italic bg-white rounded-2xl border border-slate-200">
-              Chưa có bài viết tin tức nào được đăng tải.
+        {/* ============ 6 NHÓM HỌC BỔNG (3 cụm x 2 cột) ============ */}
+        <section className="nhom-hb muc-trang-chu" id="nhom-hoc-bong">
+          <div className="container-due">
+            <div className="tieu-de-due">
+              <div className="nho">Cơ hội dành cho bạn</div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {activeNews.slice(0, 6).map((article) => (
-                <div
-                  key={article.id}
-                  onClick={() => setSelectedNewsArticle(article)}
-                  className="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-[#1760AB] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between group"
-                >
-                  <div>
-                    {article.thumbnailUrl && (
-                      <div className="h-44 w-full overflow-hidden bg-slate-100">
-                        <img
-                          src={article.thumbnailUrl}
-                          alt={article.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
-                    <div className="p-4 space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase border bg-blue-50 text-[#1760AB] border-blue-200">
-                          {article.category}
-                        </span>
-                        <span className="flex items-center gap-1 text-[11px] text-slate-400">
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>{article.publishedAt}</span>
-                        </span>
-                      </div>
 
-                      <h3 className="text-xs sm:text-[13.5px] font-bold text-slate-900 group-hover:text-[#1760AB] leading-snug line-clamp-2 transition-colors">
-                        {article.title}
-                      </h3>
+            <div className="luoi-nhom" id="luoi-nhom">
+              {activeCategories.map((cat, idx) => {
+                const colorClass = getCategoryColorClass(cat, idx);
+                const catScholarships = scholarships
+                  .filter((s) => s.categoryId === cat.id && s.isActive !== false)
+                  .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-                      <p className="text-[11.5px] text-slate-500 line-clamp-2 leading-relaxed">
-                        {article.excerpt || article.content.replace(/<[^>]+>/g, '')}
-                      </p>
-                    </div>
+                return (
+                  <div key={cat.id} className={`khoi-nhom ${colorClass}`}>
+                    <header>
+                      <span className="so">{renderCategoryIcon(cat.icon)}</span>
+                      <h3>{renderSplitTitle(cat.title)}</h3>
+                    </header>
+                    <ul>
+                      {catScholarships.map((item) => {
+                        const displayTitle = item.cardTitle || item.title;
+                        return (
+                          <li key={item.id}>
+                            <button
+                              type="button"
+                              title={displayTitle}
+                              onClick={() => handleSelectScholarship(item)}
+                            >
+                              <span className="ten-hb">{displayTitle}</span>
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
-
-                  <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1760AB]">
-                    <span className="flex items-center gap-1">
-                      <span>Đọc bài viết</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <span className="text-[10.5px] text-slate-400 font-normal">Nhấn để mở</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-          )}
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/tin-tuc"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs sm:text-[13px] font-bold text-[#1760AB] hover:text-white bg-white hover:bg-[#1760AB] border border-blue-200 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer"
-            >
-              <span>Xem tất cả tin tức</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </div>
         </section>
 
-        {/* 
-          ----------------------------------------------------------
-          PHẦN 3 – LIÊN HỆ
-          ----------------------------------------------------------
-        */}
-        <section id="muc-lien-he" className="pt-2 border-t border-slate-200 scroll-mt-28">
-          {/* Section Header Căn giữa */}
-          <div className="text-center max-w-2xl mx-auto mb-4 space-y-1">
-            <h2 className="text-xl sm:text-2xl font-black text-[#1760AB] uppercase tracking-tight">
-              THÔNG TIN LIÊN HỆ
-            </h2>
-            <p className="text-xs text-slate-600 font-bold uppercase tracking-wide">
-              PHÒNG CÔNG TÁC SINH VIÊN - TRƯỜNG ĐẠI HỌC KINH TẾ, ĐẠI HỌC ĐÀ NẴNG
-            </p>
-            <div className="pt-0.5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-50 text-blue-800 text-[11px] font-semibold border border-blue-200/80">
-                <Clock className="w-3 h-3 text-blue-600" />
-                Thời gian làm việc: Thứ Hai – Thứ Sáu (07:30 – 11:30 | 13:30 – 17:00)
-              </span>
-            </div>
-          </div>
+        {/* ============ THÔNG BÁO + HỎI ĐÁP ============ */}
+        <section className="muc-trang-chu">
+          <div className="container-due hai-cot-due">
+            {/* Hộp Thông báo mới */}
+            <div className="hop-due" id="thong-bao">
+              <h2>
+                <span>📢 Thông báo mới</span>
+                <Link href="/thong-bao">Xem tất cả ›</Link>
+              </h2>
 
-          {/* 4 Khối thông tin liên hệ dàn đều full-width, tuyệt đối cân đối với toàn trang */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Card 1: Địa chỉ */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#1760AB]/60 transition-all flex flex-col justify-start">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1760AB] border border-blue-100 flex items-center justify-center shadow-2xs">
-                  <MapPin className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Địa chỉ văn phòng</span>
-                  <h4 className="text-xs sm:text-[13px] font-bold text-slate-900 mt-0.5 leading-snug">
-                    Phòng H214, Tòa nhà Đa năng
-                  </h4>
-                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    71 Ngũ Hành Sơn, Phường Ngũ Hành Sơn, TP. Đà Nẵng
+              <div id="ds-thong-bao">
+                {activeAnnouncements.length > 0 ? (
+                  activeAnnouncements.map((ann) => {
+                    const parts = (ann.publishedAt || '2026-01-01').split('-');
+                    const y = parts[0] || '2026';
+                    const m = parts[1] || '01';
+                    const d = parts[2] || '01';
+                    const isNew = Boolean(ann.badgeText || ann.isPinned);
+
+                    return (
+                      <div
+                        key={ann.id}
+                        className="tin-due"
+                        onClick={() => setSelectedAnnouncement(ann)}
+                      >
+                        <div className="ngay">
+                          <b>{d}</b>
+                          Th {Number(m)}/{y.slice(2)}
+                        </div>
+                        <div>
+                          <h3>
+                            {isNew && <em className="moi">{ann.badgeText || 'MỚI'}</em>}
+                            <span>{ann.title}</span>
+                          </h3>
+                          <span className="nhom-tin">{ann.category}</span>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p style={{ color: 'var(--chu-phu)', fontSize: '14px', padding: '8px 0' }}>
+                    Chưa có thông báo.
                   </p>
-                </div>
+                )}
               </div>
             </div>
 
-            {/* Card 2: Hotline */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#F26524]/60 transition-all flex flex-col justify-start">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-orange-50 text-[#F26524] border border-orange-100 flex items-center justify-center shadow-2xs">
-                  <Phone className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Đường dây nóng (Hotline)</span>
-                  <a
-                    href="tel:02363956397"
-                    className="text-base sm:text-lg font-black text-[#F26524] hover:underline block mt-0.5 tracking-tight"
-                  >
-                    0236 3956 397
-                  </a>
-                </div>
-              </div>
-            </div>
+            {/* Hộp Câu hỏi thường gặp */}
+            <div className="hop-due" id="hoi-dap">
+              <h2>
+                <span>❓ Câu hỏi thường gặp</span>
+                <Link href="/huong-dan">Xem tất cả ›</Link>
+              </h2>
 
-            {/* Card 3: Email */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#009FE3]/60 transition-all flex flex-col justify-start">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-sky-50 text-[#009FE3] border border-sky-100 flex items-center justify-center shadow-2xs">
-                  <Mail className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Hộp thư điện tử</span>
-                  <a
-                    href="mailto:phongcongtacsinhvien@due.edu.vn"
-                    className="text-xs sm:text-[12.5px] font-bold text-slate-900 hover:text-sky-600 block mt-0.5 break-all"
-                  >
-                    phongcongtacsinhvien@due.edu.vn
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4: Kênh trực tuyến */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#119046]/60 transition-all flex flex-col justify-start">
-              <div className="space-y-2">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#119046] border border-emerald-100 flex items-center justify-center shadow-2xs">
-                  <Globe className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 block">Cổng thông tin & Mạng xã hội</span>
-                  <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                    <a
-                      href="https://due.udn.vn"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs sm:text-[13px] font-bold text-slate-900 hover:text-[#119046] transition-colors"
-                    >
-                      due.udn.vn
-                    </a>
-                    <span className="text-slate-300">•</span>
-                    <a
-                      href="https://www.facebook.com/CTSV.DUE"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs sm:text-[13px] font-bold text-[#119046] hover:underline"
-                    >
-                      Fanpage DUE - Phòng Công tác Sinh viên
-                    </a>
-                  </div>
-                </div>
+              <div>
+                {activeFaqs.map((faq) => (
+                  <details key={faq.id}>
+                    <summary>{faq.question}</summary>
+                    <div
+                      className="faq-ans"
+                      dangerouslySetInnerHTML={{ __html: faq.answerHtml }}
+                    />
+                  </details>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* 
-          ----------------------------------------------------------
-          PHẦN 4 – F&A (CÂU HỎI THƯỜNG GẶP)
-          ----------------------------------------------------------
-        */}
-        <div className="scroll-mt-28" id="muc-faq">
-          <FAQSection />
-        </div>
-      </div>
+        {/* ============ SỰ KIỆN TRAO HỌC BỔNG (TIN TỨC) ============ */}
+        {activeNews.length > 0 && (
+          <section className="su-kien-due muc-trang-chu" id="su-kien">
+            <div className="container-due">
+              <div className="tieu-de-due">
+                <div className="nho">Hoạt động trao học bổng</div>
+              </div>
 
-      {/* 
-        ============================================================
-        FOOTER: Ở ĐÁY CÙNG TRANG
-        ============================================================
-      */}
+              <div className="khung-su-kien">
+                <button
+                  className="nut-truot trai"
+                  type="button"
+                  aria-label="Xem ảnh trước"
+                  onClick={() => slideEvents(-1)}
+                >
+                  ‹
+                </button>
+
+                <div className="dai-anh" ref={daiAnhRef}>
+                  {activeNews.map((article) => (
+                    <button
+                      key={article.id}
+                      type="button"
+                      className="anh-su-kien"
+                      onClick={() => setSelectedNewsArticle(article)}
+                    >
+                      <div className="anh">
+                        {article.thumbnailUrl ? (
+                          <img
+                            src={article.thumbnailUrl}
+                            alt={article.title}
+                            loading="lazy"
+                          />
+                        ) : (
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                            <circle cx="12" cy="13" r="3" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="chu">
+                        <h3>{article.title}</h3>
+                        <span>{article.publishedAt}</span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  className="nut-truot phai"
+                  type="button"
+                  aria-label="Xem ảnh tiếp"
+                  onClick={() => slideEvents(1)}
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ============ LIÊN HỆ ============ */}
+        <section className="lien-he-due muc-trang-chu" id="lien-he">
+          <div className="container-due">
+            <div className="tieu-de-due">
+              <div className="nho">Đơn vị thường trực tiếp nhận</div>
+              <h2>PHÒNG CÔNG TÁC SINH VIÊN</h2>
+            </div>
+
+            <div className="luoi-lien-he">
+              <a
+                className="o-lien-he"
+                href="https://maps.google.com/?q=71+Ngũ+Hành+Sơn,+Đà+Nẵng"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="bt">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </span>
+                <b>Địa chỉ</b>
+                <span>
+                  <span className="lien">Phòng H214, Tòa nhà Đa năng</span> –{' '}
+                  <span className="lien">71 Ngũ Hành Sơn, TP. Đà Nẵng</span>
+                </span>
+              </a>
+
+              <a className="o-lien-he" href={`tel:${hotlineText.replace(/\s/g, '')}`}>
+                <span className="bt">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <b>Hotline</b>
+                <span>{hotlineText}</span>
+              </a>
+
+              <a className="o-lien-he" href={`mailto:${emailText}`}>
+                <span className="bt">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </span>
+                <b>Email</b>
+                <span>{emailText}</span>
+              </a>
+
+              <a
+                className="o-lien-he"
+                href="https://www.facebook.com/CTSV.DUE"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="bt">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z" />
+                  </svg>
+                </span>
+                <b>Fanpage</b>
+                <span>
+                  <span className="lien">DUE –</span>{' '}
+                  <span className="lien">Phòng Công tác Sinh viên</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* ============ CHÂN TRANG ============ */}
       <Footer />
 
-      {/* Popup chi tiết học bổng */}
+      {/* Full-screen Scholarship Detail View */}
       <ScholarshipModal
         scholarship={selectedScholarship}
         onClose={handleCloseModal}
       />
 
-      {/* Popup chi tiết thông báo */}
+      {/* Announcement Detail Modal */}
       <AnnouncementModal
         announcement={selectedAnnouncement}
         onClose={() => setSelectedAnnouncement(null)}
       />
 
-      {/* Popup chi tiết tin tức */}
+      {/* Event / News Detail Modal */}
       <NewsModal
         article={selectedNewsArticle}
         onClose={() => setSelectedNewsArticle(null)}
-      />
-
-      {/* Modal tìm kiếm đa năng */}
-      <SearchFilterModal
-        isOpen={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        scholarships={scholarships}
-        categories={activeCategories}
-        initialQuery={searchQuery}
-        onSelectScholarship={(s) => {
-          setSearchOpen(false);
-          handleSelectScholarship(s);
-        }}
-      />
-
-      {/* Modal thông báo */}
-      <NotificationsModal
-        isOpen={notificationsOpen}
-        onClose={() => setNotificationsOpen(false)}
-        announcements={announcements}
       />
     </div>
   );
@@ -552,7 +618,13 @@ function PortalContent() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-slate-500 font-bold">Đang tải Cổng thông tin học bổng DUE...</div>}>
+    <Suspense
+      fallback={
+        <div className="p-8 text-center text-slate-500 font-bold">
+          Đang tải Cổng thông tin học bổng DUE...
+        </div>
+      }
+    >
       <PortalContent />
     </Suspense>
   );
