@@ -166,13 +166,10 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="container-due hang1">
         <Link className="thuong-hieu" href="/">
           <img
-            src="/images/logo-due-new.png"
-            alt="Logo Trường Đại học Kinh tế – Đại học Đà Nẵng"
+            src="/images/logo-cong-thong-tin.png"
+            alt="CỔNG THÔNG TIN HỌC BỔNG - TRƯỜNG ĐẠI HỌC KINH TẾ - ĐHĐN"
+            className="logo-goc-due"
           />
-          <span>
-            <small>TRƯỜNG ĐẠI HỌC KINH TẾ – ĐẠI HỌC ĐÀ NẴNG</small>
-            <b>CỔNG THÔNG TIN HỌC BỔNG</b>
-          </span>
         </Link>
 
         <div className="o-tim" role="search" ref={searchBoxRef}>

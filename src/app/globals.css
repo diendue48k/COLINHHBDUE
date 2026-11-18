@@ -195,9 +195,10 @@ input, button, select, textarea {
   gap: 10px;
   flex: none;
 }
-.thuong-hieu img {
-  height: 52px;
+.thuong-hieu img.logo-goc-due {
+  height: 54px;
   width: auto;
+  object-fit: contain;
 }
 .thuong-hieu small {
   display: block;
