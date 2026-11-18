@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { HeroBanner } from '@/components/HeroBanner';
 import { ScholarshipModal } from '@/components/ScholarshipModal';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
 import { NewsModal } from '@/components/NewsModal';
@@ -283,20 +284,7 @@ function PortalContent() {
 
       <main className="flex-1">
         {/* ============ BANNER ============ */}
-        <section className="banner-due">
-          <div className="container-due">
-            <div>
-              <h1>
-                Cơ hội nhận học bổng tại{' '}
-                <span className="due" aria-label="DUE">
-                  <b className="d">D</b>
-                  <b className="u">U</b>
-                  <b className="e">E</b>
-                </span>
-              </h1>
-            </div>
-          </div>
-        </section>
+        <HeroBanner />
 
         {/* ============ 6 NHÓM HỌC BỔNG (3 cụm x 2 cột) ============ */}
         <section className="nhom-hb muc-trang-chu" id="nhom-hoc-bong">
