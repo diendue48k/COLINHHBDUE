@@ -295,16 +295,6 @@ function PortalContent() {
                 </span>
               </h1>
             </div>
-            <div className="anh-banner">
-              <img
-                src="/images/banner-due-co-hoi.png"
-                alt="Sinh viên Trường Đại học Kinh tế"
-                onError={(e) => {
-                  const parent = e.currentTarget.parentElement;
-                  if (parent) parent.style.display = 'none';
-                }}
-              />
-            </div>
           </div>
         </section>
 

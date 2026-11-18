@@ -350,10 +350,7 @@ input, button, select, textarea {
 }
 .banner-due .container-due {
   position: relative;
-  display: grid;
-  grid-template-columns: 1.45fr 0.55fr;
-  gap: 20px;
-  align-items: center;
+  display: block;
   padding-top: 30px;
 }
 .banner-due h1 {
