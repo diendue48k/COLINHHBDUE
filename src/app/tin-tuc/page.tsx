@@ -178,7 +178,11 @@ function NewsPageContent() {
                       </h3>
 
                       <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                        {article.excerpt || article.content.replace(/<[^>]+>/g, '')}
+                        {article.excerpt ||
+                          (article.content || '')
+                            .replace(/<style[\s\S]*?<\/style>/gi, '')
+                            .replace(/<[^>]+>/g, '')
+                            .slice(0, 180)}
                       </p>
                     </div>
                   </div>

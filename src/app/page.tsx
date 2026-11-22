@@ -403,6 +403,14 @@ function PortalContent() {
           <div className="container-due">
             <div className="tieu-de-due">
               <div className="nho">Hoạt động trao học bổng</div>
+              <div style={{ marginTop: '4px' }}>
+                <Link
+                  href="/tin-tuc"
+                  style={{ fontSize: '13.5px', fontWeight: 700, color: 'var(--duong)' }}
+                >
+                  Xem tất cả bài viết ›
+                </Link>
+              </div>
             </div>
 
             {activeNews.length > 0 ? (
@@ -422,7 +430,16 @@ function PortalContent() {
                       key={article.id}
                       type="button"
                       className="anh-su-kien"
-                      onClick={() => setSelectedNewsArticle(article)}
+                      onClick={() => {
+                        if (
+                          article.externalUrl &&
+                          !article.content?.trim()
+                        ) {
+                          window.open(article.externalUrl, '_blank', 'noopener,noreferrer');
+                        } else {
+                          setSelectedNewsArticle(article);
+                        }
+                      }}
                     >
                       <div className="anh">
                         {article.thumbnailUrl ? (

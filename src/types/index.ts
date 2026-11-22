@@ -101,6 +101,7 @@ export interface NewsArticle {
   content: string;
   category: string;
   thumbnailUrl?: string;
+  externalUrl?: string;
   publishedAt: string;
   author?: string;
   isPinned: boolean;
