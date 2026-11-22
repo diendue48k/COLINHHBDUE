@@ -47,9 +47,14 @@ export function buildNewsHtmlDocument(article: NewsArticle): string {
         .map((para) => `<p>${para.replace(/\n/g, '<br/>')}</p>`)
         .join('\n');
 
-  const thumbSection = article.thumbnailUrl
-    ? `<div class="anh-chinh"><img src="${article.thumbnailUrl}" alt="${(article.title || '').replace(/"/g, '&quot;')}" /></div>`
-    : '';
+  // Avoid showing thumbnail twice if it's already embedded in the body content
+  const isThumbInBody =
+    article.thumbnailUrl && raw.includes(article.thumbnailUrl);
+
+  const thumbSection =
+    article.thumbnailUrl && !isThumbInBody
+      ? `<div class="anh-chinh"><img src="${article.thumbnailUrl}" alt="${(article.title || '').replace(/"/g, '&quot;')}" /></div>`
+      : '';
 
   const excerptSection = article.excerpt
     ? `<div class="sapo">${article.excerpt}</div>`

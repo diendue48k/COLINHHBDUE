@@ -14,8 +14,19 @@ const ALLOWED_EXTENSIONS = new Set([
   '.png',
   '.jpg',
   '.jpeg',
+  '.webp',
+  '.gif',
   '.zip',
+  '.rar',
 ]);
+
+const IMAGE_MIME_MAP: Record<string, string> = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+};
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
@@ -45,7 +56,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Sanitize filename to prevent path traversal and encoding issues
     const baseName = path
       .basename(originalName, ext)
       .normalize('NFD')
@@ -57,22 +67,31 @@ export async function POST(request: Request) {
       .replace(/^_|_$/g, '');
 
     const safeFileName = `${baseName || 'tai_lieu_due'}_${Date.now()}${ext}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'files');
-
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const filePath = path.join(uploadDir, safeFileName);
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    fs.writeFileSync(filePath, buffer);
+    let fileUrl = `/files/${safeFileName}`;
+
+    try {
+      const uploadDir = path.join(process.cwd(), 'public', 'files');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      const filePath = path.join(uploadDir, safeFileName);
+      fs.writeFileSync(filePath, buffer);
+    } catch (_) {
+      // On serverless read-only filesystem (e.g. Vercel), convert images/files to base64 data URI
+      const mime = IMAGE_MIME_MAP[ext] || file.type || 'application/octet-stream';
+      fileUrl = `data:${mime};base64,${buffer.toString('base64')}`;
+    }
 
     return NextResponse.json({
+      ok: true,
       success: true,
       fileName: originalName,
-      url: `/files/${safeFileName}`,
+      attachmentName: originalName,
+      url: fileUrl,
+      attachmentUrl: fileUrl,
     });
   } catch (error) {
     console.error('Upload error:', error);

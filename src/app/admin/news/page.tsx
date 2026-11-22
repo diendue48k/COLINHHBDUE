@@ -171,31 +171,53 @@ export default function AdminNewsPage() {
     }
   };
 
+  // Compress image in browser (max 1200px width, JPEG 0.82) so it works everywhere (including Vercel & Firestore)
+  const compressImageToDataUrl = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new window.Image();
+        img.onload = () => {
+          const maxWidth = 1200;
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(ev.target?.result as string);
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', 0.82));
+        };
+        img.onerror = reject;
+        img.src = ev.target?.result as string;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editingItem) return;
     setUploadingImage(true);
     try {
-      const form = new FormData();
-      form.append('file', file);
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: form,
+      const dataUrl = await compressImageToDataUrl(file);
+      setEditingItem({
+        ...editingItem,
+        thumbnailUrl: dataUrl,
       });
-      const json = await res.json();
-      if (res.ok && json.ok) {
-        setEditingItem({
-          ...editingItem,
-          thumbnailUrl: json.attachmentUrl,
-        });
-        setMessage(`Đã tải ảnh đại diện "${json.attachmentName || file.name}" lên thành công!`);
-        setTimeout(() => setMessage(''), 2500);
-      } else {
-        window.alert(json.error || 'Tải ảnh lên thất bại');
-      }
+      setMessage(`Đã tải ảnh bìa "${file.name}" lên thành công!`);
+      setTimeout(() => setMessage(''), 2500);
     } catch (err) {
       console.error(err);
-      window.alert('Đã xảy ra lỗi khi tải ảnh lên');
+      window.alert('Đã xảy ra lỗi khi xử lý ảnh');
     } finally {
       setUploadingImage(false);
       e.target.value = '';
@@ -203,31 +225,34 @@ export default function AdminNewsPage() {
   };
 
   const handleInsertBodyImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !editingItem) return;
+    const files = e.target.files;
+    if (!files || files.length === 0 || !editingItem) return;
     setUploadingBodyImg(true);
     try {
-      const form = new FormData();
-      form.append('file', file);
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: form,
-      });
-      const json = await res.json();
-      if (res.ok && json.ok) {
-        const imgTag = `\n<figure style="margin: 16px 0; text-align: center;">\n  <img src="${json.attachmentUrl}" alt="${editingItem.title || 'Hình ảnh hoạt động'}" style="max-width: 100%; border-radius: 10px;" />\n</figure>\n`;
-        setEditingItem({
-          ...editingItem,
-          content: (editingItem.content || '') + imgTag,
-          thumbnailUrl: editingItem.thumbnailUrl || json.attachmentUrl,
-        });
-        setMessage('Đã chèn ảnh vào nội dung bài viết!');
-        setTimeout(() => setMessage(''), 2500);
-      } else {
-        window.alert(json.error || 'Tải ảnh lên thất bại');
+      let appendedHtml = '';
+      let firstImgUrl = '';
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        const caption = window.prompt(
+          `Nhập chú thích dưới ảnh "${f.name}" (Có thể để trống):`,
+          ''
+        );
+        const dataUrl = await compressImageToDataUrl(f);
+        if (!firstImgUrl) firstImgUrl = dataUrl;
+        appendedHtml += `\n<figure style="margin: 18px 0; text-align: center;">\n  <img src="${dataUrl}" alt="${(caption || editingItem.title || 'Hình ảnh hoạt động').replace(/"/g, '&quot;')}" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 16px rgba(13,63,115,0.1);" />${
+          caption ? `\n  <figcaption style="font-size: 13.5px; color: #5b6b7c; font-style: italic; margin-top: 8px;">${caption}</figcaption>` : ''
+        }\n</figure>\n`;
       }
+      setEditingItem({
+        ...editingItem,
+        content: (editingItem.content || '') + appendedHtml,
+        thumbnailUrl: editingItem.thumbnailUrl || firstImgUrl,
+      });
+      setMessage(`Đã chèn ${files.length} ảnh vào nội dung bài viết!`);
+      setTimeout(() => setMessage(''), 2500);
     } catch (err) {
       console.error(err);
+      window.alert('Đã xảy ra lỗi khi chèn ảnh vào bài');
     } finally {
       setUploadingBodyImg(false);
       e.target.value = '';
@@ -670,9 +695,10 @@ export default function AdminNewsPage() {
                     <div className="flex flex-wrap items-center gap-1.5">
                       <label className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 cursor-pointer">
                         <ImageIcon className="w-3 h-3" />
-                        <span>{uploadingBodyImg ? 'Đang chèn...' : 'Chèn thêm ảnh vào bài'}</span>
+                        <span>{uploadingBodyImg ? 'Đang chèn...' : 'Chèn 1 hoặc nhiều ảnh vào bài'}</span>
                         <input
                           type="file"
+                          multiple
                           accept=".png,.jpg,.jpeg,.webp"
                           onChange={handleInsertBodyImage}
                           disabled={uploadingBodyImg}
