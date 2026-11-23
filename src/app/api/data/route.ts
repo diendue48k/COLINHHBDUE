@@ -306,9 +306,10 @@ export async function POST(request: Request) {
         const matched = db.users.find((u) => {
           const defaultMatch = ADMIN_USERS.find((du) => du.id === u.id || du.email === u.email);
           const expectedPassword = u.password || defaultMatch?.password || 'Admin@DUE2026';
-          const expectedUsername = (u.username || defaultMatch?.username || u.email.split('@')[0]).toLowerCase();
+          const uEmail = (u.email || '').trim().toLowerCase();
+          const uUsername = (u.username || defaultMatch?.username || uEmail).trim().toLowerCase();
           return (
-            (u.email.toLowerCase() === identifier || expectedUsername === identifier) &&
+            (uUsername === identifier || (uEmail && uEmail === identifier)) &&
             expectedPassword === password
           );
         });
@@ -325,8 +326,14 @@ export async function POST(request: Request) {
 
       case 'save_user': {
         const user: User = payload;
-        if (!user?.id || !user?.name || !user?.email) {
-          return NextResponse.json({ error: 'Missing required user fields' }, { status: 400 });
+        const cleanName = (user?.name || '').trim();
+        const cleanLogin = (user?.username || user?.email || '').trim();
+        const cleanPassword = (user?.password || '').trim();
+        if (!user?.id || !cleanName || !cleanLogin) {
+          return NextResponse.json(
+            { error: 'Vui lòng nhập đầy đủ Họ và tên và Tên đăng nhập / Email' },
+            { status: 400 }
+          );
         }
         if (!db.users) db.users = [...ADMIN_USERS];
         const index = db.users.findIndex((u) => u.id === user.id);
@@ -335,13 +342,24 @@ export async function POST(request: Request) {
           db.users[index] = {
             ...existing,
             ...user,
-            password: user.password?.trim() ? user.password.trim() : existing.password,
+            name: cleanName,
+            username: cleanLogin,
+            email: (user.email || cleanLogin).trim(),
+            password: cleanPassword ? cleanPassword : existing.password,
           };
         } else {
+          if (!cleanPassword) {
+            return NextResponse.json(
+              { error: 'Vui lòng cài đặt mật khẩu cho tài khoản mới' },
+              { status: 400 }
+            );
+          }
           db.users.push({
             ...user,
-            username: user.username?.trim() || user.email.split('@')[0],
-            password: user.password?.trim() || 'Admin@DUE2026',
+            name: cleanName,
+            username: cleanLogin,
+            email: (user.email || cleanLogin).trim(),
+            password: cleanPassword,
           });
         }
         await saveDatabaseAsync(db);

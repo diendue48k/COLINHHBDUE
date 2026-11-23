@@ -11,6 +11,8 @@ import {
   KeyRound,
   Eye,
   EyeOff,
+  User as UserIcon,
+  AtSign,
 } from 'lucide-react';
 import { User } from '@/types';
 import { ADMIN_USERS, getStoredUser, setStoredUser } from '@/lib/auth';
@@ -21,6 +23,7 @@ export default function AdminUsersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [visiblePasswords, setVisiblePasswords] = useState<Record<string, boolean>>({});
   const [message, setMessage] = useState('');
 
   const loadUsers = async () => {
@@ -54,41 +57,56 @@ export default function AdminUsersPage() {
       avatar: '/images/logo-due-shield.png',
       createdAt: new Date().toISOString().split('T')[0],
     });
-    setShowPassword(false);
+    setShowPassword(true);
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (u: User) => {
     setEditingUser({
       ...u,
-      username: u.username || u.email.split('@')[0],
+      username: u.username || u.email || '',
       password: u.password || '',
     });
-    setShowPassword(false);
+    setShowPassword(true);
     setIsModalOpen(true);
   };
 
   const handleSaveUser = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingUser) return;
+    const loginVal = (editingUser.username || editingUser.email || '').trim();
+    const payload: User = {
+      ...editingUser,
+      name: editingUser.name.trim(),
+      username: loginVal,
+      email: loginVal,
+      password: (editingUser.password || '').trim(),
+    };
     try {
       const res = await fetch('/api/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'save_user',
-          payload: editingUser,
+          payload,
         }),
       });
-      if (res.ok) {
-        setMessage('Đã lưu thông tin tài khoản và mật khẩu Quản trị viên thành công!');
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setMessage(`Đã lưu tài khoản của "${payload.name}" thành công!`);
         setIsModalOpen(false);
-        await loadUsers();
-        if (editingUser.id === activeUserId) {
-          setStoredUser(editingUser);
+        if (Array.isArray(json.users)) {
+          setUsers(json.users);
+        } else {
+          await loadUsers();
+        }
+        if (payload.id === activeUserId) {
+          setStoredUser(payload);
           window.dispatchEvent(new Event('due-admin-user-changed'));
         }
         setTimeout(() => setMessage(''), 2500);
+      } else {
+        window.alert(json.error || 'Không thể lưu tài khoản');
       }
     } catch (err) {
       console.error(err);
@@ -100,7 +118,7 @@ export default function AdminUsersPage() {
       window.alert('Hệ thống cần tối thiểu 01 tài khoản Quản trị viên hoạt động!');
       return;
     }
-    if (!window.confirm(`Bạn có chắc chắn muốn xóa tài khoản "${u.name}" (${u.email})?`)) {
+    if (!window.confirm(`Bạn có chắc chắn muốn xóa tài khoản của "${u.name}" (${u.username || u.email})?`)) {
       return;
     }
     try {
@@ -112,26 +130,25 @@ export default function AdminUsersPage() {
           payload: { id: u.id },
         }),
       });
-      if (res.ok) {
-        setMessage(`Đã xóa tài khoản "${u.name}"!`);
-        await loadUsers();
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setMessage(`Đã xóa tài khoản của "${u.name}"!`);
+        if (Array.isArray(json.users)) {
+          setUsers(json.users);
+        } else {
+          await loadUsers();
+        }
         setTimeout(() => setMessage(''), 2500);
       } else {
-        const err = await res.json();
-        window.alert(err.error || 'Không thể xóa tài khoản này');
+        window.alert(json.error || 'Không thể xóa tài khoản này');
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  const getRoleBadge = () => {
-    return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200">
-        <ShieldAlert className="w-3.5 h-3.5" />
-        <span>Quản trị viên (Admin)</span>
-      </span>
-    );
+  const toggleRowPassword = (id: string) => {
+    setVisiblePasswords((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   return (
@@ -150,17 +167,17 @@ export default function AdminUsersPage() {
             Tài khoản Quản trị hệ thống ({users.length})
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Quản lý tài khoản đăng nhập, mật khẩu và phân quyền Quản trị viên (Admin)
+            Tạo tài khoản cho người dùng mới với Họ tên, Tên đăng nhập (hoặc Email) tự đặt và Mật khẩu do bạn cài đặt
           </p>
         </div>
 
         <button
           type="button"
           onClick={handleOpenCreate}
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>Thêm quản trị viên</span>
+          <span>Tạo tài khoản mới</span>
         </button>
       </div>
 
@@ -169,31 +186,70 @@ export default function AdminUsersPage() {
         <table className="w-full text-left text-xs">
           <thead className="bg-slate-50 text-slate-500 border-b border-slate-200 uppercase font-bold">
             <tr>
-              <th className="py-3 px-4">Họ và tên</th>
-              <th className="py-3 px-4">Tên đăng nhập</th>
-              <th className="py-3 px-4">Email DUE</th>
-              <th className="py-3 px-4">Vai trò</th>
-              <th className="py-3 px-4 text-center">Trạng thái phiên</th>
-              <th className="py-3 px-4 text-right">Thao tác</th>
+              <th className="py-3.5 px-4">Họ và tên người dùng</th>
+              <th className="py-3.5 px-4">Tên đăng nhập / Email</th>
+              <th className="py-3.5 px-4">Mật khẩu đã cài</th>
+              <th className="py-3.5 px-4">Phân quyền</th>
+              <th className="py-3.5 px-4 text-center">Trạng thái</th>
+              <th className="py-3.5 px-4 text-right">Thao tác</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700">
             {users.map((u) => {
               const isCurrent = u.id === activeUserId;
-              const uname = u.username || u.email.split('@')[0];
+              const loginId = u.username || u.email;
+              const defaultMatch = ADMIN_USERS.find((du) => du.id === u.id || du.email === u.email);
+              const actualPass = u.password || defaultMatch?.password || 'Admin@DUE2026';
+              const isPassShown = Boolean(visiblePasswords[u.id]);
+
               return (
                 <tr key={u.id} className="hover:bg-slate-50/80 transition-colors">
                   <td className="py-3.5 px-4 font-bold text-slate-900">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs shrink-0">
-                        {u.name.charAt(0)}
+                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-black flex items-center justify-center text-xs shrink-0">
+                        {u.name ? u.name.charAt(0).toUpperCase() : 'U'}
                       </div>
-                      <span>{u.name}</span>
+                      <div>
+                        <div className="text-slate-900 font-bold">{u.name}</div>
+                        <div className="text-[10px] text-slate-400 font-normal">
+                          Ngày tạo: {u.createdAt}
+                        </div>
+                      </div>
                     </div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-blue-700">{uname}</td>
-                  <td className="py-3.5 px-4 font-medium text-slate-600">{u.email}</td>
-                  <td className="py-3.5 px-4">{getRoleBadge()}</td>
+
+                  <td className="py-3.5 px-4">
+                    <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
+                      {loginId}
+                    </span>
+                    {u.email && u.email !== loginId && (
+                      <span className="block text-[11px] text-slate-400 mt-1">{u.email}</span>
+                    )}
+                  </td>
+
+                  <td className="py-3.5 px-4">
+                    <div className="inline-flex items-center gap-1.5 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+                      <span className="font-mono font-bold text-slate-700">
+                        {isPassShown ? actualPass : '••••••••'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleRowPassword(u.id)}
+                        className="text-slate-400 hover:text-blue-600 cursor-pointer"
+                        title={isPassShown ? 'Ẩn mật khẩu' : 'Xem mật khẩu'}
+                      >
+                        {isPassShown ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </td>
+
+                  <td className="py-3.5 px-4">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200">
+                      <ShieldAlert className="w-3.5 h-3.5" />
+                      <span>Quản trị viên</span>
+                    </span>
+                  </td>
+
                   <td className="py-3.5 px-4 text-center">
                     {isCurrent ? (
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200">
@@ -206,15 +262,17 @@ export default function AdminUsersPage() {
                       </span>
                     )}
                   </td>
+
                   <td className="py-3.5 px-4 text-right">
                     <div className="inline-flex items-center justify-end gap-1">
                       <button
                         type="button"
                         onClick={() => handleOpenEdit(u)}
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"
-                        title="Đổi mật khẩu / Chỉnh sửa thông tin"
+                        className="px-2.5 py-1.5 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 font-bold inline-flex items-center gap-1 transition-colors cursor-pointer"
+                        title="Sửa Họ tên, Tên đăng nhập hoặc Mật khẩu"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-3.5 h-3.5" />
+                        <span>Sửa / Đổi MK</span>
                       </button>
                       <button
                         type="button"
@@ -242,12 +300,12 @@ export default function AdminUsersPage() {
             if (e.target === e.currentTarget) setIsModalOpen(false);
           }}
         >
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="text-sm font-bold text-slate-800 uppercase">
+              <h3 className="text-sm font-black text-slate-800 uppercase">
                 {users.some((u) => u.id === editingUser.id)
-                  ? 'Cập nhật tài khoản & Mật khẩu'
-                  : 'Thêm tài khoản Quản trị viên mới'}
+                  ? 'Chỉnh sửa Tài khoản & Mật khẩu'
+                  : 'Tạo Tài khoản Quản trị mới'}
               </h3>
               <button
                 type="button"
@@ -258,94 +316,85 @@ export default function AdminUsersPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSaveUser} className="p-5 space-y-3.5 text-xs">
+            <form onSubmit={handleSaveUser} className="p-5 space-y-4 text-xs">
+              {/* 1. Họ và tên người dùng */}
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Họ và tên / Đơn vị *</label>
+                <label className="block font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                  <UserIcon className="w-3.5 h-3.5 text-blue-600" />
+                  <span>1. Họ và tên người dùng *</span>
+                </label>
                 <input
                   required
                   type="text"
-                  placeholder="Phòng Công tác Sinh viên DUE"
+                  placeholder="vd: Nguyễn Thị Linh - Phòng CTSV"
                   value={editingUser.name}
                   onChange={(e) => setEditingUser({ ...editingUser, name: e.target.value })}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs focus:outline-none focus:border-blue-500"
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-800 focus:bg-white focus:outline-none focus:border-blue-600"
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">Tên đăng nhập *</label>
-                  <input
-                    required
-                    type="text"
-                    placeholder="admin"
-                    value={editingUser.username || ''}
-                    onChange={(e) => setEditingUser({ ...editingUser, username: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">Email DUE *</label>
-                  <input
-                    required
-                    type="email"
-                    placeholder="canbo@due.edu.vn"
-                    value={editingUser.email}
-                    onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs focus:outline-none focus:border-blue-500"
-                  />
-                </div>
+              {/* 2. Tên đăng nhập hoặc Email tự đặt */}
+              <div>
+                <label className="block font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                  <AtSign className="w-3.5 h-3.5 text-blue-600" />
+                  <span>2. Tên đăng nhập (Có thể đặt bằng Email hoặc Tên tự chọn) *</span>
+                </label>
+                <input
+                  required
+                  type="text"
+                  placeholder="vd: colinh hoặc linhnt@due.edu.vn"
+                  value={editingUser.username || ''}
+                  onChange={(e) =>
+                    setEditingUser({
+                      ...editingUser,
+                      username: e.target.value,
+                      email: e.target.value,
+                    })
+                  }
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono font-bold text-blue-800 focus:bg-white focus:outline-none focus:border-blue-600"
+                />
+                <span className="text-[10.5px] text-slate-400 mt-1 block">
+                  Người dùng sẽ nhập đúng chuỗi này vào ô &ldquo;Tài khoản hoặc Email&rdquo; khi đăng nhập.
+                </span>
               </div>
 
+              {/* 3. Mật khẩu do bạn cài */}
               <div>
-                <label className="block font-bold text-slate-700 mb-1 flex items-center gap-1">
+                <label className="block font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                   <KeyRound className="w-3.5 h-3.5 text-blue-600" />
-                  <span>
-                    {users.some((u) => u.id === editingUser.id)
-                      ? 'Mật khẩu mới (Để trống nếu giữ nguyên)'
-                      : 'Mật khẩu đăng nhập *'}
-                  </span>
+                  <span>3. Mật khẩu đăng nhập (Do bạn cài đặt) *</span>
                 </label>
                 <div className="relative">
                   <input
-                    required={!users.some((u) => u.id === editingUser.id)}
+                    required
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Nhập mật khẩu đăng nhập..."
+                    placeholder="Nhập mật khẩu bạn muốn cài..."
                     value={editingUser.password || ''}
                     onChange={(e) => setEditingUser({ ...editingUser, password: e.target.value })}
-                    className="w-full p-2.5 pr-9 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono focus:outline-none focus:border-blue-500"
+                    className="w-full p-2.5 pr-9 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono font-bold text-slate-800 focus:bg-white focus:outline-none focus:border-blue-600"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                    title={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              <div>
-                <label className="block font-bold text-slate-700 mb-1">Phân quyền</label>
-                <input
-                  disabled
-                  type="text"
-                  value="Quản trị viên (Admin) - Toàn quyền quản trị"
-                  className="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg text-xs font-bold text-red-700 cursor-not-allowed"
-                />
-              </div>
-
               <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold cursor-pointer"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold cursor-pointer"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-xs cursor-pointer"
                 >
                   Lưu tài khoản
                 </button>
