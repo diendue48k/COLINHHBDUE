@@ -467,9 +467,9 @@ export default function AdminNewsPage() {
                   </div>
                 )}
 
-                <label className="w-full py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#165fa8] border border-blue-200 font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
-                  <Upload className="w-3.5 h-3.5" />
-                  <span>{uploadingImage ? 'Đang tải ảnh...' : 'Tải ảnh đại diện từ máy tính'}</span>
+                <label className="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-colors text-xs">
+                  <Upload className="w-3.5 h-3.5 text-blue-600" />
+                  <span>{uploadingImage ? 'Đang tải ảnh...' : 'Tải ảnh từ máy tính'}</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -479,17 +479,25 @@ export default function AdminNewsPage() {
                   />
                 </label>
 
-                <div>
-                  <label className="block text-[11px] font-semibold text-slate-500 mb-1">
-                    Hoặc dán link ảnh có sẵn:
-                  </label>
+                <div className="pt-2 border-t border-slate-100">
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] font-bold text-slate-700">
+                      🔗 Hoặc dán link ảnh trực tiếp:
+                    </label>
+                    <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                      ✓ Siêu nhẹ CSDL
+                    </span>
+                  </div>
                   <input
                     type="text"
                     value={editingItem.thumbnailUrl || ''}
                     onChange={(e) => setEditingItem({ ...editingItem, thumbnailUrl: e.target.value })}
-                    placeholder="https://..."
-                    className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-xs"
+                    placeholder="https://due.udn.vn/... hoặc https://..."
+                    className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono focus:bg-white focus:outline-none focus:border-blue-500"
                   />
+                  <p className="text-[10.5px] text-slate-400 mt-1">
+                    Dán link ảnh từ web giúp cơ sở dữ liệu siêu nhẹ (chỉ tốn vài chục bytes), không lo quá tải dung lượng.
+                  </p>
                 </div>
               </div>
             </div>

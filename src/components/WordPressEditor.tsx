@@ -23,6 +23,11 @@ import {
   Redo2,
   Eraser,
   Palette,
+  Globe,
+  Upload,
+  X,
+  Check,
+  Sparkles,
 } from 'lucide-react';
 
 interface WordPressEditorProps {
@@ -72,6 +77,10 @@ export const WordPressEditor: React.FC<WordPressEditorProps> = ({
 }) => {
   const [mode, setMode] = useState<'visual' | 'html'>('visual');
   const [uploadingImg, setUploadingImg] = useState(false);
+  const [showUrlDialog, setShowUrlDialog] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
+  const [imgCaption, setImgCaption] = useState('');
+  const [imgPreviewError, setImgPreviewError] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
   const isInternalChange = useRef(false);
 
@@ -184,6 +193,36 @@ export const WordPressEditor: React.FC<WordPressEditorProps> = ({
     }
   };
 
+  const handleInsertFromUrl = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const cleanUrl = imgUrl.trim();
+    if (!cleanUrl) {
+      window.alert('Vui lòng nhập đường dẫn URL của hình ảnh.');
+      return;
+    }
+
+    const captionText = imgCaption.trim();
+    const escapedCaption = captionText.replace(/"/g, '&quot;');
+    const figureHtml = `<figure style="margin:16px 0; text-align:center;"><img src="${cleanUrl}" alt="${escapedCaption || 'Hình ảnh bài viết'}" style="max-width:100%; height:auto; border-radius:10px; box-shadow:0 4px 14px rgba(13,63,115,0.1); display:inline-block;" />${captionText ? `<figcaption style="font-size:13.5px; color:#5b6b7c; font-style:italic; margin-top:6px;">${captionText}</figcaption>` : ''}</figure><p><br/></p>`;
+
+    if (onFirstImageInserted) {
+      onFirstImageInserted(cleanUrl);
+    }
+
+    if (mode === 'visual' && editorRef.current) {
+      editorRef.current.focus();
+      document.execCommand('insertHTML', false, figureHtml);
+      emitChange();
+    } else {
+      onChange((value || '') + '\n' + figureHtml);
+    }
+
+    setImgUrl('');
+    setImgCaption('');
+    setImgPreviewError(false);
+    setShowUrlDialog(false);
+  };
+
   // Support pasting images directly from clipboard / Word / Screenshot
   const handlePaste = async (e: React.ClipboardEvent<HTMLDivElement>) => {
     const items = e.clipboardData?.items;
@@ -205,10 +244,25 @@ export const WordPressEditor: React.FC<WordPressEditorProps> = ({
     <div className="border border-slate-300 rounded-2xl overflow-hidden bg-white shadow-xs">
       {/* Top WordPress Bar: Add Media + Visual / Code Tabs */}
       <div className="bg-slate-100 border-b border-slate-200 px-3 py-2 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#165fa8] hover:bg-[#0d3f73] text-white text-xs font-bold shadow-2xs cursor-pointer transition-colors">
-            <ImageIcon className="w-3.5 h-3.5" />
-            <span>{uploadingImg ? 'Đang xử lý ảnh...' : 'Thêm Media / Chèn ảnh'}</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Button 1: Chèn từ URL (Khuyên dùng - Cực nhẹ CSDL) */}
+          <button
+            type="button"
+            onClick={() => {
+              setImgPreviewError(false);
+              setShowUrlDialog(true);
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0f9145] hover:bg-[#0c7437] text-white text-xs font-bold shadow-2xs cursor-pointer transition-colors"
+            title="Chèn ảnh từ đường link URL (Khuyên dùng - Không tốn dung lượng CSDL)"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span>Chèn link ảnh (URL - Nhẹ nhất)</span>
+          </button>
+
+          {/* Button 2: Tải ảnh từ máy tính (Upload) */}
+          <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-bold shadow-2xs cursor-pointer transition-colors" title="Tải tệp ảnh trực tiếp từ máy tính">
+            <Upload className="w-3.5 h-3.5 text-blue-600" />
+            <span>{uploadingImg ? 'Đang xử lý ảnh...' : 'Tải từ máy tính'}</span>
             <input
               type="file"
               multiple
@@ -476,9 +530,9 @@ export const WordPressEditor: React.FC<WordPressEditorProps> = ({
             style={{ minHeight: `${minHeight}px` }}
             className="p-5 focus:outline-none text-[15px] text-slate-800 leading-relaxed due-popup-html-content max-h-[560px] overflow-y-auto"
           />
-          <div className="px-4 py-2 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-500 flex items-center justify-between">
+          <div className="px-4 py-2 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-500 flex flex-wrap items-center justify-between gap-2">
             <span>
-              💡 Mẹo: Bạn có thể bôi đen chữ để in đậm/đổi màu, bấm <strong>&ldquo;Thêm Media / Chèn ảnh&rdquo;</strong> hoặc <strong>dán ảnh trực tiếp (Ctrl+V)</strong> vào bài.
+              💡 <strong>Mẹo tối ưu:</strong> Bấm nút xanh lá <strong>&ldquo;Chèn link ảnh (URL - Nhẹ nhất)&rdquo;</strong> để bài viết siêu nhẹ (chỉ ~100 bytes), trang tải cực nhanh và không bao giờ lo đầy dung lượng CSDL.
             </span>
             <span>Chế độ: Soạn thảo trực quan</span>
           </div>
@@ -495,6 +549,119 @@ export const WordPressEditor: React.FC<WordPressEditorProps> = ({
           />
           <div className="px-4 py-2 bg-slate-900 text-[11px] text-slate-400 flex items-center justify-between">
             <span>Chế độ: Mã nguồn HTML (Hỗ trợ cả đoạn HTML lẻ và trang &lt;!DOCTYPE html&gt; hoàn chỉnh)</span>
+          </div>
+        </div>
+      )}
+
+      {/* Modal / Dialog Chèn link ảnh URL */}
+      {showUrlDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-[#0d3f73] to-[#165fa8] text-white px-5 py-3.5 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-emerald-300" />
+                <h3 className="font-bold text-sm">Chèn hình ảnh từ đường dẫn URL (Web)</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowUrlDialog(false)}
+                className="p-1 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleInsertFromUrl} className="p-5 space-y-4">
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 space-y-1">
+                <p className="font-bold flex items-center gap-1.5 text-emerald-800">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  Giải pháp tối ưu dung lượng cơ sở dữ liệu
+                </p>
+                <p className="text-[11.5px] leading-relaxed text-emerald-900/90">
+                  Dán link ảnh trực tiếp từ web (như trang DUE <code>due.udn.vn</code>, Google Drive, Cloudinary, Imgur, v.v.) chỉ tốn <strong>~50 - 100 bytes</strong> văn bản thay vì lưu hàng trăm KB base64 vào CSDL, giúp hệ thống luôn nhẹ và chạy mượt mà!
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Đường dẫn ảnh (URL) <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="url"
+                  required
+                  autoFocus
+                  value={imgUrl}
+                  onChange={(e) => {
+                    setImgUrl(e.target.value);
+                    setImgPreviewError(false);
+                  }}
+                  placeholder="VD: https://due.udn.vn/Portals/0/...jpg hoặc https://..."
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono focus:outline-none focus:border-blue-500 focus:bg-white"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Chú thích hiển thị dưới ảnh (Tùy chọn)
+                </label>
+                <input
+                  type="text"
+                  value={imgCaption}
+                  onChange={(e) => setImgCaption(e.target.value)}
+                  placeholder="VD: Lễ trao học bổng Hạt giống tốt lành tiếp sức sinh viên DUE"
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-blue-500 focus:bg-white"
+                />
+              </div>
+
+              {/* Live Preview if url provided */}
+              {imgUrl.trim() && (
+                <div className="border border-slate-200 rounded-xl p-3 bg-slate-50 space-y-2">
+                  <div className="text-[11px] font-bold text-slate-500">Xem trước hiển thị:</div>
+                  <div className="max-h-48 overflow-hidden rounded-lg bg-white border border-slate-200 flex items-center justify-center p-2">
+                    <img
+                      src={imgUrl.trim()}
+                      alt="Xem trước"
+                      onError={() => setImgPreviewError(true)}
+                      className="max-h-44 max-w-full object-contain rounded"
+                    />
+                  </div>
+                  {imgPreviewError ? (
+                    <p className="text-[11px] text-amber-600 font-medium">
+                      ⚠️ Không thể tải trước ảnh từ link này. Nếu đây là link ảnh công khai hợp lệ, bạn vẫn có thể bấm chèn.
+                    </p>
+                  ) : (
+                    <p className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" /> Đường link ảnh xem trước thành công!
+                    </p>
+                  )}
+                  {imgCaption.trim() && (
+                    <p className="text-center text-[11px] text-slate-500 italic mt-1">
+                      {imgCaption.trim()}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Modal Actions */}
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setShowUrlDialog(false)}
+                  className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold cursor-pointer"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  type="submit"
+                  disabled={!imgUrl.trim()}
+                  className="px-4 py-2 rounded-xl bg-[#165fa8] hover:bg-[#0d3f73] disabled:opacity-50 text-white text-xs font-bold cursor-pointer shadow-xs transition-colors"
+                >
+                  Chèn vào bài viết
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
