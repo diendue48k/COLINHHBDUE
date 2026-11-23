@@ -8,7 +8,6 @@ import {
   Trash2,
   Calendar,
   CheckCircle2,
-  Code,
   Eye,
   EyeOff,
   Upload,
@@ -16,13 +15,15 @@ import {
   ArrowUp,
   ArrowDown,
   Search,
-  Sparkles,
-  Image as ImageIcon,
+  ArrowLeft,
+  Save,
   ExternalLink,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { NewsArticle } from '@/types';
 import { initialData } from '@/data/initialData';
-import { NewsModal, buildNewsHtmlDocument } from '@/components/NewsModal';
+import { NewsModal } from '@/components/NewsModal';
+import { WordPressEditor, compressImageFile } from '@/components/WordPressEditor';
 
 const NEWS_CATEGORIES = [
   'Lễ trao học bổng',
@@ -35,13 +36,11 @@ const NEWS_CATEGORIES = [
 
 export default function AdminNewsPage() {
   const [newsList, setNewsList] = useState<NewsArticle[]>(initialData.news || []);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<NewsArticle | null>(null);
   const [fullPreviewItem, setFullPreviewItem] = useState<NewsArticle | null>(null);
   const [message, setMessage] = useState('');
-  const [previewHtml, setPreviewHtml] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingBodyImg, setUploadingBodyImg] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -88,7 +87,7 @@ export default function AdminNewsPage() {
   }, [sortedNews, selectedCategory, searchQuery]);
 
   const handleCreate = () => {
-    const newItem: NewsArticle = {
+    setEditingItem({
       id: `news-${Date.now()}`,
       slug: `tin-tuc-${Date.now()}`,
       title: '',
@@ -103,16 +102,11 @@ export default function AdminNewsPage() {
       isActive: true,
       viewsCount: 0,
       order: newsList.length + 1,
-    };
-    setEditingItem(newItem);
-    setPreviewHtml(false);
-    setIsModalOpen(true);
+    });
   };
 
   const handleEdit = (article: NewsArticle) => {
     setEditingItem({ ...article });
-    setPreviewHtml(false);
-    setIsModalOpen(true);
   };
 
   const handleToggleActive = async (article: NewsArticle) => {
@@ -163,7 +157,7 @@ export default function AdminNewsPage() {
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json.data)) setNewsList(json.data);
-        setMessage('Đã cập nhật thứ tự hiển thị trên dải Hoạt động trao học bổng!');
+        setMessage('Đã cập nhật vị trí bài viết trên dải Hoạt động trao học bổng!');
         setTimeout(() => setMessage(''), 2000);
       }
     } catch (e) {
@@ -171,49 +165,17 @@ export default function AdminNewsPage() {
     }
   };
 
-  // Compress image in browser (max 1200px width, JPEG 0.82) so it works everywhere (including Vercel & Firestore)
-  const compressImageToDataUrl = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const img = new window.Image();
-        img.onload = () => {
-          const maxWidth = 1200;
-          let { width, height } = img;
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve(ev.target?.result as string);
-            return;
-          }
-          ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL('image/jpeg', 0.82));
-        };
-        img.onerror = reject;
-        img.src = ev.target?.result as string;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !editingItem) return;
     setUploadingImage(true);
     try {
-      const dataUrl = await compressImageToDataUrl(file);
+      const dataUrl = await compressImageFile(file);
       setEditingItem({
         ...editingItem,
         thumbnailUrl: dataUrl,
       });
-      setMessage(`Đã tải ảnh bìa "${file.name}" lên thành công!`);
+      setMessage(`Đã đặt ảnh đại diện (Featured Image) thành công!`);
       setTimeout(() => setMessage(''), 2500);
     } catch (err) {
       console.error(err);
@@ -224,69 +186,14 @@ export default function AdminNewsPage() {
     }
   };
 
-  const handleInsertBodyImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0 || !editingItem) return;
-    setUploadingBodyImg(true);
-    try {
-      let appendedHtml = '';
-      let firstImgUrl = '';
-      for (let i = 0; i < files.length; i++) {
-        const f = files[i];
-        const caption = window.prompt(
-          `Nhập chú thích dưới ảnh "${f.name}" (Có thể để trống):`,
-          ''
-        );
-        const dataUrl = await compressImageToDataUrl(f);
-        if (!firstImgUrl) firstImgUrl = dataUrl;
-        appendedHtml += `\n<figure style="margin: 18px 0; text-align: center;">\n  <img src="${dataUrl}" alt="${(caption || editingItem.title || 'Hình ảnh hoạt động').replace(/"/g, '&quot;')}" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 16px rgba(13,63,115,0.1);" />${
-          caption ? `\n  <figcaption style="font-size: 13.5px; color: #5b6b7c; font-style: italic; margin-top: 8px;">${caption}</figcaption>` : ''
-        }\n</figure>\n`;
-      }
-      setEditingItem({
-        ...editingItem,
-        content: (editingItem.content || '') + appendedHtml,
-        thumbnailUrl: editingItem.thumbnailUrl || firstImgUrl,
-      });
-      setMessage(`Đã chèn ${files.length} ảnh vào nội dung bài viết!`);
-      setTimeout(() => setMessage(''), 2500);
-    } catch (err) {
-      console.error(err);
-      window.alert('Đã xảy ra lỗi khi chèn ảnh vào bài');
-    } finally {
-      setUploadingBodyImg(false);
-      e.target.value = '';
-    }
-  };
-
-  const handleInsertTemplate = () => {
-    if (!editingItem) return;
-    const sample = buildNewsHtmlDocument({
-      ...editingItem,
-      title: editingItem.title || 'LỄ TRAO HỌC BỔNG KHUYẾN KHÍCH HỌC TẬP & TÀI TRỢ DOANH NGHIỆP DUE',
-      excerpt:
-        editingItem.excerpt ||
-        'Trường Đại học Kinh tế – Đại học Đà Nẵng trang trọng tổ chức Lễ trao học bổng nhằm vinh danh và tiếp sức cho các sinh viên có thành tích học tập, rèn luyện xuất sắc.',
-      content:
-        editingItem.content ||
-        `<p>Buổi lễ có sự tham dự của Đại diện Ban Giám hiệu Nhà trường, Lãnh đạo Phòng Công tác Sinh viên, đại diện các đơn vị doanh nghiệp đối tác tài trợ cùng đông đảo các bạn sinh viên được nhận học bổng.</p>
-<h3>1. Vinh danh những nỗ lực học tập và rèn luyện</h3>
-<p>Phát biểu tại buổi lễ, đại diện Nhà trường gửi lời chúc mừng nồng nhiệt đến các sinh viên xuất sắc và khẳng định các chương trình học bổng tại DUE luôn đồng hành, tạo động lực giúp người học phát triển toàn diện.</p>
-<h3>2. Cam kết đồng hành cùng người học</h3>
-<ul>
-  <li>Tiếp tục mở rộng mạng lưới học bổng doanh nghiệp và cựu sinh viên.</li>
-  <li>Tăng cường các suất học bổng trao đổi quốc tế và hỗ trợ sinh viên vượt khó.</li>
-</ul>`,
-    });
-    setEditingItem({
-      ...editingItem,
-      content: sample,
-    });
-  };
-
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingItem) return;
+    if (!editingItem.title.trim()) {
+      window.alert('Vui lòng nhập tiêu đề bài viết!');
+      return;
+    }
+    setSaving(true);
     try {
       const res = await fetch('/api/data', {
         method: 'POST',
@@ -296,12 +203,14 @@ export default function AdminNewsPage() {
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json.news)) setNewsList(json.news);
-        setMessage('Đã lưu và xuất bản bài viết tin tức thành công!');
-        setIsModalOpen(false);
+        setMessage('Đã lưu và xuất bản bài viết thành công!');
+        setEditingItem(null);
         setTimeout(() => setMessage(''), 2500);
       }
     } catch (e) {
       console.error(e);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -316,7 +225,7 @@ export default function AdminNewsPage() {
       if (res.ok) {
         const json = await res.json();
         if (Array.isArray(json.news)) setNewsList(json.news);
-        setMessage('Đã xóa bài viết tin tức!');
+        setMessage('Đã xóa bài viết!');
         setTimeout(() => setMessage(''), 2500);
       }
     } catch (e) {
@@ -324,6 +233,295 @@ export default function AdminNewsPage() {
     }
   };
 
+  // =====================================================================
+  // VIEW 1: WORDPRESS-STYLE 2-COLUMN FULL PAGE POST EDITOR
+  // =====================================================================
+  if (editingItem) {
+    return (
+      <div className="space-y-5 pb-14">
+        {/* Top Sticky Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs sticky top-0 z-20">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setEditingItem(null)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Quay lại danh sách</span>
+            </button>
+            <h2 className="text-sm sm:text-base font-black text-slate-800 uppercase tracking-tight">
+              {newsList.some((n) => n.id === editingItem.id)
+                ? 'Chỉnh sửa bài viết Tin tức / Sự kiện'
+                : 'Viết bài Tin tức / Sự kiện mới'}
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setFullPreviewItem(editingItem)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold shadow-xs cursor-pointer"
+            >
+              <Eye className="w-4 h-4" />
+              <span>Xem thử bài viết (Full trang)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={saving}
+              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[#165fa8] hover:bg-[#0d3f73] text-white text-xs font-bold shadow-sm cursor-pointer disabled:opacity-60"
+            >
+              <Save className="w-4 h-4" />
+              <span>{saving ? 'Đang đăng...' : 'Đăng / Cập nhật bài viết'}</span>
+            </button>
+          </div>
+        </div>
+
+        {message && (
+          <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-blue-600" />
+            <span>{message}</span>
+          </div>
+        )}
+
+        {/* WordPress 2-Column Layout: Left 2/3 Content, Right 1/3 Meta Sidebar */}
+        <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          {/* LEFT COLUMN (2/3): Title, Excerpt & WordPress Visual/HTML Editor */}
+          <div className="lg:col-span-2 space-y-5">
+            {/* Title Input like WordPress */}
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                  Tiêu đề bài viết / Tên sự kiện trao học bổng *
+                </label>
+                <input
+                  required
+                  type="text"
+                  value={editingItem.title}
+                  onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
+                  placeholder="Nhập tiêu đề bài viết tại đây..."
+                  className="w-full p-3.5 bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-base sm:text-lg font-extrabold text-slate-900 focus:outline-none focus:border-blue-600"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                  Đoạn mở đầu / Tóm tắt ngắn (Sapo – Tùy chọn)
+                </label>
+                <textarea
+                  rows={2}
+                  value={editingItem.excerpt}
+                  onChange={(e) => setEditingItem({ ...editingItem, excerpt: e.target.value })}
+                  placeholder="Viết 1-2 câu giới thiệu ngắn gọn hiển thị ở đầu bài viết..."
+                  className="w-full p-3 bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-700 focus:outline-none focus:border-blue-600"
+                />
+              </div>
+            </div>
+
+            {/* WordPress Rich Text & HTML Editor */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider px-1">
+                Nội dung bài viết (Soạn trực quan như Word hoặc chuyển qua tab Mã HTML)
+              </label>
+              <WordPressEditor
+                value={editingItem.content}
+                onChange={(html) => setEditingItem({ ...editingItem, content: html })}
+                onFirstImageInserted={(dataUrl) => {
+                  if (!editingItem.thumbnailUrl) {
+                    setEditingItem((prev) => (prev ? { ...prev, thumbnailUrl: dataUrl } : prev));
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* RIGHT SIDEBAR (1/3): WordPress Meta Boxes */}
+          <div className="space-y-5">
+            {/* Box 1: Đăng bài (Publish Box) */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden text-xs">
+              <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 font-black text-slate-800 uppercase tracking-tight">
+                1. Thiết lập Đăng bài
+              </div>
+              <div className="p-4 space-y-3.5">
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Ngày đăng / Ngày sự kiện</label>
+                  <input
+                    type="date"
+                    value={editingItem.publishedAt}
+                    onChange={(e) => setEditingItem({ ...editingItem, publishedAt: e.target.value })}
+                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1">Tác giả / Đơn vị đăng</label>
+                  <input
+                    type="text"
+                    value={editingItem.author || ''}
+                    onChange={(e) => setEditingItem({ ...editingItem, author: e.target.value })}
+                    placeholder="Phòng Công tác Sinh viên DUE"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                  />
+                </div>
+
+                <div className="pt-1 space-y-2.5">
+                  <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.isActive !== false}
+                      onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
+                      className="w-4 h-4 rounded text-blue-600"
+                    />
+                    <span>Hiển thị công khai trên Cổng</span>
+                  </label>
+
+                  <label className="flex items-center gap-2 cursor-pointer font-bold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={editingItem.isPinned || false}
+                      onChange={(e) => setEditingItem({ ...editingItem, isPinned: e.target.checked })}
+                      className="w-4 h-4 rounded text-blue-600"
+                    />
+                    <span>Ghim làm Tin nổi bật đầu tiên</span>
+                  </label>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setFullPreviewItem(editingItem)}
+                    className="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-center cursor-pointer"
+                  >
+                    Xem thử
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="flex-1 py-2 px-3 rounded-xl bg-[#165fa8] hover:bg-[#0d3f73] text-white font-bold text-center shadow-xs cursor-pointer"
+                  >
+                    {saving ? 'Đang lưu...' : 'Đăng bài'}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Box 2: Chuyên mục (Category Box) */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden text-xs">
+              <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 font-black text-slate-800 uppercase tracking-tight">
+                2. Chuyên mục Tin tức
+              </div>
+              <div className="p-4 space-y-2">
+                {NEWS_CATEGORIES.map((cat) => (
+                  <label
+                    key={cat}
+                    className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-50 cursor-pointer font-semibold text-slate-700"
+                  >
+                    <input
+                      type="radio"
+                      name="newsCategory"
+                      checked={editingItem.category === cat}
+                      onChange={() => setEditingItem({ ...editingItem, category: cat })}
+                      className="w-4 h-4 text-blue-600"
+                    />
+                    <span>{cat}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Box 3: Ảnh đại diện bài viết (Featured Image Box like WordPress) */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden text-xs">
+              <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 font-black text-slate-800 uppercase tracking-tight">
+                3. Ảnh đại diện (Featured Image)
+              </div>
+              <div className="p-4 space-y-3">
+                {editingItem.thumbnailUrl ? (
+                  <div className="space-y-2">
+                    <div className="relative rounded-xl overflow-hidden border border-slate-200 aspect-video bg-slate-100">
+                      <img
+                        src={editingItem.thumbnailUrl}
+                        alt="Featured"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setEditingItem({ ...editingItem, thumbnailUrl: '' })}
+                      className="text-red-600 hover:underline font-bold text-[11px] cursor-pointer"
+                    >
+                      ✕ Xóa ảnh đại diện
+                    </button>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center text-slate-400 space-y-1">
+                    <ImageIcon className="w-7 h-7 mx-auto text-slate-300" />
+                    <p className="font-semibold text-slate-500">Chưa có ảnh đại diện</p>
+                    <p className="text-[11px]">Ảnh này sẽ hiển thị trên thẻ ngoài Trang chủ</p>
+                  </div>
+                )}
+
+                <label className="w-full py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#165fa8] border border-blue-200 font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>{uploadingImage ? 'Đang tải ảnh...' : 'Tải ảnh đại diện từ máy tính'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleThumbnailUpload}
+                    disabled={uploadingImage}
+                    className="hidden"
+                  />
+                </label>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-500 mb-1">
+                    Hoặc dán link ảnh có sẵn:
+                  </label>
+                  <input
+                    type="text"
+                    value={editingItem.thumbnailUrl || ''}
+                    onChange={(e) => setEditingItem({ ...editingItem, thumbnailUrl: e.target.value })}
+                    placeholder="https://..."
+                    className="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg text-xs"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Box 4: Link ngoài (Optional External Link) */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden text-xs">
+              <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 font-black text-slate-800 uppercase tracking-tight flex items-center gap-1.5">
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                <span>4. Link bài gốc (Tùy chọn)</span>
+              </div>
+              <div className="p-4 space-y-1.5">
+                <input
+                  type="text"
+                  value={editingItem.externalUrl || ''}
+                  onChange={(e) => setEditingItem({ ...editingItem, externalUrl: e.target.value })}
+                  placeholder="https://due.udn.vn/..."
+                  className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs"
+                />
+                <p className="text-[11px] text-slate-400">
+                  Để trống nếu muốn người học đọc bài viết trực tiếp trên Cổng học bổng.
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <NewsModal
+          article={fullPreviewItem}
+          onClose={() => setFullPreviewItem(null)}
+        />
+      </div>
+    );
+  }
+
+  // =====================================================================
+  // VIEW 2: POSTS LISTING TABLE
+  // =====================================================================
   return (
     <div className="space-y-6">
       {message && (
@@ -341,7 +539,7 @@ export default function AdminNewsPage() {
             <span>Quản lý Tin tức – Hoạt động trao học bổng ({newsList.length})</span>
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Bài viết đăng tại đây sẽ hiển thị trực tiếp trên dải <strong>&ldquo;Hoạt động trao học bổng&rdquo;</strong> ngoài Trang chủ và trang <strong>/tin-tuc</strong>
+            Trình soạn thảo trực quan chuẩn WordPress: viết bài, chèn ảnh dễ dàng như Word hoặc dán mã HTML
           </p>
         </div>
 
@@ -351,7 +549,7 @@ export default function AdminNewsPage() {
           className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors cursor-pointer"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>Đăng bài tin tức / sự kiện mới</span>
+          <span>Viết bài tin tức mới</span>
         </button>
       </div>
 
@@ -433,12 +631,19 @@ export default function AdminNewsPage() {
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-slate-900 leading-snug">
+                <h3
+                  onClick={() => handleEdit(article)}
+                  className="text-sm font-bold text-slate-900 hover:text-blue-700 cursor-pointer leading-snug"
+                >
                   {article.title}
                 </h3>
 
                 <p className="text-xs text-slate-500 line-clamp-2">
-                  {article.excerpt || (article.content || '').replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, '').slice(0, 180)}
+                  {article.excerpt ||
+                    (article.content || '')
+                      .replace(/<style[\s\S]*?<\/style>/gi, '')
+                      .replace(/<[^>]+>/g, '')
+                      .slice(0, 180)}
                 </p>
               </div>
             </div>
@@ -448,7 +653,7 @@ export default function AdminNewsPage() {
                 type="button"
                 onClick={() => setFullPreviewItem(article)}
                 className="px-2.5 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs inline-flex items-center gap-1 cursor-pointer"
-                title="Xem trước bài viết Full màn hình giống ngoài Trang chủ"
+                title="Xem bài viết Full màn hình giống ngoài Trang chủ"
               >
                 <Eye className="w-3.5 h-3.5" />
                 <span>Xem bài</span>
@@ -486,10 +691,11 @@ export default function AdminNewsPage() {
               <button
                 type="button"
                 onClick={() => handleEdit(article)}
-                className="p-2 rounded-lg text-slate-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer"
-                title="Sửa bài viết"
+                className="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs inline-flex items-center gap-1 cursor-pointer"
+                title="Chỉnh sửa bài viết"
               >
-                <Edit className="w-4 h-4" />
+                <Edit className="w-3.5 h-3.5" />
+                <span>Sửa</span>
               </button>
               <button
                 type="button"
@@ -505,276 +711,11 @@ export default function AdminNewsPage() {
 
         {filteredNews.length === 0 && (
           <div className="p-10 text-center text-xs text-slate-400 italic">
-            Chưa có bài viết tin tức / sự kiện nào. Nhấn &ldquo;Đăng bài tin tức / sự kiện mới&rdquo; để bắt đầu.
+            Chưa có bài viết tin tức / sự kiện nào. Nhấn &ldquo;Viết bài tin tức mới&rdquo; để bắt đầu.
           </div>
         )}
       </div>
 
-      {/* Edit/Create Modal */}
-      {isModalOpen && editingItem && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsModalOpen(false);
-          }}
-        >
-          <div className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col max-h-[92vh] overflow-hidden">
-            {/* Modal Header */}
-            <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
-              <div className="flex items-center gap-2">
-                <Newspaper className="w-4 h-4 text-[#1760AB]" />
-                <h3 className="text-sm font-black text-slate-800 uppercase tracking-tight">
-                  {editingItem.title ? 'Chỉnh sửa bài viết Tin tức / Sự kiện' : 'Đăng bài Tin tức / Sự kiện mới'}
-                </h3>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setFullPreviewItem(editingItem)}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold shadow-xs cursor-pointer"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>Xem trước Full trang</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200 flex items-center justify-center text-sm font-bold transition-colors cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            {/* Scrollable Form Body */}
-            <form onSubmit={handleSave} className="flex-1 flex flex-col min-h-0 overflow-hidden">
-              <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="md:col-span-2">
-                    <label className="block font-bold text-slate-700 mb-1">
-                      Tiêu đề bài viết / Tên sự kiện trao học bổng *
-                    </label>
-                    <input
-                      required
-                      type="text"
-                      value={editingItem.title}
-                      onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })}
-                      placeholder="vd: Lễ trao Học bổng Khuyến khích học tập & Doanh nghiệp tài trợ Học kỳ I..."
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:border-blue-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Chuyên mục</label>
-                    <select
-                      value={editingItem.category}
-                      onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                    >
-                      {NEWS_CATEGORIES.map((cat) => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Ngày đăng / Ngày diễn ra *</label>
-                    <input
-                      type="date"
-                      value={editingItem.publishedAt}
-                      onChange={(e) => setEditingItem({ ...editingItem, publishedAt: e.target.value })}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                    />
-                  </div>
-
-                  <div className="sm:col-span-2">
-                    <label className="block font-bold text-slate-700 mb-1 flex items-center gap-1">
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-                      <span>Link bài viết ngoài (Tùy chọn – Để trống nếu mở bài viết trực tiếp trên Cổng)</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={editingItem.externalUrl || ''}
-                      onChange={(e) => setEditingItem({ ...editingItem, externalUrl: e.target.value })}
-                      placeholder="https://due.udn.vn/... (Nếu chỉ muốn bấm vào thẻ mở sang link web trường thì dán vào đây)"
-                      className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-6 pt-1 pb-1">
-                  <label className="inline-flex items-center gap-2 cursor-pointer font-bold text-slate-700">
-                    <input
-                      type="checkbox"
-                      checked={editingItem.isPinned || false}
-                      onChange={(e) => setEditingItem({ ...editingItem, isPinned: e.target.checked })}
-                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
-                    />
-                    <span>Ghim lên đầu dải sự kiện</span>
-                  </label>
-
-                  <label className="inline-flex items-center gap-2 cursor-pointer font-bold text-slate-700">
-                    <input
-                      type="checkbox"
-                      checked={editingItem.isActive !== false}
-                      onChange={(e) => setEditingItem({ ...editingItem, isActive: e.target.checked })}
-                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
-                    />
-                    <span>Hiển thị công khai ngoài Trang chủ</span>
-                  </label>
-                </div>
-
-                {/* Thumbnail Image */}
-                <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 space-y-2.5">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <span className="font-bold text-slate-800 block">
-                        Ảnh bìa hiển thị trên thẻ ngoài Trang chủ (Thumbnail)
-                      </span>
-                      <span className="text-[10px] text-slate-500">
-                        Tải ảnh ngang (PNG, JPG, WEBP) từ máy tính hoặc nhập đường dẫn ảnh
-                      </span>
-                    </div>
-                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold cursor-pointer shadow-xs shrink-0">
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>{uploadingImage ? 'Đang tải lên...' : 'Chọn ảnh bìa từ máy'}</span>
-                      <input
-                        type="file"
-                        accept=".png,.jpg,.jpeg,.webp"
-                        onChange={handleImageUpload}
-                        disabled={uploadingImage}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    {editingItem.thumbnailUrl && (
-                      <img
-                        src={editingItem.thumbnailUrl}
-                        alt="Thumbnail preview"
-                        className="w-20 h-13 rounded-lg object-cover border border-slate-300 shrink-0"
-                      />
-                    )}
-                    <input
-                      type="text"
-                      value={editingItem.thumbnailUrl || ''}
-                      onChange={(e) => setEditingItem({ ...editingItem, thumbnailUrl: e.target.value })}
-                      placeholder="/files/... hoặc https://..."
-                      className="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">
-                    Tóm tắt ngắn (Sapo mở đầu bài viết)
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={editingItem.excerpt}
-                    onChange={(e) => setEditingItem({ ...editingItem, excerpt: e.target.value })}
-                    placeholder="Đoạn mở đầu tóm tắt nội dung chính của bài viết hoặc sự kiện..."
-                    className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-xs"
-                  />
-                </div>
-
-                {/* Content / HTML Editor with Real Iframe Preview */}
-                <div className="space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <label className="font-bold text-slate-700 text-xs flex items-center gap-1.5">
-                      <Code className="w-3.5 h-3.5 text-blue-600" />
-                      <span>
-                        Nội dung bài viết (Viết chữ thường, đoạn HTML, hoặc dán nguyên trang HTML hoàn chỉnh)
-                      </span>
-                    </label>
-
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      <label className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-900 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 cursor-pointer">
-                        <ImageIcon className="w-3 h-3" />
-                        <span>{uploadingBodyImg ? 'Đang chèn...' : 'Chèn 1 hoặc nhiều ảnh vào bài'}</span>
-                        <input
-                          type="file"
-                          multiple
-                          accept=".png,.jpg,.jpeg,.webp"
-                          onChange={handleInsertBodyImage}
-                          disabled={uploadingBodyImg}
-                          className="hidden"
-                        />
-                      </label>
-
-                      <button
-                        type="button"
-                        onClick={handleInsertTemplate}
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-700 hover:text-amber-900 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200 cursor-pointer"
-                        title="Tạo khung HTML trang tin tức chuẩn DUE"
-                      >
-                        <Sparkles className="w-3 h-3" />
-                        <span>Chèn mẫu HTML chuẩn DUE</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setPreviewHtml(!previewHtml)}
-                        className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-lg border cursor-pointer ${
-                          previewHtml
-                            ? 'bg-blue-600 text-white border-blue-600'
-                            : 'text-blue-600 hover:text-blue-800 bg-blue-50 border-blue-200'
-                        }`}
-                      >
-                        <Eye className="w-3 h-3" />
-                        <span>{previewHtml ? 'Quay lại soạn thảo' : 'Xem trước trực tiếp'}</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {previewHtml ? (
-                    <div className="w-full h-[460px] rounded-xl border-2 border-blue-400 overflow-hidden shadow-inner bg-slate-100">
-                      <iframe
-                        srcDoc={buildNewsHtmlDocument(editingItem)}
-                        title="Xem trước bài viết tin tức"
-                        className="w-full h-full border-0"
-                        sandbox="allow-scripts allow-same-origin"
-                      />
-                    </div>
-                  ) : (
-                    <textarea
-                      rows={12}
-                      value={editingItem.content}
-                      onChange={(e) => setEditingItem({ ...editingItem, content: e.target.value })}
-                      placeholder="Bạn có thể:&#10;1. Viết văn bản bình thường (hệ thống tự động đóng khung trang tin tức DUE đẹp mắt).&#10;2. Hoặc dán các thẻ HTML (<p>, <h3>, <ul>, <img>, <table>...).&#10;3. Hoặc dán nguyên 1 file <!DOCTYPE html><html>...</html> hoàn chỉnh (giống như 21 file học bổng)."
-                      className="w-full p-3.5 font-mono text-xs bg-slate-950 text-emerald-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 leading-relaxed shadow-inner min-h-[260px]"
-                      spellCheck={false}
-                    />
-                  )}
-                </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="px-5 py-3.5 border-t border-slate-200 flex items-center justify-end gap-2.5 bg-slate-50 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold transition-colors cursor-pointer"
-                >
-                  Hủy
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-xs transition-colors cursor-pointer"
-                >
-                  Lưu & Xuất bản bài viết
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Full-Screen Preview Modal identical to Homepage */}
       <NewsModal
         article={fullPreviewItem}
         onClose={() => setFullPreviewItem(null)}
