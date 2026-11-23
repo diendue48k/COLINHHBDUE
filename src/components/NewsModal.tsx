@@ -120,10 +120,21 @@ img { max-width: 100%; height: auto; border-radius: 10px; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 10px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.88);
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.92);
+}
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.meta-item svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  opacity: 0.9;
 }
 .chuyen-muc {
   background: var(--cam);
@@ -227,8 +238,18 @@ main { padding: 26px 0 38px; }
     <div class="container">
       <div class="meta-bar">
         <span class="chuyen-muc">${article.category || 'Hoạt động trao học bổng'}</span>
-        <span>📅 Ngày đăng: ${article.publishedAt || ''}</span>
-        ${article.author ? `<span>• ✍️ ${article.author}</span>` : ''}
+        <span class="meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Ngày đăng: ${article.publishedAt || ''}</span>
+        </span>
+        ${
+          article.author
+            ? `<span class="meta-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>${article.author}</span>
+              </span>`
+            : ''
+        }
       </div>
       <h1>${article.title || ''}</h1>
     </div>
