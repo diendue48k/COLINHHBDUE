@@ -335,7 +335,25 @@ function PortalContent() {
             {/* Hộp Thông báo mới */}
             <div className="hop-due" id="thong-bao">
               <h2>
-                <span>📢 Thông báo mới</span>
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-[#fdeee6] text-[#f26522] inline-grid place-items-center shrink-0">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="m3 11 18-5v12L3 14v-3z" />
+                      <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
+                    </svg>
+                  </span>
+                  <span>Thông báo mới</span>
+                </span>
                 <Link href="/thong-bao">Xem tất cả ›</Link>
               </h2>
 
@@ -379,7 +397,26 @@ function PortalContent() {
             {/* Hộp Câu hỏi thường gặp */}
             <div className="hop-due" id="hoi-dap">
               <h2>
-                <span>❓ Câu hỏi thường gặp</span>
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-[#e7eff8] text-[#165fa8] inline-grid place-items-center shrink-0">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                      <path d="M12 17h.01" />
+                    </svg>
+                  </span>
+                  <span>Câu hỏi thường gặp</span>
+                </span>
                 <Link href="/huong-dan">Xem tất cả ›</Link>
               </h2>
 
