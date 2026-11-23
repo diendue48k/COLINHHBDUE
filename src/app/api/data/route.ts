@@ -225,6 +225,13 @@ export async function POST(request: Request) {
         if (!article?.id || !article?.title) {
           return NextResponse.json({ error: 'Missing required news fields' }, { status: 400 });
         }
+        // Auto-extract first <img> from content as thumbnailUrl if thumbnailUrl is empty
+        if (!article.thumbnailUrl && article.content) {
+          const match = article.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if (match && match[1]) {
+            article.thumbnailUrl = match[1];
+          }
+        }
         if (!db.news) db.news = [];
         const index = db.news.findIndex((n) => n.id === article.id);
         if (index >= 0) {

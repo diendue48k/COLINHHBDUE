@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { NewsModal } from '@/components/NewsModal';
+import { NewsModal, getArticleCoverImage } from '@/components/NewsModal';
 import { NewsArticle } from '@/types';
 import { initialData } from '@/data/initialData';
 import { Calendar, ArrowLeft, Search, ChevronRight, Newspaper } from 'lucide-react';
@@ -146,22 +146,24 @@ function NewsPageContent() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filtered.map((article) => (
-                <div
-                  key={article.id}
-                  onClick={() => setSelectedArticle(article)}
-                  className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-[#1760AB] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between group"
-                >
-                  <div>
-                    {article.thumbnailUrl && (
-                      <div className="h-44 w-full overflow-hidden bg-slate-100">
-                        <img
-                          src={article.thumbnailUrl}
-                          alt={article.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                    )}
+              {filtered.map((article) => {
+                const coverImg = getArticleCoverImage(article);
+                return (
+                  <div
+                    key={article.id}
+                    onClick={() => setSelectedArticle(article)}
+                    className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-[#1760AB] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between group"
+                  >
+                    <div>
+                      {coverImg && (
+                        <div className="h-44 w-full overflow-hidden bg-slate-100">
+                          <img
+                            src={coverImg}
+                            alt={article.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
                     <div className="p-4 space-y-2">
                       <div className="flex items-center justify-between gap-2">
                         <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1760AB] border border-blue-200 uppercase">
@@ -187,14 +189,15 @@ function NewsPageContent() {
                     </div>
                   </div>
 
-                  <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1760AB]">
-                    <span className="flex items-center gap-1">
-                      <span>Đọc bài viết</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </span>
+                    <div className="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#1760AB]">
+                      <span className="flex items-center gap-1">
+                        <span>Đọc bài viết</span>
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -17,6 +17,16 @@ interface NewsModalProps {
   onClose: () => void;
 }
 
+export function getArticleCoverImage(article?: { thumbnailUrl?: string; content?: string } | null): string {
+  if (!article) return '';
+  if (article.thumbnailUrl && article.thumbnailUrl.trim()) {
+    return article.thumbnailUrl.trim();
+  }
+  const raw = article.content || '';
+  const match = raw.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return match ? match[1] : '';
+}
+
 export function buildNewsHtmlDocument(article: NewsArticle): string {
   const raw = (article.content || '').trim();
   const isFullHtml =
@@ -47,12 +57,12 @@ export function buildNewsHtmlDocument(article: NewsArticle): string {
         .map((para) => `<p>${para.replace(/\n/g, '<br/>')}</p>`)
         .join('\n');
 
-  // Avoid showing thumbnail twice if it's already embedded in the body content
-  const isThumbInBody =
-    article.thumbnailUrl && raw.includes(article.thumbnailUrl);
+  // Only show thumbnail at top of article if the article body does NOT already contain any <img> tag!
+  // This prevents duplicate images when the admin inserts or pastes an image into the body AND sets a Featured Image.
+  const bodyAlreadyHasImage = /<img[\s>]/i.test(raw);
 
   const thumbSection =
-    article.thumbnailUrl && !isThumbInBody
+    article.thumbnailUrl && !bodyAlreadyHasImage
       ? `<div class="anh-chinh"><img src="${article.thumbnailUrl}" alt="${(article.title || '').replace(/"/g, '&quot;')}" /></div>`
       : '';
 

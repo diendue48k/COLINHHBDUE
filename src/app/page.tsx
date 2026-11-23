@@ -8,7 +8,7 @@ import { Footer } from '@/components/Footer';
 import { HeroBanner } from '@/components/HeroBanner';
 import { ScholarshipModal } from '@/components/ScholarshipModal';
 import { AnnouncementModal } from '@/components/AnnouncementModal';
-import { NewsModal } from '@/components/NewsModal';
+import { NewsModal, getArticleCoverImage } from '@/components/NewsModal';
 import { Category, Scholarship, Announcement, NewsArticle, FAQItem } from '@/types';
 import { initialData } from '@/data/initialData';
 
@@ -462,50 +462,53 @@ function PortalContent() {
                 </button>
 
                 <div className="dai-anh" ref={daiAnhRef}>
-                  {activeNews.map((article) => (
-                    <button
-                      key={article.id}
-                      type="button"
-                      className="anh-su-kien"
-                      onClick={() => {
-                        if (
-                          article.externalUrl &&
-                          !article.content?.trim()
-                        ) {
-                          window.open(article.externalUrl, '_blank', 'noopener,noreferrer');
-                        } else {
-                          setSelectedNewsArticle(article);
-                        }
-                      }}
-                    >
-                      <div className="anh">
-                        {article.thumbnailUrl ? (
-                          <img
-                            src={article.thumbnailUrl}
-                            alt={article.title}
-                            loading="lazy"
-                          />
-                        ) : (
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                            <circle cx="12" cy="13" r="3" />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="chu">
-                        <h3>{article.title}</h3>
-                        <span>{article.publishedAt}</span>
-                      </div>
-                    </button>
-                  ))}
+                  {activeNews.map((article) => {
+                    const coverImg = getArticleCoverImage(article);
+                    return (
+                      <button
+                        key={article.id}
+                        type="button"
+                        className="anh-su-kien"
+                        onClick={() => {
+                          if (
+                            article.externalUrl &&
+                            !article.content?.trim()
+                          ) {
+                            window.open(article.externalUrl, '_blank', 'noopener,noreferrer');
+                          } else {
+                            setSelectedNewsArticle(article);
+                          }
+                        }}
+                      >
+                        <div className="anh">
+                          {coverImg ? (
+                            <img
+                              src={coverImg}
+                              alt={article.title}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                              <circle cx="12" cy="13" r="3" />
+                            </svg>
+                          )}
+                        </div>
+                        <div className="chu">
+                          <h3>{article.title}</h3>
+                          <span>{article.publishedAt}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <button

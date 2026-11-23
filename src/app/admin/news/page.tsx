@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { NewsArticle } from '@/types';
 import { initialData } from '@/data/initialData';
-import { NewsModal } from '@/components/NewsModal';
+import { NewsModal, getArticleCoverImage } from '@/components/NewsModal';
 import { WordPressEditor, compressImageFile } from '@/components/WordPressEditor';
 
 const NEWS_CATEGORIES = [
@@ -193,12 +193,17 @@ export default function AdminNewsPage() {
       window.alert('Vui lòng nhập tiêu đề bài viết!');
       return;
     }
+    const autoCover = getArticleCoverImage(editingItem);
+    const payloadToSave: NewsArticle = {
+      ...editingItem,
+      thumbnailUrl: editingItem.thumbnailUrl || autoCover,
+    };
     setSaving(true);
     try {
       const res = await fetch('/api/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'save_news', payload: editingItem }),
+        body: JSON.stringify({ action: 'save_news', payload: payloadToSave }),
       });
       if (res.ok) {
         const json = await res.json();
@@ -593,9 +598,9 @@ export default function AdminNewsPage() {
             }`}
           >
             <div className="flex items-start gap-4 min-w-0 flex-1">
-              {article.thumbnailUrl ? (
+              {getArticleCoverImage(article) ? (
                 <img
-                  src={article.thumbnailUrl}
+                  src={getArticleCoverImage(article)}
                   alt={article.title}
                   className="w-28 h-18 rounded-xl object-cover border border-slate-200 shrink-0 hidden sm:block"
                 />
